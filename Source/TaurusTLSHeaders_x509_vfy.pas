@@ -825,7 +825,7 @@ var
   {$EXTERNALSYM X509_STORE_CTX_set_flags}
   X509_STORE_CTX_set_flags: procedure (ctx: PX509_STORE_CTX; flags: TIdC_ULONG); cdecl = nil;
   {$EXTERNALSYM X509_STORE_CTX_set_time}
-  X509_STORE_CTX_set_time : procedure(ctx: PX509_STORE_CTX; flags: TIdC_ULONG; t: TIdC_TIMET); cdecl = nil;
+  X509_STORE_CTX_set_time : procedure(ctx: PX509_STORE_CTX; flags: TIdC_ULONG; t: TOSSL_TIMET); cdecl = nil;
 
   {$EXTERNALSYM X509_STORE_CTX_get0_policy_tree}
   X509_STORE_CTX_get0_policy_tree: function (ctx: PX509_STORE_CTX): PX509_POLICY_TREE; cdecl = nil;
@@ -881,9 +881,9 @@ var
   {$EXTERNALSYM X509_VERIFY_PARAM_get_auth_level}
   X509_VERIFY_PARAM_get_auth_level: function (const param: PX509_VERIFY_PARAM): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   {$EXTERNALSYM X509_VERIFY_PARAM_set_time}
-  X509_VERIFY_PARAM_set_time: procedure (param: PX509_VERIFY_PARAM; t: TIdC_TIMET);  cdecl = nil;
+  X509_VERIFY_PARAM_set_time: procedure (param: PX509_VERIFY_PARAM; t: TOSSL_TIMET);  cdecl = nil;
   {$EXTERNALSYM X509_VERIFY_PARAM_get_time}
-  X509_VERIFY_PARAM_get_time: function(const param: PX509_VERIFY_PARAM): TIdC_TIMET; cdecl = nil;
+  X509_VERIFY_PARAM_get_time: function(const param: PX509_VERIFY_PARAM): TOSSL_TIMET; cdecl = nil;
   {$EXTERNALSYM X509_VERIFY_PARAM_add0_policy}
   X509_VERIFY_PARAM_add0_policy: function (param: PX509_VERIFY_PARAM; policy: PASN1_OBJECT): TIdC_INT; cdecl = nil;
   {$EXTERNALSYM X509_VERIFY_PARAM_set1_policies}
@@ -1321,7 +1321,7 @@ var
   {$EXTERNALSYM X509_STORE_CTX_set_flags}
   procedure X509_STORE_CTX_set_flags(ctx: PX509_STORE_CTX; flags: TIdC_ULONG) cdecl; external CLibCrypto;
   {$EXTERNALSYM X509_STORE_CTX_set_time}
-  procedure X509_STORE_CTX_set_time(ctx: PX509_STORE_CTX; flags: TIdC_ULONG; t: TIdC_TIMET) cdecl; external CLibCrypto;
+  procedure X509_STORE_CTX_set_time(ctx: PX509_STORE_CTX; flags: TIdC_ULONG; t: TOSSL_TIMET) cdecl; external CLibCrypto;
 
   {$EXTERNALSYM X509_STORE_CTX_get0_policy_tree}
   function X509_STORE_CTX_get0_policy_tree(ctx: PX509_STORE_CTX): PX509_POLICY_TREE cdecl; external CLibCrypto;
@@ -1373,9 +1373,9 @@ var
   {$EXTERNALSYM X509_VERIFY_PARAM_set_auth_level}
   procedure X509_VERIFY_PARAM_set_auth_level(param: PX509_VERIFY_PARAM; auth_level: TIdC_INT) cdecl; external CLibCrypto; {introduced 1.1.0}
   {$EXTERNALSYM X509_VERIFY_PARAM_get_time}
-  function X509_VERIFY_PARAM_get_time(const param: PX509_VERIFY_PARAM): TIdC_TIMET  cdecl; external CLibCrypto;
+  function X509_VERIFY_PARAM_get_time(const param: PX509_VERIFY_PARAM): TOSSL_TIMET  cdecl; external CLibCrypto;
   {$EXTERNALSYM X509_VERIFY_PARAM_set_time}
-  procedure X509_VERIFY_PARAM_set_time(param: PX509_VERIFY_PARAM; t: TIdC_TIMET)  cdecl; external CLibCrypto;
+  procedure X509_VERIFY_PARAM_set_time(param: PX509_VERIFY_PARAM; t: TOSSL_TIMET)  cdecl; external CLibCrypto;
   {$EXTERNALSYM X509_VERIFY_PARAM_add0_policy}
   function X509_VERIFY_PARAM_add0_policy(param: PX509_VERIFY_PARAM; policy: PASN1_OBJECT): TIdC_INT cdecl; external CLibCrypto;
   {$EXTERNALSYM X509_VERIFY_PARAM_set1_policies}
@@ -2125,7 +2125,9 @@ const
    {$I TaurusTLSUnusedParamOff.inc}
 function  FC_X509_LOOKUP_meth_new(const name: PIdAnsiChar): PX509_LOOKUP_METHOD; cdecl;
 begin
+  {$IFDEF DCC}{$WARN UNSAFE_CODE OFF}{$ENDIF}
   Result := @Indy_x509_unicode_file_lookup;
+  {$IFDEF DCC}{$WARN UNSAFE_CODE DEFAULT}{$ENDIF}
 end;
 
 procedure  FC_X509_LOOKUP_meth_free(method: PX509_LOOKUP_METHOD); cdecl;
@@ -2158,7 +2160,9 @@ type
 {$I TaurusTLSUnusedParamOff.inc}
 function  FC_X509_LOOKUP_get_store(const ctx: PX509_LOOKUP): PX509_STORE; cdecl;
 begin
+  {$IFDEF DCC}{$WARN UNSAFE_CODE OFF}{$ENDIF}
   Result := _PX509_LOOKUP(ctx)^.store_ctx;
+  {$IFDEF DCC}{$WARN UNSAFE_CODE DEFAULT}{$ENDIF}
 end;
 
 function FC_X509_STORE_load_locations_ex(ctx : PX509_STORE; const file_: PIdAnsiChar; const dir: PIdAnsiChar;
@@ -3094,7 +3098,7 @@ begin
 end;
 
 
-procedure ERR_X509_STORE_CTX_set_time(ctx: PX509_STORE_CTX; flags: TIdC_ULONG; t: TIdC_TIMET);  cdecl;
+procedure ERR_X509_STORE_CTX_set_time(ctx: PX509_STORE_CTX; flags: TIdC_ULONG; t: TOSSL_TIMET);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_set_time_procname);
 end;
@@ -3229,12 +3233,12 @@ begin
 end;
 
  {introduced 1.1.0}
-function ERR_X509_VERIFY_PARAM_get_time(const param: PX509_VERIFY_PARAM): TIdC_TIMET; cdecl;
+function ERR_X509_VERIFY_PARAM_get_time(const param: PX509_VERIFY_PARAM): TOSSL_TIMET; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_VERIFY_PARAM_get_time_procname);
 end;
 
-procedure ERR_X509_VERIFY_PARAM_set_time(param: PX509_VERIFY_PARAM; t: TIdC_TIMET);  cdecl;
+procedure ERR_X509_VERIFY_PARAM_set_time(param: PX509_VERIFY_PARAM; t: TOSSL_TIMET);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_VERIFY_PARAM_set_time_procname);
 end;

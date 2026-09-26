@@ -732,7 +732,7 @@ type
     function GetX509: PX509;
   public
     /// <summary>
-    /// Creates a new TTaurus​TLSX509File object with Collection as the owner.
+    ///   Creates a new TTaurus​TLSX509File object with Collection as the owner.
     /// </summary>
     constructor Create(Collection: TCollection); override;
     /// <summary>
@@ -782,11 +782,11 @@ type
   public
 
     /// <summary>
-    /// Creates a new TTaurus​TLSX509Files object with AOwner as the owner
-    /// of the collection.
+    ///   Creates a new TTaurus​TLSX509Files object with AOwner as the owner of
+    ///   the collection.
     /// </summary>
     /// <param name="AOwner">
-    /// The owner of the collection being created.
+    ///   The owner of the collection being created.
     /// </param>
     constructor Create(AOwner: TPersistent);
 
@@ -1082,7 +1082,7 @@ type
   public
 
     /// <summary>
-    /// Creates a new instance of TTaurusTLSContext.
+    ///   Creates a new instance of TTaurusTLSContext.
     /// </summary>
     constructor Create;
     /// <summary>
@@ -1337,7 +1337,7 @@ type
    sslUnrecoverableError);
   { TTaurusTLSSocket }
   /// <summary>
-  /// Properties and methods for dealing with a TLS Socket.
+  ///   Properties and methods for dealing with a TLS Socket.
   /// </summary>
   TTaurusTLSSocket = class(TObject)
 {$IFDEF SIGPIPE_MASK}
@@ -1384,7 +1384,7 @@ type
 { BUGFIX: Fixes issue #217 and #240 }
     /// <summary>
     /// Initialized the <c>FSigSet</c> variable once on application starts.
-    /// </summary?
+    /// </summary>
     class constructor Create;
 {$ENDIF}
     /// <summary>
@@ -2632,6 +2632,54 @@ function OpenSSLModulesDir : String;  {$IFDEF USE_INLINE}inline; {$ENDIF}
 ///  </returns>
 function OpenSSLEnginesDir : String; {$IFDEF USE_INLINE}inline; {$ENDIF}
 
+/// <summary>
+/// True if the OpenSSL 3 legacy provider was loaded by <see
+/// cref="LoadLegacyProvider" />.
+/// </summary>
+function IsLegacyProviderLoaded: Boolean;
+/// <summary>
+/// Loads the OpenSSL 3 legacy provider so that legacy algorithms such as MD4,
+/// DES, RC2, RC4 and Blowfish can be used. The OpenSSL library is loaded
+/// first if it is not already loaded.
+/// </summary>
+/// <param name="AModulePath">
+/// Optional. Either the full file name of the legacy provider module or a
+/// directory to search for it. If empty, the directory set in the <see
+/// cref="TaurusTLSLoader|IOpenSSLLoader.OpenSSLPath" /> property and the
+/// directory that libcrypto was loaded from are searched, followed by
+/// OpenSSL's own search (the <c>OPENSSL_MODULES</c> environment variable or
+/// the modules directory compiled into OpenSSL).
+/// </param>
+/// <returns>
+/// True if the legacy algorithms are available. This includes OpenSSL
+/// versions before 3.0, where they are built into libcrypto. False if the
+/// provider could not be loaded.
+/// </returns>
+/// <remarks>
+/// <para>
+/// A directory is searched, along with its "providers" and "ossl-modules"
+/// subdirectories, for a module named for the platform first and then for
+/// the generic name. On Windows the platform names are "legacy-x64.dll" and
+/// "legacy-arm64.dll" and the generic name is "legacy.dll". Renaming the
+/// 64-bit module lets 32-bit and 64-bit modules share a directory in the
+/// same way that "libcrypto-3.dll" and "libcrypto-3-x64.dll" do.
+/// </para>
+/// <para>
+/// The default provider remains available after the legacy provider is
+/// loaded. Legacy algorithms are not FIPS approved.
+/// </para>
+/// </remarks>
+/// <seealso href="https://docs.openssl.org/3.0/man7/OSSL_PROVIDER-legacy/">
+/// OSSL_PROVIDER-legacy
+/// </seealso>
+function LoadLegacyProvider(const AModulePath: string = ''): Boolean;
+/// <summary>
+/// Unloads the OpenSSL 3 legacy provider if it was loaded by <see
+/// cref="LoadLegacyProvider" />. It is also unloaded when <see
+/// cref="UnLoadOpenSSLLibrary" /> unloads the OpenSSL libraries.
+/// </summary>
+procedure UnloadLegacyProvider;
+
 implementation
 
 uses
@@ -2658,6 +2706,7 @@ uses
 {$ENDIF}
   IdURI,
   SyncObjs,
+  TaurusTLSConsts,
   TaurusTLSHeaders_asn1,
   TaurusTLSHeaders_bn,
   TaurusTLSHeaders_x509_vfy,
@@ -2668,6 +2717,7 @@ uses
   TaurusTLSHeaders_evp,
   TaurusTLSHeaders_bio,
   TaurusTLSHeaders_pem,
+  TaurusTLSHeaders_provider,
   TaurusTLSHeaders_stack,
   TaurusTLSHeaders_crypto,
   TaurusTLSHeaders_objects,
@@ -2695,6 +2745,8 @@ var
   LockVerifyCB: TIdCriticalSection = nil; //PALOFF - Created and freed objects
   Lock_SNI_CB: TIdCriticalSection = nil;  //PALOFF - Created and freed objects
   CallbackLockList: TIdCriticalSectionThreadList = nil;  //PALOFF - Created and freed objects
+  LegacyProvider: POSSL_PROVIDER = nil;
+  LegacyProviderUnloaderRegistered: Boolean = False;
 
 procedure GetStateVars(const SSLSocket: PSSL; const AWhere, Aret: TIdC_INT;
   out VTypeStr, VMsg: String);
@@ -2818,7 +2870,9 @@ begin
     if LSsl <> nil then
     begin
       // Surpress PAL Warning about bad pointer typecast
+      {$IFDEF DCC}{$WARN UNSAFE_CAST OFF}{$ENDIF}
       LSock := TTaurusTLSSocket(SSL_get_app_data(LSsl));   //PALOFF
+      {$IFDEF DCC}{$WARN UNSAFE_CAST DEFAULT}{$ENDIF}
       if LSock <> nil then
       begin
         LockVerifyCB.Enter;
@@ -2869,8 +2923,10 @@ begin
   try
     LockLevelCB.Enter;
     try
+      {$IFDEF DCC}{$WARN UNSAFE_CAST OFF}{$ENDIF}
       if Supports(TTaurusTLSContext(ex).Parent, ITaurusTLSCallbackHelper,
         IInterface(LHelper)) then
+      {$IFDEF DCC}{$WARN UNSAFE_CAST DEFAULT}{$ENDIF}
       begin
         LHelper.SecurityLevelCB(s, ctx, op, bits, nid, LRes);
       end
@@ -2924,13 +2980,17 @@ begin
   try
     LockPassCB.Enter;
     try
+      {$IFDEF DCC}{$WARN UNSAFE_CODE OFF}{$ENDIF}
       FillChar(LBuf^, size, 0);
+      {$IFDEF DCC}{$WARN UNSAFE_CODE DEFAULT}{$ENDIF}
 {$IFDEF USE_INLINE_VAR}
       var
         LBPassword: TIdBytes;
 {$ENDIF}
+      {$IFDEF DCC}{$WARN UNSAFE_CAST OFF}{$ENDIF}
       if Supports(TTaurusTLSContext(userdata).Parent, ITaurusTLSCallbackHelper,
         IInterface(LHelper)) then
+      {$IFDEF DCC}{$WARN UNSAFE_CAST DEFAULT}{$ENDIF}
       begin
 {$IFDEF STRING_IS_UNICODE}
         LBPassword := IndyTextEncoding_OSDefault.GetBytes
@@ -2942,7 +3002,9 @@ begin
           TMarshal.Copy(TBytesPtr(@LBPassword)^, 0, TPtrWrapper.Create(buf),
             IndyMin(Length(LBPassword), size));  //PALOFF
 {$ELSE}
+          {$IFDEF DCC}{$WARN UNSAFE_CODE OFF}{$ENDIF}
           Move(LBPassword[0], LBuf^, IndyMin(Length(LBPassword), size));
+          {$IFDEF DCC}{$WARN UNSAFE_CODE DEFAULT}{$ENDIF}
 {$ENDIF}
         end;
         Result := Length(LBPassword);
@@ -2994,8 +3056,10 @@ begin
   try
     LockInfoCB.Enter;
     try
+      {$IFDEF DCC}{$WARN UNSAFE_CAST OFF}{$ENDIF}
       if Supports(TTaurusTLSSocket(SSL_get_app_data(SSLSocket)).Parent,  //PALOFF
         ITaurusTLSCallbackHelper, LHelper) then
+      {$IFDEF DCC}{$WARN UNSAFE_CAST DEFAULT}{$ENDIF}
       begin
         LHelper.StatusInfo(SSLSocket, where, ret);
         LHelper := nil;
@@ -3034,15 +3098,19 @@ begin
   try
     LockVerifyCB.Enter;
     try
+      {$IFDEF DCC}{$WARN UNSAFE_CAST OFF}{$ENDIF}
       if Supports(TTaurusTLSSocket(arg).Parent, ITaurusTLSCallbackHelper,
         IInterface(LHelper)) then
+      {$IFDEF DCC}{$WARN UNSAFE_CAST DEFAULT}{$ENDIF}
       begin
 {$IFDEF USE_INLINE_VAR}
         var
           LBytes: TIdBytes;
 {$ENDIF}
         if buf <> nil then
+          {$IFDEF DCC}{$WARN UNSAFE_CODE OFF}{$ENDIF}
           LBytes := TaurusTLSRawToBytes(buf^, len)
+          {$IFDEF DCC}{$WARN UNSAFE_CODE DEFAULT}{$ENDIF}
         else
           lBytes := [];
         case Version of
@@ -3099,7 +3167,9 @@ begin
       begin
         if arg <> nil then
         begin
+          {$IFDEF DCC}{$WARN UNSAFE_CAST OFF}{$ENDIF}
           LSSLIO := TTaurusTLSServerIOHandler(arg);
+          {$IFDEF DCC}{$WARN UNSAFE_CAST DEFAULT}{$ENDIF}
 
           LPHost := SSL_get_servername(SSL, TLSEXT_NAMETYPE_host_name);
           if Assigned(LPHost) then
@@ -3352,11 +3422,187 @@ begin
     CRYPTO_THREADID_set_callback(@_threadid_func);
 {$ENDIF}
 {$ENDIF}
+    // Another unit's initialization section may have replaced the Indy hash
+    // hooks after TaurusTLSFIPS installed them
+    InstallFIPSHooks;
+
     SSLIsLoaded.Value := True;
   finally
     SSLIsLoaded.Unlock;
   end;
 
+end;
+
+const
+  CLegacyProviderName = 'legacy';
+{$IFDEF WINDOWS}
+  CLegacyProviderFile = 'legacy.dll';
+  {$IFDEF CPU64}
+    {$IFDEF CPUARM64}
+  CLegacyProviderPlatformFile = 'legacy-arm64.dll';
+    {$ELSE}
+  CLegacyProviderPlatformFile = 'legacy-x64.dll';
+    {$ENDIF}
+  {$ELSE}
+  CLegacyProviderPlatformFile = '';
+  {$ENDIF}
+{$ELSE}
+  {$IFDEF OSX_OR_IOS}
+  CLegacyProviderFile = 'legacy.dylib';
+  {$ELSE}
+  CLegacyProviderFile = 'legacy.so';
+  {$ENDIF}
+  CLegacyProviderPlatformFile = '';
+{$ENDIF}
+
+procedure DoUnloadLegacyProvider;
+begin
+  if LegacyProvider <> nil then
+  begin
+    OSSL_PROVIDER_unload(LegacyProvider); //PALOFF - Functions called as procedures
+    LegacyProvider := nil;
+  end;
+end;
+
+function IsLegacyProviderLoaded: Boolean;
+begin
+  Result := LegacyProvider <> nil;
+end;
+
+function TryLoadLegacyProviderModule(const AModule: string): POSSL_PROVIDER;
+begin
+  // retain_fallbacks = 1 keeps the default provider available
+  Result := OSSL_PROVIDER_try_load(nil, PIdAnsiChar(AnsiString(AModule)), 1);
+  if Result = nil then
+    ERR_clear_error;
+end;
+
+function TryLoadLegacyProviderFromDir(const ADir: string): POSSL_PROVIDER;
+const
+  CSubDirs: array[0..2] of string = ('', 'providers', 'ossl-modules');
+var
+  LDir: string;
+  i: Integer;
+begin
+  Result := nil;
+  if ADir = '' then
+    Exit;
+
+  for i := Low(CSubDirs) to High(CSubDirs) do
+  begin
+    LDir := IncludeTrailingPathDelimiter(ADir);
+    if CSubDirs[i] <> '' then
+      LDir := LDir + CSubDirs[i] + PathDelim;
+
+    if (CLegacyProviderPlatformFile <> '') and
+       FileExists(LDir + CLegacyProviderPlatformFile) then
+    begin
+      Result := TryLoadLegacyProviderModule(LDir + CLegacyProviderPlatformFile);
+      if Result <> nil then
+        Exit;
+    end;
+
+    if FileExists(LDir + CLegacyProviderFile) then
+    begin
+      Result := TryLoadLegacyProviderModule(LDir + CLegacyProviderFile);
+      if Result <> nil then
+        Exit;
+    end;
+  end;
+end;
+
+{$IFDEF WINDOWS}
+function LibCryptoDir: string;
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+var
+  LVersions: TStringList;  //PALOFF - Created and freed objects
+  LHandle: HMODULE;
+  LFileName: array[0..MAX_PATH] of Char;
+  i: Integer;
+{$ENDIF}
+begin
+  Result := '';
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+  LVersions := TStringList.Create;
+  try
+    LVersions.Delimiter := DirListDelimiter;
+    LVersions.StrictDelimiter := True;
+    LVersions.DelimitedText := GetOpenSSLLoader.SSLLibVersions;
+    for i := 0 to LVersions.Count - 1 do
+    begin
+      LHandle := GetModuleHandle(PChar(CLibCryptoBase + LibSuffix + LVersions[i]));
+      if (LHandle <> 0) and
+         (GetModuleFileName(LHandle, LFileName, Length(LFileName)) > 0) then
+      begin
+        Result := ExtractFilePath(LFileName);
+        Exit;
+      end;
+    end;
+  finally
+    LVersions.Free;
+  end;
+{$ENDIF}
+end;
+{$ENDIF}
+
+function LoadLegacyProvider(const AModulePath: string = ''): Boolean;
+begin
+  Result := LoadOpenSSLLibrary;
+  if not Result then
+    Exit;
+
+  SSLIsLoaded.Lock;
+  try
+    if LegacyProvider <> nil then
+      Exit;
+
+    // Before OpenSSL 3.0 the legacy algorithms are built into libcrypto.
+    if OpenSSL_version_num < $30000000 then
+      Exit;
+
+    if AModulePath <> '' then
+    begin
+      if DirectoryExists(AModulePath) then
+        LegacyProvider := TryLoadLegacyProviderFromDir(AModulePath)
+      else
+        LegacyProvider := TryLoadLegacyProviderModule(AModulePath);
+    end
+    else
+    begin
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+      LegacyProvider := TryLoadLegacyProviderFromDir(GetOpenSSLLoader.OpenSSLPath);
+{$ENDIF}
+{$IFDEF WINDOWS}
+      if LegacyProvider = nil then
+        LegacyProvider := TryLoadLegacyProviderFromDir(LibCryptoDir);
+{$ENDIF}
+      // OpenSSL searches OPENSSL_MODULES or its compiled in modules directory
+      if LegacyProvider = nil then
+        LegacyProvider := TryLoadLegacyProviderModule(CLegacyProviderName);
+    end;
+
+    Result := LegacyProvider <> nil;
+
+    // Registered here instead of being called from UnLoadOpenSSLLibrary so
+    // that programs that never load the legacy provider do not link it in.
+    if Result and not LegacyProviderUnloaderRegistered then
+    begin
+      Register_SSLUnloader(DoUnloadLegacyProvider);
+      LegacyProviderUnloaderRegistered := True;
+    end;
+  finally
+    SSLIsLoaded.Unlock;
+  end;
+end;
+
+procedure UnloadLegacyProvider;
+begin
+  SSLIsLoaded.Lock;
+  try
+    DoUnloadLegacyProvider;
+  finally
+    SSLIsLoaded.Unlock;
+  end;
 end;
 
 procedure UnLoadOpenSSLLibrary;
@@ -3724,7 +3970,9 @@ begin
     begin
       raise ETaurusTLSSSL_CTX_set_tlsext_servername_callback.Create(RSSSL_CTX_set_tlsext_servername_callback);
     end;
+    {$IFDEF DCC}{$WARN UNSAFE_CAST OFF}{$ENDIF}
     if SSL_CTX_set_tlsext_servername_arg(fSSLContext.Context, Self) = 0 then
+    {$IFDEF DCC}{$WARN UNSAFE_CAST DEFAULT}{$ENDIF}
     begin
        raise ETaurusTLSSSL_CTX_set_tlsext_servername_arg.Create(RSSSL_CTX_set_tlsext_servername_arg);
     end;
@@ -4653,8 +4901,10 @@ begin
         Lcert_context);
       while Lcert_context <> nil do
       begin
+        {$IFDEF DCC}{$WARN UNSAFE_CODE OFF}{$ENDIF}
         LX509Cert := d2i_X509(nil, @Lcert_context^.pbCertEncoded,
           Lcert_context^.cbCertEncoded);
+        {$IFDEF DCC}{$WARN UNSAFE_CODE DEFAULT}{$ENDIF}
         if LX509Cert <> nil then
         begin
           LError := X509_STORE_add_cert(LSSLCertStore, LX509Cert);
@@ -4754,13 +5004,17 @@ begin
   if SecurityLevelCBOn then
   begin
     SSL_CTX_set_security_callback(fContext, g_SecurityLevelCallback);
+    {$IFDEF DCC}{$WARN UNSAFE_CAST OFF}{$ENDIF}
     SSL_CTX_set0_security_ex_data(fContext, Self);
+    {$IFDEF DCC}{$WARN UNSAFE_CAST DEFAULT}{$ENDIF}
   end;
 
   // assign a password lookup routine
   // if PasswordRoutineOn then begin
   SSL_CTX_set_default_passwd_cb(fContext, g_PasswordCallback);
+  {$IFDEF DCC}{$WARN UNSAFE_CAST OFF}{$ENDIF}
   SSL_CTX_set_default_passwd_cb_userdata(fContext, Self);
+  {$IFDEF DCC}{$WARN UNSAFE_CAST DEFAULT}{$ENDIF}
   // end;
 
   // allow custom loader
@@ -4856,7 +5110,9 @@ begin
   if MessageCBOn then
   begin
     SSL_CTX_set_msg_callback(fContext, g_MsgCallback);
+    {$IFDEF DCC}{$WARN UNSAFE_CAST OFF}{$ENDIF}
     SSL_CTX_set_msg_callback_arg(fContext, Self);
+    {$IFDEF DCC}{$WARN UNSAFE_CAST DEFAULT}{$ENDIF}
   end;
   // if_SSL_CTX_set_tmp_rsa_callback(hSSLContext, @RSACallback);
   if fCipherList <> '' then
@@ -4937,8 +5193,10 @@ begin
   if not LSkipDefaultLoader then begin
     if CtxMode = sslCtxServer then
     begin
+    {$IFDEF DCC}{$WARN UNSAFE_CODE OFF}{$ENDIF}
       LRetCode := SSL_CTX_set_session_id_context(fContext, PByte(@fSessionId),
         SizeOf(fSessionId));
+    {$IFDEF DCC}{$WARN UNSAFE_CODE DEFAULT}{$ENDIF}
       if LRetCode <= 0 then
       begin
          ETaurusTLSDataBindingError.RaiseExceptionCode( ERR_get_error, LRetCode);
@@ -5145,7 +5403,9 @@ begin
   begin
     raise ETaurusTLSCreatingSessionError.Create(RSSSLCreatingSessionError);
   end;
+  {$IFDEF DCC}{$WARN UNSAFE_CAST OFF}{$ENDIF}
   LRetCode := SSL_set_app_data(fSSL, Self);
+  {$IFDEF DCC}{$WARN UNSAFE_CAST DEFAULT}{$ENDIF}
   if LRetCode <= 0 then
   begin
     ETaurusTLSDataBindingError.RaiseException(fSSL, LRetCode,
@@ -5226,7 +5486,9 @@ begin
   begin
     raise ETaurusTLSCreatingSessionError.Create(RSSSLCreatingSessionError);
   end;
+  {$IFDEF DCC}{$WARN UNSAFE_CAST OFF}{$ENDIF}
   LRetCode := SSL_set_app_data(fSSL, Self);
+  {$IFDEF DCC}{$WARN UNSAFE_CAST DEFAULT}{$ENDIF}
   if LRetCode <= 0 then
   begin
     ETaurusTLSDataBindingError.RaiseException(fSSL, LRetCode,
@@ -5276,7 +5538,9 @@ begin
   begin
     { Delphi appears to need the extra AnsiString coerction. Otherwise, only the
       first character to the hostname is passed }
+    {$IFDEF DCC}{$WARN UNSAFE_CODE OFF}{$ENDIF}
     LRetCode := SSL_set_tlsext_host_name(fSSL, @LHostname[0]); //PALOFF
+    {$IFDEF DCC}{$WARN UNSAFE_CODE DEFAULT}{$ENDIF}
     if LRetCode <= 0 then
     begin
       ETaurusTLSSettingTLSHostNameError.RaiseException(fSSL, LRetCode,
@@ -5289,7 +5553,9 @@ begin
     if fHostName <> '' then
     begin
       SSL_set_hostflags(fSSL, 0);
+      {$IFDEF DCC}{$WARN UNSAFE_CODE OFF}{$ENDIF}
       LRetCode := SSL_set1_host(fSSL, @LHostname[0]); //PALOFF
+      {$IFDEF DCC}{$WARN UNSAFE_CODE DEFAULT}{$ENDIF}
       if LRetCode <= 0 then
       begin
         ETaurusTLSSettingTLSHostNameError.RaiseException(fSSL, LRetCode,
@@ -5505,7 +5771,9 @@ end;
 { BUGFIX: Fixes issue #217 and #240 }
 class procedure TTaurusTLSSocket.MaskSigPipe;
 begin
+  {$IFDEF DCC}{$WARN UNSAFE_CODE OFF}{$ENDIF}
   pthread_sigmask(SIG_BLOCK, @FSigSet, nil);
+  {$IFDEF DCC}{$WARN UNSAFE_CODE DEFAULT}{$ENDIF}
 end;
 {$ENDIF}
 
@@ -5604,7 +5872,9 @@ begin
       pSession := SSL_get_session(fSSL);
       if pSession <> nil then
       begin
+        {$IFDEF DCC}{$WARN UNSAFE_CODE OFF}{$ENDIF}
         LData.Data := SSL_SESSION_get_id(pSession, @LData._Length);
+        {$IFDEF DCC}{$WARN UNSAFE_CODE DEFAULT}{$ENDIF}
       end;
     end;
   end;
@@ -5615,7 +5885,9 @@ begin
       // RLebeau: not all Delphi versions support indexed access using PByte
       LDataPtr := LData.Data;
       Inc(LDataPtr, i);  //PALOFF - Mismatch parameter value
+      {$IFDEF DCC}{$WARN UNSAFE_CODE OFF}{$ENDIF}
       Result := Result + IndyFormat('%.2x', [LDataPtr^]); { do not localize }
+      {$IFDEF DCC}{$WARN UNSAFE_CODE DEFAULT}{$ENDIF}
     end;
   end;
 end;
@@ -5644,8 +5916,10 @@ begin
   LSSL_Cipher := GetCipher;
   if Assigned(LSSL_Cipher) then
   begin
+    {$IFDEF DCC}{$WARN UNSAFE_CODE OFF}{$ENDIF}
     Result := AnsiStringToString(SSL_CIPHER_description(LSSL_Cipher, @buf[0],
       SizeOf(buf) - 1));
+    {$IFDEF DCC}{$WARN UNSAFE_CODE DEFAULT}{$ENDIF}
   end;
 end;
 
@@ -5802,3 +6076,4 @@ UnLoadOpenSSLLibrary;
 FreeAndNil(SSLIsLoaded);
 
 end.
+
