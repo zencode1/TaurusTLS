@@ -187,8 +187,10 @@ begin
 end;
 
 function TaurusTLSIsMD4HashIntfAvail: Boolean;
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 var
   LCtx: PEVP_MD_CTX;
+{$ENDIF}
 begin
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
   Result := Assigned(EVP_md4);
