@@ -584,6 +584,7 @@ type
 
   // Define a union type for the value field
   {$EXTERNALSYM TValueUnion}
+  {$IFDEF DCC}{$WARN UNSAFE_TYPE OFF}{$ENDIF}
   TValueUnion = record
     case Integer of
       0: (fd: TIdC_INT);
@@ -591,6 +592,7 @@ type
       2: (custom_ui: TIdC_SIZET); //Todo: use something besides TIdC_SIZET
       3: (ssl: PSSL);
   end;
+  {$IFDEF DCC}{$WARN UNSAFE_TYPE DEFAULT}{$ENDIF}
   {$EXTERNALSYM bio_poll_descriptor_st}
   bio_poll_descriptor_st = record
     _type : TIdC_UINT32;
@@ -988,7 +990,7 @@ var
   {$EXTERNALSYM BIO_set_send_flags}
   BIO_set_send_flags: function(b : PBIO; flags : TIdC_INT): TIdC_LONG; cdecl = nil;  {introduced in OpenSSL 4.0.0}
   {$EXTERNALSYM BIO_wait}
-  BIO_wait : function(bio_ : PBIO; max_time : TIdC_TIMET; nap_milliseconds : TIdC_UINT) : TIdC_INT; cdecl = nil;
+  BIO_wait : function(bio_ : PBIO; max_time : TOSSL_TIMET; nap_milliseconds : TIdC_UINT) : TIdC_INT; cdecl = nil;
   {$EXTERNALSYM BIO_do_connect_retry}
   BIO_do_connect_retry : function(bio_ : PBIO; timeout, nap_milliseconds : TIdC_INT) : TIdC_INT; cdecl = nil;
 
@@ -1043,7 +1045,7 @@ var
   {$EXTERNALSYM BIO_fd_non_fatal_error}
   BIO_fd_non_fatal_error: function (_error: TIdC_INT): TIdC_INT; cdecl = nil;
   {$EXTERNALSYM BIO_socket_wait}
-  BIO_socket_wait : function(fd : TIdC_INT; for_read : TIdC_INT; max_time : TIdC_TIMET) : TIdC_INT; cdecl = nil;
+  BIO_socket_wait : function(fd : TIdC_INT; for_read : TIdC_INT; max_time : TOSSL_TIMET) : TIdC_INT; cdecl = nil;
   {$EXTERNALSYM BIO_socket_ready}
   BIO_socket_ready : function(fd : TIdC_INT; for_read : TIdC_INT) : TIdC_INT; cdecl = nil;
 //  function BIO_dump_cb(
@@ -1516,7 +1518,7 @@ var
   {$EXTERNALSYM BIO_set_send_flags}
   function BIO_set_send_flags(b : PBIO; flags : TIdC_INT): TIdC_LONG cdecl; external CLibCrypto; {introduced 4.0.0}
   {$EXTERNALSYM BIO_wait}
-  function BIO_wait(bio_ : PBIO; max_time : TIdC_TIMET; nap_milliseconds : TIdC_UINT) : TIdC_INT; cdecl; external CLibCrypto;
+  function BIO_wait(bio_ : PBIO; max_time : TOSSL_TIMET; nap_milliseconds : TIdC_UINT) : TIdC_INT; cdecl; external CLibCrypto;
   {$EXTERNALSYM BIO_do_connect_retry}
   function BIO_do_connect_retry(bio_ : PBIO; timeout, nap_milliseconds : TIdC_INT) : TIdC_INT; cdecl; external CLibCrypto;
 
@@ -1548,7 +1550,7 @@ var
   {$EXTERNALSYM BIO_dgram_non_fatal_error}
   function BIO_dgram_non_fatal_error(_error: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   {$EXTERNALSYM BIO_socket_wait}
-  function BIO_socket_wait(fd : TIdC_INT; for_read : TIdC_INT; max_time : TIdC_TIMET) : TIdC_INT cdecl; external CLibCrypto;
+  function BIO_socket_wait(fd : TIdC_INT; for_read : TIdC_INT; max_time : TOSSL_TIMET) : TIdC_INT cdecl; external CLibCrypto;
   {$EXTERNALSYM BIO_socket_ready}
   function BIO_socket_ready(fd : TIdC_INT; for_read : TIdC_INT) : TIdC_INT cdecl; external CLibCrypto;
 
@@ -1789,7 +1791,9 @@ implementation
 
 function BIO_dgram_get_local_addr_enable(b : PBIO; out penable : TIdC_INT) : TIdC_INT;
 begin
+  {$IFDEF DCC}{$WARN UNSAFE_CODE OFF}{$ENDIF}
   Result := BIO_ctrl(b, BIO_CTRL_DGRAM_GET_LOCAL_ADDR_ENABLE, 0, @penable);
+  {$IFDEF DCC}{$WARN UNSAFE_CODE DEFAULT}{$ENDIF}
 end;
 
 function BIO_dgram_set_local_addr_enable(b : PBIO; enable : TIdC_INT) : TIdC_INT;
@@ -2391,7 +2395,9 @@ end;
 //# define BIO_get_mem_data(b,pp)  BIO_ctrl(b,BIO_CTRL_INFO,0,(char (pp))
 function  _BIO_get_mem_data(b: PBIO; var pp: Pointer) : TIdC_INT; cdecl;   //PALOFF Parameter is "var", can be changed to "out"
 begin
+  {$IFDEF DCC}{$WARN UNSAFE_CODE OFF}{$ENDIF}
   Result := BIO_ctrl(b, BIO_CTRL_INFO, 0, @pp);
+  {$IFDEF DCC}{$WARN UNSAFE_CODE DEFAULT}{$ENDIF}
 end;
 
 //# define BIO_set_mem_buf(b,bm,c) BIO_ctrl(b,BIO_C_SET_BUF_MEM,c,(char (bm))
@@ -2405,7 +2411,9 @@ end;
 //# define BIO_get_mem_ptr(b,pp)   BIO_ctrl(b,BIO_C_GET_BUF_MEM_PTR,0,(char (pp))
 function  _BIO_get_mem_ptr(b: PBIO; var pp: PBUF_MEM): TIdC_INT; cdecl; //PALOFF Parameter is "var", can be changed to "out"
 begin
+  {$IFDEF DCC}{$WARN UNSAFE_CODE OFF}{$ENDIF}
   Result := BIO_ctrl(b, BIO_C_GET_BUF_MEM_PTR, 0, @pp);
+  {$IFDEF DCC}{$WARN UNSAFE_CODE DEFAULT}{$ENDIF}
 end;
 
 //# define BIO_set_mem_eof_return(b,v) BIO_ctrl(b,BIO_C_SET_BUF_MEM_EOF_RETURN,v,0)
@@ -3108,7 +3116,7 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_set_send_flags_procname);
 end;
 
-function ERR_BIO_wait(bio_ : PBIO; max_time : TIdC_TIMET; nap_milliseconds : TIdC_UINT) : TIdC_INT; cdecl;
+function ERR_BIO_wait(bio_ : PBIO; max_time : TOSSL_TIMET; nap_milliseconds : TIdC_UINT) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_wait_procname);
 end;
@@ -3237,7 +3245,7 @@ begin
    ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_err_is_non_fatal_procname);
 end;
 
-function ERR_BIO_socket_wait(fd : TIdC_INT; for_read : TIdC_INT; max_time : TIdC_TIMET) : TIdC_INT; cdecl;
+function ERR_BIO_socket_wait(fd : TIdC_INT; for_read : TIdC_INT; max_time : TOSSL_TIMET) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_socket_wait_procname);
 end;
