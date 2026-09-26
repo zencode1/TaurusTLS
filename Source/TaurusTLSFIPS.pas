@@ -4,8 +4,8 @@
 { *                                                                            * }
 { *  Copyright (c) 2024 TaurusTLS Developers, All Rights Reserved              * }
 { *                                                                            * }
-{ * Portions of this software are Copyright (c) 1993 – 2018,                   * }
-{ * Chad Z. Hower (Kudzu) and the Indy Pit Crew – http://www.IndyProject.org/  * }
+{ * Portions of this software are Copyright (c) 1993 â€“ 2018,                   * }
+{ * Chad Z. Hower (Kudzu) and the Indy Pit Crew â€“ http://www.IndyProject.org/  * }
 { ****************************************************************************** }
 {$I TaurusTLSCompilerDefines.inc}
 /// <summary>
@@ -198,7 +198,7 @@ begin
   if Result then
   begin
     LCtx := EVP_MD_CTX_new;
-    Result := LCtx <> nil;
+    Result := Assigned(LCtx);
     if Result then
     begin
       Result := EVP_DigestInit_ex(LCtx, EVP_md4, nil) = 1;
