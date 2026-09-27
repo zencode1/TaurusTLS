@@ -44,46 +44,30 @@ uses
 
 const
   (* Possible values for status. *)
-  {$EXTERNALSYM TS_STATUS_GRANTED}
   TS_STATUS_GRANTED = 0;
-  {$EXTERNALSYM TS_STATUS_GRANTED_WITH_MODS}
   TS_STATUS_GRANTED_WITH_MODS = 1;
-  {$EXTERNALSYM TS_STATUS_REJECTION}
   TS_STATUS_REJECTION = 2;
-  {$EXTERNALSYM TS_STATUS_WAITING}
   TS_STATUS_WAITING = 3;
-  {$EXTERNALSYM TS_STATUS_REVOCATION_WARNING}
   TS_STATUS_REVOCATION_WARNING = 4;
-  {$EXTERNALSYM TS_STATUS_REVOCATION_NOTIFICATION}
   TS_STATUS_REVOCATION_NOTIFICATION = 5;
 
 
   (* Possible values for failure_info. *)
-  {$EXTERNALSYM TS_INFO_BAD_ALG}
   TS_INFO_BAD_ALG = 0;
-  {$EXTERNALSYM TS_INFO_BAD_REQUEST}
   TS_INFO_BAD_REQUEST = 2;
-  {$EXTERNALSYM TS_INFO_BAD_DATA_FORMAT}
   TS_INFO_BAD_DATA_FORMAT = 5;
-  {$EXTERNALSYM TS_INFO_TIME_NOT_AVAILABLE}
   TS_INFO_TIME_NOT_AVAILABLE = 14;
-  {$EXTERNALSYM TS_INFO_UNACCEPTED_POLICY}
   TS_INFO_UNACCEPTED_POLICY = 15;
-  {$EXTERNALSYM TS_INFO_UNACCEPTED_EXTENSION}
   TS_INFO_UNACCEPTED_EXTENSION = 16;
-  {$EXTERNALSYM TS_INFO_ADD_INFO_NOT_AVAILABLE}
   TS_INFO_ADD_INFO_NOT_AVAILABLE = 17;
-  {$EXTERNALSYM TS_INFO_SYSTEM_FAILURE}
   TS_INFO_SYSTEM_FAILURE = 25;
 
   (* Optional flags for response generation. *)
 
   (* Don't include the TSA name in response. *)
-  {$EXTERNALSYM TS_TSA_NAME}
   TS_TSA_NAME = $01;
 
   (* Set ordering to true in response. *)
-  {$EXTERNALSYM TS_ORDERING}
   TS_ORDERING = $02;
 
   (*
@@ -91,55 +75,42 @@ const
    * the ESS signing certificate attribute beside the PKCS7 signed data.
    * Only the signer certificates is included by default.
    *)
-  {$EXTERNALSYM TS_ESS_CERT_ID_CHAIN}
   TS_ESS_CERT_ID_CHAIN = $04;
 
   (* At most we accept usec precision. *)
-  {$EXTERNALSYM TS_MAX_CLOCK_PRECISION_DIGITS}
   TS_MAX_CLOCK_PRECISION_DIGITS = 6;
 
   (* Maximum status message length *)
-  {$EXTERNALSYM TS_MAX_STATUS_LENGTH}
   TS_MAX_STATUS_LENGTH = 1024 * 1024;
 
   (* Verify the signer's certificate and the signature of the response. *)
-  {$EXTERNALSYM TS_VFY_SIGNATURE}
   TS_VFY_SIGNATURE = TIdC_UINT(1) shl 0;
   (* Verify the version number of the response. *)
-  {$EXTERNALSYM TS_VFY_VERSION}
   TS_VFY_VERSION = TIdC_UINT(1) shl 1;
   (* Verify if the policy supplied by the user matches the policy of the TSA. *)
-  {$EXTERNALSYM TS_VFY_POLICY}
   TS_VFY_POLICY = TIdC_UINT(1) shl 2;
   (*
    * Verify the message imprint provided by the user. This flag should not be
    * specified with TS_VFY_DATA.
    *)
-  {$EXTERNALSYM TS_VFY_IMPRINT}
   TS_VFY_IMPRINT = TIdC_UINT(1) shl 3;
   (*
    * Verify the message imprint computed by the verify method from the user
    * provided data and the MD algorithm of the response. This flag should not
    * be specified with TS_VFY_IMPRINT.
    *)
-  {$EXTERNALSYM TS_VFY_DATA}
   TS_VFY_DATA = TIdC_UINT(1) shl 4;
   (* Verify the nonce value. *)
-  {$EXTERNALSYM TS_VFY_NONCE}
   TS_VFY_NONCE = TIdC_UINT(1) shl 5;
   (* Verify if the TSA name field matches the signer certificate. *)
-  {$EXTERNALSYM TS_VFY_SIGNER}
   TS_VFY_SIGNER = TIdC_UINT(1) shl 6;
   (* Verify if the TSA name field equals to the user provided name. *)
-  {$EXTERNALSYM TS_VFY_TSA_NAME}
   TS_VFY_TSA_NAME = TIdC_UINT(1) shl 7;
 
   (* You can use the following convenience constants. *)
-  {$EXTERNALSYM TS_VFY_ALL_IMPRINT}
   TS_VFY_ALL_IMPRINT = TS_VFY_SIGNATURE or TS_VFY_VERSION or TS_VFY_POLICY
     or TS_VFY_IMPRINT or TS_VFY_NONCE or TS_VFY_SIGNER or TS_VFY_TSA_NAME;
 
-  {$EXTERNALSYM TS_VFY_ALL_DATA}
   TS_VFY_ALL_DATA = TS_VFY_SIGNATURE or TS_VFY_VERSION or TS_VFY_POLICY
     or TS_VFY_DATA or TS_VFY_NONCE or TS_VFY_SIGNER or TS_VFY_TSA_NAME;
 
@@ -210,7 +181,6 @@ type
   PPTS_resp_ctx = ^PTS_resp_ctx;
 
   (* This must return a unique number less than 160 bits long. *)
-  {$EXTERNALSYM TS_serial_cb}
   TS_serial_cb = function({struct} v1: PTS_resp_ctx; v2: Pointer): PASN1_INTEGER;
 
   (*
@@ -263,7 +233,6 @@ var
   TS_RESP_free: procedure (a: PTS_RESP); cdecl = nil;
   i2d_TS_RESP: function (a: PTS_RESP; pp: PPByte): TIdC_INT; cdecl = nil;
   d2i_TS_RESP: function (a: PPTS_RESP; pp: PPByte; _length: TIdC_LONG): PTS_RESP; cdecl = nil;
-  {$EXTERNALSYM PKCS7_to_TS_TST_INFO}
   PKCS7_to_TS_TST_INFO: function (token: PPKCS7): PTS_TST_Info; cdecl = nil;
   TS_RESP_dup: function (a: PTS_RESP): PTS_RESP; cdecl = nil;
 
@@ -325,7 +294,6 @@ var
   TS_REQ_get_version: function (a: PTS_REQ): TIdC_LONG; cdecl = nil;
 
   TS_STATUS_INFO_set_status: function (a: PTS_STATUS_INFO; i: TIdC_INT): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM TS_STATUS_INFO_get0_status}
   TS_STATUS_INFO_get0_status: function (const a: PTS_STATUS_INFO): PASN1_INTEGER; cdecl = nil;
 
   // const STACK_OF(ASN1_UTF8STRING) *TS_STATUS_INFO_get0_text(const TS_STATUS_INFO *a);
@@ -344,9 +312,7 @@ var
   TS_REQ_set_policy_id: function (a: PTS_REQ; policy: PASN1_OBJECT): TIdC_INT; cdecl = nil;
   TS_REQ_get_policy_id: function (a: PTS_REQ): PASN1_OBJECT; cdecl = nil;
 
-  {$EXTERNALSYM TS_REQ_set_nonce}
   TS_REQ_set_nonce: function (a: PTS_REQ; nonce: PASN1_INTEGER): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM TS_REQ_get_nonce}
   TS_REQ_get_nonce: function (const a: PTS_REQ): PASN1_INTEGER; cdecl = nil;
 
   TS_REQ_set_cert_req: function (a: PTS_REQ; cert_req: TIdC_INT): TIdC_INT; cdecl = nil;
@@ -373,9 +339,7 @@ var
   TS_RESP_get_status_info: function (a: PTS_RESP): PTS_STATUS_INFO; cdecl = nil;
 
   //* Caller loses ownership of PKCS7 and TS_TST_INFO objects. */
-  {$EXTERNALSYM TS_RESP_set_tst_info}
   TS_RESP_set_tst_info: procedure (a: PTS_RESP; p7: PPKCS7; tst_info: PTS_TST_Info); cdecl = nil;
-  {$EXTERNALSYM TS_RESP_get_token}
   TS_RESP_get_token: function (a: PTS_RESP): PPKCS7; cdecl = nil;
   TS_RESP_get_tst_info: function (a: PTS_RESP): PTS_TST_Info; cdecl = nil;
 
@@ -388,40 +352,28 @@ var
   TS_TST_INFO_set_msg_imprint: function (a: PTS_TST_Info; msg_imprint: PTS_MSG_IMPRINT): TIdC_INT; cdecl = nil;
   TS_TST_INFO_get_msg_imprint: function (a: PTS_TST_Info): PTS_MSG_IMPRINT; cdecl = nil;
 
-  {$EXTERNALSYM TS_TST_INFO_set_serial}
   TS_TST_INFO_set_serial: function (a: PTS_TST_Info; const serial: PASN1_INTEGER): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM TS_TST_INFO_get_serial}
   TS_TST_INFO_get_serial: function (const a: PTS_TST_INFO): PASN1_INTEGER; cdecl = nil;
 
-  {$EXTERNALSYM TS_TST_INFO_set_time}
   TS_TST_INFO_set_time: function (a: PTS_TST_Info; gtime: PASN1_GENERALIZEDTIME): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM TS_TST_INFO_get_time}
   TS_TST_INFO_get_time: function (const a: PTS_TST_INFO): PASN1_GENERALIZEDTIME; cdecl = nil;
 
   TS_TST_INFO_set_accuracy: function (a: PTS_TST_Info; accuracy: PTS_ACCURACY): TIdC_INT; cdecl = nil;
   TS_TST_INFO_get_accuracy: function (a: PTS_TST_Info): PTS_ACCURACY; cdecl = nil;
 
-  {$EXTERNALSYM TS_ACCURACY_set_seconds}
   TS_ACCURACY_set_seconds: function (a: PTS_ACCURACY; const seconds: PASN1_INTEGER): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM TS_ACCURACY_get_seconds}
   TS_ACCURACY_get_seconds: function (const a: PTS_ACCURACY): PASN1_INTEGER; cdecl = nil;
 
-  {$EXTERNALSYM TS_ACCURACY_set_millis}
   TS_ACCURACY_set_millis: function (a: PTS_ACCURACY; const millis: PASN1_INTEGER): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM TS_ACCURACY_get_millis}
   TS_ACCURACY_get_millis: function (const a: PTS_ACCURACY): PASN1_INTEGER; cdecl = nil;
 
-  {$EXTERNALSYM TS_ACCURACY_set_micros}
   TS_ACCURACY_set_micros: function (a: PTS_ACCURACY; const micros: PASN1_INTEGER): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM TS_ACCURACY_get_micros}
   TS_ACCURACY_get_micros: function (const a: PTS_ACCURACY): PASN1_INTEGER; cdecl = nil;
 
   TS_TST_INFO_set_ordering: function (a: PTS_TST_Info; ordering: TIdC_INT): TIdC_INT; cdecl = nil;
   TS_TST_INFO_get_ordering: function (const a: PTS_TST_Info): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM TS_TST_INFO_set_nonce}
   TS_TST_INFO_set_nonce: function (a: PTS_TST_Info; const nonce: PASN1_INTEGER): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM TS_TST_INFO_get_nonce}
   TS_TST_INFO_get_nonce: function (const a: PTS_TST_INFO): PASN1_INTEGER; cdecl = nil;
 
   TS_TST_INFO_set_tsa: function (a: PTS_TST_Info; tsa: PGENERAL_NAME): TIdC_INT; cdecl = nil;
@@ -482,14 +434,12 @@ var
    * Clock precision digits, i.e. the number of decimal digits: '0' means sec,
    * '3' msec, '6' usec, and so on. Default is 0.
    *)
-  {$EXTERNALSYM TS_RESP_CTX_set_clock_precision_digits}
   TS_RESP_CTX_set_clock_precision_digits: function (ctx: PTS_RESP_CTX; clock_precision_digits: TIdC_UINT): TIdC_INT; cdecl = nil;
 
   (* No flags are set by default. *)
   TS_RESP_CTX_add_flags: procedure (ctx: PTS_RESP_CTX; flags: TIdC_INT); cdecl = nil;
 
   (* Default callback always returns a constant. *)
-  {$EXTERNALSYM TS_RESP_CTX_set_serial_cb}
   TS_RESP_CTX_set_serial_cb: procedure (ctx: PTS_RESP_CTX; cb: TS_serial_cb; data: Pointer); cdecl = nil;
 
   (* Default callback uses the gettimeofday() and gmtime() system calls. *)
@@ -506,7 +456,6 @@ var
   TS_RESP_CTX_set_status_info: function (ctx: PTS_RESP_CTX; status: TIdC_INT; _text: PIdAnsiChar): TIdC_INT; cdecl = nil;
 
   (* Sets the status info only if it is still TS_STATUS_GRANTED. *)
-  {$EXTERNALSYM TS_RESP_CTX_set_status_info_cond}
   TS_RESP_CTX_set_status_info_cond: function (ctx: PTS_RESP_CTX; status: TIdC_INT; _text: PIdAnsiChar): TIdC_INT; cdecl = nil;
 
   TS_RESP_CTX_add_failure_info: function (ctx: PTS_RESP_CTX; failure: TIdC_INT): TIdC_INT; cdecl = nil;
@@ -534,7 +483,6 @@ var
   (* Context structure for the generic verify method. *)
 
   TS_RESP_verify_response: function (ctx: PTS_VERIFY_CTX; response: PTS_RESP): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM TS_RESP_verify_token}
   TS_RESP_verify_token: function (ctx: PTS_VERIFY_CTX; token: PPKCS7): TIdC_INT; cdecl = nil;
 
   (*
@@ -552,7 +500,6 @@ var
   TS_VERIFY_CTX_set0_imprint : function(ctx: PTS_VERIFY_CTX; hexstr: PByte; len: TIdC_LONG): TIdC_INT; cdecl = nil;
   TS_VERIFY_CTX_set_store: function (ctx: PTS_VERIFY_CTX; s: PX509_Store): PX509_Store; cdecl = nil;
   TS_VERIFY_CTX_set0_store: function (ctx: PTS_VERIFY_CTX; s: PX509_Store): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM TS_VERIFY_CTS_set_certs}
   TS_VERIFY_CTS_set_certs: function(ctx : PTS_VERIFY_CTX; certs : PSTACK_OF_X509) : PSTACK_OF_X509; cdecl = nil;
   TS_VERIFY_CTS_set0_certs: function(ctx : PTS_VERIFY_CTX; certs : PSTACK_OF_X509) : TIdC_INT; cdecl = nil;
 
@@ -582,7 +529,6 @@ var
 
   (* Common utility functions defined in ts/ts_lib.c *)
 
-  {$EXTERNALSYM TS_ASN1_INTEGER_print_bio}
   TS_ASN1_INTEGER_print_bio: function (bio: PBIO; const num: PASN1_INTEGER): TIdC_INT; cdecl = nil;
   TS_OBJ_print_bio: function (bio: PBIO; const obj: PASN1_Object): TIdC_INT; cdecl = nil;
   //function TS_ext_print_bio(bio: PBIO; const STACK_OF(): X509_Extension * extensions): TIdC_INT;
@@ -596,7 +542,6 @@ var
 
   TS_CONF_load_cert: function (file_: PIdAnsiChar): PX509; cdecl = nil;
   TS_CONF_load_key: function ( file_: PIdAnsiChar; pass: PIdAnsiChar): PEVP_PKey; cdecl = nil;
-  {$EXTERNALSYM TS_CONF_set_serial}
   TS_CONF_set_serial: function (conf: PCONF; section: PIdAnsiChar; cb: TS_serial_cb; ctx: PTS_RESP_CTX): TIdC_INT; cdecl = nil;
   //STACK_OF(X509) *TS_CONF_load_certs(const char *file);
   TS_CONF_get_tsa_section: function (conf: PCONF; const section: PIdAnsiChar): PIdAnsiChar; cdecl = nil;
@@ -610,7 +555,6 @@ var
   TS_CONF_set_policies: function (conf: PCONF; section: PIdAnsiChar; ctx: PTS_RESP_CTX): TIdC_INT; cdecl = nil;
   TS_CONF_set_digests: function (conf: PCONF; section: PIdAnsiChar; ctx: PTS_RESP_CTX): TIdC_INT; cdecl = nil;
   TS_CONF_set_accuracy: function (conf: PCONF; section: PIdAnsiChar; ctx: PTS_RESP_CTX): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM TS_CONF_set_clock_precision_digits}
   TS_CONF_set_clock_precision_digits: function (conf: PCONF; section: PIdAnsiChar; ctx: PTS_RESP_CTX): TIdC_INT; cdecl = nil;
   TS_CONF_set_ordering: function (conf: PCONF; section: PIdAnsiChar; ctx: PTS_RESP_CTX): TIdC_INT; cdecl = nil;
   TS_CONF_set_tsa_name: function (conf: PCONF; section: PIdAnsiChar; ctx: PTS_RESP_CTX): TIdC_INT; cdecl = nil;
@@ -642,7 +586,6 @@ var
   procedure TS_RESP_free(a: PTS_RESP) cdecl; external CLibCrypto;
   function i2d_TS_RESP(a: PTS_RESP; pp: PPByte): TIdC_INT cdecl; external CLibCrypto;
   function d2i_TS_RESP(a: PPTS_RESP; pp: PPByte; _length: TIdC_LONG): PTS_RESP cdecl; external CLibCrypto;
-  {$EXTERNALSYM PKCS7_to_TS_TST_INFO}
   function PKCS7_to_TS_TST_INFO(token: PPKCS7): PTS_TST_Info cdecl; external CLibCrypto;
   function TS_RESP_dup(a: PTS_RESP): PTS_RESP cdecl; external CLibCrypto;
 
@@ -704,7 +647,6 @@ var
   function TS_REQ_get_version(a: PTS_REQ): TIdC_LONG cdecl; external CLibCrypto;
 
   function TS_STATUS_INFO_set_status(a: PTS_STATUS_INFO; i: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM TS_STATUS_INFO_get0_status}
   function TS_STATUS_INFO_get0_status(const a: PTS_STATUS_INFO): PASN1_INTEGER cdecl; external CLibCrypto;
 
   // const STACK_OF(ASN1_UTF8STRING) *TS_STATUS_INFO_get0_text(const TS_STATUS_INFO *a);
@@ -723,9 +665,7 @@ var
   function TS_REQ_set_policy_id(a: PTS_REQ; policy: PASN1_OBJECT): TIdC_INT cdecl; external CLibCrypto;
   function TS_REQ_get_policy_id(a: PTS_REQ): PASN1_OBJECT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM TS_REQ_set_nonce}
   function TS_REQ_set_nonce(a: PTS_REQ; nonce: PASN1_INTEGER): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM TS_REQ_get_nonce}
   function TS_REQ_get_nonce(const a: PTS_REQ): PASN1_INTEGER cdecl; external CLibCrypto;
 
   function TS_REQ_set_cert_req(a: PTS_REQ; cert_req: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
@@ -752,9 +692,7 @@ var
   function TS_RESP_get_status_info(a: PTS_RESP): PTS_STATUS_INFO cdecl; external CLibCrypto;
 
   //* Caller loses ownership of PKCS7 and TS_TST_INFO objects. */
-  {$EXTERNALSYM TS_RESP_set_tst_info}
   procedure TS_RESP_set_tst_info(a: PTS_RESP; p7: PPKCS7; tst_info: PTS_TST_Info) cdecl; external CLibCrypto;
-  {$EXTERNALSYM TS_RESP_get_token}
   function TS_RESP_get_token(a: PTS_RESP): PPKCS7 cdecl; external CLibCrypto;
   function TS_RESP_get_tst_info(a: PTS_RESP): PTS_TST_Info cdecl; external CLibCrypto;
 
@@ -767,40 +705,28 @@ var
   function TS_TST_INFO_set_msg_imprint(a: PTS_TST_Info; msg_imprint: PTS_MSG_IMPRINT): TIdC_INT cdecl; external CLibCrypto;
   function TS_TST_INFO_get_msg_imprint(a: PTS_TST_Info): PTS_MSG_IMPRINT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM TS_TST_INFO_set_serial}
   function TS_TST_INFO_set_serial(a: PTS_TST_Info; const serial: PASN1_INTEGER): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM TS_TST_INFO_get_serial}
   function TS_TST_INFO_get_serial(const a: PTS_TST_INFO): PASN1_INTEGER cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM TS_TST_INFO_set_time}
   function TS_TST_INFO_set_time(a: PTS_TST_Info; gtime: PASN1_GENERALIZEDTIME): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM TS_TST_INFO_get_time}
   function TS_TST_INFO_get_time(const a: PTS_TST_INFO): PASN1_GENERALIZEDTIME cdecl; external CLibCrypto;
 
   function TS_TST_INFO_set_accuracy(a: PTS_TST_Info; accuracy: PTS_ACCURACY): TIdC_INT cdecl; external CLibCrypto;
   function TS_TST_INFO_get_accuracy(a: PTS_TST_Info): PTS_ACCURACY cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM TS_ACCURACY_set_seconds}
   function TS_ACCURACY_set_seconds(a: PTS_ACCURACY; const seconds: PASN1_INTEGER): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM TS_ACCURACY_get_seconds}
   function TS_ACCURACY_get_seconds(const a: PTS_ACCURACY): PASN1_INTEGER cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM TS_ACCURACY_set_millis}
   function TS_ACCURACY_set_millis(a: PTS_ACCURACY; const millis: PASN1_INTEGER): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM TS_ACCURACY_get_millis}
   function TS_ACCURACY_get_millis(const a: PTS_ACCURACY): PASN1_INTEGER cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM TS_ACCURACY_set_micros}
   function TS_ACCURACY_set_micros(a: PTS_ACCURACY; const micros: PASN1_INTEGER): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM TS_ACCURACY_get_micros}
   function TS_ACCURACY_get_micros(const a: PTS_ACCURACY): PASN1_INTEGER cdecl; external CLibCrypto;
 
   function TS_TST_INFO_set_ordering(a: PTS_TST_Info; ordering: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function TS_TST_INFO_get_ordering(const a: PTS_TST_Info): TIdC_INT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM TS_TST_INFO_set_nonce}
   function TS_TST_INFO_set_nonce(a: PTS_TST_Info; const nonce: PASN1_INTEGER): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM TS_TST_INFO_get_nonce}
   function TS_TST_INFO_get_nonce(const a: PTS_TST_INFO): PASN1_INTEGER cdecl; external CLibCrypto;
 
   function TS_TST_INFO_set_tsa(a: PTS_TST_Info; tsa: PGENERAL_NAME): TIdC_INT cdecl; external CLibCrypto;
@@ -861,14 +787,12 @@ var
    * Clock precision digits, i.e. the number of decimal digits: '0' means sec,
    * '3' msec, '6' usec, and so on. Default is 0.
    *)
-  {$EXTERNALSYM TS_RESP_CTX_set_clock_precision_digits}
   function TS_RESP_CTX_set_clock_precision_digits(ctx: PTS_RESP_CTX; clock_precision_digits: TIdC_UINT): TIdC_INT cdecl; external CLibCrypto;
 
   (* No flags are set by default. *)
   procedure TS_RESP_CTX_add_flags(ctx: PTS_RESP_CTX; flags: TIdC_INT) cdecl; external CLibCrypto;
 
   (* Default callback always returns a constant. *)
-  {$EXTERNALSYM TS_RESP_CTX_set_serial_cb}
   procedure TS_RESP_CTX_set_serial_cb(ctx: PTS_RESP_CTX; cb: TS_serial_cb; data: Pointer) cdecl; external CLibCrypto;
 
   (* Default callback uses the gettimeofday() and gmtime() system calls. *)
@@ -885,7 +809,6 @@ var
   function TS_RESP_CTX_set_status_info(ctx: PTS_RESP_CTX; status: TIdC_INT; _text: PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
 
   (* Sets the status info only if it is still TS_STATUS_GRANTED. *)
-  {$EXTERNALSYM TS_RESP_CTX_set_status_info_cond}
   function TS_RESP_CTX_set_status_info_cond(ctx: PTS_RESP_CTX; status: TIdC_INT; _text: PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
 
   function TS_RESP_CTX_add_failure_info(ctx: PTS_RESP_CTX; failure: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
@@ -913,7 +836,6 @@ var
   (* Context structure for the generic verify method. *)
 
   function TS_RESP_verify_response(ctx: PTS_VERIFY_CTX; response: PTS_RESP): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM TS_RESP_verify_token}
   function TS_RESP_verify_token(ctx: PTS_VERIFY_CTX; token: PPKCS7): TIdC_INT cdecl; external CLibCrypto;
 
   (*
@@ -931,7 +853,6 @@ var
   function TS_VERIFY_CTX_set0_imprint(ctx: PTS_VERIFY_CTX; hexstr: PByte; len: TIdC_LONG): TIdC_INT cdecl; external CLibCrypto;
   function TS_VERIFY_CTX_set_store(ctx: PTS_VERIFY_CTX; s: PX509_Store): PX509_Store cdecl; external CLibCrypto;
   function TS_VERIFY_CTX_set0_store(ctx: PTS_VERIFY_CTX; s: PX509_Store): TIdC_INT; cdecl; external CLibCrypto;
-  {$EXTERNALSYM TS_VERIFY_CTS_set_certs}
   function TS_VERIFY_CTS_set_certs(ctx : PTS_VERIFY_CTX; certs : PSTACK_OF_X509) : PSTACK_OF_X509; cdecl; external CLibCrypto;
   function TS_VERIFY_CTS_set0_certs(ctx : PTS_VERIFY_CTX; certs : PSTACK_OF_X509) : TIdC_INT; cdecl; external CLibCrypto;
 
@@ -961,7 +882,6 @@ var
 
   (* Common utility functions defined in ts/ts_lib.c *)
 
-  {$EXTERNALSYM TS_ASN1_INTEGER_print_bio}
   function TS_ASN1_INTEGER_print_bio(bio: PBIO; const num: PASN1_INTEGER): TIdC_INT cdecl; external CLibCrypto;
   function TS_OBJ_print_bio(bio: PBIO; const obj: PASN1_Object): TIdC_INT cdecl; external CLibCrypto;
   //function TS_ext_print_bio(bio: PBIO; const STACK_OF(): X509_Extension * extensions): TIdC_INT;
@@ -975,7 +895,6 @@ var
 
   function TS_CONF_load_cert(file_: PIdAnsiChar): PX509 cdecl; external CLibCrypto;
   function TS_CONF_load_key( file_: PIdAnsiChar; pass: PIdAnsiChar): PEVP_PKey cdecl; external CLibCrypto;
-  {$EXTERNALSYM TS_CONF_set_serial}
   function TS_CONF_set_serial(conf: PCONF; section: PIdAnsiChar; cb: TS_serial_cb; ctx: PTS_RESP_CTX): TIdC_INT cdecl; external CLibCrypto;
   //STACK_OF(X509) *TS_CONF_load_certs(const char *file);
   function TS_CONF_get_tsa_section(conf: PCONF; const section: PIdAnsiChar): PIdAnsiChar cdecl; external CLibCrypto;
@@ -989,7 +908,6 @@ var
   function TS_CONF_set_policies(conf: PCONF; section: PIdAnsiChar; ctx: PTS_RESP_CTX): TIdC_INT cdecl; external CLibCrypto;
   function TS_CONF_set_digests(conf: PCONF; section: PIdAnsiChar; ctx: PTS_RESP_CTX): TIdC_INT cdecl; external CLibCrypto;
   function TS_CONF_set_accuracy(conf: PCONF; section: PIdAnsiChar; ctx: PTS_RESP_CTX): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM TS_CONF_set_clock_precision_digits}
   function TS_CONF_set_clock_precision_digits(conf: PCONF; section: PIdAnsiChar; ctx: PTS_RESP_CTX): TIdC_INT cdecl; external CLibCrypto;
   function TS_CONF_set_ordering(conf: PCONF; section: PIdAnsiChar; ctx: PTS_RESP_CTX): TIdC_INT cdecl; external CLibCrypto;
   function TS_CONF_set_tsa_name(conf: PCONF; section: PIdAnsiChar; ctx: PTS_RESP_CTX): TIdC_INT cdecl; external CLibCrypto;

@@ -43,11 +43,8 @@ const
   // Added '_CONST' to avoid name clashes
   CAMELLIA_DECRYPT_CONST = 0;
 
-  {$EXTERNALSYM CAMELLIA_BLOCK_SIZE}
   CAMELLIA_BLOCK_SIZE = 16;
-  {$EXTERNALSYM CAMELLIA_TABLE_BYTE_LEN}
   CAMELLIA_TABLE_BYTE_LEN = 272;
-  {$EXTERNALSYM CAMELLIA_TABLE_WORD_LEN}
   CAMELLIA_TABLE_WORD_LEN = CAMELLIA_TABLE_BYTE_LEN div 4;
 
 type
@@ -80,7 +77,6 @@ type
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 var
-  {$EXTERNALSYM Camellia_set_key}
   Camellia_set_key: function (const userKey: PByte; const bits: TIdC_INT; key: PCAMELLIA_KEY): TIdC_INT; cdecl = nil;
 
   Camellia_encrypt: procedure (const in_: PByte; const out_: PByte; const key: PCAMELLIA_KEY); cdecl = nil;
@@ -95,7 +91,6 @@ var
   Camellia_ctr128_encrypt: procedure ( const in_: PByte; const out_: PByte; _length: TIdC_SIZET; const key: PCAMELLIA_KEY; ivec: TCamellia_ctr128_encrypt_ivec; ecount_buf: TCamellia_ctr128_encrypt_ecount_buf; num: PIdC_INT); cdecl = nil;
 
 {$ELSE}
-  {$EXTERNALSYM Camellia_set_key}
   function Camellia_set_key(const userKey: PByte; const bits: TIdC_INT; key: PCAMELLIA_KEY): TIdC_INT cdecl; external CLibCrypto;
 
   procedure Camellia_encrypt(const in_: PByte; const out_: PByte; const key: PCAMELLIA_KEY) cdecl; external CLibCrypto;

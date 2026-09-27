@@ -38,51 +38,28 @@ uses
   TaurusTLSHeaders_evp;
 
 const
-  {$EXTERNALSYM OPENSSL_EC_EXPLICIT_CURVE}
   OPENSSL_EC_EXPLICIT_CURVE = $000;
-  {$EXTERNALSYM OPENSSL_EC_NAMED_CURVE}
   OPENSSL_EC_NAMED_CURVE    = $001;
-  {$EXTERNALSYM EC_PKEY_NO_PARAMETERS}
   EC_PKEY_NO_PARAMETERS = $001;
-  {$EXTERNALSYM EC_PKEY_NO_PUBKEY}
   EC_PKEY_NO_PUBKEY     = $002;
-  {$EXTERNALSYM EC_FLAG_NON_FIPS_ALLOW}
   EC_FLAG_NON_FIPS_ALLOW = $1;
-  {$EXTERNALSYM EC_FLAG_FIPS_CHECKED}
   EC_FLAG_FIPS_CHECKED   = $2;
-  {$EXTERNALSYM EC_FLAG_COFACTOR_ECDH}
   EC_FLAG_COFACTOR_ECDH  = $1000;
-  {$EXTERNALSYM EVP_PKEY_CTRL_EC_PARAMGEN_CURVE_NID}
   EVP_PKEY_CTRL_EC_PARAMGEN_CURVE_NID = (EVP_PKEY_ALG_CTRL + 1);
-  {$EXTERNALSYM EVP_PKEY_CTRL_EC_PARAM_ENC}
   EVP_PKEY_CTRL_EC_PARAM_ENC          = (EVP_PKEY_ALG_CTRL + 2);
-  {$EXTERNALSYM EVP_PKEY_CTRL_EC_ECDH_COFACTOR}
   EVP_PKEY_CTRL_EC_ECDH_COFACTOR      = (EVP_PKEY_ALG_CTRL + 3);
-  {$EXTERNALSYM EVP_PKEY_CTRL_EC_KDF_TYPE}
   EVP_PKEY_CTRL_EC_KDF_TYPE           = (EVP_PKEY_ALG_CTRL + 4);
-  {$EXTERNALSYM EVP_PKEY_CTRL_EC_KDF_MD}
   EVP_PKEY_CTRL_EC_KDF_MD             = (EVP_PKEY_ALG_CTRL + 5);
-  {$EXTERNALSYM EVP_PKEY_CTRL_GET_EC_KDF_MD}
   EVP_PKEY_CTRL_GET_EC_KDF_MD         = (EVP_PKEY_ALG_CTRL + 6);
-  {$EXTERNALSYM EVP_PKEY_CTRL_EC_KDF_OUTLEN}
   EVP_PKEY_CTRL_EC_KDF_OUTLEN         = (EVP_PKEY_ALG_CTRL + 7);
-  {$EXTERNALSYM EVP_PKEY_CTRL_GET_EC_KDF_OUTLEN}
   EVP_PKEY_CTRL_GET_EC_KDF_OUTLEN     = (EVP_PKEY_ALG_CTRL + 8);
-  {$EXTERNALSYM EVP_PKEY_CTRL_EC_KDF_UKM}
   EVP_PKEY_CTRL_EC_KDF_UKM            = (EVP_PKEY_ALG_CTRL + 9);
-  {$EXTERNALSYM EVP_PKEY_CTRL_GET_EC_KDF_UKM}
   EVP_PKEY_CTRL_GET_EC_KDF_UKM        = (EVP_PKEY_ALG_CTRL + 10);
-  {$EXTERNALSYM EVP_PKEY_CTRL_SET1_ID}
   EVP_PKEY_CTRL_SET1_ID               = (EVP_PKEY_ALG_CTRL + 11);
-  {$EXTERNALSYM EVP_PKEY_CTRL_GET1_ID}
   EVP_PKEY_CTRL_GET1_ID               = (EVP_PKEY_ALG_CTRL + 12);
-  {$EXTERNALSYM EVP_PKEY_CTRL_GET1_ID_LEN}
   EVP_PKEY_CTRL_GET1_ID_LEN           = (EVP_PKEY_ALG_CTRL + 13);
-  {$EXTERNALSYM EVP_PKEY_ECDH_KDF_NONE}
   EVP_PKEY_ECDH_KDF_NONE              = 1;
-  {$EXTERNALSYM EVP_PKEY_ECDH_KDF_X9_63}
   EVP_PKEY_ECDH_KDF_X9_63             = 2;
-  {$EXTERNALSYM EVP_PKEY_ECDH_KDF_X9_62}
   EVP_PKEY_ECDH_KDF_X9_62             = EVP_PKEY_ECDH_KDF_X9_63;
 
 type
@@ -198,9 +175,7 @@ var
   EC_GROUP_set_asn1_flag: procedure (group: PEC_GROUP; flag: TIdC_INT); cdecl = nil;
   EC_GROUP_get_asn1_flag: function (const group: PEC_GROUP): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM EC_GROUP_set_point_conversion_form}
   EC_GROUP_set_point_conversion_form: procedure (group: PEC_GROUP; form: point_conversion_form_t); cdecl = nil;
-  {$EXTERNALSYM EC_GROUP_get_point_conversion_form}
   EC_GROUP_get_point_conversion_form: function (const group: PEC_GROUP): point_conversion_form_t; cdecl = nil;
 
   EC_GROUP_get0_seed: function (const x: PEC_GROUP): PByte; cdecl = nil;
@@ -239,24 +214,16 @@ var
   EC_POINT_dup: function (const src: PEC_POINT; const group: PEC_GROUP): PEC_POINT; cdecl = nil;
   EC_POINT_method_of: function (const point: PEC_POINT): PEC_METHOD; cdecl = nil;
   EC_POINT_set_to_infinity: function (const group: PEC_GROUP; point: PEC_POINT): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM EC_POINT_set_Jprojective_coordinates_GFp}
   EC_POINT_set_Jprojective_coordinates_GFp: function (const group: PEC_GROUP; p: PEC_POINT; const x: PBIGNUM; const y: PBIGNUM; const z: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM EC_POINT_get_Jprojective_coordinates_GFp}
   EC_POINT_get_Jprojective_coordinates_GFp: function (const group: PEC_METHOD; const p: PEC_POINT; x: PBIGNUM; y: PBIGNUM; z: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl = nil;
   EC_POINT_set_affine_coordinates: function (const group: PEC_GROUP; p: PEC_POINT; const x: PBIGNUM; const y: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   EC_POINT_get_affine_coordinates: function (const group: PEC_GROUP; const p: PEC_POINT; x: PBIGNUM; y: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM EC_POINT_set_affine_coordinates_GFp}
   EC_POINT_set_affine_coordinates_GFp: function (const group: PEC_GROUP; p: PEC_POINT; const x: PBIGNUM; const y: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM EC_POINT_get_affine_coordinates_GFp}
   EC_POINT_get_affine_coordinates_GFp: function (const group: PEC_GROUP; const p: PEC_POINT; x: PBIGNUM; y: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl = nil;
   EC_POINT_set_compressed_coordinates: function (const group: PEC_GROUP; p: PEC_POINT; x: PBIGNUM; y_bit: TIdC_INT; ctx: PBN_CTX): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM EC_POINT_set_compressed_coordinates_GFp}
   EC_POINT_set_compressed_coordinates_GFp: function (const group: PEC_GROUP; p: PEC_POINT; const x: PBIGNUM; y_bit: TIdC_INT; ctx: PBN_CTX): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM EC_POINT_set_affine_coordinates_GF2m}
   EC_POINT_set_affine_coordinates_GF2m: function (const group: PEC_GROUP; p: PEC_POINT; const x: PBIGNUM; const y: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM EC_POINT_get_affine_coordinates_GF2m}
   EC_POINT_get_affine_coordinates_GF2m: function (const group: PEC_GROUP; p: PEC_POINT; x: PBIGNUM; y: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM EC_POINT_set_compressed_coordinates_GF2m}
   EC_POINT_set_compressed_coordinates_GF2m: function (const group: PEC_GROUP; p: PEC_POINT; const x: PBIGNUM; y_bit: TIdC_INT; ctx: PBN_CTX): TIdC_INT; cdecl = nil;
 
   EC_POINT_point2oct: function (const group: PEC_GROUP; const p: PEC_POINT; form: point_conversion_form_t; buf: PByte; len: TIdC_SIZET; ctx: PBN_CTX): TIdC_SIZET; cdecl = nil;
@@ -325,7 +292,6 @@ var
   EC_KEY_generate_key: function (key: PEC_KEY): TIdC_INT; cdecl = nil;
   EC_KEY_check_key: function (const key: PEC_KEY): TIdC_INT; cdecl = nil;
   EC_KEY_can_sign: function (const eckey: PEC_KEY): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM EC_KEY_set_public_key_affine_coordinates}
   EC_KEY_set_public_key_affine_coordinates: function (key: PEC_KEY; x: PBIGNUM; y: PBIGNUM): TIdC_INT; cdecl = nil;
   EC_KEY_key2buf: function (const key: PEC_KEY; form: point_conversion_form_t; pbuf: PPByte; ctx: PBN_CTX): TIdC_SIZET; cdecl = nil; {introduced 1.1.0}
   EC_KEY_oct2key: function (key: PEC_KEY; const buf: PByte; len: TIdC_SIZET; ctx: PBN_CTX): TIdC_INT; cdecl = nil; {introduced 1.1.0}
@@ -410,9 +376,7 @@ var
   procedure EC_GROUP_set_asn1_flag(group: PEC_GROUP; flag: TIdC_INT) cdecl; external CLibCrypto;
   function EC_GROUP_get_asn1_flag(const group: PEC_GROUP): TIdC_INT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM EC_GROUP_set_point_conversion_form}
   procedure EC_GROUP_set_point_conversion_form(group: PEC_GROUP; form: point_conversion_form_t) cdecl; external CLibCrypto;
-  {$EXTERNALSYM EC_GROUP_get_point_conversion_form}
   function EC_GROUP_get_point_conversion_form(const group: PEC_GROUP): point_conversion_form_t cdecl; external CLibCrypto;
 
   function EC_GROUP_get0_seed(const x: PEC_GROUP): PByte cdecl; external CLibCrypto;
@@ -451,24 +415,16 @@ var
   function EC_POINT_dup(const src: PEC_POINT; const group: PEC_GROUP): PEC_POINT cdecl; external CLibCrypto;
   function EC_POINT_method_of(const point: PEC_POINT): PEC_METHOD cdecl; external CLibCrypto;
   function EC_POINT_set_to_infinity(const group: PEC_GROUP; point: PEC_POINT): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM EC_POINT_set_Jprojective_coordinates_GFp}
   function EC_POINT_set_Jprojective_coordinates_GFp(const group: PEC_GROUP; p: PEC_POINT; const x: PBIGNUM; const y: PBIGNUM; const z: PBIGNUM; ctx: PBN_CTX): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM EC_POINT_get_Jprojective_coordinates_GFp}
   function EC_POINT_get_Jprojective_coordinates_GFp(const group: PEC_METHOD; const p: PEC_POINT; x: PBIGNUM; y: PBIGNUM; z: PBIGNUM; ctx: PBN_CTX): TIdC_INT cdecl; external CLibCrypto;
   function EC_POINT_set_affine_coordinates(const group: PEC_GROUP; p: PEC_POINT; const x: PBIGNUM; const y: PBIGNUM; ctx: PBN_CTX): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
   function EC_POINT_get_affine_coordinates(const group: PEC_GROUP; const p: PEC_POINT; x: PBIGNUM; y: PBIGNUM; ctx: PBN_CTX): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM EC_POINT_set_affine_coordinates_GFp}
   function EC_POINT_set_affine_coordinates_GFp(const group: PEC_GROUP; p: PEC_POINT; const x: PBIGNUM; const y: PBIGNUM; ctx: PBN_CTX): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM EC_POINT_get_affine_coordinates_GFp}
   function EC_POINT_get_affine_coordinates_GFp(const group: PEC_GROUP; const p: PEC_POINT; x: PBIGNUM; y: PBIGNUM; ctx: PBN_CTX): TIdC_INT cdecl; external CLibCrypto;
   function EC_POINT_set_compressed_coordinates(const group: PEC_GROUP; p: PEC_POINT; x: PBIGNUM; y_bit: TIdC_INT; ctx: PBN_CTX): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM EC_POINT_set_compressed_coordinates_GFp}
   function EC_POINT_set_compressed_coordinates_GFp(const group: PEC_GROUP; p: PEC_POINT; const x: PBIGNUM; y_bit: TIdC_INT; ctx: PBN_CTX): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM EC_POINT_set_affine_coordinates_GF2m}
   function EC_POINT_set_affine_coordinates_GF2m(const group: PEC_GROUP; p: PEC_POINT; const x: PBIGNUM; const y: PBIGNUM; ctx: PBN_CTX): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM EC_POINT_get_affine_coordinates_GF2m}
   function EC_POINT_get_affine_coordinates_GF2m(const group: PEC_GROUP; p: PEC_POINT; x: PBIGNUM; y: PBIGNUM; ctx: PBN_CTX): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM EC_POINT_set_compressed_coordinates_GF2m}
   function EC_POINT_set_compressed_coordinates_GF2m(const group: PEC_GROUP; p: PEC_POINT; const x: PBIGNUM; y_bit: TIdC_INT; ctx: PBN_CTX): TIdC_INT cdecl; external CLibCrypto;
 
   function EC_POINT_point2oct(const group: PEC_GROUP; const p: PEC_POINT; form: point_conversion_form_t; buf: PByte; len: TIdC_SIZET; ctx: PBN_CTX): TIdC_SIZET cdecl; external CLibCrypto;
@@ -537,7 +493,6 @@ var
   function EC_KEY_generate_key(key: PEC_KEY): TIdC_INT cdecl; external CLibCrypto;
   function EC_KEY_check_key(const key: PEC_KEY): TIdC_INT cdecl; external CLibCrypto;
   function EC_KEY_can_sign(const eckey: PEC_KEY): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM EC_KEY_set_public_key_affine_coordinates}
   function EC_KEY_set_public_key_affine_coordinates(key: PEC_KEY; x: PBIGNUM; y: PBIGNUM): TIdC_INT cdecl; external CLibCrypto;
   function EC_KEY_key2buf(const key: PEC_KEY; form: point_conversion_form_t; pbuf: PPByte; ctx: PBN_CTX): TIdC_SIZET cdecl; external CLibCrypto; {introduced 1.1.0}
   function EC_KEY_oct2key(key: PEC_KEY; const buf: PByte; len: TIdC_SIZET; ctx: PBN_CTX): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
@@ -596,7 +551,6 @@ var
 
 {$ENDIF}
 
-  {$EXTERNALSYM EC_KEY_get_ex_new_index}
 function EC_KEY_get_ex_new_index(l : TIdC_LONG; p : PEC_KEY;
     newf : CRYPTO_EX_new; dupf : CRYPTO_EX_dup; freef : CRYPTO_EX_FREE) : TIdC_INT;
 

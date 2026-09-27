@@ -34,69 +34,40 @@ uses
   TaurusTLSHeaders_types;
 
 const
-  {$EXTERNALSYM EVP_KDF_HKDF_MODE_EXTRACT_AND_EXPAND}
   EVP_KDF_HKDF_MODE_EXTRACT_AND_EXPAND = 0;
-  {$EXTERNALSYM EVP_KDF_HKDF_MODE_EXTRACT_ONLY}
   EVP_KDF_HKDF_MODE_EXTRACT_ONLY = 1;
-  {$EXTERNALSYM EVP_KDF_HKDF_MODE_EXPAND_ONLY}
   EVP_KDF_HKDF_MODE_EXPAND_ONLY = 2;
 
-  {$EXTERNALSYM EVP_KDF_IKEV2_MODE_GEN}
   EVP_KDF_IKEV2_MODE_GEN = 0;
-  {$EXTERNALSYM EVP_KDF_IKEV2_MODE_DKM}
   EVP_KDF_IKEV2_MODE_DKM = 1;
-  {$EXTERNALSYM EVP_KDF_IKEV2_MODE_REKEY}
   EVP_KDF_IKEV2_MODE_REKEY = 2;
 
-  {$EXTERNALSYM EVP_KDF_SSHKDF_TYPE_INITIAL_IV_CLI_TO_SRV}
   EVP_KDF_SSHKDF_TYPE_INITIAL_IV_CLI_TO_SRV = 65;
-  {$EXTERNALSYM EVP_KDF_SSHKDF_TYPE_INITIAL_IV_SRV_TO_CLI}
   EVP_KDF_SSHKDF_TYPE_INITIAL_IV_SRV_TO_CLI = 66;
-  {$EXTERNALSYM EVP_KDF_SSHKDF_TYPE_ENCRYPTION_KEY_CLI_TO_SRV}
   EVP_KDF_SSHKDF_TYPE_ENCRYPTION_KEY_CLI_TO_SRV = 67;
-  {$EXTERNALSYM EVP_KDF_SSHKDF_TYPE_ENCRYPTION_KEY_SRV_TO_CLI}
   EVP_KDF_SSHKDF_TYPE_ENCRYPTION_KEY_SRV_TO_CLI = 68;
-  {$EXTERNALSYM EVP_KDF_SSHKDF_TYPE_INTEGRITY_KEY_CLI_TO_SRV}
   EVP_KDF_SSHKDF_TYPE_INTEGRITY_KEY_CLI_TO_SRV = 69;
-  {$EXTERNALSYM EVP_KDF_SSHKDF_TYPE_INTEGRITY_KEY_SRV_TO_CLI}
   EVP_KDF_SSHKDF_TYPE_INTEGRITY_KEY_SRV_TO_CLI = 70;
 
 (**** The legacy PKEY-based KDF API follows. ****)
 
-  {$EXTERNALSYM EVP_PKEY_CTRL_TLS_MD}
   EVP_PKEY_CTRL_TLS_MD = (EVP_PKEY_ALG_CTRL);
-  {$EXTERNALSYM EVP_PKEY_CTRL_TLS_SECRET}
   EVP_PKEY_CTRL_TLS_SECRET =  (EVP_PKEY_ALG_CTRL + 1);
-  {$EXTERNALSYM EVP_PKEY_CTRL_TLS_SEED}
   EVP_PKEY_CTRL_TLS_SEED = (EVP_PKEY_ALG_CTRL + 2);
-  {$EXTERNALSYM EVP_PKEY_CTRL_HKDF_MD}
   EVP_PKEY_CTRL_HKDF_MD = (EVP_PKEY_ALG_CTRL + 3);
-  {$EXTERNALSYM EVP_PKEY_CTRL_HKDF_SALT}
   EVP_PKEY_CTRL_HKDF_SALT = (EVP_PKEY_ALG_CTRL + 4);
-  {$EXTERNALSYM EVP_PKEY_CTRL_HKDF_KEY}
   EVP_PKEY_CTRL_HKDF_KEY = (EVP_PKEY_ALG_CTRL + 5);
-  {$EXTERNALSYM EVP_PKEY_CTRL_HKDF_INFO}
   EVP_PKEY_CTRL_HKDF_INFO = (EVP_PKEY_ALG_CTRL + 6);
-  {$EXTERNALSYM EVP_PKEY_CTRL_HKDF_MODE}
   EVP_PKEY_CTRL_HKDF_MODE = (EVP_PKEY_ALG_CTRL + 7);
-  {$EXTERNALSYM EVP_PKEY_CTRL_PASS}
   EVP_PKEY_CTRL_PASS = (EVP_PKEY_ALG_CTRL + 8);
-  {$EXTERNALSYM EVP_PKEY_CTRL_SCRYPT_SALT}
   EVP_PKEY_CTRL_SCRYPT_SALT = (EVP_PKEY_ALG_CTRL + 9);
-  {$EXTERNALSYM EVP_PKEY_CTRL_SCRYPT_N}
   EVP_PKEY_CTRL_SCRYPT_N = (EVP_PKEY_ALG_CTRL + 10);
-  {$EXTERNALSYM EVP_PKEY_CTRL_SCRYPT_R}
   EVP_PKEY_CTRL_SCRYPT_R = (EVP_PKEY_ALG_CTRL + 11);
-  {$EXTERNALSYM EVP_PKEY_CTRL_SCRYPT_P}
   EVP_PKEY_CTRL_SCRYPT_P = (EVP_PKEY_ALG_CTRL + 12);
-  {$EXTERNALSYM EVP_PKEY_CTRL_SCRYPT_MAXMEM_BYTES}
   EVP_PKEY_CTRL_SCRYPT_MAXMEM_BYTES = (EVP_PKEY_ALG_CTRL + 13);
 
-  {$EXTERNALSYM EVP_PKEY_HKDEF_MODE_EXTRACT_AND_EXPAND}
   EVP_PKEY_HKDEF_MODE_EXTRACT_AND_EXPAND = EVP_KDF_HKDF_MODE_EXTRACT_AND_EXPAND;
-  {$EXTERNALSYM EVP_PKEY_HKDEF_MODE_EXTRACT_ONLY}
   EVP_PKEY_HKDEF_MODE_EXTRACT_ONLY = EVP_KDF_HKDF_MODE_EXTRACT_ONLY;
-  {$EXTERNALSYM EVP_PKEY_HKDEF_MODE_EXPAND_ONLY}
   EVP_PKEY_HKDEF_MODE_EXPAND_ONLY = EVP_KDF_HKDF_MODE_EXPAND_ONLY;
 
     { The EXTERNALSYM directive is ignored by FPC, however, it is used by Delphi as follows:
@@ -139,32 +110,19 @@ var
   EVP_KDF_do_all_provided : procedure (libctx: POSSL_LIB_CTX; fn: TEVP_KDF_fn; arg: Pointer); cdecl = nil;
   EVP_KDF_names_do_all : function (const kdf: PEVP_KDF; fn: TEVP_KDF_name_fn; data: Pointer): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM EVP_PKEY_CTX_set_tls1_prf_md}
   EVP_PKEY_CTX_set_tls1_prf_md : function (ctx : PEVP_PKEY_CTX; md : PEVP_MD) : TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM EVP_PKEY_CTX_set1_tls1_prf_secret}
   EVP_PKEY_CTX_set1_tls1_prf_secret : function(pctx : PEVP_PKEY_CTX; sec : PIdC_UINT8; seclen : TIdC_INT) : TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM EVP_PKEY_CTX_add1_tls1_prf_seed}
   EVP_PKEY_CTX_add1_tls1_prf_seed : function(pctx : PEVP_PKEY_CTX; seed : PIdC_UINT8; seedlen : TIdC_INT): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM EVP_PKEY_CTX_set_hkdf_md}
   EVP_PKEY_CTX_set_hkdf_md : function(ctx : PEVP_PKEY_CTX; md : PEVP_MD) : TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM EVP_PKEY_CTX_set1_hkdf_salt}
   EVP_PKEY_CTX_set1_hkdf_salt : function(ctx : PEVP_PKEY_CTX; salt :PIdC_UINT8; saltlen : TIdC_INT) : TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM EVP_PKEY_CTX_set1_hkdf_key}
   EVP_PKEY_CTX_set1_hkdf_key : function(ctx : PEVP_PKEY_CTX; key :PIdC_UINT8; keylen : TIdC_INT) : TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM EVP_PKEY_CTX_add1_hkdf_info}
   EVP_PKEY_CTX_add1_hkdf_info : function(ctx : PEVP_PKEY_CTX; info :PIdC_UINT8; infolen : TIdC_INT) : TIdC_INT; cdecl = nil;
   EVP_PKEY_CTX_set_hkdf_mode : function(ctx : PEVP_PKEY_CTX; mode : TIdC_INT) : TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM EVP_PKEY_CTX_set1_pbe_pass}
   EVP_PKEY_CTX_set1_pbe_pass : function(ctx : PEVP_PKEY_CTX; pass : PIdC_UINT8; passlen : TIdC_INT) : TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM EVP_PKEY_CTX_set1_scrypt_salt}
   EVP_PKEY_CTX_set1_scrypt_salt : function(ctx : PEVP_PKEY_CTX; salt : PIdC_UINT8; saltlen : TIdC_INT) : TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM EVP_PKEY_CTX_set_scrypt_N}
   EVP_PKEY_CTX_set_scrypt_N : function(ctx : PEVP_PKEY_CTX; n : TIdC_UINT64) : TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM EVP_PKEY_CTX_set_scrypt_r}
   EVP_PKEY_CTX_set_scrypt_r : function(ctx : PEVP_PKEY_CTX; r : TIdC_UINT64) : TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM EVP_PKEY_CTX_set_scrypt_p}
   EVP_PKEY_CTX_set_scrypt_p : function(ctx : PEVP_PKEY_CTX; p : TIdC_UINT64) : TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM EVP_PKEY_CTX_set_scrypt_maxmem_bytes}
   EVP_PKEY_CTX_set_scrypt_maxmem_bytes : function(ctx : PEVP_PKEY_CTX; maxmem_bytes : TIdC_UINT64) : TIdC_INT; cdecl = nil;
 {$ELSE}
   function EVP_KDF_up_ref( kdf : PEVP_KDF) : TIdC_INT; cdecl; external CLibCrypto;
@@ -196,32 +154,19 @@ var
   procedure EVP_KDF_do_all_provided(libctx: POSSL_LIB_CTX; fn: TEVP_KDF_fn; arg: Pointer); cdecl; external CLibCrypto;
   function EVP_KDF_names_do_all(const kdf: PEVP_KDF; fn: TEVP_KDF_name_fn; data: Pointer): TIdC_INT; cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM EVP_PKEY_CTX_set_tls1_prf_md}
   function EVP_PKEY_CTX_set_tls1_prf_md(ctx : PEVP_PKEY_CTX; md : PEVP_MD) : TIdC_INT; cdecl; external CLibCrypto;
-  {$EXTERNALSYM EVP_PKEY_CTX_set1_tls1_prf_secret}
   function EVP_PKEY_CTX_set1_tls1_prf_secret(pctx : PEVP_PKEY_CTX; sec : PIdC_UINT8; seclen : TIdC_INT) : TIdC_INT; cdecl; external CLibCrypto;
-  {$EXTERNALSYM EVP_PKEY_CTX_add1_tls1_prf_seed}
   function EVP_PKEY_CTX_add1_tls1_prf_seed(pctx : PEVP_PKEY_CTX; seed : PIdC_UINT8; seedlen : TIdC_INT): TIdC_INT; cdecl; external CLibCrypto;
-  {$EXTERNALSYM EVP_PKEY_CTX_set_hkdf_md}
   function EVP_PKEY_CTX_set_hkdf_md(ctx : PEVP_PKEY_CTX; md : PEVP_MD) : TIdC_INT; cdecl; external CLibCrypto;
-  {$EXTERNALSYM EVP_PKEY_CTX_set1_hkdf_salt}
   function EVP_PKEY_CTX_set1_hkdf_salt(ctx : PEVP_PKEY_CTX; salt :PIdC_UINT8; saltlen : TIdC_INT) : TIdC_INT; cdecl; external CLibCrypto;
-  {$EXTERNALSYM EVP_PKEY_CTX_set1_hkdf_key}
   function EVP_PKEY_CTX_set1_hkdf_key(ctx : PEVP_PKEY_CTX; key :PIdC_UINT8; keylen : TIdC_INT) : TIdC_INT; cdecl; external CLibCrypto;
-  {$EXTERNALSYM EVP_PKEY_CTX_add1_hkdf_info}
   function EVP_PKEY_CTX_add1_hkdf_info(ctx : PEVP_PKEY_CTX; info :PIdC_UINT8; infolen : TIdC_INT) : TIdC_INT; cdecl; external CLibCrypto;
   function EVP_PKEY_CTX_set_hkdf_mode(ctx : PEVP_PKEY_CTX; mode : TIdC_INT) : TIdC_INT; cdecl; external CLibCrypto;
-  {$EXTERNALSYM EVP_PKEY_CTX_set1_pbe_pass}
   function EVP_PKEY_CTX_set1_pbe_pass(ctx : PEVP_PKEY_CTX; pass : PIdC_UINT8; passlen : TIdC_INT) : TIdC_INT; cdecl; external CLibCrypto;
-  {$EXTERNALSYM EVP_PKEY_CTX_set1_scrypt_salt}
   function EVP_PKEY_CTX_set1_scrypt_salt(ctx : PEVP_PKEY_CTX; salt : PIdC_UINT8; saltlen : TIdC_INT) : TIdC_INT; cdecl; external CLibCrypto;
-  {$EXTERNALSYM EVP_PKEY_CTX_set_scrypt_N}
   function EVP_PKEY_CTX_set_scrypt_N(ctx : PEVP_PKEY_CTX; n : TIdC_UINT64) : TIdC_INT; cdecl; external CLibCrypto;
-  {$EXTERNALSYM EVP_PKEY_CTX_set_scrypt_r}
   function EVP_PKEY_CTX_set_scrypt_r(ctx : PEVP_PKEY_CTX; r : TIdC_UINT64) : TIdC_INT; cdecl; external CLibCrypto;
-  {$EXTERNALSYM EVP_PKEY_CTX_set_scrypt_p}
   function EVP_PKEY_CTX_set_scrypt_p(ctx : PEVP_PKEY_CTX; p : TIdC_UINT64) : TIdC_INT; cdecl; external CLibCrypto;
-  {$EXTERNALSYM EVP_PKEY_CTX_set_scrypt_maxmem_bytes}
   function EVP_PKEY_CTX_set_scrypt_maxmem_bytes(ctx : PEVP_PKEY_CTX; maxmem_bytes : TIdC_UINT64) : TIdC_INT; cdecl; external CLibCrypto;
 {$ENDIF}
 

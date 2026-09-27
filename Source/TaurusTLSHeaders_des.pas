@@ -66,17 +66,12 @@ Type
   DES_key_schedule = DES_ks;
 
 var
-  {$EXTERNALSYM DES_check_key}
   DES_check_key: TIdC_INT;
 
 const
-  {$EXTERNALSYM DES_ENCRYPT}
   DES_ENCRYPT = 1;
-  {$EXTERNALSYM DES_DECRYPT}
   DES_DECRYPT = 0;
-  {$EXTERNALSYM DES_CBC_MODE}
   DES_CBC_MODE = 0;
-  {$EXTERNALSYM DES_PCBC_MODE}
   DES_PCBC_MODE = 1;
 
   { The EXTERNALSYM directive is ignored by FPC, however, it is used by Delphi as follows:
@@ -87,20 +82,16 @@ const
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 
 var
-  {$EXTERNALSYM DES_ecb2_encrypt}
   DES_ecb2_encrypt: procedure(_input: Pconst_DES_cblock; _output: PDES_cblock;
     ks1: PDES_key_schedule; ks2: PDES_key_schedule; enc: TIdC_INT);
     cdecl = nil; { removed 1.0.0 }
-  {$EXTERNALSYM DES_ede2_cbc_encrypt}
   DES_ede2_cbc_encrypt: procedure(_input: Pbyte; _output: Pbyte;
     _length: TIdC_LONG; ks1: PDES_key_schedule; ks2: PDES_key_schedule;
     ivec: PDES_cblock; enc: TIdC_INT); cdecl = nil; { removed 1.0.0 }
-  {$EXTERNALSYM DES_ede2_cfb64_encrypt}
   DES_ede2_cfb64_encrypt: procedure(in_: Pbyte; out_: Pbyte;
     _length: TIdC_LONG; ks1: PDES_key_schedule; ks2: PDES_key_schedule;
     ivec: PDES_cblock; num: PIdC_INT; enc: TIdC_INT);
     cdecl = nil; { removed 1.0.0 }
-  {$EXTERNALSYM DES_ede2_ofb64_encrypt}
   DES_ede2_ofb64_encrypt: procedure(in_: Pbyte; out_: Pbyte; _length: TIdC_LONG;
     ks1: PDES_key_schedule; ks2: PDES_key_schedule; ivec: PDES_cblock;
     num: PIdC_INT);  cdecl = nil; { removed 1.0.0 }
@@ -234,7 +225,6 @@ var
   DES_set_key_checked: function(key: Pconst_DES_cblock;
     schedule: PDES_key_schedule): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM DES_set_key_unchecked}
   DES_set_key_unchecked: procedure(key: Pconst_DES_cblock;
     schedule: PDES_key_schedule); cdecl = nil;
 
@@ -255,7 +245,6 @@ var
     schedule: PDES_key_schedule;  ivec: PDES_cblock; num: PIdC_INT);
     cdecl = nil;
 
-  {$EXTERNALSYM DES_fixup_key_parity}
   DES_fixup_key_parity:  procedure(key: PDES_cblock); cdecl = nil; { removed 1.0.0 }
 
 {$ELSE}
@@ -393,7 +382,6 @@ function DES_key_sched(key: Pconst_DES_cblock; schedule: PDES_key_schedule)
 function DES_set_key_checked(key: Pconst_DES_cblock;
   schedule: PDES_key_schedule): TIdC_INT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM DES_set_key_unchecked}
 procedure DES_set_key_unchecked(key: Pconst_DES_cblock;
   schedule: PDES_key_schedule)cdecl; external CLibCrypto;
 
@@ -415,23 +403,18 @@ procedure DES_ofb64_encrypt(in_: Pbyte; out_: Pbyte; _length: TIdC_LONG;
   schedule: PDES_key_schedule; ivec: PDES_cblock; num: PIdC_INT)cdecl;
   external CLibCrypto;
 
-  {$EXTERNALSYM DES_ecb2_encrypt}
 procedure DES_ecb2_encrypt(_input: Pconst_DES_cblock; _output: PDES_cblock;
   ks1: PDES_key_schedule; ks2: PDES_key_schedule; enc: TIdC_INT);
 { removed 1.0.0 }
-  {$EXTERNALSYM DES_ede2_cbc_encrypt}
   procedure DES_ede2_cbc_encrypt(_input: Pbyte; _output: Pbyte; _length: TIdC_LONG;
     ks1: PDES_key_schedule; ks2: PDES_key_schedule; ivec: PDES_cblock;
     enc: TIdC_INT); { removed 1.0.0 }
-  {$EXTERNALSYM DES_ede2_cfb64_encrypt}
     procedure DES_ede2_cfb64_encrypt(in_: Pbyte; out_: Pbyte; _length: TIdC_LONG;
       ks1: PDES_key_schedule; ks2: PDES_key_schedule; ivec: PDES_cblock;
       num: PIdC_INT; enc: TIdC_INT); { removed 1.0.0 }
-  {$EXTERNALSYM DES_ede2_ofb64_encrypt}
       procedure DES_ede2_ofb64_encrypt(in_: Pbyte; out_: Pbyte; _length: TIdC_LONG;
         ks1: PDES_key_schedule; ks2: PDES_key_schedule; ivec: PDES_cblock;
         num: PIdC_INT); { removed 1.0.0 }
-  {$EXTERNALSYM DES_fixup_key_parity}
         procedure DES_fixup_key_parity(key: PDES_cblock); { removed 1.0.0 }
 {$ENDIF}
 

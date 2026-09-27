@@ -31,102 +31,56 @@ uses
 
 const
 //* Minimum RSA key size, from RFC6962 */
-  {$EXTERNALSYM SCT_MIN_RSA_BITS}
    SCT_MIN_RSA_BITS = 2048;
 
 //* All hashes are SHA256 in v1 of Certificate Transparency */
-  {$EXTERNALSYM CT_V1_HASHLEN}
    CT_V1_HASHLEN = SHA256_DIGEST_LENGTH;
 
-  {$EXTERNALSYM CT_F_CTLOG_NEW}
   CT_F_CTLOG_NEW                                  = 117;
-  {$EXTERNALSYM CT_F_CTLOG_NEW_FROM_BASE64}
   CT_F_CTLOG_NEW_FROM_BASE64                      = 118;
-  {$EXTERNALSYM CT_F_CTLOG_NEW_FROM_CONF}
   CT_F_CTLOG_NEW_FROM_CONF                        = 119;
-  {$EXTERNALSYM CT_F_CTLOG_STORE_LOAD_CTX_NEW}
   CT_F_CTLOG_STORE_LOAD_CTX_NEW                   = 122;
-  {$EXTERNALSYM CT_F_CTLOG_STORE_LOAD_FILE}
   CT_F_CTLOG_STORE_LOAD_FILE                      = 123;
-  {$EXTERNALSYM CT_F_CTLOG_STORE_LOAD_LOG}
   CT_F_CTLOG_STORE_LOAD_LOG                       = 130;
-  {$EXTERNALSYM CT_F_CTLOG_STORE_NEW}
   CT_F_CTLOG_STORE_NEW                            = 131;
-  {$EXTERNALSYM CT_F_CT_BASE64_DECODE}
   CT_F_CT_BASE64_DECODE                           = 124;
-  {$EXTERNALSYM CT_F_CT_POLICY_EVAL_CTX_NEW}
   CT_F_CT_POLICY_EVAL_CTX_NEW                     = 133;
-  {$EXTERNALSYM CT_F_CT_V1_LOG_ID_FROM_PKEY}
   CT_F_CT_V1_LOG_ID_FROM_PKEY                     = 125;
-  {$EXTERNALSYM CT_F_I2O_SCT}
   CT_F_I2O_SCT                                    = 107;
-  {$EXTERNALSYM CT_F_I2O_SCT_LIST}
   CT_F_I2O_SCT_LIST                               = 108;
-  {$EXTERNALSYM CT_F_I2O_SCT_SIGNATURE}
   CT_F_I2O_SCT_SIGNATURE                          = 109;
-  {$EXTERNALSYM CT_F_O2I_SCT}
   CT_F_O2I_SCT                                    = 110;
-  {$EXTERNALSYM CT_F_O2I_SCT_LIST}
   CT_F_O2I_SCT_LIST                               = 111;
-  {$EXTERNALSYM CT_F_O2I_SCT_SIGNATURE}
   CT_F_O2I_SCT_SIGNATURE                          = 112;
-  {$EXTERNALSYM CT_F_SCT_CTX_NEW}
   CT_F_SCT_CTX_NEW                                = 126;
-  {$EXTERNALSYM CT_F_SCT_CTX_VERIFY}
   CT_F_SCT_CTX_VERIFY                             = 128;
-  {$EXTERNALSYM CT_F_SCT_NEW}
   CT_F_SCT_NEW                                    = 100;
-  {$EXTERNALSYM CT_F_SCT_NEW_FROM_BASE64}
   CT_F_SCT_NEW_FROM_BASE64                        = 127;
-  {$EXTERNALSYM CT_F_SCT_SET0_LOG_ID}
   CT_F_SCT_SET0_LOG_ID                            = 101;
-  {$EXTERNALSYM CT_F_SCT_SET1_EXTENSIONS}
   CT_F_SCT_SET1_EXTENSIONS                        = 114;
-  {$EXTERNALSYM CT_F_SCT_SET1_LOG_ID}
   CT_F_SCT_SET1_LOG_ID                            = 115;
-  {$EXTERNALSYM CT_F_SCT_SET1_SIGNATURE}
   CT_F_SCT_SET1_SIGNATURE                         = 116;
-  {$EXTERNALSYM CT_F_SCT_SET_LOG_ENTRY_TYPE}
   CT_F_SCT_SET_LOG_ENTRY_TYPE                     = 102;
-  {$EXTERNALSYM CT_F_SCT_SET_SIGNATURE_NID}
   CT_F_SCT_SET_SIGNATURE_NID                      = 103;
-  {$EXTERNALSYM CT_F_SCT_SET_VERSION}
   CT_F_SCT_SET_VERSION                            = 104;
 
 //* Reason codes. */
-  {$EXTERNALSYM CT_R_BASE64_DECODE_ERROR}
   CT_R_BASE64_DECODE_ERROR                        = 108;
-  {$EXTERNALSYM CT_R_INVALID_LOG_ID_LENGTH}
   CT_R_INVALID_LOG_ID_LENGTH                      = 100;
-  {$EXTERNALSYM CT_R_LOG_CONF_INVALID}
   CT_R_LOG_CONF_INVALID                           = 109;
-  {$EXTERNALSYM CT_R_LOG_CONF_INVALID_KEY}
   CT_R_LOG_CONF_INVALID_KEY                       = 110;
-  {$EXTERNALSYM CT_R_LOG_CONF_MISSING_DESCRIPTION}
   CT_R_LOG_CONF_MISSING_DESCRIPTION               = 111;
-  {$EXTERNALSYM CT_R_LOG_CONF_MISSING_KEY}
   CT_R_LOG_CONF_MISSING_KEY                       = 112;
-  {$EXTERNALSYM CT_R_LOG_KEY_INVALID}
   CT_R_LOG_KEY_INVALID                            = 113;
-  {$EXTERNALSYM CT_R_SCT_FUTURE_TIMESTAMP}
   CT_R_SCT_FUTURE_TIMESTAMP                       = 116;
-  {$EXTERNALSYM CT_R_SCT_INVALID}
   CT_R_SCT_INVALID                                = 104;
-  {$EXTERNALSYM CT_R_SCT_INVALID_SIGNATURE}
   CT_R_SCT_INVALID_SIGNATURE                      = 107;
-  {$EXTERNALSYM CT_R_SCT_LIST_INVALID}
   CT_R_SCT_LIST_INVALID                           = 105;
-  {$EXTERNALSYM CT_R_SCT_LOG_ID_MISMATCH}
   CT_R_SCT_LOG_ID_MISMATCH                        = 114;
-  {$EXTERNALSYM CT_R_SCT_NOT_SET}
   CT_R_SCT_NOT_SET                                = 106;
-  {$EXTERNALSYM CT_R_SCT_UNSUPPORTED_VERSION}
   CT_R_SCT_UNSUPPORTED_VERSION                    = 115;
-  {$EXTERNALSYM CT_R_UNRECOGNIZED_SIGNATURE_NID}
   CT_R_UNRECOGNIZED_SIGNATURE_NID                 = 101;
-  {$EXTERNALSYM CT_R_UNSUPPORTED_ENTRY_TYPE}
   CT_R_UNSUPPORTED_ENTRY_TYPE                     = 102;
-  {$EXTERNALSYM CT_R_UNSUPPORTED_VERSION}
   CT_R_UNSUPPORTED_VERSION                        = 103;
 
 type
@@ -325,23 +279,14 @@ type
   Tsk_CTLOG_pop_free = procedure(sk: PSTACK_OF_CTLOG; func: TOPENSSL_sk_freefunc)cdecl;
 
 var
-  {$EXTERNALSYM sk_SCT_new}
   sk_SCT_new: Tsk_SCT_new = nil;
-  {$EXTERNALSYM sk_SCT_new_null}
   sk_SCT_new_null: Tsk_SCT_new_null = nil;
-  {$EXTERNALSYM sk_SCT_free}
   sk_SCT_free: Tsk_SCT_free = nil;
-  {$EXTERNALSYM sk_SCT_num}
   sk_SCT_num: Tsk_SCT_num = nil;
-  {$EXTERNALSYM sk_SCT_value}
   sk_SCT_value: Tsk_SCT_value = nil;
-  {$EXTERNALSYM sk_SCT_push}
   sk_SCT_push: Tsk_SCT_push = nil;
-  {$EXTERNALSYM sk_SCT_dup}
   sk_SCT_dup: Tsk_SCT_dup = nil;
-  {$EXTERNALSYM sk_SCT_find}
   sk_SCT_find: Tsk_SCT_find = nil;
-  {$EXTERNALSYM sk_SCT_pop_free}
   sk_SCT_pop_free: Tsk_SCT_pop_free = nil;
 
   sk_CTLOG_new: Tsk_CTLOG_new = nil;
@@ -355,23 +300,14 @@ var
   sk_CTLOG_pop_free: Tsk_CTLOG_pop_free = nil;
 
 {$ELSE}
-  {$EXTERNALSYM sk_SCT_new}
 function sk_SCT_new(cmp: TOPENSSL_sk_compfunc): PSTACK_OF_SCT cdecl; external CLibCrypto name 'OPENSSL_sk_new';
-  {$EXTERNALSYM sk_SCT_new_null}
 function sk_SCT_new_null: PSTACK_OF_SCT cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
-  {$EXTERNALSYM sk_SCT_free}
 procedure sk_SCT_free(st: PSTACK_OF_SCT)cdecl; external CLibCrypto name 'OPENSSL_sk_free';
-  {$EXTERNALSYM sk_SCT_num}
 function sk_SCT_num(const sk: PSTACK_OF_SCT): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_num';
-  {$EXTERNALSYM sk_SCT_value}
 function sk_SCT_value(const sk: PSTACK_OF_SCT; i: TIdC_INT): PSCT cdecl; external CLibCrypto name 'OPENSSL_sk_value';
-  {$EXTERNALSYM sk_SCT_push}
 function sk_SCT_push(sk: PSTACK_OF_SCT; st: PSCT): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_push';
-  {$EXTERNALSYM sk_SCT_dup}
 function sk_SCT_dup(sk: PSTACK_OF_SCT): PSTACK_OF_SCT cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
-  {$EXTERNALSYM sk_SCT_find}
 function sk_SCT_find(sk: PSTACK_OF_SCT; _val: PSCT): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
-  {$EXTERNALSYM sk_SCT_pop_free}
 procedure sk_SCT_pop_free(sk: PSTACK_OF_SCT; func: TOPENSSL_sk_freefunc)cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
 
 function sk_CTLOG_new(cmp: TOPENSSL_sk_compfunc): PSTACK_OF_CTLOG cdecl; external CLibCrypto name 'OPENSSL_sk_new';

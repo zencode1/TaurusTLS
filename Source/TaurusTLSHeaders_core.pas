@@ -146,28 +146,23 @@ uses
       }
 
     const
-      {$EXTERNALSYM OSSL_PARAM_INTEGER}
       OSSL_PARAM_INTEGER = 1;
-      {$EXTERNALSYM OSSL_PARAM_UNSIGNED_INTEGER}
       OSSL_PARAM_UNSIGNED_INTEGER = 2;
     {-
      * OSSL_PARAM_REAL
      * is a C binary floating point values in native form and alignment.
       }
-      {$EXTERNALSYM OSSL_PARAM_REAL}
       OSSL_PARAM_REAL = 3;
     {-
      * OSSL_PARAM_UTF8_STRING
      * is a printable string.  It is expected to be printed as it is.
       }
-      {$EXTERNALSYM OSSL_PARAM_UTF8_STRING}
       OSSL_PARAM_UTF8_STRING = 4;
     {-
      * OSSL_PARAM_OCTET_STRING
      * is a string of bytes with no further specification.  It is expected to be
      * printed as a hexdump.
       }
-      {$EXTERNALSYM OSSL_PARAM_OCTET_STRING}
       OSSL_PARAM_OCTET_STRING = 5;
     {-
      * OSSL_PARAM_UTF8_PTR
@@ -186,7 +181,6 @@ uses
      * EXTRA WARNING!  If you are not completely sure you most likely want
      * to use the OSSL_PARAM_UTF8_STRING type.
       }
-      {$EXTERNALSYM OSSL_PARAM_UTF8_PTR}
       OSSL_PARAM_UTF8_PTR = 6;
     {-
      * OSSL_PARAM_OCTET_PTR
@@ -206,7 +200,6 @@ uses
      * EXTRA WARNING!  If you are not completely sure you most likely want
      * to use the OSSL_PARAM_OCTET_STRING type.
       }
-      {$EXTERNALSYM OSSL_PARAM_OCTET_PTR}
       OSSL_PARAM_OCTET_PTR = 7;
     {
      * Typedef for the thread stop handling callback. Used both internally and by

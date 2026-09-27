@@ -47,68 +47,38 @@ const
    * the wire tag values.
    *)
 
-  {$EXTERNALSYM V_ASN1_NEG}
   V_ASN1_NEG = $100;
-  {$EXTERNALSYM V_ASN1_NEG_INTEGER}
   V_ASN1_NEG_INTEGER = 2 or V_ASN1_NEG;
-  {$EXTERNALSYM V_ASN1_NEG_ENUMERATED}
   V_ASN1_NEG_ENUMERATED = 10 or V_ASN1_NEG;
 
   (* For use with d2i_ASN1_type_bytes() *)
-  {$EXTERNALSYM B_ASN1_NUMERICSTRING}
   B_ASN1_NUMERICSTRING = $0001;
-  {$EXTERNALSYM B_ASN1_PRINTABLESTRING}
   B_ASN1_PRINTABLESTRING = $0002;
-  {$EXTERNALSYM B_ASN1_T61STRING}
   B_ASN1_T61STRING = $0004;
-  {$EXTERNALSYM B_ASN1_TELETEXSTRING}
   B_ASN1_TELETEXSTRING = $0004;
-  {$EXTERNALSYM B_ASN1_VIDEOTEXSTRING}
   B_ASN1_VIDEOTEXSTRING = $0008;
-  {$EXTERNALSYM B_ASN1_IA5STRING}
   B_ASN1_IA5STRING = $0010;
-  {$EXTERNALSYM B_ASN1_GRAPHICSTRING}
   B_ASN1_GRAPHICSTRING = $0020;
-  {$EXTERNALSYM B_ASN1_ISO64STRING}
   B_ASN1_ISO64STRING = $0040;
-  {$EXTERNALSYM B_ASN1_VISIBLESTRING}
   B_ASN1_VISIBLESTRING = $0040;
-  {$EXTERNALSYM B_ASN1_GENERALSTRING}
   B_ASN1_GENERALSTRING = $0080;
-  {$EXTERNALSYM B_ASN1_UNIVERSALSTRING}
   B_ASN1_UNIVERSALSTRING = $0100;
-  {$EXTERNALSYM B_ASN1_OCTET_STRING}
   B_ASN1_OCTET_STRING = $0200;
-  {$EXTERNALSYM B_ASN1_BIT_STRING}
   B_ASN1_BIT_STRING = $0400;
-  {$EXTERNALSYM B_ASN1_BMPSTRING}
   B_ASN1_BMPSTRING = $0800;
-  {$EXTERNALSYM B_ASN1_UNKNOWN}
   B_ASN1_UNKNOWN = $1000;
-  {$EXTERNALSYM B_ASN1_UTF8STRING}
   B_ASN1_UTF8STRING = $2000;
-  {$EXTERNALSYM B_ASN1_UTCTIME}
   B_ASN1_UTCTIME = $4000;
-  {$EXTERNALSYM B_ASN1_GENERALIZEDTIME}
   B_ASN1_GENERALIZEDTIME = $8000;
-  {$EXTERNALSYM B_ASN1_SEQUENCE}
   B_ASN1_SEQUENCE = $10000;
  (* For use with ASN1_mbstring_copy() *)
-  {$EXTERNALSYM MBSTRING_FLAG}
   MBSTRING_FLAG = $1000;
-  {$EXTERNALSYM MBSTRING_UTF8}
   MBSTRING_UTF8 = MBSTRING_FLAG;
-  {$EXTERNALSYM MBSTRING_ASC}
   MBSTRING_ASC = MBSTRING_FLAG or 1;
-  {$EXTERNALSYM MBSTRING_BMP}
   MBSTRING_BMP = MBSTRING_FLAG or 2;
-  {$EXTERNALSYM MBSTRING_UNIV}
   MBSTRING_UNIV = MBSTRING_FLAG or 4;
-  {$EXTERNALSYM SMIME_OLDMIME}
   SMIME_OLDMIME = $400;
-  {$EXTERNALSYM SMIME_CRLFEOL}
   SMIME_CRLFEOL = $800;
-  {$EXTERNALSYM SMIME_STREAM}
   SMIME_STREAM = $1000;
 
 {
@@ -137,14 +107,11 @@ These are now opaque in OpenSSL 4.0.
   (* String is embedded and only content should be freed *)
 //  ASN1_STRING_FLAG_EMBED = $080;
   (* String should be parsed in RFC 5280's time format *)
-  {$EXTERNALSYM ASN1_STRING_FLAG_X509_TIME}
   ASN1_STRING_FLAG_X509_TIME = $100;
 
   (* Used with ASN1 LONG type: if a long is set to this it is omitted *)
-  {$EXTERNALSYM ASN1_LONG_UNDEF}
   ASN1_LONG_UNDEF = TIdC_LONG($7fffffff);
 
-  {$EXTERNALSYM STABLE_FLAGS_MALLOC}
   STABLE_FLAGS_MALLOC = $01;
   (*
    * A zero passed to ASN1_STRING_TABLE_new_add for the flags is interpreted
@@ -152,31 +119,19 @@ These are now opaque in OpenSSL 4.0.
    * STABLE_FLAGS_MALLOC only we can clear the existing value. Use the alias
    * STABLE_FLAGS_CLEAR to reflect this.
    *)
-  {$EXTERNALSYM STABLE_FLAGS_CLEAR}
   STABLE_FLAGS_CLEAR = STABLE_FLAGS_MALLOC;
-  {$EXTERNALSYM STABLE_NO_MASK}
   STABLE_NO_MASK = $02;
-  {$EXTERNALSYM DIRSTRING_TYPE}
   DIRSTRING_TYPE = B_ASN1_PRINTABLESTRING or B_ASN1_T61STRING or B_ASN1_BMPSTRING or B_ASN1_UTF8STRING;
-  {$EXTERNALSYM PKCS9STRING_TYPE}
   PKCS9STRING_TYPE = DIRSTRING_TYPE or B_ASN1_IA5STRING;
 
   (* size limits: this stuff is taken straight from RFC2459 *)
-  {$EXTERNALSYM ub_name}
   ub_name = 32768;
-  {$EXTERNALSYM ub_common_name}
   ub_common_name = 64;
-  {$EXTERNALSYM ub_locality_name}
   ub_locality_name = 128;
-  {$EXTERNALSYM ub_state_name}
   ub_state_name = 128;
-  {$EXTERNALSYM ub_organization_name}
   ub_organization_name = 64;
-  {$EXTERNALSYM ub_organization_unit_name}
   ub_organization_unit_name = 64;
-  {$EXTERNALSYM ub_title}
   ub_title = 64;
-  {$EXTERNALSYM ub_email_address}
   ub_email_address = 128;
 
   (* Parameters used by ASN1_STRING_print_ex() *)
@@ -185,11 +140,8 @@ These are now opaque in OpenSSL 4.0.
    * These determine which characters to escape: RFC2253 special characters,
    * control characters and MSB set characters
    *)
-  {$EXTERNALSYM ASN1_STRFLGS_ESC_2253}
   ASN1_STRFLGS_ESC_2253 = 1;
-  {$EXTERNALSYM ASN1_STRFLGS_ESC_CTRL}
   ASN1_STRFLGS_ESC_CTRL = 2;
-  {$EXTERNALSYM ASN1_STRFLGS_ESC_MSB}
   ASN1_STRFLGS_ESC_MSB = 4;
 
   (*
@@ -197,19 +149,15 @@ These are now opaque in OpenSSL 4.0.
    * set this to use backslash and quote.
    *)
 
-  {$EXTERNALSYM ASN1_STRFLGS_ESC_QUOTE}
   ASN1_STRFLGS_ESC_QUOTE = 8;
 
   (* These three flags are internal use only. *)
 
   (* Character is a valid PrintableString character *)
-  {$EXTERNALSYM CHARTYPE_PRINTABLESTRING}
   CHARTYPE_PRINTABLESTRING = $10;
   (* Character needs escaping if it is the first character *)
-  {$EXTERNALSYM CHARTYPE_FIRST_ESC_2253}
   CHARTYPE_FIRST_ESC_2253 = $20;
   (* Character needs escaping if it is the last character *)
-  {$EXTERNALSYM CHARTYPE_LAST_ESC_2253}
   CHARTYPE_LAST_ESC_2253 = $40;
 
   (*
@@ -221,7 +169,6 @@ These are now opaque in OpenSSL 4.0.
    * If this is set we convert all character strings to UTF8 first
    *)
 
-  {$EXTERNALSYM ASN1_STRFLGS_UTF8_CONVERT}
   ASN1_STRFLGS_UTF8_CONVERT = $10;
 
   (*
@@ -230,11 +177,9 @@ These are now opaque in OpenSSL 4.0.
    * looking output!
    *)
 
-  {$EXTERNALSYM ASN1_STRFLGS_IGNORE_TYPE}
   ASN1_STRFLGS_IGNORE_TYPE = $20;
 
   (* If this is set we include the string type in the output *)
-  {$EXTERNALSYM ASN1_STRFLGS_SHOW_TYPE}
   ASN1_STRFLGS_SHOW_TYPE = $40;
 
   (*
@@ -245,9 +190,7 @@ These are now opaque in OpenSSL 4.0.
    * options.
    *)
 
-  {$EXTERNALSYM ASN1_STRFLGS_DUMP_ALL}
   ASN1_STRFLGS_DUMP_ALL = $80;
-  {$EXTERNALSYM ASN1_STRFLGS_DUMP_UNKNOWN}
   ASN1_STRFLGS_DUMP_UNKNOWN = $100;
 
   (*
@@ -255,14 +198,12 @@ These are now opaque in OpenSSL 4.0.
    * DER encoding: both use the RFC2253 #XXXXX notation.
    *)
 
-  {$EXTERNALSYM ASN1_STRFLGS_DUMP_DER}
   ASN1_STRFLGS_DUMP_DER = $200;
 
   (*
    * This flag specifies that RC2254 escaping shall be performed.
    *)
 
-  {$EXTERNALSYM ASN1_STRFLGS_ESC_2254}
   ASN1_STRFLGS_ESC_2254 = $400;
 
   (*
@@ -270,55 +211,41 @@ These are now opaque in OpenSSL 4.0.
    * isn't essential in RFC2253 but it is advisable anyway.
    *)
 
-  {$EXTERNALSYM ASN1_STRFLGS_RFC2253}
   ASN1_STRFLGS_RFC2253 = ASN1_STRFLGS_ESC_2253 or ASN1_STRFLGS_ESC_CTRL or
     ASN1_STRFLGS_ESC_MSB or ASN1_STRFLGS_UTF8_CONVERT or
     ASN1_STRFLGS_DUMP_UNKNOWN or ASN1_STRFLGS_DUMP_DER;
 
-  {$EXTERNALSYM B_ASN1_TIME}
   B_ASN1_TIME = B_ASN1_UTCTIME or B_ASN1_GENERALIZEDTIME;
 
-  {$EXTERNALSYM B_ASN1_PRINTABLE}
   B_ASN1_PRINTABLE = B_ASN1_NUMERICSTRING or B_ASN1_PRINTABLESTRING or
     B_ASN1_T61STRING or B_ASN1_IA5STRING or B_ASN1_BIT_STRING or
     B_ASN1_UNIVERSALSTRING or B_ASN1_BMPSTRING or B_ASN1_UTF8STRING or
     B_ASN1_SEQUENCE or B_ASN1_UNKNOWN;
 
-  {$EXTERNALSYM B_ASN1_DIRECTORYSTRING}
   B_ASN1_DIRECTORYSTRING = B_ASN1_PRINTABLESTRING or B_ASN1_TELETEXSTRING or
     B_ASN1_BMPSTRING or B_ASN1_UNIVERSALSTRING or B_ASN1_UTF8STRING;
 
-  {$EXTERNALSYM B_ASN1_DISPLAYTEXT}
   B_ASN1_DISPLAYTEXT = B_ASN1_IA5STRING or B_ASN1_VISIBLESTRING or
     B_ASN1_BMPSTRING or B_ASN1_UTF8STRING;
 
   (* ASN1 Print flags *)
   (* Indicate missing OPTIONAL fields *)
-  {$EXTERNALSYM ASN1_PCTX_FLAGS_SHOW_ABSENT}
   ASN1_PCTX_FLAGS_SHOW_ABSENT = $001;
   (* Mark start and end of SEQUENCE *)
-  {$EXTERNALSYM ASN1_PCTX_FLAGS_SHOW_SEQUENCE}
   ASN1_PCTX_FLAGS_SHOW_SEQUENCE = $002;
   (* Mark start and end of SEQUENCE/SET OF *)
-  {$EXTERNALSYM ASN1_PCTX_FLAGS_SHOW_SSOF}
   ASN1_PCTX_FLAGS_SHOW_SSOF = $004;
   (* Show the ASN1 type of primitives *)
-  {$EXTERNALSYM ASN1_PCTX_FLAGS_SHOW_TYPE}
   ASN1_PCTX_FLAGS_SHOW_TYPE = $008;
   (* Don't show ASN1 type of ANY *)
-  {$EXTERNALSYM ASN1_PCTX_FLAGS_NO_ANY_TYPE}
   ASN1_PCTX_FLAGS_NO_ANY_TYPE = $010;
   (* Don't show ASN1 type of MSTRINGs *)
-  {$EXTERNALSYM ASN1_PCTX_FLAGS_NO_MSTRING_TYPE}
   ASN1_PCTX_FLAGS_NO_MSTRING_TYPE = $020;
   (* Don't show field names in SEQUENCE *)
-  {$EXTERNALSYM ASN1_PCTX_FLAGS_NO_FIELD_NAME}
   ASN1_PCTX_FLAGS_NO_FIELD_NAME = $040;
   (* Show structure names of each SEQUENCE field *)
-  {$EXTERNALSYM ASN1_PCTX_FLAGS_SHOW_FIELD_STRUCT_NAME}
   ASN1_PCTX_FLAGS_SHOW_FIELD_STRUCT_NAME = $080;
   (* Don't show structure name even at top level *)
-  {$EXTERNALSYM ASN1_PCTX_FLAGS_NO_STRUCT_NAME}
   ASN1_PCTX_FLAGS_NO_STRUCT_NAME = $100;
 
 type
@@ -554,18 +481,12 @@ type
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 var
-  {$EXTERNALSYM ASN1_TYPE_get}
   ASN1_TYPE_get: function (const a: PASN1_TYPE): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM ASN1_TYPE_set}
   ASN1_TYPE_set: procedure (a: PASN1_TYPE; type_: TIdC_INT; value: Pointer); cdecl = nil;
-  {$EXTERNALSYM ASN1_TYPE_set1}
   ASN1_TYPE_set1: function (a: PASN1_TYPE; type_: TIdC_INT; const value: Pointer): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM ASN1_TYPE_cmp}
   ASN1_TYPE_cmp: function (const a: PASN1_TYPE; const b: PASN1_TYPE): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM ASN1_TYPE_pack_sequence}
   ASN1_TYPE_pack_sequence: function (const it: PASN1_ITEM; s: Pointer; t: PPASN1_TYPE): PASN1_TYPE; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM ASN1_TYPE_unpack_sequence}
   ASN1_TYPE_unpack_sequence: function (const it: PASN1_ITEM; const t: PASN1_TYPE): Pointer; cdecl = nil; {introduced 1.1.0}
 
   ASN1_OBJECT_new: function : PASN1_OBJECT; cdecl = nil;
@@ -616,42 +537,26 @@ var
   ASN1_BIT_STRING_get_length: function(abs_:  PASN1_BIT_STRING; _length : PIdC_SIZET; unused_bits : PIdC_INT) : TIdC_INT; cdecl = nil;
   ASN1_BIT_STRING_set1: function(abs_:  PASN1_BIT_STRING; data : PByte; _length : TIdC_SIZET; unused_bits : TIdC_INT) : TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM ASN1_INTEGER_new}
   ASN1_INTEGER_new: function : PASN1_INTEGER; cdecl = nil;
-  {$EXTERNALSYM ASN1_INTEGER_free}
   ASN1_INTEGER_free: procedure (a: PASN1_INTEGER); cdecl = nil;
-  {$EXTERNALSYM d2i_ASN1_INTEGER}
   d2i_ASN1_INTEGER: function (a: PPASN1_INTEGER; const in_: PPByte; len: TIdC_Long): PASN1_INTEGER; cdecl = nil;
-  {$EXTERNALSYM i2d_ASN1_INTEGER}
   i2d_ASN1_INTEGER: function (a: PASN1_INTEGER; out_: PPByte): TIdC_Int; cdecl = nil;
 
-  {$EXTERNALSYM d2i_ASN1_UINTEGER}
   d2i_ASN1_UINTEGER: function (a: PPASN1_INTEGER; const pp: PPByte; _length: TIdC_LONG): PASN1_INTEGER; cdecl = nil;
-  {$EXTERNALSYM ASN1_INTEGER_dup}
   ASN1_INTEGER_dup: function (const x: PASN1_INTEGER): PASN1_INTEGER; cdecl = nil;
-  {$EXTERNALSYM ASN1_INTEGER_cmp}
   ASN1_INTEGER_cmp: function (const x: PASN1_INTEGER; const y: PASN1_INTEGER): TIdC_INT; cdecl = nil;
 
   // DECLARE_ASN1_FUNCTIONS(ASN1_ENUMERATED)
 
-  {$EXTERNALSYM ASN1_UTCTIME_check}
   ASN1_UTCTIME_check: function (const a: PASN1_UTCTIME): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM ASN1_UTCTIME_set}
   ASN1_UTCTIME_set: function (s: PASN1_UTCTIME; t: TOSSL_TIMET): PASN1_UTCTIME; cdecl = nil;
-  {$EXTERNALSYM ASN1_UTCTIME_adj}
   ASN1_UTCTIME_adj: function (s: PASN1_UTCTIME; t: TOSSL_TIMET; offset_day: TIdC_INT; offset_sec: TIdC_LONG): PASN1_UTCTIME; cdecl = nil;
-  {$EXTERNALSYM ASN1_UTCTIME_set_string}
   ASN1_UTCTIME_set_string: function (s: PASN1_UTCTIME; const _str: PIdAnsiChar): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM ASN1_UTCTIME_cmp_time_t}
   ASN1_UTCTIME_cmp_time_t: function (const s: PASN1_UTCTIME; t: TOSSL_TIMET): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM ASN1_GENERALIZEDTIME_check}
   ASN1_GENERALIZEDTIME_check: function (const a: PASN1_GENERALIZEDTIME): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM ASN1_GENERALIZEDTIME_set}
   ASN1_GENERALIZEDTIME_set: function (s: PASN1_GENERALIZEDTIME; t: TOSSL_TIMET): PASN1_GENERALIZEDTIME; cdecl = nil;
-  {$EXTERNALSYM ASN1_GENERALIZEDTIME_adj}
   ASN1_GENERALIZEDTIME_adj: function (s: PASN1_GENERALIZEDTIME; t: TOSSL_TIMET; offset_day: TIdC_INT; offset_sec: TIdC_LONG): PASN1_GENERALIZEDTIME; cdecl = nil;
-  {$EXTERNALSYM ASN1_GENERALIZEDTIME_set_string}
   ASN1_GENERALIZEDTIME_set_string: function (s: pASN1_GENERALIZEDTIME; const _str: PIdAnsiChar): TIdC_INT; cdecl = nil;
 
   ASN1_TIME_diff: function (pday: PIdC_INT; psec: PIdC_INT; const from: PASN1_TIME; const to_: PASN1_TIME): TIdC_INT; cdecl = nil;
@@ -681,22 +586,14 @@ var
   //DECLARE_ASN1_FUNCTIONS(ASN1_IA5STRING)
   //DECLARE_ASN1_FUNCTIONS(ASN1_GENERALSTRING)
 
-  {$EXTERNALSYM ASN1_UTCTIME_new}
   ASN1_UTCTIME_new: function : PASN1_UTCTIME; cdecl = nil;
-  {$EXTERNALSYM ASN1_UTCTIME_free}
   ASN1_UTCTIME_free: procedure (a: PASN1_UTCTIME); cdecl = nil;
-  {$EXTERNALSYM d2i_ASN1_UTCTIME}
   d2i_ASN1_UTCTIME: function (a: PPASN1_UTCTIME; const in_: PPByte; len: TIdC_LONG): PASN1_UTCTIME; cdecl = nil;
-  {$EXTERNALSYM i2d_ASN1_UTCTIME}
   i2d_ASN1_UTCTIME: function (a: PASN1_UTCTIME; out_: PPByte): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM ASN1_GENERALIZEDTIME_new}
   ASN1_GENERALIZEDTIME_new: function : PASN1_GENERALIZEDTIME; cdecl = nil;
-  {$EXTERNALSYM ASN1_GENERALIZEDTIME_free}
   ASN1_GENERALIZEDTIME_free: procedure (a: PASN1_GENERALIZEDTIME); cdecl = nil;
-  {$EXTERNALSYM d2i_ASN1_GENERALIZEDTIME}
   d2i_ASN1_GENERALIZEDTIME: function (a: PPASN1_GENERALIZEDTIME; const in_: PPByte; len: TIdC_LONG): PASN1_GENERALIZEDTIME; cdecl = nil;
-  {$EXTERNALSYM i2d_ASN1_GENERALIZEDTIME}
   i2d_ASN1_GENERALIZEDTIME: function (a: PASN1_GENERALIZEDTIME; out_: PPByte): TIdC_INT; cdecl = nil;
 
   ASN1_TIME_new: function : PASN1_TIME; cdecl = nil;
@@ -709,7 +606,6 @@ var
   ASN1_TIME_set: function (s: PASN1_TIME; t: TOSSL_TIMET): PASN1_TIME; cdecl = nil;
   ASN1_TIME_adj: function (s: PASN1_TIME; t: TOSSL_TIMET; offset_day: TIdC_INT; offset_sec: TIdC_LONG): PASN1_TIME; cdecl = nil;
   ASN1_TIME_check: function (const t: PASN1_TIME): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM ASN1_TIME_to_generalizedtime}
   ASN1_TIME_to_generalizedtime: function (const t: PASN1_TIME; out_: PPASN1_GENERALIZEDTIME): PASN1_GENERALIZEDTIME; cdecl = nil;
   ASN1_TIME_set_string: function (s: PASN1_TIME; const _str: PIdAnsiChar): TIdC_INT; cdecl = nil;
   ASN1_TIME_set_string_X509: function (s: PASN1_TIME; const _str: PIdAnsiChar): TIdC_INT; cdecl = nil; {introduced 1.1.0}
@@ -718,13 +614,9 @@ var
   ASN1_TIME_cmp_time_t: function (const s: PASN1_TIME; t: TOSSL_TIMET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   ASN1_TIME_compare: function (const a: PASN1_TIME; const b: PASN1_TIME): TIdC_INT; cdecl = nil; {introduced 1.1.0}
 
-  {$EXTERNALSYM i2a_ASN1_INTEGER}
   i2a_ASN1_INTEGER: function (bp: PBIO; const a: PASN1_INTEGER): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM a2i_ASN1_INTEGER}
   a2i_ASN1_INTEGER: function (bp: PBIO; bs: PASN1_INTEGER; buf: PIdAnsiChar; size: TIdC_INT): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM i2a_ASN1_ENUMERATED}
   i2a_ASN1_ENUMERATED: function (bp: PBIO; const a: PASN1_ENUMERATED): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM a2i_ASN1_ENUMERATED}
   a2i_ASN1_ENUMERATED: function (bp: PBIO; bs: PASN1_ENUMERATED; buf: PIdAnsiChar; size: TIdC_INT): TIdC_INT; cdecl = nil;
   i2a_ASN1_OBJECT: function (bp: PBIO; const a: PASN1_OBJECT): TIdC_INT; cdecl = nil;
   a2i_ASN1_STRING: function (bp: PBIO; bs: PASN1_STRING; buf: PIdAnsiChar; size: TIdC_INT): TIdC_INT; cdecl = nil;
@@ -734,37 +626,23 @@ var
   a2d_ASN1_OBJECT: function (out_: PByte; olen: TIdC_INT; const buf: PIdAnsiChar; num: TIdC_INT): TIdC_INT; cdecl = nil;
   ASN1_OBJECT_create: function (nid: TIdC_INT; data: PByte; len: TIdC_INT; const sn: PIdAnsiChar; const _ln: PIdAnsiChar): PASN1_OBJECT; cdecl = nil;
 
-  {$EXTERNALSYM ASN1_INTEGER_get_int64}
   ASN1_INTEGER_get_int64: function (pr: PIdC_Int64; const a: PASN1_INTEGER): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM ASN1_INTEGER_set_int64}
   ASN1_INTEGER_set_int64: function (a: PASN1_INTEGER; r: TIdC_Int64): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM ASN1_INTEGER_get_uint64}
   ASN1_INTEGER_get_uint64: function (pr: PIdC_UInt64; const a: PASN1_INTEGER): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM ASN1_INTEGER_set_uint64}
   ASN1_INTEGER_set_uint64: function (a: PASN1_INTEGER; r: TIdC_UInt64): TIdC_INT; cdecl = nil; {introduced 1.1.0}
 
-  {$EXTERNALSYM ASN1_INTEGER_set}
   ASN1_INTEGER_set: function (a: PASN1_INTEGER; v: TIdC_LONG): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM ASN1_INTEGER_get}
   ASN1_INTEGER_get: function (const a: PASN1_INTEGER): TIdC_LONG; cdecl = nil;
-  {$EXTERNALSYM BN_to_ASN1_INTEGER}
   BN_to_ASN1_INTEGER: function (const bn: PBIGNUM; ai: PASN1_INTEGER): PASN1_INTEGER; cdecl = nil;
-  {$EXTERNALSYM ASN1_INTEGER_to_BN}
   ASN1_INTEGER_to_BN: function (const ai: PASN1_INTEGER; bn: PBIGNUM): PBIGNUM; cdecl = nil;
 
-  {$EXTERNALSYM ASN1_ENUMERATED_get_int64}
   ASN1_ENUMERATED_get_int64: function (pr: PIdC_Int64; const a: PASN1_ENUMERATED): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM ASN1_ENUMERATED_set_int64}
   ASN1_ENUMERATED_set_int64: function (a: PASN1_ENUMERATED; r: TIdC_Int64): TIdC_INT; cdecl = nil; {introduced 1.1.0}
 
 
-  {$EXTERNALSYM ASN1_ENUMERATED_set}
   ASN1_ENUMERATED_set: function (a: PASN1_ENUMERATED; v: TIdC_LONG): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM ASN1_ENUMERATED_get}
   ASN1_ENUMERATED_get: function (const a: PASN1_ENUMERATED): TIdC_LONG; cdecl = nil;
-  {$EXTERNALSYM BN_to_ASN1_ENUMERATED}
   BN_to_ASN1_ENUMERATED: function (const bn: PBIGNUM; ai: PASN1_ENUMERATED): PASN1_ENUMERATED; cdecl = nil;
-  {$EXTERNALSYM ASN1_ENUMERATED_to_BN}
   ASN1_ENUMERATED_to_BN: function (const ai: PASN1_ENUMERATED; bn: PBIGNUM): PBIGNUM; cdecl = nil;
 
   (* General *)
@@ -852,9 +730,7 @@ var
   //                  CHECKED_PTR_OF(const type, x)))
 
   ASN1_item_i2d_bio: function (const it: PASN1_ITEM; out_: PBIO; x: Pointer): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM ASN1_UTCTIME_print}
   ASN1_UTCTIME_print: function (fp: PBIO; const a: PASN1_UTCTIME): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM ASN1_GENERALIZEDTIME_print}
   ASN1_GENERALIZEDTIME_print: function (fp: PBIO; const a: PASN1_GENERALIZEDTIME): TIdC_INT; cdecl = nil;
   ASN1_TIME_print: function (fp: PBIO; const a: PASN1_TIME): TIdC_INT; cdecl = nil;
   ASN1_STRING_print: function (bp: PBIO; const v: PASN1_STRING): TIdC_INT; cdecl = nil;
@@ -867,16 +743,11 @@ var
 
   (* Used to load and write Netscape format cert *)
 
-  {$EXTERNALSYM ASN1_UNIVERSALSTRING_to_string}
   ASN1_UNIVERSALSTRING_to_string: function (s: PASN1_UNIVERSALSTRING): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM ASN1_TYPE_set_octetstring}
   ASN1_TYPE_set_octetstring: function (a: PASN1_TYPE; data: PByte; len: TIdC_INT): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM ASN1_TYPE_get_octetstring}
   ASN1_TYPE_get_octetstring: function (const a: PASN1_TYPE; data: PByte; max_len: TIdC_INT): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM ASN1_TYPE_set_int_octetstring}
   ASN1_TYPE_set_int_octetstring: function (a: PASN1_TYPE; num: TIdC_LONG; data: PByte; len: TIdC_INT): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM ASN1_TYPE_get_int_octetstring}
   ASN1_TYPE_get_int_octetstring: function (const a: PASN1_TYPE; num: PIdC_LONG; data: PByte; max_len: TIdC_INT): TIdC_INT; cdecl = nil;
 
   ASN1_item_unpack: function (const oct: PASN1_STRING; const it: PASN1_ITEM): Pointer; cdecl = nil;
@@ -884,7 +755,6 @@ var
   ASN1_item_pack: function (obj: Pointer; const it: PASN1_ITEM; oct: PPASN1_OCTET_STRING): PASN1_STRING; cdecl = nil;
 
   ASN1_STRING_set_default_mask: procedure (mask: TIdC_ULONG); cdecl = nil;
-  {$EXTERNALSYM ASN1_STRING_set_default_mask_asc}
   ASN1_STRING_set_default_mask_asc: function (const p: PIdAnsiChar): TIdC_INT; cdecl = nil;
   ASN1_STRING_get_default_mask: function : TIdC_ULONG; cdecl = nil;
   ASN1_mbstring_copy: function (out_: PPASN1_STRING; const in_: PByte; len: TIdC_INT; inform: TIdC_INT; mask: TIdC_ULONG): TIdC_INT; cdecl = nil;
@@ -907,9 +777,7 @@ var
   ASN1_add_oid_module: procedure ; cdecl = nil;
   ASN1_add_stable_module: procedure ; cdecl = nil; {introduced 1.1.0}
 
-  {$EXTERNALSYM ASN1_generate_nconf}
   ASN1_generate_nconf: function (const _str: PIdAnsiChar; nconf: PCONF): PASN1_TYPE; cdecl = nil;
-  {$EXTERNALSYM ASN1_generate_v3}
   ASN1_generate_v3: function (const _str: PIdAnsiChar; cnf: PX509V3_CTX): PASN1_TYPE; cdecl = nil;
   ASN1_str2mask: function (const _str: PByte; pmask: PIdC_ULONG): TIdC_INT; cdecl = nil; {introduced 1.1.0}
 
@@ -952,18 +820,12 @@ var
   ASN1_ITEM_get: function (i: TIdC_SIZET): PASN1_ITEM; cdecl = nil; {introduced 1.1.0}
 
 {$ELSE}
-  {$EXTERNALSYM ASN1_TYPE_get}
   function ASN1_TYPE_get(const a: PASN1_TYPE): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM ASN1_TYPE_set}
   procedure ASN1_TYPE_set(a: PASN1_TYPE; type_: TIdC_INT; value: Pointer) cdecl; external CLibCrypto;
-  {$EXTERNALSYM ASN1_TYPE_set1}
   function ASN1_TYPE_set1(a: PASN1_TYPE; type_: TIdC_INT; const value: Pointer): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM ASN1_TYPE_cmp}
   function ASN1_TYPE_cmp(const a: PASN1_TYPE; const b: PASN1_TYPE): TIdC_INT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM ASN1_TYPE_pack_sequence}
   function ASN1_TYPE_pack_sequence(const it: PASN1_ITEM; s: Pointer; t: PPASN1_TYPE): PASN1_TYPE cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM ASN1_TYPE_unpack_sequence}
   function ASN1_TYPE_unpack_sequence(const it: PASN1_ITEM; const t: PASN1_TYPE): Pointer cdecl; external CLibCrypto; {introduced 1.1.0}
 
   function ASN1_OBJECT_new: PASN1_OBJECT cdecl; external CLibCrypto;
@@ -1015,42 +877,26 @@ var
   function ASN1_BIT_STRING_get_length(abs_:  PASN1_BIT_STRING; _length : PIdC_SIZET; unused_bits : PIdC_INT) : TIdC_INT cdecl; external CLibCrypto;
   function ASN1_BIT_STRING_set1(abs_:  PASN1_BIT_STRING; data : PByte; _length : TIdC_SIZET; unused_bits : TIdC_INT) : TIdC_INT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM ASN1_INTEGER_new}
   function ASN1_INTEGER_new: PASN1_INTEGER cdecl; external CLibCrypto;
-  {$EXTERNALSYM ASN1_INTEGER_free}
   procedure ASN1_INTEGER_free(a: PASN1_INTEGER) cdecl; external CLibCrypto;
-  {$EXTERNALSYM d2i_ASN1_INTEGER}
   function d2i_ASN1_INTEGER(a: PPASN1_INTEGER; const in_: PPByte; len: TIdC_Long): PASN1_INTEGER cdecl; external CLibCrypto;
-  {$EXTERNALSYM i2d_ASN1_INTEGER}
   function i2d_ASN1_INTEGER(a: PASN1_INTEGER; out_: PPByte): TIdC_Int cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM d2i_ASN1_UINTEGER}
   function d2i_ASN1_UINTEGER(a: PPASN1_INTEGER; const pp: PPByte; _length: TIdC_LONG): PASN1_INTEGER cdecl; external CLibCrypto;
-  {$EXTERNALSYM ASN1_INTEGER_dup}
   function ASN1_INTEGER_dup(const x: PASN1_INTEGER): PASN1_INTEGER cdecl; external CLibCrypto;
-  {$EXTERNALSYM ASN1_INTEGER_cmp}
   function ASN1_INTEGER_cmp(const x: PASN1_INTEGER; const y: PASN1_INTEGER): TIdC_INT cdecl; external CLibCrypto;
 
   // DECLARE_ASN1_FUNCTIONS(ASN1_ENUMERATED)
 
-  {$EXTERNALSYM ASN1_UTCTIME_check}
   function ASN1_UTCTIME_check(const a: PASN1_UTCTIME): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM ASN1_UTCTIME_set}
   function ASN1_UTCTIME_set(s: PASN1_UTCTIME; t: TOSSL_TIMET): PASN1_UTCTIME cdecl; external CLibCrypto;
-  {$EXTERNALSYM ASN1_UTCTIME_adj}
   function ASN1_UTCTIME_adj(s: PASN1_UTCTIME; t: TOSSL_TIMET; offset_day: TIdC_INT; offset_sec: TIdC_LONG): PASN1_UTCTIME cdecl; external CLibCrypto;
-  {$EXTERNALSYM ASN1_UTCTIME_set_string}
   function ASN1_UTCTIME_set_string(s: PASN1_UTCTIME; const _str: PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM ASN1_UTCTIME_cmp_time_t}
   function ASN1_UTCTIME_cmp_time_t(const s: PASN1_UTCTIME; t: TOSSL_TIMET): TIdC_INT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM ASN1_GENERALIZEDTIME_check}
   function ASN1_GENERALIZEDTIME_check(const a: PASN1_GENERALIZEDTIME): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM ASN1_GENERALIZEDTIME_set}
   function ASN1_GENERALIZEDTIME_set(s: PASN1_GENERALIZEDTIME; t: TOSSL_TIMET): PASN1_GENERALIZEDTIME cdecl; external CLibCrypto;
-  {$EXTERNALSYM ASN1_GENERALIZEDTIME_adj}
   function ASN1_GENERALIZEDTIME_adj(s: PASN1_GENERALIZEDTIME; t: TOSSL_TIMET; offset_day: TIdC_INT; offset_sec: TIdC_LONG): PASN1_GENERALIZEDTIME cdecl; external CLibCrypto;
-  {$EXTERNALSYM ASN1_GENERALIZEDTIME_set_string}
   function ASN1_GENERALIZEDTIME_set_string(s: pASN1_GENERALIZEDTIME; const _str: PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
 
   function ASN1_TIME_diff(pday: PIdC_INT; psec: PIdC_INT; const from: PASN1_TIME; const to_: PASN1_TIME): TIdC_INT cdecl; external CLibCrypto;
@@ -1081,22 +927,14 @@ var
   //DECLARE_ASN1_FUNCTIONS(ASN1_IA5STRING)
   //DECLARE_ASN1_FUNCTIONS(ASN1_GENERALSTRING)
 
-  {$EXTERNALSYM ASN1_UTCTIME_new}
   function ASN1_UTCTIME_new: PASN1_UTCTIME cdecl; external CLibCrypto;
-  {$EXTERNALSYM ASN1_UTCTIME_free}
   procedure ASN1_UTCTIME_free(a: PASN1_UTCTIME) cdecl; external CLibCrypto;
-  {$EXTERNALSYM d2i_ASN1_UTCTIME}
   function d2i_ASN1_UTCTIME(a: PPASN1_UTCTIME; const in_: PPByte; len: TIdC_LONG): PASN1_UTCTIME cdecl; external CLibCrypto;
-  {$EXTERNALSYM i2d_ASN1_UTCTIME}
   function i2d_ASN1_UTCTIME(a: PASN1_UTCTIME; out_: PPByte): TIdC_INT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM ASN1_GENERALIZEDTIME_new}
   function ASN1_GENERALIZEDTIME_new: PASN1_GENERALIZEDTIME cdecl; external CLibCrypto;
-  {$EXTERNALSYM ASN1_GENERALIZEDTIME_free}
   procedure ASN1_GENERALIZEDTIME_free(a: PASN1_GENERALIZEDTIME) cdecl; external CLibCrypto;
-  {$EXTERNALSYM d2i_ASN1_GENERALIZEDTIME}
   function d2i_ASN1_GENERALIZEDTIME(a: PPASN1_GENERALIZEDTIME; const in_: PPByte; len: TIdC_LONG): PASN1_GENERALIZEDTIME cdecl; external CLibCrypto;
-  {$EXTERNALSYM i2d_ASN1_GENERALIZEDTIME}
   function i2d_ASN1_GENERALIZEDTIME(a: PASN1_GENERALIZEDTIME; out_: PPByte): TIdC_INT cdecl; external CLibCrypto;
 
   function ASN1_TIME_new: PASN1_TIME cdecl; external CLibCrypto;
@@ -1109,7 +947,6 @@ var
   function ASN1_TIME_set(s: PASN1_TIME; t: TOSSL_TIMET): PASN1_TIME cdecl; external CLibCrypto;
   function ASN1_TIME_adj(s: PASN1_TIME; t: TOSSL_TIMET; offset_day: TIdC_INT; offset_sec: TIdC_LONG): PASN1_TIME cdecl; external CLibCrypto;
   function ASN1_TIME_check(const t: PASN1_TIME): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM ASN1_TIME_to_generalizedtime}
   function ASN1_TIME_to_generalizedtime(const t: PASN1_TIME; out_: PPASN1_GENERALIZEDTIME): PASN1_GENERALIZEDTIME cdecl; external CLibCrypto;
   function ASN1_TIME_set_string(s: PASN1_TIME; const _str: PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
   function ASN1_TIME_set_string_X509(s: PASN1_TIME; const _str: PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
@@ -1118,13 +955,9 @@ var
   function ASN1_TIME_cmp_time_t(const s: PASN1_TIME; t: TOSSL_TIMET): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
   function ASN1_TIME_compare(const a: PASN1_TIME; const b: PASN1_TIME): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
 
-  {$EXTERNALSYM i2a_ASN1_INTEGER}
   function i2a_ASN1_INTEGER(bp: PBIO; const a: PASN1_INTEGER): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM a2i_ASN1_INTEGER}
   function a2i_ASN1_INTEGER(bp: PBIO; bs: PASN1_INTEGER; buf: PIdAnsiChar; size: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM i2a_ASN1_ENUMERATED}
   function i2a_ASN1_ENUMERATED(bp: PBIO; const a: PASN1_ENUMERATED): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM a2i_ASN1_ENUMERATED}
   function a2i_ASN1_ENUMERATED(bp: PBIO; bs: PASN1_ENUMERATED; buf: PIdAnsiChar; size: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function i2a_ASN1_OBJECT(bp: PBIO; const a: PASN1_OBJECT): TIdC_INT cdecl; external CLibCrypto;
   function a2i_ASN1_STRING(bp: PBIO; bs: PASN1_STRING; buf: PIdAnsiChar; size: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
@@ -1134,37 +967,23 @@ var
   function a2d_ASN1_OBJECT(out_: PByte; olen: TIdC_INT; const buf: PIdAnsiChar; num: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function ASN1_OBJECT_create(nid: TIdC_INT; data: PByte; len: TIdC_INT; const sn: PIdAnsiChar; const _ln: PIdAnsiChar): PASN1_OBJECT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM ASN1_INTEGER_get_int64}
   function ASN1_INTEGER_get_int64(pr: PIdC_Int64; const a: PASN1_INTEGER): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM ASN1_INTEGER_set_int64}
   function ASN1_INTEGER_set_int64(a: PASN1_INTEGER; r: TIdC_Int64): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM ASN1_INTEGER_get_uint64}
   function ASN1_INTEGER_get_uint64(pr: PIdC_UInt64; const a: PASN1_INTEGER): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM ASN1_INTEGER_set_uint64}
   function ASN1_INTEGER_set_uint64(a: PASN1_INTEGER; r: TIdC_UInt64): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
 
-  {$EXTERNALSYM ASN1_INTEGER_set}
   function ASN1_INTEGER_set(a: PASN1_INTEGER; v: TIdC_LONG): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM ASN1_INTEGER_get}
   function ASN1_INTEGER_get(const a: PASN1_INTEGER): TIdC_LONG cdecl; external CLibCrypto;
-  {$EXTERNALSYM BN_to_ASN1_INTEGER}
   function BN_to_ASN1_INTEGER(const bn: PBIGNUM; ai: PASN1_INTEGER): PASN1_INTEGER cdecl; external CLibCrypto;
-  {$EXTERNALSYM ASN1_INTEGER_to_BN}
   function ASN1_INTEGER_to_BN(const ai: PASN1_INTEGER; bn: PBIGNUM): PBIGNUM cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM ASN1_ENUMERATED_get_int64}
   function ASN1_ENUMERATED_get_int64(pr: PIdC_Int64; const a: PASN1_ENUMERATED): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM ASN1_ENUMERATED_set_int64}
   function ASN1_ENUMERATED_set_int64(a: PASN1_ENUMERATED; r: TIdC_Int64): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
 
 
-  {$EXTERNALSYM ASN1_ENUMERATED_set}
   function ASN1_ENUMERATED_set(a: PASN1_ENUMERATED; v: TIdC_LONG): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM ASN1_ENUMERATED_get}
   function ASN1_ENUMERATED_get(const a: PASN1_ENUMERATED): TIdC_LONG cdecl; external CLibCrypto;
-  {$EXTERNALSYM BN_to_ASN1_ENUMERATED}
   function BN_to_ASN1_ENUMERATED(const bn: PBIGNUM; ai: PASN1_ENUMERATED): PASN1_ENUMERATED cdecl; external CLibCrypto;
-  {$EXTERNALSYM ASN1_ENUMERATED_to_BN}
   function ASN1_ENUMERATED_to_BN(const ai: PASN1_ENUMERATED; bn: PBIGNUM): PBIGNUM cdecl; external CLibCrypto;
 
   (* General *)
@@ -1251,9 +1070,7 @@ var
   //                  CHECKED_PTR_OF(const type, x)))
 
   function ASN1_item_i2d_bio(const it: PASN1_ITEM; out_: PBIO; x: Pointer): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM ASN1_UTCTIME_print}
   function ASN1_UTCTIME_print(fp: PBIO; const a: PASN1_UTCTIME): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM ASN1_GENERALIZEDTIME_print}
   function ASN1_GENERALIZEDTIME_print(fp: PBIO; const a: PASN1_GENERALIZEDTIME): TIdC_INT cdecl; external CLibCrypto;
   function ASN1_TIME_print(fp: PBIO; const a: PASN1_TIME): TIdC_INT cdecl; external CLibCrypto;
   function ASN1_STRING_print(bp: PBIO; const v: PASN1_STRING): TIdC_INT cdecl; external CLibCrypto;
@@ -1266,16 +1083,11 @@ var
 
   (* Used to load and write Netscape format cert *)
 
-  {$EXTERNALSYM ASN1_UNIVERSALSTRING_to_string}
   function ASN1_UNIVERSALSTRING_to_string(s: PASN1_UNIVERSALSTRING): TIdC_INT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM ASN1_TYPE_set_octetstring}
   function ASN1_TYPE_set_octetstring(a: PASN1_TYPE; data: PByte; len: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM ASN1_TYPE_get_octetstring}
   function ASN1_TYPE_get_octetstring(const a: PASN1_TYPE; data: PByte; max_len: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM ASN1_TYPE_set_int_octetstring}
   function ASN1_TYPE_set_int_octetstring(a: PASN1_TYPE; num: TIdC_LONG; data: PByte; len: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM ASN1_TYPE_get_int_octetstring}
   function ASN1_TYPE_get_int_octetstring(const a: PASN1_TYPE; num: PIdC_LONG; data: PByte; max_len: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
 
   function ASN1_item_unpack(const oct: PASN1_STRING; const it: PASN1_ITEM): Pointer cdecl; external CLibCrypto;
@@ -1283,7 +1095,6 @@ var
   function ASN1_item_pack(obj: Pointer; const it: PASN1_ITEM; oct: PPASN1_OCTET_STRING): PASN1_STRING cdecl; external CLibCrypto;
 
   procedure ASN1_STRING_set_default_mask(mask: TIdC_ULONG) cdecl; external CLibCrypto;
-  {$EXTERNALSYM ASN1_STRING_set_default_mask_asc}
   function ASN1_STRING_set_default_mask_asc(const p: PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
   function ASN1_STRING_get_default_mask: TIdC_ULONG cdecl; external CLibCrypto;
   function ASN1_mbstring_copy(out_: PPASN1_STRING; const in_: PByte; len: TIdC_INT; inform: TIdC_INT; mask: TIdC_ULONG): TIdC_INT cdecl; external CLibCrypto;
@@ -1306,9 +1117,7 @@ var
   procedure ASN1_add_oid_module cdecl; external CLibCrypto;
   procedure ASN1_add_stable_module cdecl; external CLibCrypto; {introduced 1.1.0}
 
-  {$EXTERNALSYM ASN1_generate_nconf}
   function ASN1_generate_nconf(const _str: PIdAnsiChar; nconf: PCONF): PASN1_TYPE cdecl; external CLibCrypto;
-  {$EXTERNALSYM ASN1_generate_v3}
   function ASN1_generate_v3(const _str: PIdAnsiChar; cnf: PX509V3_CTX): PASN1_TYPE cdecl; external CLibCrypto;
   function ASN1_str2mask(const _str: PByte; pmask: PIdC_ULONG): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
 
@@ -1368,48 +1177,36 @@ type
   Tsk_ASN1_INTEGER_new_null = function : PSTACK_OF_ASN1_INTEGER cdecl;
   Tsk_ASN1_INTEGER_free = procedure(st : PSTACK_OF_ASN1_INTEGER) cdecl;
   Tsk_ASN1_INTEGER_num = function (const sk : PSTACK_OF_ASN1_INTEGER) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_ASN1_INTEGER_value}
   Tsk_ASN1_INTEGER_value = function (const sk : PSTACK_OF_ASN1_INTEGER; i : TIdC_INT) : PASN1_INTEGER cdecl;
-  {$EXTERNALSYM Tsk_ASN1_INTEGER_push}
   Tsk_ASN1_INTEGER_push = function (sk : PSTACK_OF_ASN1_INTEGER; st : PASN1_INTEGER) : TIdC_INT cdecl;
   Tsk_ASN1_INTEGER_dup = function (sk : PSTACK_OF_ASN1_INTEGER) : PSTACK_OF_ASN1_INTEGER cdecl;
-  {$EXTERNALSYM Tsk_ASN1_INTEGER_find}
   Tsk_ASN1_INTEGER_find = function (sk : PSTACK_OF_ASN1_INTEGER; _val : PASN1_INTEGER) : TIdC_INT cdecl;
   Tsk_ASN1_INTEGER_pop_free = procedure (sk : PSTACK_OF_ASN1_INTEGER; func: TOPENSSL_sk_freefunc) cdecl;
   Tsk_ASN1_GENERALSTRING_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_ASN1_GENERALSTRING cdecl;
   Tsk_ASN1_GENERALSTRING_new_null = function : PSTACK_OF_ASN1_GENERALSTRING cdecl;
   Tsk_ASN1_GENERALSTRING_free = procedure(st : PSTACK_OF_ASN1_GENERALSTRING) cdecl;
   Tsk_ASN1_GENERALSTRING_num = function (const sk : PSTACK_OF_ASN1_GENERALSTRING) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_ASN1_GENERALSTRING_value}
   Tsk_ASN1_GENERALSTRING_value = function (const sk : PSTACK_OF_ASN1_GENERALSTRING; i : TIdC_INT) : PASN1_GENERALSTRING cdecl;
-  {$EXTERNALSYM Tsk_ASN1_GENERALSTRING_push}
   Tsk_ASN1_GENERALSTRING_push = function (sk : PSTACK_OF_ASN1_GENERALSTRING; st : PASN1_GENERALSTRING) : TIdC_INT cdecl;
   Tsk_ASN1_GENERALSTRING_dup = function (sk : PSTACK_OF_ASN1_GENERALSTRING) : PSTACK_OF_ASN1_GENERALSTRING cdecl;
-  {$EXTERNALSYM Tsk_ASN1_GENERALSTRING_find}
   Tsk_ASN1_GENERALSTRING_find = function (sk : PSTACK_OF_ASN1_GENERALSTRING; _val : PASN1_GENERALSTRING) : TIdC_INT cdecl;
   Tsk_ASN1_GENERALSTRING_pop_free = procedure (sk : PSTACK_OF_ASN1_GENERALSTRING; func: TOPENSSL_sk_freefunc) cdecl;
   Tsk_ASN1_UTF8STRING_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_ASN1_UTF8STRING cdecl;
   Tsk_ASN1_UTF8STRING_new_null = function : PSTACK_OF_ASN1_UTF8STRING cdecl;
   Tsk_ASN1_UTF8STRING_free = procedure(st : PSTACK_OF_ASN1_UTF8STRING) cdecl;
   Tsk_ASN1_UTF8STRING_num = function (const sk : PSTACK_OF_ASN1_UTF8STRING) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_ASN1_UTF8STRING_value}
   Tsk_ASN1_UTF8STRING_value = function (const sk : PSTACK_OF_ASN1_UTF8STRING; i : TIdC_INT) : PASN1_UTF8STRING cdecl;
-  {$EXTERNALSYM Tsk_ASN1_UTF8STRING_push}
   Tsk_ASN1_UTF8STRING_push = function (sk : PSTACK_OF_ASN1_UTF8STRING; st : PASN1_UTF8STRING) : TIdC_INT cdecl;
   Tsk_ASN1_UTF8STRING_dup = function (sk : PSTACK_OF_ASN1_UTF8STRING) : PSTACK_OF_ASN1_UTF8STRING cdecl;
-  {$EXTERNALSYM Tsk_ASN1_UTF8STRING_find}
   Tsk_ASN1_UTF8STRING_find = function (sk : PSTACK_OF_ASN1_UTF8STRING; _val : PASN1_UTF8STRING) : TIdC_INT cdecl;
   Tsk_ASN1_UTF8STRING_pop_free = procedure (sk : PSTACK_OF_ASN1_UTF8STRING; func: TOPENSSL_sk_freefunc) cdecl;
   Tsk_ASN1_TYPE_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_ASN1_TYPE cdecl;
   Tsk_ASN1_TYPE_new_null = function : PSTACK_OF_ASN1_TYPE cdecl;
   Tsk_ASN1_TYPE_free = procedure(st : PSTACK_OF_ASN1_TYPE) cdecl;
   Tsk_ASN1_TYPE_num = function (const sk : PSTACK_OF_ASN1_TYPE) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_ASN1_TYPE_value}
   Tsk_ASN1_TYPE_value = function (const sk : PSTACK_OF_ASN1_TYPE; i : TIdC_INT) : PASN1_TYPE cdecl;
-  {$EXTERNALSYM Tsk_ASN1_TYPE_push}
   Tsk_ASN1_TYPE_push = function (sk : PSTACK_OF_ASN1_TYPE; st : PASN1_TYPE) : TIdC_INT cdecl;
   Tsk_ASN1_TYPE_dup = function (sk : PSTACK_OF_ASN1_TYPE) : PSTACK_OF_ASN1_TYPE cdecl;
-  {$EXTERNALSYM Tsk_ASN1_TYPE_find}
   Tsk_ASN1_TYPE_find = function (sk : PSTACK_OF_ASN1_TYPE; _val : PASN1_TYPE) : TIdC_INT cdecl;
   Tsk_ASN1_TYPE_pop_free = procedure (sk : PSTACK_OF_ASN1_TYPE; func: TOPENSSL_sk_freefunc) cdecl;
   Tsk_X509_ALGOR_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_X509_ALGOR cdecl;
@@ -1432,222 +1229,114 @@ type
   Tsk_ASN1_STRING_TABLE_pop_free = procedure (sk : PSTACK_OF_ASN1_STRING_TABLE; func: TOPENSSL_sk_freefunc) cdecl;
 
 var
-  {$EXTERNALSYM sk_ASN1_OBJECT_new}
   sk_ASN1_OBJECT_new: Tsk_ASN1_OBJECT_new = nil;
-  {$EXTERNALSYM sk_ASN1_OBJECT_new_null}
   sk_ASN1_OBJECT_new_null : Tsk_ASN1_OBJECT_new_null = nil;
-  {$EXTERNALSYM sk_ASN1_OBJECT_free}
   sk_ASN1_OBJECT_free : Tsk_ASN1_OBJECT_free = nil;
-  {$EXTERNALSYM sk_ASN1_OBJECT_num}
   sk_ASN1_OBJECT_num : Tsk_ASN1_OBJECT_num = nil;
-  {$EXTERNALSYM sk_ASN1_OBJECT_value}
   sk_ASN1_OBJECT_value : Tsk_ASN1_OBJECT_value = nil;
-  {$EXTERNALSYM sk_ASN1_OBJECT_push}
   sk_ASN1_OBJECT_push : Tsk_ASN1_OBJECT_push = nil;
-  {$EXTERNALSYM sk_ASN1_OBJECT_dup}
   sk_ASN1_OBJECT_dup : Tsk_ASN1_OBJECT_dup = nil;
-  {$EXTERNALSYM sk_ASN1_OBJECT_find}
   sk_ASN1_OBJECT_find : Tsk_ASN1_OBJECT_find = nil;
-  {$EXTERNALSYM sk_ASN1_OBJECT_pop_free}
   sk_ASN1_OBJECT_pop_free : Tsk_ASN1_OBJECT_pop_free = nil;
-  {$EXTERNALSYM sk_ASN1_INTEGER_new}
   sk_ASN1_INTEGER_new: Tsk_ASN1_INTEGER_new = nil;
-  {$EXTERNALSYM sk_ASN1_INTEGER_new_null}
   sk_ASN1_INTEGER_new_null : Tsk_ASN1_INTEGER_new_null = nil;
-  {$EXTERNALSYM sk_ASN1_INTEGER_free}
   sk_ASN1_INTEGER_free : Tsk_ASN1_INTEGER_free = nil;
-  {$EXTERNALSYM sk_ASN1_INTEGER_num}
   sk_ASN1_INTEGER_num : Tsk_ASN1_INTEGER_num = nil;
-  {$EXTERNALSYM sk_ASN1_INTEGER_value}
   sk_ASN1_INTEGER_value : Tsk_ASN1_INTEGER_value = nil;
-  {$EXTERNALSYM sk_ASN1_INTEGER_push}
   sk_ASN1_INTEGER_push : Tsk_ASN1_INTEGER_push = nil;
-  {$EXTERNALSYM sk_ASN1_INTEGER_dup}
   sk_ASN1_INTEGER_dup : Tsk_ASN1_INTEGER_dup = nil;
-  {$EXTERNALSYM sk_ASN1_INTEGER_find}
   sk_ASN1_INTEGER_find : Tsk_ASN1_INTEGER_find = nil;
-  {$EXTERNALSYM sk_ASN1_INTEGER_pop_free}
   sk_ASN1_INTEGER_pop_free : Tsk_ASN1_INTEGER_pop_free = nil;
-  {$EXTERNALSYM sk_ASN1_GENERALSTRING_new}
   sk_ASN1_GENERALSTRING_new: Tsk_ASN1_GENERALSTRING_new = nil;
-  {$EXTERNALSYM sk_ASN1_GENERALSTRING_new_null}
   sk_ASN1_GENERALSTRING_new_null : Tsk_ASN1_GENERALSTRING_new_null = nil;
-  {$EXTERNALSYM sk_ASN1_GENERALSTRING_free}
   sk_ASN1_GENERALSTRING_free : Tsk_ASN1_GENERALSTRING_free = nil;
-  {$EXTERNALSYM sk_ASN1_GENERALSTRING_num}
   sk_ASN1_GENERALSTRING_num : Tsk_ASN1_GENERALSTRING_num = nil;
-  {$EXTERNALSYM sk_ASN1_GENERALSTRING_value}
   sk_ASN1_GENERALSTRING_value : Tsk_ASN1_GENERALSTRING_value = nil;
-  {$EXTERNALSYM sk_ASN1_GENERALSTRING_push}
   sk_ASN1_GENERALSTRING_push : Tsk_ASN1_GENERALSTRING_push = nil;
-  {$EXTERNALSYM sk_ASN1_GENERALSTRING_dup}
   sk_ASN1_GENERALSTRING_dup : Tsk_ASN1_GENERALSTRING_dup = nil;
-  {$EXTERNALSYM sk_ASN1_GENERALSTRING_find}
   sk_ASN1_GENERALSTRING_find : Tsk_ASN1_GENERALSTRING_find = nil;
-  {$EXTERNALSYM sk_ASN1_GENERALSTRING_pop_free}
   sk_ASN1_GENERALSTRING_pop_free : Tsk_ASN1_GENERALSTRING_pop_free = nil;
-  {$EXTERNALSYM sk_ASN1_UTF8STRING_new}
   sk_ASN1_UTF8STRING_new: Tsk_ASN1_UTF8STRING_new = nil;
-  {$EXTERNALSYM sk_ASN1_UTF8STRING_new_null}
   sk_ASN1_UTF8STRING_new_null : Tsk_ASN1_UTF8STRING_new_null = nil;
-  {$EXTERNALSYM sk_ASN1_UTF8STRING_free}
   sk_ASN1_UTF8STRING_free : Tsk_ASN1_UTF8STRING_free = nil;
-  {$EXTERNALSYM sk_ASN1_UTF8STRING_num}
   sk_ASN1_UTF8STRING_num : Tsk_ASN1_UTF8STRING_num = nil;
-  {$EXTERNALSYM sk_ASN1_UTF8STRING_value}
   sk_ASN1_UTF8STRING_value : Tsk_ASN1_UTF8STRING_value = nil;
-  {$EXTERNALSYM sk_ASN1_UTF8STRING_push}
   sk_ASN1_UTF8STRING_push : Tsk_ASN1_UTF8STRING_push = nil;
-  {$EXTERNALSYM sk_ASN1_UTF8STRING_dup}
   sk_ASN1_UTF8STRING_dup : Tsk_ASN1_UTF8STRING_dup = nil;
-  {$EXTERNALSYM sk_ASN1_UTF8STRING_find}
   sk_ASN1_UTF8STRING_find : Tsk_ASN1_UTF8STRING_find = nil;
-  {$EXTERNALSYM sk_ASN1_UTF8STRING_pop_free}
   sk_ASN1_UTF8STRING_pop_free : Tsk_ASN1_UTF8STRING_pop_free = nil;
-  {$EXTERNALSYM sk_ASN1_TYPE_new}
   sk_ASN1_TYPE_new: Tsk_ASN1_TYPE_new = nil;
-  {$EXTERNALSYM sk_ASN1_TYPE_new_null}
   sk_ASN1_TYPE_new_null : Tsk_ASN1_TYPE_new_null = nil;
-  {$EXTERNALSYM sk_ASN1_TYPE_free}
   sk_ASN1_TYPE_free : Tsk_ASN1_TYPE_free = nil;
-  {$EXTERNALSYM sk_ASN1_TYPE_num}
   sk_ASN1_TYPE_num : Tsk_ASN1_TYPE_num = nil;
-  {$EXTERNALSYM sk_ASN1_TYPE_value}
   sk_ASN1_TYPE_value : Tsk_ASN1_TYPE_value = nil;
-  {$EXTERNALSYM sk_ASN1_TYPE_push}
   sk_ASN1_TYPE_push : Tsk_ASN1_TYPE_push = nil;
-  {$EXTERNALSYM sk_ASN1_TYPE_dup}
   sk_ASN1_TYPE_dup : Tsk_ASN1_TYPE_dup = nil;
-  {$EXTERNALSYM sk_ASN1_TYPE_find}
   sk_ASN1_TYPE_find : Tsk_ASN1_TYPE_find = nil;
-  {$EXTERNALSYM sk_ASN1_TYPE_pop_free}
   sk_ASN1_TYPE_pop_free : Tsk_ASN1_TYPE_pop_free = nil;
-  {$EXTERNALSYM sk_X509_ALGOR_new}
   sk_X509_ALGOR_new: Tsk_X509_ALGOR_new = nil;
-  {$EXTERNALSYM sk_X509_ALGOR_new_null}
   sk_X509_ALGOR_new_null : Tsk_X509_ALGOR_new_null = nil;
-  {$EXTERNALSYM sk_X509_ALGOR_free}
   sk_X509_ALGOR_free : Tsk_X509_ALGOR_free = nil;
-  {$EXTERNALSYM sk_X509_ALGOR_num}
   sk_X509_ALGOR_num : Tsk_X509_ALGOR_num = nil;
-  {$EXTERNALSYM sk_X509_ALGOR_value}
   sk_X509_ALGOR_value : Tsk_X509_ALGOR_value = nil;
-  {$EXTERNALSYM sk_X509_ALGOR_push}
   sk_X509_ALGOR_push : Tsk_X509_ALGOR_push = nil;
-  {$EXTERNALSYM sk_X509_ALGOR_dup}
   sk_X509_ALGOR_dup : Tsk_X509_ALGOR_dup = nil;
-  {$EXTERNALSYM sk_X509_ALGOR_find}
   sk_X509_ALGOR_find : Tsk_X509_ALGOR_find = nil;
-  {$EXTERNALSYM sk_X509_ALGOR_pop_free}
   sk_X509_ALGOR_pop_free : Tsk_X509_ALGOR_pop_free = nil;
 {$ELSE}
-  {$EXTERNALSYM sk_ASN1_OBJECT_new}
   function sk_ASN1_OBJECT_new(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_ASN1_OBJECT cdecl; external CLibCrypto name 'OPENSSL_sk_new';
-  {$EXTERNALSYM sk_ASN1_OBJECT_new_null}
   function sk_ASN1_OBJECT_new_null : PSTACK_OF_ASN1_OBJECT cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
-  {$EXTERNALSYM sk_ASN1_OBJECT_free}
   procedure sk_ASN1_OBJECT_free(st : PSTACK_OF_ASN1_OBJECT) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
-  {$EXTERNALSYM sk_ASN1_OBJECT_num}
   function sk_ASN1_OBJECT_num (const sk : PSTACK_OF_ASN1_OBJECT) : TIdC_INT; external CLibCrypto name 'OPENSSL_sk_num';
-  {$EXTERNALSYM sk_ASN1_OBJECT_value}
   function sk_ASN1_OBJECT_value (const sk : PSTACK_OF_ASN1_OBJECT; i : TIdC_INT) : PASN1_OBJECT cdecl; external CLibCrypto name 'OPENSSL_sk_value';
-  {$EXTERNALSYM sk_ASN1_OBJECT_push}
   function sk_ASN1_OBJECT_push (sk : PSTACK_OF_ASN1_OBJECT; st : PASN1_OBJECT) : TIdC_INT cdecl; external CLibCrypto  name 'OPENSSL_sk_push';
-  {$EXTERNALSYM sk_ASN1_OBJECT_dup}
   function sk_ASN1_OBJECT_dup (sk : PSTACK_OF_ASN1_OBJECT) : PSTACK_OF_ASN1_OBJECT cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
-  {$EXTERNALSYM sk_ASN1_OBJECT_find}
   function sk_ASN1_OBJECT_find (sk : PSTACK_OF_ASN1_OBJECT; _val : PASN1_OBJECT) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
-  {$EXTERNALSYM sk_ASN1_OBJECT_pop_free}
   procedure sk_ASN1_OBJECT_pop_free (sk : PSTACK_OF_ASN1_OBJECT; func: TOPENSSL_sk_freefunc) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
-  {$EXTERNALSYM sk_ASN1_INTEGER_new}
   function sk_ASN1_INTEGER_new(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_ASN1_INTEGER cdecl; external CLibCrypto name 'OPENSSL_sk_new';
-  {$EXTERNALSYM sk_ASN1_INTEGER_new_null}
   function sk_ASN1_INTEGER_new_null : PSTACK_OF_ASN1_INTEGER cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
-  {$EXTERNALSYM sk_ASN1_INTEGER_free}
   procedure sk_ASN1_INTEGER_free(st : PSTACK_OF_ASN1_INTEGER) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
-  {$EXTERNALSYM sk_ASN1_INTEGER_num}
   function sk_ASN1_INTEGER_num (const sk : PSTACK_OF_ASN1_INTEGER) : TIdC_INT; external CLibCrypto name 'OPENSSL_sk_num';
-  {$EXTERNALSYM sk_ASN1_INTEGER_value}
   function sk_ASN1_INTEGER_value (const sk : PSTACK_OF_ASN1_INTEGER; i : TIdC_INT) : PASN1_INTEGER cdecl; external CLibCrypto name 'OPENSSL_sk_value';
-  {$EXTERNALSYM sk_ASN1_INTEGER_push}
   function sk_ASN1_INTEGER_push (sk : PSTACK_OF_ASN1_INTEGER; st : PASN1_INTEGER) : TIdC_INT cdecl; external CLibCrypto  name 'OPENSSL_sk_push';
-  {$EXTERNALSYM sk_ASN1_INTEGER_dup}
   function sk_ASN1_INTEGER_dup (sk : PSTACK_OF_ASN1_INTEGER) : PSTACK_OF_ASN1_INTEGER cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
-  {$EXTERNALSYM sk_ASN1_INTEGER_find}
   function sk_ASN1_INTEGER_find (sk : PSTACK_OF_ASN1_INTEGER; _val : PASN1_INTEGER) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
-  {$EXTERNALSYM sk_ASN1_INTEGER_pop_free}
   procedure sk_ASN1_INTEGER_pop_free (sk : PSTACK_OF_ASN1_INTEGER; func: TOPENSSL_sk_freefunc) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
-  {$EXTERNALSYM sk_ASN1_GENERALSTRING_new}
   function sk_ASN1_GENERALSTRING_new(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_ASN1_GENERALSTRING cdecl; external CLibCrypto name 'OPENSSL_sk_new';
-  {$EXTERNALSYM sk_ASN1_GENERALSTRING_new_null}
   function sk_ASN1_GENERALSTRING_new_null : PSTACK_OF_ASN1_GENERALSTRING cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
-  {$EXTERNALSYM sk_ASN1_GENERALSTRING_free}
   procedure sk_ASN1_GENERALSTRING_free(st : PSTACK_OF_ASN1_GENERALSTRING) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
-  {$EXTERNALSYM sk_ASN1_GENERALSTRING_num}
   function sk_ASN1_GENERALSTRING_num (const sk : PSTACK_OF_ASN1_GENERALSTRING) : TIdC_INT; external CLibCrypto name 'OPENSSL_sk_num';
-  {$EXTERNALSYM sk_ASN1_GENERALSTRING_value}
   function sk_ASN1_GENERALSTRING_value (const sk :PSTACK_OF_ASN1_GENERALSTRING; i : TIdC_INT) : PASN1_GENERALSTRING  cdecl; external CLibCrypto name 'OPENSSL_sk_value';
-  {$EXTERNALSYM sk_ASN1_GENERALSTRING_push}
   function sk_ASN1_GENERALSTRING_push (sk : PSTACK_OF_ASN1_GENERALSTRING; st : PASN1_GENERALSTRING) : TIdC_INT cdecl; external CLibCrypto  name 'OPENSSL_sk_push';
-  {$EXTERNALSYM sk_ASN1_GENERALSTRING_dup}
   function sk_ASN1_GENERALSTRING_dup (sk : PSTACK_OF_ASN1_GENERALSTRING) : PSTACK_OF_ASN1_GENERALSTRING cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
-  {$EXTERNALSYM sk_ASN1_GENERALSTRING_find}
   function sk_ASN1_GENERALSTRING_find (sk : PSTACK_OF_ASN1_GENERALSTRING; _val : PASN1_GENERALSTRING) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
-  {$EXTERNALSYM sk_ASN1_GENERALSTRING_pop_free}
   procedure sk_ASN1_GENERALSTRING_pop_free (sk : PSTACK_OF_ASN1_GENERALSTRING; func: TOPENSSL_sk_freefunc) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
-  {$EXTERNALSYM sk_ASN1_UTF8STRING_new}
   function sk_ASN1_UTF8STRING_new(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_ASN1_UTF8STRING cdecl; external CLibCrypto name 'OPENSSL_sk_new';
-  {$EXTERNALSYM sk_ASN1_UTF8STRING_new_null}
   function sk_ASN1_UTF8STRING_new_null : PSTACK_OF_ASN1_UTF8STRING cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
-  {$EXTERNALSYM sk_ASN1_UTF8STRING_free}
   procedure sk_ASN1_UTF8STRING_free(st : PSTACK_OF_ASN1_UTF8STRING) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
-  {$EXTERNALSYM sk_ASN1_UTF8STRING_num}
   function sk_ASN1_UTF8STRING_num (const sk : PSTACK_OF_ASN1_UTF8STRING) : TIdC_INT; external CLibCrypto name 'OPENSSL_sk_num';
-  {$EXTERNALSYM sk_ASN1_UTF8STRING_value}
   function sk_ASN1_UTF8STRING_value (const sk : PSTACK_OF_ASN1_UTF8STRING; i : TIdC_INT) : PASN1_UTF8STRING cdecl; external CLibCrypto name 'OPENSSL_sk_value';
-  {$EXTERNALSYM sk_ASN1_UTF8STRING_push}
   function sk_ASN1_UTF8STRING_push (sk : PSTACK_OF_ASN1_UTF8STRING; st : PASN1_UTF8STRING) : TIdC_INT cdecl; external CLibCrypto  name 'OPENSSL_sk_push';
-  {$EXTERNALSYM sk_ASN1_UTF8STRING_dup}
   function sk_ASN1_UTF8STRING_dup (sk : PSTACK_OF_ASN1_UTF8STRING) : PSTACK_OF_ASN1_UTF8STRING cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
-  {$EXTERNALSYM sk_ASN1_UTF8STRING_find}
   function sk_ASN1_UTF8STRING_find (sk : PSTACK_OF_ASN1_UTF8STRING; _val : PASN1_UTF8STRING) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
-  {$EXTERNALSYM sk_ASN1_UTF8STRING_pop_free}
   procedure sk_ASN1_UTF8STRING_pop_free (sk : PSTACK_OF_ASN1_UTF8STRING; func: TOPENSSL_sk_freefunc) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
-  {$EXTERNALSYM sk_ASN1_TYPE_new}
   function sk_ASN1_TYPE_new(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_ASN1_TYPE cdecl; external CLibCrypto name 'OPENSSL_sk_new';
-  {$EXTERNALSYM sk_ASN1_TYPE_new_null}
   function sk_ASN1_TYPE_new_null : PSTACK_OF_ASN1_TYPE cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
-  {$EXTERNALSYM sk_ASN1_TYPE_free}
   procedure sk_ASN1_TYPE_free(st : PSTACK_OF_ASN1_TYPE) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
-  {$EXTERNALSYM sk_ASN1_TYPE_num}
   function sk_ASN1_TYPE_num (const sk : PSTACK_OF_ASN1_TYPE) : TIdC_INT; external CLibCrypto name 'OPENSSL_sk_num';
-  {$EXTERNALSYM sk_ASN1_TYPE_value}
   function sk_ASN1_TYPE_value (const sk : PSTACK_OF_ASN1_TYPE; i : TIdC_INT) : PASN1_TYPE cdecl; external CLibCrypto name 'OPENSSL_sk_value';
-  {$EXTERNALSYM sk_ASN1_TYPE_push}
   function sk_ASN1_TYPE_push (sk : PSTACK_OF_ASN1_TYPE; st : PASN1_TYPE) : TIdC_INT cdecl; external CLibCrypto  name 'OPENSSL_sk_push';
-  {$EXTERNALSYM sk_ASN1_TYPE_dup}
   function sk_ASN1_TYPE_dup (sk : PSTACK_OF_ASN1_TYPE) : PSTACK_OF_ASN1_TYPE cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
-  {$EXTERNALSYM sk_ASN1_TYPE_find}
   function sk_ASN1_TYPE_find (sk : PSTACK_OF_ASN1_TYPE; _val : PASN1_TYPE) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
-  {$EXTERNALSYM sk_ASN1_TYPE_pop_free}
   procedure sk_ASN1_TYPE_pop_free (sk : PSTACK_OF_ASN1_TYPE; func: TOPENSSL_sk_freefunc) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
-  {$EXTERNALSYM sk_X509_ALGOR_new}
   function sk_X509_ALGOR_new(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_X509_ALGOR cdecl; external CLibCrypto name 'OPENSSL_sk_new';
-  {$EXTERNALSYM sk_X509_ALGOR_new_null}
   function sk_X509_ALGOR_new_null : PSTACK_OF_X509_ALGOR cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
-  {$EXTERNALSYM sk_X509_ALGOR_free}
   procedure sk_X509_ALGOR_free(st : PSTACK_OF_X509_ALGOR) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
-  {$EXTERNALSYM sk_X509_ALGOR_num}
   function sk_X509_ALGOR_num (const sk : PSTACK_OF_X509_ALGOR) : TIdC_INT; external CLibCrypto name 'OPENSSL_sk_num';
-  {$EXTERNALSYM sk_X509_ALGOR_value}
   function sk_X509_ALGOR_value (const sk : PSTACK_OF_X509_ALGOR; i : TIdC_INT) : PX509_ALGOR cdecl; external CLibCrypto name 'OPENSSL_sk_value';
-  {$EXTERNALSYM sk_X509_ALGOR_push}
   function sk_X509_ALGOR_push (sk : PSTACK_OF_X509_ALGOR; st : PX509_ALGOR) : TIdC_INT cdecl; external CLibCrypto  name 'OPENSSL_sk_push';
-  {$EXTERNALSYM sk_X509_ALGOR_dup}
   function sk_X509_ALGOR_dup (sk : PSTACK_OF_X509_ALGOR) : PSTACK_OF_X509_ALGOR cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
-  {$EXTERNALSYM sk_X509_ALGOR_find}
   function sk_X509_ALGOR_find (sk : PSTACK_OF_X509_ALGOR; _val : PX509_ALGOR) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
-  {$EXTERNALSYM sk_X509_ALGOR_pop_free}
   procedure sk_X509_ALGOR_pop_free (sk : PSTACK_OF_X509_ALGOR; func: TOPENSSL_sk_freefunc) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
 {$ENDIF}
 

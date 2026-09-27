@@ -38,13 +38,9 @@ uses
 {$I TaurusTLSUnusedUnitOn.inc}
 
 const
-  {$EXTERNALSYM ASYNC_ERR}
   ASYNC_ERR = 0;
-  {$EXTERNALSYM ASYNC_NO_JOBS}
   ASYNC_NO_JOBS = 0;
-  {$EXTERNALSYM ASYNC_PAUSE}
   ASYNC_PAUSE = 2;
-  {$EXTERNALSYM ASYNC_FINISH}
   ASYNC_FINISH = 3;
 
 type
@@ -57,12 +53,9 @@ type
   ASYNC_WAIT_CTX = async_wait_ctx_st;
   PASYNC_WAIT_CTX = ^ASYNC_WAIT_CTX;
 
-  {$EXTERNALSYM OSSL_ASYNC_FD}
   OSSL_ASYNC_FD = type TIdC_INT;
-  {$EXTERNALSYM POSSL_ASYNC_FD}
   POSSL_ASYNC_FD = ^OSSL_ASYNC_FD;
 
-  {$EXTERNALSYM ASYNC_WAIT_CTX_set_wait_fd_cleanup}
   ASYNC_WAIT_CTX_set_wait_fd_cleanup = procedure(v1: PASYNC_WAIT_CTX;
     const v2: Pointer; v3: OSSL_ASYNC_FD; v4: Pointer);
   ASYNC_start_job_cb = function(v1: Pointer): TIdC_INT;
@@ -80,13 +73,9 @@ var
 
   ASYNC_WAIT_CTX_new: function : PASYNC_WAIT_CTX; cdecl = nil; {introduced 1.1.0}
   ASYNC_WAIT_CTX_free: procedure (ctx: PASYNC_WAIT_CTX); cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM ASYNC_WAIT_CTX_set_wait_fd}
   ASYNC_WAIT_CTX_set_wait_fd: function (ctx: PASYNC_WAIT_CTX; const key: Pointer; fd: OSSL_ASYNC_FD; custom_data: Pointer; cleanup_cb: ASYNC_WAIT_CTX_set_wait_fd_cleanup): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM ASYNC_WAIT_CTX_get_fd}
   ASYNC_WAIT_CTX_get_fd: function (ctx: PASYNC_WAIT_CTX; const key: Pointer; fd: POSSL_ASYNC_FD; custom_data: PPointer): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM ASYNC_WAIT_CTX_get_all_fds}
   ASYNC_WAIT_CTX_get_all_fds: function (ctx: PASYNC_WAIT_CTX; fd: POSSL_ASYNC_FD; numfds: PIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM ASYNC_WAIT_CTX_get_changed_fds}
   ASYNC_WAIT_CTX_get_changed_fds: function (ctx: PASYNC_WAIT_CTX; addfd: POSSL_ASYNC_FD; numaddfds: PIdC_SIZET; delfd: POSSL_ASYNC_FD; numdelfds: PIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   ASYNC_WAIT_CTX_clear_fd: function (ctx: PASYNC_WAIT_CTX; const key: Pointer): TIdC_INT; cdecl = nil; {introduced 1.1.0}
 
@@ -106,13 +95,9 @@ var
 
   function ASYNC_WAIT_CTX_new: PASYNC_WAIT_CTX cdecl; external CLibCrypto; {introduced 1.1.0}
   procedure ASYNC_WAIT_CTX_free(ctx: PASYNC_WAIT_CTX) cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM ASYNC_WAIT_CTX_set_wait_fd}
   function ASYNC_WAIT_CTX_set_wait_fd(ctx: PASYNC_WAIT_CTX; const key: Pointer; fd: OSSL_ASYNC_FD; custom_data: Pointer; cleanup_cb: ASYNC_WAIT_CTX_set_wait_fd_cleanup): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM ASYNC_WAIT_CTX_get_fd}
   function ASYNC_WAIT_CTX_get_fd(ctx: PASYNC_WAIT_CTX; const key: Pointer; fd: POSSL_ASYNC_FD; custom_data: PPointer): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM ASYNC_WAIT_CTX_get_all_fds}
   function ASYNC_WAIT_CTX_get_all_fds(ctx: PASYNC_WAIT_CTX; fd: POSSL_ASYNC_FD; numfds: PIdC_SIZET): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM ASYNC_WAIT_CTX_get_changed_fds}
   function ASYNC_WAIT_CTX_get_changed_fds(ctx: PASYNC_WAIT_CTX; addfd: POSSL_ASYNC_FD; numaddfds: PIdC_SIZET; delfd: POSSL_ASYNC_FD; numdelfds: PIdC_SIZET): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
   function ASYNC_WAIT_CTX_clear_fd(ctx: PASYNC_WAIT_CTX; const key: Pointer): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
 

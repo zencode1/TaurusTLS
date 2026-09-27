@@ -88,88 +88,50 @@ type
 //DECLARE_ASN1_PRINT_FUNCTION(CMS_ContentInfo)
 
 const
-  {$EXTERNALSYM CMS_SIGNERINFO_ISSUER_SERIAL}
   CMS_SIGNERINFO_ISSUER_SERIAL    = 0;
-  {$EXTERNALSYM CMS_SIGNERINFO_KEYIDENTIFIER}
   CMS_SIGNERINFO_KEYIDENTIFIER    = 1;
 
-  {$EXTERNALSYM CMS_RECIPINFO_NONE}
   CMS_RECIPINFO_NONE              = -1;
-  {$EXTERNALSYM CMS_RECIPINFO_TRANS}
   CMS_RECIPINFO_TRANS             = 0;
-  {$EXTERNALSYM CMS_RECIPINFO_AGREE}
   CMS_RECIPINFO_AGREE             = 1;
-  {$EXTERNALSYM CMS_RECIPINFO_KEK}
   CMS_RECIPINFO_KEK               = 2;
-  {$EXTERNALSYM CMS_RECIPINFO_PASS}
   CMS_RECIPINFO_PASS              = 3;
-  {$EXTERNALSYM CMS_RECIPINFO_OTHER}
   CMS_RECIPINFO_OTHER             = 4;
-  {$EXTERNALSYM CMS_RECIPINFO_KEM}
   CMS_RECIPINFO_KEM               = 5;
 
-  {$EXTERNALSYM CMS_VERIFY_RESULT}
   CMS_VERIFY_RESULT               = 0;
-  {$EXTERNALSYM CMS_VERIFY_CERT}
   CMS_VERIFY_CERT                 = 1;
-  {$EXTERNALSYM CMS_VERIFY_ATTR}
   CMS_VERIFY_ATTR                 = 2;
-  {$EXTERNALSYM CMS_VERIFY_CONTENT}
   CMS_VERIFY_CONTENT              = 3;
 
 
 // S/MIME related flags /
 
-  {$EXTERNALSYM CMS_TEXT}
   CMS_TEXT                        = $1;
-  {$EXTERNALSYM CMS_NOCERTS}
   CMS_NOCERTS                     = $2;
-  {$EXTERNALSYM CMS_NO_CONTENT_VERIFY}
   CMS_NO_CONTENT_VERIFY           = $4;
-  {$EXTERNALSYM CMS_NO_ATTR_VERIFY}
   CMS_NO_ATTR_VERIFY              = $8;
-  {$EXTERNALSYM CMS_NOSIGS}
   CMS_NOSIGS                      = (CMS_NO_CONTENT_VERIFY or CMS_NO_ATTR_VERIFY);
-  {$EXTERNALSYM CMS_NOINTERN}
   CMS_NOINTERN                    = $10;
-  {$EXTERNALSYM CMS_NO_SIGNER_CERT_VERIFY}
   CMS_NO_SIGNER_CERT_VERIFY       = $20;
-  {$EXTERNALSYM CMS_NOVERIFY}
   CMS_NOVERIFY                    = $20;
-  {$EXTERNALSYM CMS_DETACHED}
   CMS_DETACHED                    = $40;
-  {$EXTERNALSYM CMS_BINARY}
   CMS_BINARY                      = $80;
-  {$EXTERNALSYM CMS_NOATTR}
   CMS_NOATTR                      = $100;
-  {$EXTERNALSYM CMS_NOSMIMECAP}
   CMS_NOSMIMECAP                  = $200;
-  {$EXTERNALSYM CMS_NOOLDMIMETYPE}
   CMS_NOOLDMIMETYPE               = $400;
-  {$EXTERNALSYM CMS_CRLFEOL}
   CMS_CRLFEOL                     = $800;
   CMS_STREAM_CONST                = $1000;
-  {$EXTERNALSYM CMS_NOCRL}
   CMS_NOCRL                       = $2000;
-  {$EXTERNALSYM CMS_PARTIAL}
   CMS_PARTIAL                     = $4000;
-  {$EXTERNALSYM CMS_REUSE_DIGEST}
   CMS_REUSE_DIGEST                = $8000;
-  {$EXTERNALSYM CMS_USE_KEYID}
   CMS_USE_KEYID                   = $10000;
-  {$EXTERNALSYM CMS_DEBUG_DECRYPT}
   CMS_DEBUG_DECRYPT               = $20000;
-  {$EXTERNALSYM CMS_KEY_PARAM}
   CMS_KEY_PARAM                   = $40000;
-  {$EXTERNALSYM CMS_ASCIICRLF}
   CMS_ASCIICRLF                   = $80000;
-  {$EXTERNALSYM CMS_CADES}
   CMS_CADES                       = $100000;
-  {$EXTERNALSYM CMS_USE_ORIGINATOR_KEYID}
   CMS_USE_ORIGINATOR_KEYID        = $200000;
-  {$EXTERNALSYM CMS_NO_SIGNING_TIME}
   CMS_NO_SIGNING_TIME             = $400000;
-  {$EXTERNALSYM CMS_VERIFY_PARTIAL}
   CMS_VERIFY_PARTIAL              = $800000;
 
     { The EXTERNALSYM directive is ignored by FPC, however, it is used by Delphi as follows:
@@ -229,7 +191,6 @@ var
 
   CMS_decrypt_set1_pkey: function (cms: PCMS_ContentInfo; pk: PEVP_PKEY; cert: PX509): TIdC_INT; cdecl = nil;
   CMS_decrypt_set1_key: function (cms: PCMS_ContentInfo; key: PByte; keylen: TIdC_SIZET; const id: PByte; idlen: TIdC_SIZET): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM CMS_decrypt_set1_password}
   CMS_decrypt_set1_password: function (cms: PCMS_ContentInfo; pass: PByte; passlen: ossl_ssize_t): TIdC_INT; cdecl = nil;
 
   //STACK_OF(CMS_RecipientInfo) *CMS_get0_RecipientInfos(CMS_ContentInfo *cms);
@@ -239,25 +200,19 @@ var
   CMS_add1_recipient_cert: function (cms: PCMS_ContentInfo; recip: PX509; flags: TIdC_UINT): PCMS_RecipientInfo; cdecl = nil;
   CMS_RecipientInfo_set0_pkey: function (ri: PCMS_RecipientInfo; pkey: PEVP_PKEY): TIdC_INT; cdecl = nil;
   CMS_RecipientInfo_ktri_cert_cmp: function (ri: PCMS_RecipientInfo; cert: PX509): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM CMS_RecipientInfo_ktri_get0_algs}
   CMS_RecipientInfo_ktri_get0_algs: function (ri: PCMS_RecipientInfo; pk: PPEVP_PKEY; recip: PPX509; palg: PPX509_ALGOR): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM CMS_RecipientInfo_ktri_get0_signer_id}
   CMS_RecipientInfo_ktri_get0_signer_id: function (ri: PPCMS_RecipientInfo; keyid: PPASN1_OCTET_STRING; issuer: PPX509_NAME; sno: PPASN1_INTEGER): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM CMS_add0_recipient_key}
   CMS_add0_recipient_key: function (cms: PCMS_ContentInfo; nid: TIdC_INT; key: PByte; keylen: TIdC_SIZET; id: PByte; idlen: TIdC_SIZET; date: PASN1_GENERALIZEDTIME; otherTypeId: PASN1_OBJECT; otherType: ASN1_TYPE): PCMS_RecipientInfo; cdecl = nil;
 
-  {$EXTERNALSYM CMS_RecipientInfo_kekri_get0_id}
   CMS_RecipientInfo_kekri_get0_id: function (ri: PCMS_RecipientInfo; palg: PPX509_ALGOR; pid: PPASN1_OCTET_STRING; _pdate: PPASN1_GENERALIZEDTIME; potherid: PPASN1_OBJECT; pothertype: PASN1_TYPE): TIdC_INT; cdecl = nil;
 
   CMS_RecipientInfo_set0_key: function (ri: PCMS_RecipientInfo; key: PByte; keylen: TIdC_SIZET): TIdC_INT; cdecl = nil;
 
   CMS_RecipientInfo_kekri_id_cmp: function (ri: PCMS_RecipientInfo; const id: PByte; idlen: TIdC_SIZET): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM CMS_RecipientInfo_set0_password}
   CMS_RecipientInfo_set0_password: function (ri: PCMS_RecipientInfo; pass: PByte; passlen: ossl_ssize_t): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM CMS_add0_recipient_password}
   CMS_add0_recipient_password: function (cms: PCMS_ContentInfo; iter: TIdC_INT; wrap_nid: TIdC_INT; pbe_nid: TIdC_INT; pass: PByte; passlen: ossl_ssize_t; const kekciph: PEVP_CIPHER): PCMS_RecipientInfo; cdecl = nil;
 
   CMS_RecipientInfo_decrypt: function (cms: PCMS_ContentInfo; ri: PCMS_RecipientInfo): TIdC_INT; cdecl = nil;
@@ -287,7 +242,6 @@ var
 
   CMS_SignerInfo_set1_signer_cert: procedure (si: PCMS_SignerInfo; signer: PX509); cdecl = nil;
   CMS_SignerInfo_get0_signer_cert: function (si : PCMS_SignerInfo): PX509; cdecl = nil;
-  {$EXTERNALSYM CMS_SignerInfo_get0_signer_id}
   CMS_SignerInfo_get0_signer_id: function (si: PCMS_SignerInfo; keyid: PPASN1_OCTET_STRING; issuer: PPX509_NAME; sno: PPASN1_INTEGER): TIdC_INT; cdecl = nil;
   CMS_SignerInfo_cert_cmp: function (si: PCMS_SignerInfo; cert: PX509): TIdC_INT; cdecl = nil;
 //  function CMS_set1_signers_certs(cms: PCMS_ContentInfo; {STACK_OF(X509) *certs;} flags: TIdC_UINT): TIdC_INT;
@@ -336,17 +290,12 @@ var
 //    pukm: PPASN1_OCTET_STRING): TIdC_INT;
 //  // STACK_OF(CMS_RecipientEncryptedKey) *CMS_RecipientInfo_kari_get0_reks(CMS_RecipientInfo *ri);
 
-  {$EXTERNALSYM CMS_RecipientInfo_kari_get0_orig_id}
   CMS_RecipientInfo_kari_get0_orig_id: function (ri: PCMS_RecipientInfo; pubalg: PPX509_ALGOR; pubkey: PASN1_BIT_STRING; keyid: PPASN1_OCTET_STRING; issuer: PPX509_NAME; sno: PPASN1_INTEGER): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM CMS_RecipientInfo_kari_orig_id_cmp}
   CMS_RecipientInfo_kari_orig_id_cmp: function (ri: PCMS_RecipientInfo; cert: PX509): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM CMS_RecipientEncryptedKey_get0_id}
   CMS_RecipientEncryptedKey_get0_id: function (rek: PCMS_RecipientEncryptedKey; keyid: PPASN1_OCTET_STRING; tm: PPASN1_GENERALIZEDTIME; other: PPCMS_OtherKeyAttribute; issuer: PPX509_NAME; sno: PPASN1_INTEGER): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM CMS_RecipientEncryptedKey_cert_cmp}
   CMS_RecipientEncryptedKey_cert_cmp: function (rek: PCMS_RecipientEncryptedKey; cert: PX509): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM CMS_RecipientInfo_kari_set0_pkey}
   CMS_RecipientInfo_kari_set0_pkey: function (ri: PCMS_RecipientInfo; pk: PEVP_PKEY): TIdC_INT; cdecl = nil;
   CMS_RecipientInfo_kari_get0_ctx: function (ri: PCMS_RecipientInfo): PEVP_CIPHER_CTX; cdecl = nil;
   CMS_RecipientInfo_kari_decrypt: function (cms: PCMS_ContentInfo; ri: PCMS_RecipientInfo; rek: PCMS_RecipientEncryptedKey): TIdC_INT; cdecl = nil;
@@ -407,7 +356,6 @@ var
 
   function CMS_decrypt_set1_pkey(cms: PCMS_ContentInfo; pk: PEVP_PKEY; cert: PX509): TIdC_INT cdecl; external CLibCrypto;
   function CMS_decrypt_set1_key(cms: PCMS_ContentInfo; key: PByte; keylen: TIdC_SIZET; const id: PByte; idlen: TIdC_SIZET): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM CMS_decrypt_set1_password}
   function CMS_decrypt_set1_password(cms: PCMS_ContentInfo; pass: PByte; passlen: ossl_ssize_t): TIdC_INT cdecl; external CLibCrypto;
 
   //STACK_OF(CMS_RecipientInfo) *CMS_get0_RecipientInfos(CMS_ContentInfo *cms);
@@ -417,25 +365,19 @@ var
   function CMS_add1_recipient_cert(cms: PCMS_ContentInfo; recip: PX509; flags: TIdC_UINT): PCMS_RecipientInfo cdecl; external CLibCrypto;
   function CMS_RecipientInfo_set0_pkey(ri: PCMS_RecipientInfo; pkey: PEVP_PKEY): TIdC_INT cdecl; external CLibCrypto;
   function CMS_RecipientInfo_ktri_cert_cmp(ri: PCMS_RecipientInfo; cert: PX509): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM CMS_RecipientInfo_ktri_get0_algs}
   function CMS_RecipientInfo_ktri_get0_algs(ri: PCMS_RecipientInfo; pk: PPEVP_PKEY; recip: PPX509; palg: PPX509_ALGOR): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM CMS_RecipientInfo_ktri_get0_signer_id}
   function CMS_RecipientInfo_ktri_get0_signer_id(ri: PPCMS_RecipientInfo; keyid: PPASN1_OCTET_STRING; issuer: PPX509_NAME; sno: PPASN1_INTEGER): TIdC_INT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM CMS_add0_recipient_key}
   function CMS_add0_recipient_key(cms: PCMS_ContentInfo; nid: TIdC_INT; key: PByte; keylen: TIdC_SIZET; id: PByte; idlen: TIdC_SIZET; date: PASN1_GENERALIZEDTIME; otherTypeId: PASN1_OBJECT; otherType: ASN1_TYPE): PCMS_RecipientInfo cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM CMS_RecipientInfo_kekri_get0_id}
   function CMS_RecipientInfo_kekri_get0_id(ri: PCMS_RecipientInfo; palg: PPX509_ALGOR; pid: PPASN1_OCTET_STRING; _pdate: PPASN1_GENERALIZEDTIME; potherid: PPASN1_OBJECT; pothertype: PASN1_TYPE): TIdC_INT cdecl; external CLibCrypto;
 
   function CMS_RecipientInfo_set0_key(ri: PCMS_RecipientInfo; key: PByte; keylen: TIdC_SIZET): TIdC_INT cdecl; external CLibCrypto;
 
   function CMS_RecipientInfo_kekri_id_cmp(ri: PCMS_RecipientInfo; const id: PByte; idlen: TIdC_SIZET): TIdC_INT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM CMS_RecipientInfo_set0_password}
   function CMS_RecipientInfo_set0_password(ri: PCMS_RecipientInfo; pass: PByte; passlen: ossl_ssize_t): TIdC_INT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM CMS_add0_recipient_password}
   function CMS_add0_recipient_password(cms: PCMS_ContentInfo; iter: TIdC_INT; wrap_nid: TIdC_INT; pbe_nid: TIdC_INT; pass: PByte; passlen: ossl_ssize_t; const kekciph: PEVP_CIPHER): PCMS_RecipientInfo cdecl; external CLibCrypto;
 
   function CMS_RecipientInfo_decrypt(cms: PCMS_ContentInfo; ri: PCMS_RecipientInfo): TIdC_INT cdecl; external CLibCrypto;
@@ -466,7 +408,6 @@ var
   procedure CMS_SignerInfo_set1_signer_cert(si: PCMS_SignerInfo; signer: PX509) cdecl; external CLibCrypto;
   function CMS_SignerInfo_get0_signer_cert(si : PCMS_SignerInfo): PX509 cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM CMS_SignerInfo_get0_signer_id}
   function CMS_SignerInfo_get0_signer_id(si: PCMS_SignerInfo; keyid: PPASN1_OCTET_STRING; issuer: PPX509_NAME; sno: PPASN1_INTEGER): TIdC_INT cdecl; external CLibCrypto;
   function CMS_SignerInfo_cert_cmp(si: PCMS_SignerInfo; cert: PX509): TIdC_INT cdecl; external CLibCrypto;
 //  function CMS_set1_signers_certs(cms: PCMS_ContentInfo; {STACK_OF(X509) *certs;} flags: TIdC_UINT): TIdC_INT;
@@ -516,17 +457,12 @@ var
 //    pukm: PPASN1_OCTET_STRING): TIdC_INT;
 //  // STACK_OF(CMS_RecipientEncryptedKey) *CMS_RecipientInfo_kari_get0_reks(CMS_RecipientInfo *ri);
 
-  {$EXTERNALSYM CMS_RecipientInfo_kari_get0_orig_id}
   function CMS_RecipientInfo_kari_get0_orig_id(ri: PCMS_RecipientInfo; pubalg: PPX509_ALGOR; pubkey: PASN1_BIT_STRING; keyid: PPASN1_OCTET_STRING; issuer: PPX509_NAME; sno: PPASN1_INTEGER): TIdC_INT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM CMS_RecipientInfo_kari_orig_id_cmp}
   function CMS_RecipientInfo_kari_orig_id_cmp(ri: PCMS_RecipientInfo; cert: PX509): TIdC_INT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM CMS_RecipientEncryptedKey_get0_id}
   function CMS_RecipientEncryptedKey_get0_id(rek: PCMS_RecipientEncryptedKey; keyid: PPASN1_OCTET_STRING; tm: PPASN1_GENERALIZEDTIME; other: PPCMS_OtherKeyAttribute; issuer: PPX509_NAME; sno: PPASN1_INTEGER): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM CMS_RecipientEncryptedKey_cert_cmp}
   function CMS_RecipientEncryptedKey_cert_cmp(rek: PCMS_RecipientEncryptedKey; cert: PX509): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM CMS_RecipientInfo_kari_set0_pkey}
   function CMS_RecipientInfo_kari_set0_pkey(ri: PCMS_RecipientInfo; pk: PEVP_PKEY): TIdC_INT cdecl; external CLibCrypto;
   function CMS_RecipientInfo_kari_get0_ctx(ri: PCMS_RecipientInfo): PEVP_CIPHER_CTX cdecl; external CLibCrypto;
   function CMS_RecipientInfo_kari_decrypt(cms: PCMS_ContentInfo; ri: PCMS_RecipientInfo; rek: PCMS_RecipientEncryptedKey): TIdC_INT cdecl; external CLibCrypto;

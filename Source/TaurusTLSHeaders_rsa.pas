@@ -40,38 +40,24 @@ uses
 (* The types RSA and RSA_METHOD are defined in ossl_typ.h *)
 
 const
-  {$EXTERNALSYM OPENSSL_RSA_MAX_MODULUS_BITS}
   OPENSSL_RSA_MAX_MODULUS_BITS =  16384;
-  {$EXTERNALSYM OPENSSL_RSA_FIPS_MIN_MODULUS_BITS}
   OPENSSL_RSA_FIPS_MIN_MODULUS_BITS = 1024;
-  {$EXTERNALSYM OPENSSL_RSA_SMALL_MODULUS_BITS}
   OPENSSL_RSA_SMALL_MODULUS_BITS = 3072;
   (* exponent limit enforced for "large" modulus only *)
-  {$EXTERNALSYM OPENSSL_RSA_MAX_PUBEXP_BITS}
   OPENSSL_RSA_MAX_PUBEXP_BITS =  64;
 
-  {$EXTERNALSYM RSA_3}
   RSA_3 =  TIdC_Long($3);
-  {$EXTERNALSYM RSA_F4}
   RSA_F4 = TIdC_Long($10001);
 
   (* based on RFC 8017 appendix A.1.2 *)
-  {$EXTERNALSYM RSA_ASN1_VERSION_DEFAULT}
   RSA_ASN1_VERSION_DEFAULT = 0;
-  {$EXTERNALSYM RSA_ASN1_VERSION_MULTI}
   RSA_ASN1_VERSION_MULTI =   1;
-  {$EXTERNALSYM RSA_DEFAULT_PRIME_NUM}
   RSA_DEFAULT_PRIME_NUM =    2;
 
-  {$EXTERNALSYM RSA_METHOD_FLAG_NO_CHECK}
   RSA_METHOD_FLAG_NO_CHECK = $0001; (* don't check pub/private match *)
-  {$EXTERNALSYM RSA_FLAG_CACHE_PUBLIC}
   RSA_FLAG_CACHE_PUBLIC =    $0002;
-  {$EXTERNALSYM RSA_FLAG_CACHE_PRIVATE}
   RSA_FLAG_CACHE_PRIVATE =   $0004;
-  {$EXTERNALSYM RSA_FLAG_BLINDING}
   RSA_FLAG_BLINDING =        $0008;
-  {$EXTERNALSYM RSA_FLAG_THREAD_SAFE}
   RSA_FLAG_THREAD_SAFE =     $0010;
   (*
    * This flag means the private key operations will be handled by rsa_mod_exp
@@ -79,7 +65,6 @@ const
    * for example a key stored in external hardware. Without this flag
    * bn_mod_exp gets called when private key components are absent.
    *)
-  {$EXTERNALSYM RSA_FLAG_EXT_PKEY}
   RSA_FLAG_EXT_PKEY =        $0020;
   (*
    * new with 0.9.6j and 0.9.7b; the built-in
@@ -87,72 +72,46 @@ const
    * default (ignoring RSA_FLAG_BLINDING),
    * but other engines might not need it
    *)
-  {$EXTERNALSYM RSA_FLAG_NO_BLINDING}
   RSA_FLAG_NO_BLINDING =     $0080;
   (*
    * Does nothing. Previously this switched off constant time behaviour.
    *)
-  {$EXTERNALSYM RSA_FLAG_NO_CONSTTIME}
   RSA_FLAG_NO_CONSTTIME =    $0000;
 
   (* Salt length matches digest *)
-  {$EXTERNALSYM RSA_PSS_SALTLEN_DIGEST}
   RSA_PSS_SALTLEN_DIGEST = -1;
   (* Verify only: auto detect salt length *)
-  {$EXTERNALSYM RSA_PSS_SALTLEN_AUTO}
   RSA_PSS_SALTLEN_AUTO = -2;
   (* Set salt length to maximum possible *)
-  {$EXTERNALSYM RSA_PSS_SALTLEN_MAX}
   RSA_PSS_SALTLEN_MAX = -3;
   (* Old compatible max salt length for sign only *)
-  {$EXTERNALSYM RSA_PSS_SALTLEN_MAX_SIGN}
   RSA_PSS_SALTLEN_MAX_SIGN = -2;
 
-  {$EXTERNALSYM EVP_PKEY_CTRL_RSA_PADDING}
   EVP_PKEY_CTRL_RSA_PADDING = EVP_PKEY_ALG_CTRL + 1;
-  {$EXTERNALSYM EVP_PKEY_CTRL_RSA_PSS_SALTLEN}
   EVP_PKEY_CTRL_RSA_PSS_SALTLEN = EVP_PKEY_ALG_CTRL + 2;
 
-  {$EXTERNALSYM EVP_PKEY_CTRL_RSA_KEYGEN_BITS}
   EVP_PKEY_CTRL_RSA_KEYGEN_BITS = EVP_PKEY_ALG_CTRL + 3;
-  {$EXTERNALSYM EVP_PKEY_CTRL_RSA_KEYGEN_PUBEXP}
   EVP_PKEY_CTRL_RSA_KEYGEN_PUBEXP = EVP_PKEY_ALG_CTRL + 4;
-  {$EXTERNALSYM EVP_PKEY_CTRL_RSA_MGF1_MD}
   EVP_PKEY_CTRL_RSA_MGF1_MD = EVP_PKEY_ALG_CTRL + 5;
 
-  {$EXTERNALSYM EVP_PKEY_CTRL_GET_RSA_PADDING}
   EVP_PKEY_CTRL_GET_RSA_PADDING =  EVP_PKEY_ALG_CTRL + 6;
-  {$EXTERNALSYM EVP_PKEY_CTRL_GET_RSA_PSS_SALTLEN}
   EVP_PKEY_CTRL_GET_RSA_PSS_SALTLEN = EVP_PKEY_ALG_CTRL + 7;
-  {$EXTERNALSYM EVP_PKEY_CTRL_GET_RSA_MGF1_MD}
   EVP_PKEY_CTRL_GET_RSA_MGF1_MD =  EVP_PKEY_ALG_CTRL + 8;
 
-  {$EXTERNALSYM EVP_PKEY_CTRL_RSA_OAEP_MD}
   EVP_PKEY_CTRL_RSA_OAEP_MD = EVP_PKEY_ALG_CTRL + 9;
-  {$EXTERNALSYM EVP_PKEY_CTRL_RSA_OAEP_LABEL}
   EVP_PKEY_CTRL_RSA_OAEP_LABEL = EVP_PKEY_ALG_CTRL + 10;
 
-  {$EXTERNALSYM EVP_PKEY_CTRL_GET_RSA_OAEP_MD}
   EVP_PKEY_CTRL_GET_RSA_OAEP_MD = EVP_PKEY_ALG_CTRL + 11;
-  {$EXTERNALSYM EVP_PKEY_CTRL_GET_RSA_OAEP_LABEL}
   EVP_PKEY_CTRL_GET_RSA_OAEP_LABEL = EVP_PKEY_ALG_CTRL + 12;
 
-  {$EXTERNALSYM EVP_PKEY_CTRL_RSA_KEYGEN_PRIMES}
   EVP_PKEY_CTRL_RSA_KEYGEN_PRIMES = EVP_PKEY_ALG_CTRL + 13;
 
-  {$EXTERNALSYM RSA_PKCS1_PADDING}
   RSA_PKCS1_PADDING =   1;
-  {$EXTERNALSYM RSA_SSLV23_PADDING}
   RSA_SSLV23_PADDING =  2;
-  {$EXTERNALSYM RSA_NO_PADDING}
   RSA_NO_PADDING =   3;
-  {$EXTERNALSYM RSA_PKCS1_OAEP_PADDING}
   RSA_PKCS1_OAEP_PADDING = 4;
-  {$EXTERNALSYM RSA_X931_PADDING}
   RSA_X931_PADDING =   5;
-  {$EXTERNALSYM RSA_PKCS1_PSS_PADDING}
   RSA_PKCS1_PSS_PADDING =  6; (* EVP_PKEY_ only *)
-  {$EXTERNALSYM RSA_PKCS1_PADDING_SIZE}
   RSA_PKCS1_PADDING_SIZE = 11;
 
   (*
@@ -161,24 +120,20 @@ const
    * sets this flag in its own methods it is its responsibility to ensure the
    * result is compliant.
    *)
-  {$EXTERNALSYM RSA_FLAG_FIPS_METHOD}
   RSA_FLAG_FIPS_METHOD = $0400;
   (*
    * If this flag is set the operations normally disabled in FIPS mode are
    * permitted it is then the applications responsibility to ensure that the
    * usage is compliant.
    *)
-  {$EXTERNALSYM RSA_FLAG_NON_FIPS_ALLOW}
   RSA_FLAG_NON_FIPS_ALLOW = $0400;
   (*
    * Application has decided PRNG is good enough to generate a key: don't
    * check.
    *)
-  {$EXTERNALSYM RSA_FLAG_CHECKED}
   RSA_FLAG_CHECKED = $0800;
 
 type
-  {$EXTERNALSYM rsa_pss_params_st}
   rsa_pss_params_st = record
     hashAlgorithm: PX509_ALGOR;
     maskGenAlgorithm: PX509_ALGOR;
@@ -187,11 +142,9 @@ type
     (* Decoded hash algorithm from maskGenAlgorithm *)
     maskHash: PX509_ALGOR;
   end;
-  {$EXTERNALSYM RSA_PSS_PARAMS}
   RSA_PSS_PARAMS = rsa_pss_params_st;
   // DECLARE_ASN1_FUNCTIONS(RSA_PSS_PARAMS)
 
-  {$EXTERNALSYM rsa_oaep_params_st}
   rsa_oaep_params_st = record
     hashFunc: PX509_ALGOR;
     maskGenFunc: PX509_ALGOR;
@@ -199,7 +152,6 @@ type
     (* Decoded hash algorithm from maskGenFunc *)
     maskHash: PX509_ALGOR;
   end;
-  {$EXTERNALSYM RSA_OAEP_PARAMS}
   RSA_OAEP_PARAMS = rsa_oaep_params_st;
   //DECLARE_ASN1_FUNCTIONS(RSA_OAEP_PARAMS)
 
@@ -399,7 +351,6 @@ var
   RSA_padding_add_PKCS1_OAEP: function (to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT; const p: PByte; pl: TIdC_INT): TIdC_INT; cdecl = nil;
   RSA_padding_check_PKCS1_OAEP: function (to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT; rsa_len: TIdC_INT; const p: PByte; pl: TIdC_INT): TIdC_INT; cdecl = nil;
   RSA_padding_add_PKCS1_OAEP_mgf1: function (to_: PByte; tlen: TIdC_INT; const from: PByte; flen: TIdC_INT; const param: PByte; plen: TIdC_INT; const md: PEVP_MD; const mgf1md: PEVP_MD): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM RSA_padding_check_PKCS1_OAEP_mgf1}
   RSA_padding_check_PKCS1_OAEP_mgf1: function (to_: PByte; tlen: TIdC_INT; const from: PByte; flen: TIdC_INT; num: TIdC_INT; const param: PByte; plen: TIdC_INT; const md: PEVP_MD; const mgf1md: PEVP_MD): TIdC_INT; cdecl = nil;
 //  RSA_padding_add_SSLv23: function (to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT): TIdC_INT; cdecl = nil;  //Discontinued in TaurusTLS 3.x
 //  RSA_padding_check_SSLv23: function (to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT; rsa_len: TIdC_INT): TIdC_INT; cdecl = nil;  //Discontinued in TaurusTLS 3.x
@@ -581,7 +532,6 @@ var
   function RSA_padding_add_PKCS1_OAEP(to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT; const p: PByte; pl: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function RSA_padding_check_PKCS1_OAEP(to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT; rsa_len: TIdC_INT; const p: PByte; pl: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function RSA_padding_add_PKCS1_OAEP_mgf1(to_: PByte; tlen: TIdC_INT; const from: PByte; flen: TIdC_INT; const param: PByte; plen: TIdC_INT; const md: PEVP_MD; const mgf1md: PEVP_MD): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM RSA_padding_check_PKCS1_OAEP_mgf1}
   function RSA_padding_check_PKCS1_OAEP_mgf1(to_: PByte; tlen: TIdC_INT; const from: PByte; flen: TIdC_INT; num: TIdC_INT; const param: PByte; plen: TIdC_INT; const md: PEVP_MD; const mgf1md: PEVP_MD): TIdC_INT cdecl; external CLibCrypto;
 //  function RSA_padding_add_SSLv23(to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
 //  function RSA_padding_check_SSLv23(to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT; rsa_len: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
@@ -670,7 +620,6 @@ var
   function RSA_meth_set_multi_prime_keygen(meth: PRSA_METHOD; keygen: RSA_meth_set_multi_prime_keygen_keygen): TIdC_INT cdecl; external CLibCrypto;
 
 {$ENDIF}
-  {$EXTERNALSYM RSA_get_ex_new_index}
 function RSA_get_ex_new_index(l : TIdC_LONG; p : PRSA;
     newf : CRYPTO_EX_new; dupf : CRYPTO_EX_dup; freef : CRYPTO_EX_FREE) : TIdC_INT;
 

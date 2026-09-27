@@ -40,224 +40,136 @@ uses
 
 const
   (* There are the classes of BIOs *)
-  {$EXTERNALSYM BIO_TYPE_DESCRIPTOR}
   BIO_TYPE_DESCRIPTOR = $0100;
-  {$EXTERNALSYM BIO_TYPE_FILTER}
   BIO_TYPE_FILTER = $0200;
-  {$EXTERNALSYM BIO_TYPE_SOURCE_SINK}
   BIO_TYPE_SOURCE_SINK = $0400;
 
   (* These are the 'types' of BIOs *)
-  {$EXTERNALSYM BIO_TYPE_NONE}
   BIO_TYPE_NONE = 0;
-  {$EXTERNALSYM BIO_TYPE_MEM}
   BIO_TYPE_MEM =  1 or BIO_TYPE_SOURCE_SINK;
-  {$EXTERNALSYM BIO_TYPE_FILE}
   BIO_TYPE_FILE =  2 or BIO_TYPE_SOURCE_SINK;
 
-  {$EXTERNALSYM BIO_TYPE_FD}
   BIO_TYPE_FD          =  4 or BIO_TYPE_SOURCE_SINK or BIO_TYPE_DESCRIPTOR;
-  {$EXTERNALSYM BIO_TYPE_SOCKET}
   BIO_TYPE_SOCKET      =  5 or BIO_TYPE_SOURCE_SINK or BIO_TYPE_DESCRIPTOR;
-  {$EXTERNALSYM BIO_TYPE_NULL}
   BIO_TYPE_NULL        =  6 or BIO_TYPE_SOURCE_SINK;
-  {$EXTERNALSYM BIO_TYPE_SSL}
   BIO_TYPE_SSL         =  7 or BIO_TYPE_FILTER;
-  {$EXTERNALSYM BIO_TYPE_MD}
   BIO_TYPE_MD          =  8 or BIO_TYPE_FILTER;
-  {$EXTERNALSYM BIO_TYPE_BUFFER}
   BIO_TYPE_BUFFER      =  9 or BIO_TYPE_FILTER;
-  {$EXTERNALSYM BIO_TYPE_CIPHER}
   BIO_TYPE_CIPHER      = 10 or BIO_TYPE_FILTER;
-  {$EXTERNALSYM BIO_TYPE_BASE64}
   BIO_TYPE_BASE64      = 11 or BIO_TYPE_FILTER;
-  {$EXTERNALSYM BIO_TYPE_CONNECT}
   BIO_TYPE_CONNECT     = 12 or BIO_TYPE_SOURCE_SINK or BIO_TYPE_DESCRIPTOR;
-  {$EXTERNALSYM BIO_TYPE_ACCEPT}
   BIO_TYPE_ACCEPT      = 13 or BIO_TYPE_SOURCE_SINK or BIO_TYPE_DESCRIPTOR;
 
-  {$EXTERNALSYM BIO_TYPE_NBIO_TEST}
   BIO_TYPE_NBIO_TEST   = 16 or BIO_TYPE_FILTER;
-  {$EXTERNALSYM BIO_TYPE_NULL_FILTER}
   BIO_TYPE_NULL_FILTER = 17 or BIO_TYPE_FILTER;
-  {$EXTERNALSYM BIO_TYPE_BIO}
   BIO_TYPE_BIO         = 19 or BIO_TYPE_SOURCE_SINK;
-  {$EXTERNALSYM BIO_TYPE_LINEBUFFER}
   BIO_TYPE_LINEBUFFER  = 20 or BIO_TYPE_FILTER;
-  {$EXTERNALSYM BIO_TYPE_DGRAM}
   BIO_TYPE_DGRAM       = 21 or BIO_TYPE_SOURCE_SINK or BIO_TYPE_DESCRIPTOR;
-  {$EXTERNALSYM BIO_TYPE_ASN1}
   BIO_TYPE_ASN1        = 22 or BIO_TYPE_FILTER;
-  {$EXTERNALSYM BIO_TYPE_COMP}
   BIO_TYPE_COMP        = 23 or BIO_TYPE_FILTER;
-  {$EXTERNALSYM BIO_TYPE_DGRAM_SCTP}
   BIO_TYPE_DGRAM_SCTP  = 24 or BIO_TYPE_SOURCE_SINK or BIO_TYPE_DESCRIPTOR;
 
-  {$EXTERNALSYM BIO_TYPE_START}
   BIO_TYPE_START = 128;
 
   (*
    * BIO_FILENAME_READ|BIO_CLOSE to open or close on free.
    * BIO_set_fp(in,stdin,BIO_NOCLOSE);
    *)
-  {$EXTERNALSYM BIO_NOCLOSE}
   BIO_NOCLOSE = $00;
-  {$EXTERNALSYM BIO_CLOSE}
   BIO_CLOSE   = $01;
 
   (*
    * These are used in the following macros and are passed to BIO_ctrl()
    *)
-  {$EXTERNALSYM BIO_CTRL_RESET}
   BIO_CTRL_RESET        = 1;(* opt - rewind/zero etc *)
-  {$EXTERNALSYM BIO_CTRL_EOF}
   BIO_CTRL_EOF          = 2;(* opt - are we at the eof *)
-  {$EXTERNALSYM BIO_CTRL_INFO}
   BIO_CTRL_INFO         = 3;(* opt - extra tit-bits *)
-  {$EXTERNALSYM BIO_CTRL_SET}
   BIO_CTRL_SET          = 4;(* man - set the 'IO' type *)
-  {$EXTERNALSYM BIO_CTRL_GET}
   BIO_CTRL_GET          = 5;(* man - get the 'IO' type *)
-  {$EXTERNALSYM BIO_CTRL_PUSH}
   BIO_CTRL_PUSH         = 6;(* opt - internal, used to signify change *)
-  {$EXTERNALSYM BIO_CTRL_POP}
   BIO_CTRL_POP          = 7;(* opt - internal, used to signify change *)
-  {$EXTERNALSYM BIO_CTRL_GET_CLOSE}
   BIO_CTRL_GET_CLOSE    = 8;(* man - set the 'close' on free *)
-  {$EXTERNALSYM BIO_CTRL_SET_CLOSE}
   BIO_CTRL_SET_CLOSE    = 9;(* man - set the 'close' on free *)
   // Added "_const" to prevent naming clashes
   BIO_CTRL_PENDING_const      = 10;(* opt - is their more data buffered *)
-  {$EXTERNALSYM BIO_CTRL_FLUSH}
   BIO_CTRL_FLUSH        = 11;(* opt - 'flush' buffered output *)
-  {$EXTERNALSYM BIO_CTRL_DUP}
   BIO_CTRL_DUP          = 12;(* man - extra stuff for 'duped' BIO *)
   // Added "_const" to prevent naming clashes
   BIO_CTRL_WPENDING_const     = 13;(* opt - number of bytes still to write *)
-  {$EXTERNALSYM BIO_CTRL_SET_CALLBACK}
   BIO_CTRL_SET_CALLBACK = 14;(* opt - set callback function *)
-  {$EXTERNALSYM BIO_CTRL_GET_CALLBACK}
   BIO_CTRL_GET_CALLBACK = 15;(* opt - set callback function *)
 
-  {$EXTERNALSYM BIO_CTRL_PEEK}
   BIO_CTRL_PEEK         = 29;(* BIO_f_buffer special *)
-  {$EXTERNALSYM BIO_CTRL_SET_FILENAME}
   BIO_CTRL_SET_FILENAME = 30;(* BIO_s_file special *)
 
   (* dgram BIO stuff *)
-  {$EXTERNALSYM BIO_CTRL_DGRAM_CONNECT}
   BIO_CTRL_DGRAM_CONNECT       = 31;(* BIO dgram special *)
-  {$EXTERNALSYM BIO_CTRL_DGRAM_SET_CONNECTED}
   BIO_CTRL_DGRAM_SET_CONNECTED = 32;(* allow for an externally connected
                                            * socket to be passed in *)
-  {$EXTERNALSYM BIO_CTRL_DGRAM_SET_RECV_TIMEOUT}
   BIO_CTRL_DGRAM_SET_RECV_TIMEOUT = 33;(* setsockopt, essentially *)
-  {$EXTERNALSYM BIO_CTRL_DGRAM_GET_RECV_TIMEOUT}
   BIO_CTRL_DGRAM_GET_RECV_TIMEOUT = 34;(* getsockopt, essentially *)
-  {$EXTERNALSYM BIO_CTRL_DGRAM_SET_SEND_TIMEOUT}
   BIO_CTRL_DGRAM_SET_SEND_TIMEOUT = 35;(* setsockopt, essentially *)
-  {$EXTERNALSYM BIO_CTRL_DGRAM_GET_SEND_TIMEOUT}
   BIO_CTRL_DGRAM_GET_SEND_TIMEOUT = 36;(* getsockopt, essentially *)
 
-  {$EXTERNALSYM BIO_CTRL_DGRAM_GET_RECV_TIMER_EXP}
   BIO_CTRL_DGRAM_GET_RECV_TIMER_EXP = 37;(* flag whether the last *)
-  {$EXTERNALSYM BIO_CTRL_DGRAM_GET_SEND_TIMER_EXP}
   BIO_CTRL_DGRAM_GET_SEND_TIMER_EXP = 38;(* I/O operation tiemd out *)
 
-  {$EXTERNALSYM BIO_CTRL_DGRAM_MTU_DISCOVER}
   BIO_CTRL_DGRAM_MTU_DISCOVER     = 39;(* set DF bit on egress packets *)
 
-  {$EXTERNALSYM BIO_CTRL_DGRAM_QUERY_MTU}
   BIO_CTRL_DGRAM_QUERY_MTU        = 40;(* as kernel for current MTU *)
-  {$EXTERNALSYM BIO_CTRL_DGRAM_GET_FALLBACK_MTU}
   BIO_CTRL_DGRAM_GET_FALLBACK_MTU = 47;
-  {$EXTERNALSYM BIO_CTRL_DGRAM_GET_MTU}
   BIO_CTRL_DGRAM_GET_MTU          = 41;(* get cached value for MTU *)
-  {$EXTERNALSYM BIO_CTRL_DGRAM_SET_MTU}
   BIO_CTRL_DGRAM_SET_MTU          = 42;(* set cached value for MTU.
                                                 * want to use this if asking
                                                 * the kernel fails *)
 
-  {$EXTERNALSYM BIO_CTRL_DGRAM_MTU_EXCEEDED}
   BIO_CTRL_DGRAM_MTU_EXCEEDED     = 43;(* check whether the MTU was
                                                 * exceed in the previous write
                                                 * operation *)
 
-  {$EXTERNALSYM BIO_CTRL_DGRAM_GET_PEER}
   BIO_CTRL_DGRAM_GET_PEER         = 46;
-  {$EXTERNALSYM BIO_CTRL_DGRAM_SET_PEER}
   BIO_CTRL_DGRAM_SET_PEER         = 44;(* Destination for the data *)
 
-  {$EXTERNALSYM BIO_CTRL_DGRAM_SET_NEXT_TIMEOUT}
   BIO_CTRL_DGRAM_SET_NEXT_TIMEOUT = 45;(* Next DTLS handshake timeout
                                                 * to adjust socket timeouts *)
-  {$EXTERNALSYM BIO_CTRL_DGRAM_SET_DONT_FRAG}
   BIO_CTRL_DGRAM_SET_DONT_FRAG    = 48;
 
-  {$EXTERNALSYM BIO_CTRL_DGRAM_GET_MTU_OVERHEAD}
   BIO_CTRL_DGRAM_GET_MTU_OVERHEAD = 49;
 
   (* Deliberately outside of OPENSSL_NO_SCTP - used in bss_dgram.c *)
-  {$EXTERNALSYM BIO_CTRL_DGRAM_SCTP_SET_IN_HANDSHAKE}
   BIO_CTRL_DGRAM_SCTP_SET_IN_HANDSHAKE  = 50;
   (* SCTP stuff *)
-  {$EXTERNALSYM BIO_CTRL_DGRAM_SCTP_ADD_AUTH_KEY}
   BIO_CTRL_DGRAM_SCTP_ADD_AUTH_KEY      = 51;
-  {$EXTERNALSYM BIO_CTRL_DGRAM_SCTP_NEXT_AUTH_KEY}
   BIO_CTRL_DGRAM_SCTP_NEXT_AUTH_KEY     = 52;
-  {$EXTERNALSYM BIO_CTRL_DGRAM_SCTP_AUTH_CCS_RCVD}
   BIO_CTRL_DGRAM_SCTP_AUTH_CCS_RCVD     = 53;
-  {$EXTERNALSYM BIO_CTRL_DGRAM_SCTP_GET_SNDINFO}
   BIO_CTRL_DGRAM_SCTP_GET_SNDINFO       = 60;
-  {$EXTERNALSYM BIO_CTRL_DGRAM_SCTP_SET_SNDINFO}
   BIO_CTRL_DGRAM_SCTP_SET_SNDINFO       = 61;
-  {$EXTERNALSYM BIO_CTRL_DGRAM_SCTP_GET_RCVINFO}
   BIO_CTRL_DGRAM_SCTP_GET_RCVINFO       = 62;
-  {$EXTERNALSYM BIO_CTRL_DGRAM_SCTP_SET_RCVINFO}
   BIO_CTRL_DGRAM_SCTP_SET_RCVINFO       = 63;
-  {$EXTERNALSYM BIO_CTRL_DGRAM_SCTP_GET_PRINFO}
   BIO_CTRL_DGRAM_SCTP_GET_PRINFO        = 64;
-  {$EXTERNALSYM BIO_CTRL_DGRAM_SCTP_SET_PRINFO}
   BIO_CTRL_DGRAM_SCTP_SET_PRINFO        = 65;
-  {$EXTERNALSYM BIO_CTRL_DGRAM_SCTP_SAVE_SHUTDOWN}
   BIO_CTRL_DGRAM_SCTP_SAVE_SHUTDOWN     = 70;
 
-  {$EXTERNALSYM BIO_CTRL_DGRAM_SET_PEEK_MODE}
   BIO_CTRL_DGRAM_SET_PEEK_MODE          = 71;
 
-  {$EXTERNALSYM BIO_CTRL_GET_KTLS_SEND}
   BIO_CTRL_GET_KTLS_SEND                = 73;
-  {$EXTERNALSYM BIO_CTRL_GET_KTLS_RECV}
   BIO_CTRL_GET_KTLS_RECV                = 76;
 
-  {$EXTERNALSYM BIO_CTRL_DGRAM_SCTP_WAIT_FOR_DRY}
   BIO_CTRL_DGRAM_SCTP_WAIT_FOR_DRY      = 77;
-  {$EXTERNALSYM BIO_CTRL_DGRAM_SCTP_MSG_WAITING}
   BIO_CTRL_DGRAM_SCTP_MSG_WAITING       = 78;
 
 //* BIO_f_prefix controls */
-  {$EXTERNALSYM BIO_CTRL_SET_PREFIX}
   BIO_CTRL_SET_PREFIX                   = 79;
-  {$EXTERNALSYM BIO_CTRL_SET_INDENT}
   BIO_CTRL_SET_INDENT                   = 80;
-  {$EXTERNALSYM BIO_CTRL_GET_INDENT}
   BIO_CTRL_GET_INDENT                   = 81;
 
-  {$EXTERNALSYM BIO_CTRL_DGRAM_GET_LOCAL_ADDR_CAP}
   BIO_CTRL_DGRAM_GET_LOCAL_ADDR_CAP     = 82;
-  {$EXTERNALSYM BIO_CTRL_DGRAM_GET_LOCAL_ADDR_ENABLE}
   BIO_CTRL_DGRAM_GET_LOCAL_ADDR_ENABLE  = 83;
-  {$EXTERNALSYM BIO_CTRL_DGRAM_SET_LOCAL_ADDR_ENABLE}
   BIO_CTRL_DGRAM_SET_LOCAL_ADDR_ENABLE  = 84;
-  {$EXTERNALSYM BIO_CTRL_DGRAM_GET_EFFECTIVE_CAPS}
   BIO_CTRL_DGRAM_GET_EFFECTIVE_CAPS     = 85;
-  {$EXTERNALSYM BIO_CTRL_DGRAM_GET_CAPS}
   BIO_CTRL_DGRAM_GET_CAPS               = 86;
-  {$EXTERNALSYM BIO_CTRL_DGRAM_SET_CAPS}
   BIO_CTRL_DGRAM_SET_CAPS               = 87;
-  {$EXTERNALSYM BIO_CTRL_DGRAM_GET_NO_TRUNC}
   BIO_CTRL_DGRAM_GET_NO_TRUNC           = 88;
-  {$EXTERNALSYM BIO_CTRL_DGRAM_SET_NO_TRUNC}
   BIO_CTRL_DGRAM_SET_NO_TRUNC           = 89;
 
 {*
@@ -265,49 +177,30 @@ const
  *   BIO_CTRL_SET_KTLS_TX_ZEROCOPY_SENDFILE 90
  *}
 
-  {$EXTERNALSYM BIO_CTRL_GET_RPOLL_DESCRIPTOR}
   BIO_CTRL_GET_RPOLL_DESCRIPTOR         = 91;
-  {$EXTERNALSYM BIO_CTRL_GET_WPOLL_DESCRIPTOR}
   BIO_CTRL_GET_WPOLL_DESCRIPTOR         = 92;
-  {$EXTERNALSYM BIO_CTRL_DGRAM_DETECT_PEER_ADDR}
   BIO_CTRL_DGRAM_DETECT_PEER_ADDR       = 93;
-  {$EXTERNALSYM BIO_CTRL_DGRAM_SET0_LOCAL_ADDR}
   BIO_CTRL_DGRAM_SET0_LOCAL_ADDR        = 94;
 
-  {$EXTERNALSYM BIO_DGRAM_CAP_NONE}
   BIO_DGRAM_CAP_NONE = 0;
 
-  {$EXTERNALSYM BIO_DGRAM_CAP_HANDLES_SRC_ADDR}
   BIO_DGRAM_CAP_HANDLES_SRC_ADDR = 1 shl 0;
-  {$EXTERNALSYM BIO_DGRAM_CAP_HANDLES_DST_ADDR}
   BIO_DGRAM_CAP_HANDLES_DST_ADDR = 1 shl 1;
-  {$EXTERNALSYM BIO_DGRAM_CAP_PROVIDES_SRC_ADDR}
   BIO_DGRAM_CAP_PROVIDES_SRC_ADDR = 1 shl 2;
-  {$EXTERNALSYM BIO_DGRAM_CAP_PROVIDES_DST_ADDR}
   BIO_DGRAM_CAP_PROVIDES_DST_ADDR = 1 shl 3;
 
   (* modifiers *)
-  {$EXTERNALSYM BIO_FP_READ}
   BIO_FP_READ            = $02;
-  {$EXTERNALSYM BIO_FP_WRITE}
   BIO_FP_WRITE           = $04;
-  {$EXTERNALSYM BIO_FP_APPEND}
   BIO_FP_APPEND          = $08;
-  {$EXTERNALSYM BIO_FP_TEXT}
   BIO_FP_TEXT            = $10;
 
-  {$EXTERNALSYM BIO_FLAGS_READ}
   BIO_FLAGS_READ         = $01;
-  {$EXTERNALSYM BIO_FLAGS_WRITE}
   BIO_FLAGS_WRITE        = $02;
-  {$EXTERNALSYM BIO_FLAGS_IO_SPECIAL}
   BIO_FLAGS_IO_SPECIAL   = $04;
-  {$EXTERNALSYM BIO_FLAGS_RWS}
   BIO_FLAGS_RWS          = BIO_FLAGS_READ or BIO_FLAGS_WRITE or BIO_FLAGS_IO_SPECIAL;
-  {$EXTERNALSYM BIO_FLAGS_SHOULD_RETRY}
   BIO_FLAGS_SHOULD_RETRY = $08;
 
-  {$EXTERNALSYM BIO_FLAGS_BASE64_NO_NL}
   BIO_FLAGS_BASE64_NO_NL = $100;
 
   (*
@@ -315,32 +208,21 @@ const
    * BIO_FLAGS_MEM_RDONLY means we shouldn't free up or change the data in any way;
    * BIO_FLAGS_NONCLEAR_RST means we shouldn't clear data on reset.
    *)
-  {$EXTERNALSYM BIO_FLAGS_MEM_RDONLY}
   BIO_FLAGS_MEM_RDONLY   = $200;
-  {$EXTERNALSYM BIO_FLAGS_NONCLEAR_RST}
   BIO_FLAGS_NONCLEAR_RST = $400;
 
-  {$EXTERNALSYM BIO_RR_SSL_X509_LOOKUP}
   BIO_RR_SSL_X509_LOOKUP = $01;
   (* Returned from the connect BIO when a connect would have blocked *)
-  {$EXTERNALSYM BIO_RR_CONNECT}
   BIO_RR_CONNECT         = $02;
   (* Returned from the accept BIO when an accept would have blocked *)
-  {$EXTERNALSYM BIO_RR_ACCEPT}
   BIO_RR_ACCEPT          = $03;
 
   (* These are passed by the BIO callback *)
-  {$EXTERNALSYM BIO_CB_FREE}
   BIO_CB_FREE  = $01;
-  {$EXTERNALSYM BIO_CB_READ}
   BIO_CB_READ  = $02;
-  {$EXTERNALSYM BIO_CB_WRITE}
   BIO_CB_WRITE = $03;
-  {$EXTERNALSYM BIO_CB_PUTS}
   BIO_CB_PUTS  = $04;
-  {$EXTERNALSYM BIO_CB_GETS}
   BIO_CB_GETS  = $05;
-  {$EXTERNALSYM BIO_CB_CTRL}
   BIO_CB_CTRL  = $06;
 ///*
 // * The callback is called before and after the underling operation, The
@@ -351,140 +233,77 @@ const
 //# define BIO_cb_pre(a)   (!((a)&BIO_CB_RETURN))
 //# define BIO_cb_post(a)  ((a)&BIO_CB_RETURN)
 
-  {$EXTERNALSYM BIO_C_SET_CONNECT}
   BIO_C_SET_CONNECT                 = 100;
-  {$EXTERNALSYM BIO_C_DO_STATE_MACHINE}
   BIO_C_DO_STATE_MACHINE            = 101;
-  {$EXTERNALSYM BIO_C_SET_NBIO}
   BIO_C_SET_NBIO                    = 102;
   (* BIO_C_SET_PROXY_PARAM            = 103 *)
-  {$EXTERNALSYM BIO_C_SET_FD}
   BIO_C_SET_FD                      = 104;
-  {$EXTERNALSYM BIO_C_GET_FD}
   BIO_C_GET_FD                      = 105;
-  {$EXTERNALSYM BIO_C_SET_FILE_PTR}
   BIO_C_SET_FILE_PTR                = 106;
-  {$EXTERNALSYM BIO_C_GET_FILE_PTR}
   BIO_C_GET_FILE_PTR                = 107;
-  {$EXTERNALSYM BIO_C_SET_FILENAME}
   BIO_C_SET_FILENAME                = 108;
-  {$EXTERNALSYM BIO_C_SET_SSL}
   BIO_C_SET_SSL                     = 109;
-  {$EXTERNALSYM BIO_C_GET_SSL}
   BIO_C_GET_SSL                     = 110;
-  {$EXTERNALSYM BIO_C_SET_MD}
   BIO_C_SET_MD                      = 111;
-  {$EXTERNALSYM BIO_C_GET_MD}
   BIO_C_GET_MD                      = 112;
-  {$EXTERNALSYM BIO_C_GET_CIPHER_STATUS}
   BIO_C_GET_CIPHER_STATUS           = 113;
-  {$EXTERNALSYM BIO_C_SET_BUF_MEM}
   BIO_C_SET_BUF_MEM                 = 114;
-  {$EXTERNALSYM BIO_C_GET_BUF_MEM_PTR}
   BIO_C_GET_BUF_MEM_PTR             = 115;
-  {$EXTERNALSYM BIO_C_GET_BUFF_NUM_LINES}
   BIO_C_GET_BUFF_NUM_LINES          = 116;
-  {$EXTERNALSYM BIO_C_SET_BUFF_SIZE}
   BIO_C_SET_BUFF_SIZE               = 117;
-  {$EXTERNALSYM BIO_C_SET_ACCEPT}
   BIO_C_SET_ACCEPT                  = 118;
-  {$EXTERNALSYM BIO_C_SSL_MODE}
   BIO_C_SSL_MODE                    = 119;
-  {$EXTERNALSYM BIO_C_GET_MD_CTX}
   BIO_C_GET_MD_CTX                  = 120;
   (* BIO_C_GET_PROXY_PARAM             = 121 *)
-  {$EXTERNALSYM BIO_C_SET_BUFF_READ_DATA}
   BIO_C_SET_BUFF_READ_DATA          = 122;(* data to read first *)
-  {$EXTERNALSYM BIO_C_GET_CONNECT}
   BIO_C_GET_CONNECT                 = 123;
-  {$EXTERNALSYM BIO_C_GET_ACCEPT}
   BIO_C_GET_ACCEPT                  = 124;
-  {$EXTERNALSYM BIO_C_SET_SSL_RENEGOTIATE_BYTES}
   BIO_C_SET_SSL_RENEGOTIATE_BYTES   = 125;
-  {$EXTERNALSYM BIO_C_GET_SSL_NUM_RENEGOTIATES}
   BIO_C_GET_SSL_NUM_RENEGOTIATES    = 126;
-  {$EXTERNALSYM BIO_C_SET_SSL_RENEGOTIATE_TIMEOUT}
   BIO_C_SET_SSL_RENEGOTIATE_TIMEOUT = 127;
-  {$EXTERNALSYM BIO_C_FILE_SEEK}
   BIO_C_FILE_SEEK                   = 128;
-  {$EXTERNALSYM BIO_C_GET_CIPHER_CTX}
   BIO_C_GET_CIPHER_CTX              = 129;
-  {$EXTERNALSYM BIO_C_SET_BUF_MEM_EOF_RETURN}
   BIO_C_SET_BUF_MEM_EOF_RETURN      = 130;(* return end of input
                                                        * value *)
-  {$EXTERNALSYM BIO_C_SET_BIND_MODE}
   BIO_C_SET_BIND_MODE               = 131;
-  {$EXTERNALSYM BIO_C_GET_BIND_MODE}
   BIO_C_GET_BIND_MODE               = 132;
-  {$EXTERNALSYM BIO_C_FILE_TELL}
   BIO_C_FILE_TELL                   = 133;
-  {$EXTERNALSYM BIO_C_GET_SOCKS}
   BIO_C_GET_SOCKS                   = 134;
-  {$EXTERNALSYM BIO_C_SET_SOCKS}
   BIO_C_SET_SOCKS                   = 135;
 
-  {$EXTERNALSYM BIO_C_SET_WRITE_BUF_SIZE}
   BIO_C_SET_WRITE_BUF_SIZE          = 136;(* for BIO_s_bio *)
-  {$EXTERNALSYM BIO_C_GET_WRITE_BUF_SIZE}
   BIO_C_GET_WRITE_BUF_SIZE          = 137;
-  {$EXTERNALSYM BIO_C_MAKE_BIO_PAIR}
   BIO_C_MAKE_BIO_PAIR               = 138;
-  {$EXTERNALSYM BIO_C_DESTROY_BIO_PAIR}
   BIO_C_DESTROY_BIO_PAIR            = 139;
-  {$EXTERNALSYM BIO_C_GET_WRITE_GUARANTEE}
   BIO_C_GET_WRITE_GUARANTEE         = 140;
-  {$EXTERNALSYM BIO_C_GET_READ_REQUEST}
   BIO_C_GET_READ_REQUEST            = 141;
-  {$EXTERNALSYM BIO_C_SHUTDOWN_WR}
   BIO_C_SHUTDOWN_WR                 = 142;
-  {$EXTERNALSYM BIO_C_NREAD0}
   BIO_C_NREAD0                      = 143;
-  {$EXTERNALSYM BIO_C_NREAD}
   BIO_C_NREAD                       = 144;
-  {$EXTERNALSYM BIO_C_NWRITE0}
   BIO_C_NWRITE0                     = 145;
-  {$EXTERNALSYM BIO_C_NWRITE}
   BIO_C_NWRITE                      = 146;
-  {$EXTERNALSYM BIO_C_RESET_READ_REQUEST}
   BIO_C_RESET_READ_REQUEST          = 147;
-  {$EXTERNALSYM BIO_C_SET_MD_CTX}
   BIO_C_SET_MD_CTX                  = 148;
 
-  {$EXTERNALSYM BIO_C_SET_PREFIX}
   BIO_C_SET_PREFIX                  = 149;
-  {$EXTERNALSYM BIO_C_GET_PREFIX}
   BIO_C_GET_PREFIX                  = 150;
-  {$EXTERNALSYM BIO_C_SET_SUFFIX}
   BIO_C_SET_SUFFIX                  = 151;
-  {$EXTERNALSYM BIO_C_GET_SUFFIX}
   BIO_C_GET_SUFFIX                  = 152;
 
-  {$EXTERNALSYM BIO_C_SET_EX_ARG}
   BIO_C_SET_EX_ARG                  = 153;
-  {$EXTERNALSYM BIO_C_GET_EX_ARG}
   BIO_C_GET_EX_ARG                  = 154;
 
-  {$EXTERNALSYM BIO_C_SET_CONNECT_MODE}
   BIO_C_SET_CONNECT_MODE            = 155;
 
-  {$EXTERNALSYM BIO_SOCK_REUSEADDR}
   BIO_SOCK_REUSEADDR = $01;
-  {$EXTERNALSYM BIO_SOCK_V6_ONLY}
   BIO_SOCK_V6_ONLY   = $02;
-  {$EXTERNALSYM BIO_SOCK_KEEPALIVE}
   BIO_SOCK_KEEPALIVE = $04;
-  {$EXTERNALSYM BIO_SOCK_NONBLOCK}
   BIO_SOCK_NONBLOCK  = $08;
-  {$EXTERNALSYM BIO_SOCK_NODELAY}
   BIO_SOCK_NODELAY   = $10;
 
-  {$EXTERNALSYM BIO_POLL_DESCRIPTOR_TYPE_NONE}
   BIO_POLL_DESCRIPTOR_TYPE_NONE     =  0;
-  {$EXTERNALSYM BIO_POLL_DESCRIPTOR_TYPE_SOCK_FD}
   BIO_POLL_DESCRIPTOR_TYPE_SOCK_FD    = 1;
-  {$EXTERNALSYM BIO_POLL_DESCRIPTOR_TYPE_SSL}
   BIO_POLL_DESCRIPTOR_TYPE_SSL        = 2;
-  {$EXTERNALSYM BIO_POLL_DESCRIPTOR_CUSTOM_START}
   BIO_POLL_DESCRIPTOR_CUSTOM_START    = 8192;
 
 type
@@ -580,56 +399,38 @@ type
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 var
-  {$EXTERNALSYM BIO_get_flags}
   BIO_get_flags: function (const b: PBIO): TIdC_INT; cdecl = nil; {removed 1.0.0}
-  {$EXTERNALSYM BIO_set_retry_special}
   BIO_set_retry_special: procedure (b: PBIO); cdecl = nil; {removed 1.0.0}
-  {$EXTERNALSYM BIO_set_retry_read}
   BIO_set_retry_read: procedure (b: PBIO); cdecl = nil; {removed 1.0.0}
-  {$EXTERNALSYM BIO_set_retry_write}
   BIO_set_retry_write: procedure (b: PBIO); cdecl = nil; {removed 1.0.0}
 
 (* These are normally used internally in BIOs *)
-  {$EXTERNALSYM BIO_clear_retry_flags}
   BIO_clear_retry_flags: procedure (b: PBIO); cdecl = nil; {removed 1.0.0}
-  {$EXTERNALSYM BIO_get_retry_flags}
   BIO_get_retry_flags: function (b: PBIO): TIdC_INT; cdecl = nil; {removed 1.0.0}
 
 (* These should be used by the application to tell why we should retry *)
-  {$EXTERNALSYM BIO_should_read}
   BIO_should_read: function (b: PBIO): TIdC_INT; cdecl = nil; {removed 1.0.0}
-  {$EXTERNALSYM BIO_should_write}
   BIO_should_write: function (b: PBIO): TIdC_INT; cdecl = nil; {removed 1.0.0}
-  {$EXTERNALSYM BIO_should_io_special}
   BIO_should_io_special: function (b: PBIO): TIdC_INT; cdecl = nil; {removed 1.0.0}
-  {$EXTERNALSYM BIO_retry_type}
   BIO_retry_type: function (b: PBIO): TIdC_INT; cdecl = nil; {removed 1.0.0}
-  {$EXTERNALSYM BIO_should_retry}
   BIO_should_retry: function (b: PBIO): TIdC_INT; cdecl = nil; {removed 1.0.0}
 
 (* BIO_s_accept() and BIO_s_connect() *)
-  {$EXTERNALSYM BIO_do_connect}
   BIO_do_connect: function (b: PBIO): TIdC_LONG; cdecl = nil; {removed 1.0.0}
-  {$EXTERNALSYM BIO_do_accept}
   BIO_do_accept: function (b: PBIO): TIdC_LONG; cdecl = nil; {removed 1.0.0}
-  {$EXTERNALSYM BIO_do_handshake}
   BIO_do_handshake: function (b: PBIO): TIdC_LONG; cdecl = nil; {removed 1.0.0}
 
   // WAS DECLARED AS:
   // original declaration of parameter pp was invalid.
   // correct declaration should be "pp: Pointer" according to OpenSSL documentation}
   // BIO_get_mem_data: function (b: PBIO; pp: Pointer) : TIdC_INT; cdecl = nil; {removed 1.0.0}
-  {$EXTERNALSYM BIO_get_mem_data}
   BIO_get_mem_data: function (b: PBIO; var pp: Pointer) : TIdC_INT; cdecl = nil; {removed 1.0.0}
-  {$EXTERNALSYM BIO_set_mem_buf}
   BIO_set_mem_buf: function (b: PBIO; bm: PBUF_MEM; c: TIdC_INT): TIdC_INT; cdecl = nil; {removed 1.0.0}
   // WAS DECLARED AS:
   // original declaration of parameter pp was invalid.
   // correct declaration should be "pp: Pointer" according to OpenSSL documentation}
   // BIO_get_mem_data: function (b: PBIO; pp: Pointer) : TIdC_INT; cdecl = nil; {removed 1.0.0}
-  {$EXTERNALSYM BIO_get_mem_ptr}
   BIO_get_mem_ptr: function (b: PBIO; var pp: PBUF_MEM): TIdC_INT; cdecl = nil; {removed 1.0.0}
-  {$EXTERNALSYM BIO_set_mem_eof_return}
   BIO_set_mem_eof_return: function (b: PBIO; v: TIdC_INT): TIdC_INT; cdecl = nil; {removed 1.0.0}
 
   BIO_get_new_index: function : TIdC_INT; cdecl = nil; {introduced 1.1.0}
@@ -1426,64 +1227,39 @@ var
 //                                 long (*callback_ctrl) (BIO *, int,
 //                                                        BIO_info_cb *));
 
-  {$EXTERNALSYM BIO_get_flags}
 function BIO_get_flags(const b: PBIO): TIdC_INT; {removed 1.0.0}
-  {$EXTERNALSYM BIO_set_retry_special}
 procedure BIO_set_retry_special(b: PBIO); {removed 1.0.0}
-  {$EXTERNALSYM BIO_set_retry_read}
 procedure BIO_set_retry_read(b: PBIO); {removed 1.0.0}
-  {$EXTERNALSYM BIO_set_retry_write}
 procedure BIO_set_retry_write(b: PBIO); {removed 1.0.0}
-  {$EXTERNALSYM BIO_clear_retry_flags}
 procedure BIO_clear_retry_flags(b: PBIO); {removed 1.0.0}
-  {$EXTERNALSYM BIO_get_retry_flags}
 function BIO_get_retry_flags(b: PBIO): TIdC_INT; {removed 1.0.0}
-  {$EXTERNALSYM BIO_should_read}
 function BIO_should_read(b: PBIO): TIdC_INT; {removed 1.0.0}
-  {$EXTERNALSYM BIO_should_write}
 function BIO_should_write(b: PBIO): TIdC_INT; {removed 1.0.0}
-  {$EXTERNALSYM BIO_should_io_special}
 function BIO_should_io_special(b: PBIO): TIdC_INT; {removed 1.0.0}
-  {$EXTERNALSYM BIO_retry_type}
 function BIO_retry_type(b: PBIO): TIdC_INT; {removed 1.0.0}
-  {$EXTERNALSYM BIO_should_retry}
 function BIO_should_retry(b: PBIO): TIdC_INT; {removed 1.0.0}
-  {$EXTERNALSYM BIO_do_connect}
 function BIO_do_connect(b: PBIO): TIdC_LONG; {removed 1.0.0}
-  {$EXTERNALSYM BIO_do_accept}
 function BIO_do_accept(b: PBIO): TIdC_LONG; {removed 1.0.0}
-  {$EXTERNALSYM BIO_do_handshake}
 function BIO_do_handshake(b: PBIO): TIdC_LONG; {removed 1.0.0}
 // WAS DECLARED AS:
 // function BIO_get_mem_data(b: PBIO; pp: Pointer) : TIdC_INT; {removed 1.0.0}
-  {$EXTERNALSYM BIO_get_mem_data}
 function BIO_get_mem_data(b: PBIO; var pp: Pointer) : TIdC_INT; {removed 1.0.0}
-  {$EXTERNALSYM BIO_set_mem_buf}
 function BIO_set_mem_buf(b: PBIO; bm: PBUF_MEM; c: TIdC_INT): TIdC_INT; {removed 1.0.0}
 // WAS DECLARED AS:
 // function BIO_get_mem_ptr(b: PBIO; pp: Pointer): TIdC_INT; {removed 1.0.0}
-  {$EXTERNALSYM BIO_get_mem_ptr}
 function BIO_get_mem_ptr(b: PBIO; var pp: PBUF_MEM): TIdC_INT; {removed 1.0.0}
-  {$EXTERNALSYM BIO_set_mem_eof_return}
 function BIO_set_mem_eof_return(b: PBIO; v: TIdC_INT): TIdC_INT; {removed 1.0.0}
 {$ENDIF}
 
-  {$EXTERNALSYM BIO_dgram_get_local_addr_enable}
 function BIO_dgram_get_local_addr_enable(b : PBIO; out penable : TIdC_INT) : TIdC_INT;
   {$IFDEF USE_INLINE}inline; {$ENDIF}
-  {$EXTERNALSYM BIO_dgram_set_local_addr_enable}
 function BIO_dgram_set_local_addr_enable(b : PBIO; enable : TIdC_INT) : TIdC_INT;
   {$IFDEF USE_INLINE}inline; {$ENDIF}
-  {$EXTERNALSYM BIO_dgram_get_local_addr_cap}
 function BIO_dgram_get_local_addr_cap(b : PBIO) : TIdC_INT;
   {$IFDEF USE_INLINE}inline; {$ENDIF}
-  {$EXTERNALSYM BIO_reset}
 function BIO_reset(b: PBIO): TIdC_INT; {$IFDEF USE_INLINE}inline;{$ENDIF}
-  {$EXTERNALSYM BIO_eof}
 function BIO_eof(b: PBIO): TIdC_INT; {$IFDEF USE_INLINE}inline;{$ENDIF}
-  {$EXTERNALSYM BIO_get_close}
 function BIO_get_close(b: PBIO): TIdC_INT; {$IFDEF USE_INLINE}inline;{$ENDIF}
-  {$EXTERNALSYM BIO_set_close}
 function BIO_set_close(b: PBIO; c: TIdC_INT): TIdC_INT; {$IFDEF USE_INLINE}inline;{$ENDIF}
 
 implementation

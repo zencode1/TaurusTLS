@@ -36,33 +36,22 @@ uses
   {$IFNDEF FPC}, TaurusTLSHeaders_types{$ENDIF};
 
 const
-  {$EXTERNALSYM SHA_LBLOCK}
   SHA_LBLOCK = 16;
-  {$EXTERNALSYM SHA_CBLOCK}
   SHA_CBLOCK = SHA_LBLOCK * 4;
 
-  {$EXTERNALSYM SHA_LAST_BLOCK}
   SHA_LAST_BLOCK = SHA_CBLOCK - 8;
-  {$EXTERNALSYM SHA_DIGEST_LENGTH}
   SHA_DIGEST_LENGTH = 20;
 
-  {$EXTERNALSYM SHA256_CBLOCK}
   SHA256_CBLOCK = SHA_LBLOCK * 4;
 
-  {$EXTERNALSYM SHA224_DIGEST_LENGTH}
   SHA224_DIGEST_LENGTH = 28;
-  {$EXTERNALSYM SHA256_DIGEST_LENGTH}
   SHA256_DIGEST_LENGTH = 32;
-  {$EXTERNALSYM SHA384_DIGEST_LENGTH}
   SHA384_DIGEST_LENGTH = 48;
-  {$EXTERNALSYM SHA512_DIGEST_LENGTH}
   SHA512_DIGEST_LENGTH = 64;
 
-  {$EXTERNALSYM SHA512_CBLOCK}
   SHA512_CBLOCK = SHA_LBLOCK * 8;
 
 type
-  {$EXTERNALSYM SHA_LONG}
   SHA_LONG = TIdC_UINT;
 
   SHAstate_sf = record
@@ -83,7 +72,6 @@ type
   SHA256_CTX = SHAstate256_sf;
   PSHA256_CTX = ^SHA256_CTX;
 
-  {$EXTERNALSYM SHA_LONG64}
   SHA_LONG64 = TIdC_UINT64;
 
   {$IFDEF DCC}{$WARN UNSAFE_TYPE OFF}{$ENDIF}
@@ -111,33 +99,28 @@ type
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 var
-  {$EXTERNALSYM SHA1_Init}
   SHA1_Init: function (c: PSHA_CTX): TIdC_INT; cdecl = nil;
   SHA1_Update: function (c: PSHA_CTX; const data: Pointer; len: TIdC_SIZET): TIdC_INT; cdecl = nil;
   SHA1_Final: function (md: PByte; c: PSHA_CTX): TIdC_INT; cdecl = nil;
   SHA1: function (const d: PByte; n: TIdC_SIZET; md: PByte): PByte; cdecl = nil;
   SHA1_Transform: procedure (c: PSHA_CTX; const data: PByte); cdecl = nil;
 
-  {$EXTERNALSYM SHA224_Init}
   SHA224_Init: function (c: PSHA256_CTX): TIdC_INT; cdecl = nil;
   SHA224_Update: function (c: PSHA256_CTX; const data: Pointer; len: TIdC_SIZET): TIdC_INT; cdecl = nil;
   SHA224_Final: function (md: PByte; c: PSHA256_CTX): TIdC_INT; cdecl = nil;
   SHA224: function (const d: PByte; n: TIdC_SIZET; md: PByte): PByte; cdecl = nil;
 
-  {$EXTERNALSYM SHA256_Init}
   SHA256_Init: function (c: PSHA256_CTX): TIdC_INT; cdecl = nil;
   SHA256_Update: function (c: PSHA256_CTX; const data: Pointer; len: TIdC_SIZET): TIdC_INT; cdecl = nil;
   SHA256_Final: function (md: PByte; c: PSHA256_CTX): TIdC_INT; cdecl = nil;
   SHA256: function (const d: PByte; n: TIdC_SIZET; md: PByte): PByte; cdecl = nil;
   SHA256_Transform: procedure (c: PSHA256_CTX; const data: PByte); cdecl = nil;
 
-  {$EXTERNALSYM SHA384_Init}
   SHA384_Init: function (c: PSHA512_CTX): TIdC_INT; cdecl = nil;
   SHA384_Update: function (c: PSHA512_CTX; const data: Pointer; len: TIdC_SIZET): TIdC_INT; cdecl = nil;
   SHA384_Final: function (md: PByte; c: PSHA512_CTX): TIdC_INT; cdecl = nil;
   SHA384: function (const d: PByte; n: TIdC_SIZET; md: PByte): PByte; cdecl = nil;
 
-  {$EXTERNALSYM SHA512_Init}
   SHA512_Init: function (c: PSHA512_CTX): TIdC_INT; cdecl = nil;
   SHA512_Update: function (c: PSHA512_CTX; const data: Pointer; len: TIdC_SIZET): TIdC_INT; cdecl = nil;
   SHA512_Final: function (md: PByte; c: PSHA512_CTX): TIdC_INT; cdecl = nil;
@@ -145,33 +128,28 @@ var
   SHA512_Transform: procedure (c: PSHA512_CTX; const data: PByte); cdecl = nil;
 
 {$ELSE}
-  {$EXTERNALSYM SHA1_Init}
   function SHA1_Init(c: PSHA_CTX): TIdC_INT cdecl; external CLibCrypto;
   function SHA1_Update(c: PSHA_CTX; const data: Pointer; len: TIdC_SIZET): TIdC_INT cdecl; external CLibCrypto;
   function SHA1_Final(md: PByte; c: PSHA_CTX): TIdC_INT cdecl; external CLibCrypto;
   function SHA1(const d: PByte; n: TIdC_SIZET; md: PByte): PByte cdecl; external CLibCrypto;
   procedure SHA1_Transform(c: PSHA_CTX; const data: PByte) cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM SHA224_Init}
   function SHA224_Init(c: PSHA256_CTX): TIdC_INT cdecl; external CLibCrypto;
   function SHA224_Update(c: PSHA256_CTX; const data: Pointer; len: TIdC_SIZET): TIdC_INT cdecl; external CLibCrypto;
   function SHA224_Final(md: PByte; c: PSHA256_CTX): TIdC_INT cdecl; external CLibCrypto;
   function SHA224(const d: PByte; n: TIdC_SIZET; md: PByte): PByte cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM SHA256_Init}
   function SHA256_Init(c: PSHA256_CTX): TIdC_INT cdecl; external CLibCrypto;
   function SHA256_Update(c: PSHA256_CTX; const data: Pointer; len: TIdC_SIZET): TIdC_INT cdecl; external CLibCrypto;
   function SHA256_Final(md: PByte; c: PSHA256_CTX): TIdC_INT cdecl; external CLibCrypto;
   function SHA256(const d: PByte; n: TIdC_SIZET; md: PByte): PByte cdecl; external CLibCrypto;
   procedure SHA256_Transform(c: PSHA256_CTX; const data: PByte) cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM SHA384_Init}
   function SHA384_Init(c: PSHA512_CTX): TIdC_INT cdecl; external CLibCrypto;
   function SHA384_Update(c: PSHA512_CTX; const data: Pointer; len: TIdC_SIZET): TIdC_INT cdecl; external CLibCrypto;
   function SHA384_Final(md: PByte; c: PSHA512_CTX): TIdC_INT cdecl; external CLibCrypto;
   function SHA384(const d: PByte; n: TIdC_SIZET; md: PByte): PByte cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM SHA512_Init}
   function SHA512_Init(c: PSHA512_CTX): TIdC_INT cdecl; external CLibCrypto;
   function SHA512_Update(c: PSHA512_CTX; const data: Pointer; len: TIdC_SIZET): TIdC_INT cdecl; external CLibCrypto;
   function SHA512_Final(md: PByte; c: PSHA512_CTX): TIdC_INT cdecl; external CLibCrypto;

@@ -40,9 +40,7 @@ const
   // Added '_CONST' to avoid name clashes
   IDEA_DECRYPT_CONST = 0;
 
-  {$EXTERNALSYM IDEA_BLOCK}
   IDEA_BLOCK      = 8;
-  {$EXTERNALSYM IDEA_KEY_LENGTH}
   IDEA_KEY_LENGTH = 16;
 
 type

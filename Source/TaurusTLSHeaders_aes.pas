@@ -42,9 +42,7 @@ const
   AES_ENCRYPT_CONST = 1;
 // Added '_CONST' to avoid name clashes
   AES_DECRYPT_CONST = 0;
-  {$EXTERNALSYM AES_MAXNR}
   AES_MAXNR = 14;
-  {$EXTERNALSYM AES_BLOCK_SIZE}
   AES_BLOCK_SIZE = 16;
 
 type

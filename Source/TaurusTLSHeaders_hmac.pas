@@ -45,7 +45,6 @@ uses
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 var
   HMAC_CTX_init: procedure (ctx : PHMAC_CTX); cdecl = nil; {removed 1.1.0}
-  {$EXTERNALSYM HMAC_size}
   HMAC_size: function (const e: PHMAC_CTX): TIdC_SIZET; cdecl = nil; {introduced 1.1.0}
   HMAC_CTX_new: function : PHMAC_CTX; cdecl = nil; {introduced 1.1.0}
   HMAC_CTX_reset: function (ctx: PHMAC_CTX): TIdC_INT; cdecl = nil; {introduced 1.1.0}
@@ -62,7 +61,6 @@ var
   HMAC_CTX_get_md: function (const ctx: PHMAC_CTX): PEVP_MD; cdecl = nil; {introduced 1.1.0}
 
 {$ELSE}
-  {$EXTERNALSYM HMAC_size}
   function HMAC_size(const e: PHMAC_CTX): TIdC_SIZET cdecl; external CLibCrypto; {introduced 1.1.0}
   function HMAC_CTX_new: PHMAC_CTX cdecl; external CLibCrypto; {introduced 1.1.0}
   function HMAC_CTX_reset(ctx: PHMAC_CTX): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}

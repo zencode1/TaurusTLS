@@ -38,11 +38,8 @@ uses
   {$ENDIF};
 
 const
-  {$EXTERNALSYM WHIRLPOOL_DIGEST_LENGTH}
   WHIRLPOOL_DIGEST_LENGTH = 512 div 8;
-  {$EXTERNALSYM WHIRLPOOL_BBLOCK}
   WHIRLPOOL_BBLOCK = 512;
-  {$EXTERNALSYM WHIRLPOOL_COUNTER}
   WHIRLPOOL_COUNTER = 256 div 8;
 
 type
@@ -70,7 +67,6 @@ type
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 var
-  {$EXTERNALSYM WHIRLPOOL_Init}
   WHIRLPOOL_Init: function (c: PWHIRLPOOL_CTX): TIdC_INT; cdecl = nil;
   WHIRLPOOL_Update: function (c: PWHIRLPOOL_CTX; inp: Pointer; bytes: TIdC_SIZET): TIdC_INT; cdecl = nil;
   WHIRLPOOL_BitUpdate: procedure (c: PWHIRLPOOL_CTX; inp: Pointer; bits: TIdC_SIZET); cdecl = nil;
@@ -78,7 +74,6 @@ var
   WHIRLPOOL: function (inp: Pointer; bytes: TIdC_SIZET; md: PByte): PByte; cdecl = nil;
 
 {$ELSE}
-  {$EXTERNALSYM WHIRLPOOL_Init}
   function WHIRLPOOL_Init(c: PWHIRLPOOL_CTX): TIdC_INT cdecl; external CLibCrypto;
   function WHIRLPOOL_Update(c: PWHIRLPOOL_CTX; inp: Pointer; bytes: TIdC_SIZET): TIdC_INT cdecl; external CLibCrypto;
   procedure WHIRLPOOL_BitUpdate(c: PWHIRLPOOL_CTX; inp: Pointer; bits: TIdC_SIZET) cdecl; external CLibCrypto;

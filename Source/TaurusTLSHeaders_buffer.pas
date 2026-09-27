@@ -37,7 +37,6 @@ uses
   TaurusTLSHeaders_types;
 
 const
-  {$EXTERNALSYM BUF_MEM_FLAG_SECURE}
   BUF_MEM_FLAG_SECURE = $01;
 
 type

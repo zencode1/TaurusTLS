@@ -36,9 +36,7 @@ uses
   TaurusTLSHeaders_types;
 
 const
-  {$EXTERNALSYM BN_FLG_MALLOCED}
   BN_FLG_MALLOCED = $01;
-  {$EXTERNALSYM BN_FLG_STATIC_DATA}
   BN_FLG_STATIC_DATA = $02;
 
   (*
@@ -47,33 +45,23 @@ const
    * BN_div() will call BN_div_no_branch,
    * BN_mod_inverse() will call BN_mod_inverse_no_branch.
    *)
-  {$EXTERNALSYM BN_FLG_CONSTTIME}
   BN_FLG_CONSTTIME = $04;
-  {$EXTERNALSYM BN_FLG_SECURE}
   BN_FLG_SECURE = $08;
 
   (* Values for |top| in BN_rand() *)
-  {$EXTERNALSYM BN_RAND_TOP_ANY}
   BN_RAND_TOP_ANY = -1;
-  {$EXTERNALSYM BN_RAND_TOP_ONE}
   BN_RAND_TOP_ONE = 0;
-  {$EXTERNALSYM BN_RAND_TOP_TWO}
   BN_RAND_TOP_TWO = 1;
 
   (* Values for |bottom| in BN_rand() *)
-  {$EXTERNALSYM BN_RAND_BOTTOM_ANY}
   BN_RAND_BOTTOM_ANY = 0;
-  {$EXTERNALSYM BN_RAND_BOTTOM_ODD}
   BN_RAND_BOTTOM_ODD = 1;
 
   (* BN_BLINDING flags *)
-  {$EXTERNALSYM BN_BLINDING_NO_UPDATE}
   BN_BLINDING_NO_UPDATE = $00000001;
-  {$EXTERNALSYM BN_BLINDING_NO_RECREATE}
   BN_BLINDING_NO_RECREATE = $00000002;
 
 type
-  {$EXTERNALSYM BN_ULONG}
   BN_ULONG = TIdC_ULONG;
 
   BN_GENCB_set_old_cb = procedure (a: TIdC_INT; b: TIdC_INT; c: Pointer); cdecl;
@@ -87,9 +75,7 @@ type
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 var
-  {$EXTERNALSYM BN_set_flags}
   BN_set_flags: procedure (b: PBIGNUM; n: TIdC_INT); cdecl = nil;
-  {$EXTERNALSYM BN_get_flags}
   BN_get_flags: function (b: PBIGNUM; n: TIdC_INT): TIdC_INT; cdecl = nil;
 
   (*
@@ -98,7 +84,6 @@ var
    * value |dest| should be a newly allocated BIGNUM obtained via BN_new() that
    * has not been otherwise initialised or used.
    *)
-  {$EXTERNALSYM BN_with_flags}
   BN_with_flags: procedure (dest: PBIGNUM; b: PBIGNUM; flags: TIdC_INT); cdecl = nil;
   (* Wrapper function to make using BN_GENCB easier *)
   BN_GENCB_call: function (cb: PBN_GENCB; a: TIdC_INT; b: TIdC_INT): TIdC_INT; cdecl = nil;
@@ -107,11 +92,9 @@ var
   BN_GENCB_free: procedure (cb: PBN_GENCB); cdecl = nil;
 
   (* Populate a PBN_GENCB structure with an "old"-style callback *)
-  {$EXTERNALSYM BN_GENCB_set_old}
   BN_GENCB_set_old: procedure (gencb: PBN_GENCB; callback: BN_GENCB_set_old_cb; cb_arg: Pointer); cdecl = nil;
 
   (* Populate a PBN_GENCB structure with a "new"-style callback *)
-  {$EXTERNALSYM BN_GENCB_set}
   BN_GENCB_set: procedure (gencb: PBN_GENCB; callback: BN_GENCB_set_cb; cb_arg: Pointer); cdecl = nil;
 
   BN_GENCB_get_arg: function (cb: PBN_GENCB): Pointer; cdecl = nil;
@@ -190,20 +173,14 @@ var
 //
 //  # define BN_num_bytes(a) ((BN_num_bits(a)+7)/8)
 
-  {$EXTERNALSYM BN_abs_is_word}
   BN_abs_is_word: function (a: PBIGNUM; w: BN_ULONG): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM BN_is_zero}
   BN_is_zero: function (a: PBIGNUM): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM BN_is_one}
   BN_is_one: function (a: PBIGNUM): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM BN_is_word}
   BN_is_word: function (a: PBIGNUM; w: BN_ULONG): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM BN_is_odd}
   BN_is_odd: function (a: PBIGNUM): TIdC_INT; cdecl = nil;
 
 //  # define BN_one(a)       (BN_set_word((a),1))
 
-  {$EXTERNALSYM BN_zero_ex}
   BN_zero_ex: procedure (a: PBIGNUM); cdecl = nil;
 
   BN_value_one: function : PBIGNUM; cdecl = nil;
@@ -251,7 +228,6 @@ var
    * \param  b  pointer to the BIGNUM object
    * \return 1 if a < 0 and 0 otherwise
    *)
-  {$EXTERNALSYM BN_is_negative}
   BN_is_negative: function (b: PBIGNUM): TIdC_INT; cdecl = nil;
 
   BN_div: function (dv: PBIGNUM; rem: PBIGNUM; const m: PBIGNUM; const d: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl = nil;
@@ -321,7 +297,6 @@ var
   BN_X931_generate_prime_ex: function (p: PBIGNUM; p1: PBIGNUM; p2: PBIGNUM; Xp1: PBIGNUM; Xp2: PBIGNUM; Xp: PBIGNUM; const e: PBIGNUM; ctx: PBN_CTX; cb: PBN_GENCB): TIdC_INT; cdecl = nil;
   BN_MONT_CTX_new: function : PBN_MONT_CTX; cdecl = nil;
   BN_mod_mul_montgomery: function (r: PBIGNUM; const a: PBIGNUM; const b: PBIGNUM; mont: PBN_MONT_CTX; ctx: PBN_CTX): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM BN_to_montgomery}
   BN_to_montgomery: function (r: PBIGNUM; a: PBIGNUM; mont: PBN_MONT_CTX; ctx: PBN_CTX): TIdC_INT; cdecl = nil;
   BN_from_montgomery: function (r: PBIGNUM; a: PBIGNUM; mont: PBN_MONT_CTX; ctx: PBN_CTX): TIdC_INT; cdecl = nil;
   BN_MONT_CTX_free: procedure (mont: PBN_MONT_CTX); cdecl = nil;
@@ -452,9 +427,7 @@ var
   BN_bntest_rand: function (rnd: PBIGNUM; bits: TIdC_INT; top: TIdC_INT; bottom: TIdC_INT): TIdC_INT; cdecl = nil;
 
 {$ELSE}
-  {$EXTERNALSYM BN_set_flags}
   procedure BN_set_flags(b: PBIGNUM; n: TIdC_INT) cdecl; external CLibCrypto;
-  {$EXTERNALSYM BN_get_flags}
   function BN_get_flags(b: PBIGNUM; n: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
 
   (*
@@ -463,7 +436,6 @@ var
    * value |dest| should be a newly allocated BIGNUM obtained via BN_new() that
    * has not been otherwise initialised or used.
    *)
-  {$EXTERNALSYM BN_with_flags}
   procedure BN_with_flags(dest: PBIGNUM; b: PBIGNUM; flags: TIdC_INT) cdecl; external CLibCrypto;
   (* Wrapper function to make using BN_GENCB easier *)
   function BN_GENCB_call(cb: PBN_GENCB; a: TIdC_INT; b: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
@@ -472,11 +444,9 @@ var
   procedure BN_GENCB_free(cb: PBN_GENCB) cdecl; external CLibCrypto;
 
   (* Populate a PBN_GENCB structure with an "old"-style callback *)
-  {$EXTERNALSYM BN_GENCB_set_old}
   procedure BN_GENCB_set_old(gencb: PBN_GENCB; callback: BN_GENCB_set_old_cb; cb_arg: Pointer) cdecl; external CLibCrypto;
 
   (* Populate a PBN_GENCB structure with a "new"-style callback *)
-  {$EXTERNALSYM BN_GENCB_set}
   procedure BN_GENCB_set(gencb: PBN_GENCB; callback: BN_GENCB_set_cb; cb_arg: Pointer) cdecl; external CLibCrypto;
 
   function BN_GENCB_get_arg(cb: PBN_GENCB): Pointer cdecl; external CLibCrypto;
@@ -555,20 +525,14 @@ var
 //
 //  # define BN_num_bytes(a) ((BN_num_bits(a)+7)/8)
 
-  {$EXTERNALSYM BN_abs_is_word}
   function BN_abs_is_word(a: PBIGNUM; w: BN_ULONG): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM BN_is_zero}
   function BN_is_zero(a: PBIGNUM): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM BN_is_one}
   function BN_is_one(a: PBIGNUM): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM BN_is_word}
   function BN_is_word(a: PBIGNUM; w: BN_ULONG): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM BN_is_odd}
   function BN_is_odd(a: PBIGNUM): TIdC_INT cdecl; external CLibCrypto;
 
 //  # define BN_one(a)       (BN_set_word((a),1))
 
-  {$EXTERNALSYM BN_zero_ex}
   procedure BN_zero_ex(a: PBIGNUM) cdecl; external CLibCrypto;
 
   function BN_value_one: PBIGNUM cdecl; external CLibCrypto;
@@ -616,7 +580,6 @@ var
    * \param  b  pointer to the BIGNUM object
    * \return 1 if a < 0 and 0 otherwise
    *)
-  {$EXTERNALSYM BN_is_negative}
   function BN_is_negative(b: PBIGNUM): TIdC_INT cdecl; external CLibCrypto;
 
   function BN_div(dv: PBIGNUM; rem: PBIGNUM; const m: PBIGNUM; const d: PBIGNUM; ctx: PBN_CTX): TIdC_INT cdecl; external CLibCrypto;
@@ -686,7 +649,6 @@ var
   function BN_X931_generate_prime_ex(p: PBIGNUM; p1: PBIGNUM; p2: PBIGNUM; Xp1: PBIGNUM; Xp2: PBIGNUM; Xp: PBIGNUM; const e: PBIGNUM; ctx: PBN_CTX; cb: PBN_GENCB): TIdC_INT cdecl; external CLibCrypto;
   function BN_MONT_CTX_new: PBN_MONT_CTX cdecl; external CLibCrypto;
   function BN_mod_mul_montgomery(r: PBIGNUM; const a: PBIGNUM; const b: PBIGNUM; mont: PBN_MONT_CTX; ctx: PBN_CTX): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM BN_to_montgomery}
   function BN_to_montgomery(r: PBIGNUM; a: PBIGNUM; mont: PBN_MONT_CTX; ctx: PBN_CTX): TIdC_INT cdecl; external CLibCrypto;
   function BN_from_montgomery(r: PBIGNUM; a: PBIGNUM; mont: PBN_MONT_CTX; ctx: PBN_CTX): TIdC_INT cdecl; external CLibCrypto;
   procedure BN_MONT_CTX_free(mont: PBN_MONT_CTX) cdecl; external CLibCrypto;

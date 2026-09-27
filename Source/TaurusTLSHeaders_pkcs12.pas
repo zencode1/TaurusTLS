@@ -38,11 +38,8 @@ uses
   TaurusTLSHeaders_x509;
 
 const
-  {$EXTERNALSYM PKCS12_KEY_ID}
   PKCS12_KEY_ID = 1;
-  {$EXTERNALSYM PKCS12_IV_ID}
   PKCS12_IV_ID = 2;
-  {$EXTERNALSYM PKCS12_MAC_ID}
   PKCS12_MAC_ID = 3;
 
   ///* Default iteration count */
@@ -50,10 +47,8 @@ const
   //#  define PKCS12_DEFAULT_ITER     PKCS5_DEFAULT_ITER
   //# endif
 
-  {$EXTERNALSYM PKCS12_MAC_KEY_LENGTH}
   PKCS12_MAC_KEY_LENGTH = 20;
 
-  {$EXTERNALSYM PKCS12_SALT_LEN}
   PKCS12_SALT_LEN = 8;
 
   ///* It's not clear if these are actually needed... */
@@ -61,14 +56,10 @@ const
   //# define PKCS12_add_friendlyname PKCS12_add_friendlyname_utf8
 
   (* MS key usage constants *)
-  {$EXTERNALSYM KEY_EX}
   KEY_EX  = $10;
-  {$EXTERNALSYM KEY_SIG}
   KEY_SIG = $80;
 
-  {$EXTERNALSYM PKCS12_ERROR}
   PKCS12_ERROR    = 0;
-  {$EXTERNALSYM PKCS12_OK}
   PKCS12_OK       = 1;
 
 type
@@ -103,12 +94,9 @@ type
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 var
-  {$EXTERNALSYM PKCS12_mac_present}
   PKCS12_mac_present: function (const p12: PPKCS12): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM PKCS12_get0_mac}
   PKCS12_get0_mac: procedure (const pmac: PPASN1_OCTET_STRING; const pmacalg: PPX509_ALGOR; const psalt: PPASN1_OCTET_STRING; const piter: PPASN1_INTEGER; const p12: PPKCS12); cdecl = nil; {introduced 1.1.0}
 
-  {$EXTERNALSYM PKCS12_SAFEBAG_get0_attr}
   PKCS12_SAFEBAG_get0_attr: function (const bag: PPKCS12_SAFEBAG; attr_nid: TIdC_INT): PASN1_TYPE; cdecl = nil; {introduced 1.1.0}
   PKCS12_SAFEBAG_get0_type: function (const bag: PPKCS12_SAFEBAG): PASN1_OBJECT; cdecl = nil; {introduced 1.1.0}
   PKCS12_SAFEBAG_get_nid: function (const bag: PPKCS12_SAFEBAG): TIdC_INT; cdecl = nil; {introduced 1.1.0}
@@ -158,7 +146,6 @@ var
   PKCS12_key_gen_asc: function (const pass: PIdAnsiChar; passlen: TIdC_INT; salt: PByte; saltlen: TIdC_INT; id: TIdC_INT; iter: TIdC_INT; n: TIdC_INT; out_: PByte; const md_type: PEVP_MD): TIdC_INT; cdecl = nil;
   PKCS12_key_gen_uni: function (pass: PByte; passlen: TIdC_INT; salt: PByte; saltlen: TIdC_INT; id: TIdC_INT; iter: TIdC_INT; n: TIdC_INT; out_: PByte; const md_type: PEVP_MD): TIdC_INT; cdecl = nil;
   PKCS12_key_gen_utf8: function (const pass: PIdAnsiChar; passlen: TIdC_INT; salt: PByte; saltlen: TIdC_INT; id: TIdC_INT; iter: TIdC_INT; n: TIdC_INT; out_: PByte; const md_type: PEVP_MD): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM PKCS12_PBE_keyivgen}
   PKCS12_PBE_keyivgen: function (ctx: PEVP_CIPHER_CTX; const pass: PIdAnsiChar; passlen: TIdC_INT; param: PASN1_TYPE; const cipher: PEVP_CIPHER; const md_type: PEVP_MD; en_de: TIdC_INT): TIdC_INT; cdecl = nil;
   PKCS12_gen_mac: function (p12: PPKCS12; const pass: PIdAnsiChar; passlen: TIdC_INT; mac: PByte; maclen: PIdC_UINT): TIdC_INT; cdecl = nil;
   PKCS12_verify_mac: function (p12: PPKCS12; const pass: PIdAnsiChar; passlen: TIdC_INT): TIdC_INT; cdecl = nil;
@@ -210,12 +197,9 @@ var
   PKCS12_newpass: function (p12: PPKCS12; const oldpass: PIdAnsiChar; const newpass: PIdAnsiChar): TIdC_INT; cdecl = nil;
 
 {$ELSE}
-  {$EXTERNALSYM PKCS12_mac_present}
   function PKCS12_mac_present(const p12: PPKCS12): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM PKCS12_get0_mac}
   procedure PKCS12_get0_mac(const pmac: PPASN1_OCTET_STRING; const pmacalg: PPX509_ALGOR; const psalt: PPASN1_OCTET_STRING; const piter: PPASN1_INTEGER; const p12: PPKCS12) cdecl; external CLibCrypto; {introduced 1.1.0}
 
-  {$EXTERNALSYM PKCS12_SAFEBAG_get0_attr}
   function PKCS12_SAFEBAG_get0_attr(const bag: PPKCS12_SAFEBAG; attr_nid: TIdC_INT): PASN1_TYPE cdecl; external CLibCrypto; {introduced 1.1.0}
   function PKCS12_SAFEBAG_get0_type(const bag: PPKCS12_SAFEBAG): PASN1_OBJECT cdecl; external CLibCrypto; {introduced 1.1.0}
   function PKCS12_SAFEBAG_get_nid(const bag: PPKCS12_SAFEBAG): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
@@ -265,7 +249,6 @@ var
   function PKCS12_key_gen_asc(const pass: PIdAnsiChar; passlen: TIdC_INT; salt: PByte; saltlen: TIdC_INT; id: TIdC_INT; iter: TIdC_INT; n: TIdC_INT; out_: PByte; const md_type: PEVP_MD): TIdC_INT cdecl; external CLibCrypto;
   function PKCS12_key_gen_uni(pass: PByte; passlen: TIdC_INT; salt: PByte; saltlen: TIdC_INT; id: TIdC_INT; iter: TIdC_INT; n: TIdC_INT; out_: PByte; const md_type: PEVP_MD): TIdC_INT cdecl; external CLibCrypto;
   function PKCS12_key_gen_utf8(const pass: PIdAnsiChar; passlen: TIdC_INT; salt: PByte; saltlen: TIdC_INT; id: TIdC_INT; iter: TIdC_INT; n: TIdC_INT; out_: PByte; const md_type: PEVP_MD): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM PKCS12_PBE_keyivgen}
   function PKCS12_PBE_keyivgen(ctx: PEVP_CIPHER_CTX; const pass: PIdAnsiChar; passlen: TIdC_INT; param: PASN1_TYPE; const cipher: PEVP_CIPHER; const md_type: PEVP_MD; en_de: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function PKCS12_gen_mac(p12: PPKCS12; const pass: PIdAnsiChar; passlen: TIdC_INT; mac: PByte; maclen: PIdC_UINT): TIdC_INT cdecl; external CLibCrypto;
   function PKCS12_verify_mac(p12: PPKCS12; const pass: PIdAnsiChar; passlen: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;

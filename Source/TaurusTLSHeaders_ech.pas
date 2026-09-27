@@ -33,70 +33,44 @@ const
  * Some externally visible limits - most used for sanity checks that could be
  * bigger if needed, but that work for now
  *}
-  {$EXTERNALSYM OSSL_ECH_MAX_PAYLOAD_LEN}
   OSSL_ECH_MAX_PAYLOAD_LEN = 1500; //* max ECH ciphertext to en/decode */
-  {$EXTERNALSYM OSSL_ECH_MIN_ECHCONFIG_LEN}
   OSSL_ECH_MIN_ECHCONFIG_LEN = 32; //* min for all encodings */
-  {$EXTERNALSYM OSSL_ECH_MAX_ECHCONFIG_LEN}
   OSSL_ECH_MAX_ECHCONFIG_LEN = 1500; //* max for all encodings */
-  {$EXTERNALSYM OSSL_ECH_MAX_ECHCONFIGEXT_LEN}
   OSSL_ECH_MAX_ECHCONFIGEXT_LEN = 512; //* ECHConfig extension max */
-  {$EXTERNALSYM OSSL_ECH_MAX_MAXNAMELEN}
   OSSL_ECH_MAX_MAXNAMELEN = 255; //* ECHConfig max for max name length */
-  {$EXTERNALSYM OSSL_ECH_MAX_PUBLICNAME}
   OSSL_ECH_MAX_PUBLICNAME = 255; //* max ECHConfig public name length */
-  {$EXTERNALSYM OSSL_ECH_MAX_ALPNLEN}
   OSSL_ECH_MAX_ALPNLEN = 255; //* max alpn length */
-  {$EXTERNALSYM OSSL_ECH_OUTERS_MAX}
   OSSL_ECH_OUTERS_MAX = 20; //* max extensions we compress via outer-exts */
-  {$EXTERNALSYM OSSL_ECH_ALLEXTS_MAX}
   OSSL_ECH_ALLEXTS_MAX = 32; //* max total number of extension we allow */
 
 {*
  * ECH version. We only support RFC 9849 as of now.  As/if new ECHConfig
  * versions are added, those will be noted here.
  *}
-  {$EXTERNALSYM OSSL_ECH_RFC9849_VERSION}
   OSSL_ECH_RFC9849_VERSION = $fe0d; //* official ECHConfig version */
 //* latest version from an RFC */
-  {$EXTERNALSYM OSSL_ECH_CURRENT_VERSION}
   OSSL_ECH_CURRENT_VERSION = OSSL_ECH_RFC9849_VERSION;
 
 //* Return codes from SSL_ech_get1_status */
-  {$EXTERNALSYM SSL_ECH_STATUS_BACKEND}
   SSL_ECH_STATUS_BACKEND = 4; //* ECH backend: saw an ech_is_inner */
-  {$EXTERNALSYM SSL_ECH_STATUS_GREASE_ECH}
   SSL_ECH_STATUS_GREASE_ECH = 3; //* GREASEd and got an ECH in return */
-  {$EXTERNALSYM SSL_ECH_STATUS_GREASE}
   SSL_ECH_STATUS_GREASE = 2; //* ECH GREASE happened  */
-  {$EXTERNALSYM SSL_ECH_STATUS_SUCCESS}
   SSL_ECH_STATUS_SUCCESS = 1; //* Success */
-  {$EXTERNALSYM SSL_ECH_STATUS_FAILED}
   SSL_ECH_STATUS_FAILED = 0; //* Some internal or protocol error */
-  {$EXTERNALSYM SSL_ECH_STATUS_BAD_CALL}
   SSL_ECH_STATUS_BAD_CALL = -100; //* Some in/out arguments were NULL */
-  {$EXTERNALSYM SSL_ECH_STATUS_NOT_TRIED}
   SSL_ECH_STATUS_NOT_TRIED = -101; //* ECH wasn't attempted  */
-  {$EXTERNALSYM SSL_ECH_STATUS_BAD_NAME}
   SSL_ECH_STATUS_BAD_NAME = -102; //* ECH ok but server cert bad */
-  {$EXTERNALSYM SSL_ECH_STATUS_NOT_CONFIGURED}
   SSL_ECH_STATUS_NOT_CONFIGURED = -103; //* ECH wasn't configured */
-  {$EXTERNALSYM SSL_ECH_STATUS_FAILED_ECH}
   SSL_ECH_STATUS_FAILED_ECH = -105; //* Tried, failed, got an ECH, from a good name */
-  {$EXTERNALSYM SSL_ECH_STATUS_FAILED_ECH_BAD_NAME}
   SSL_ECH_STATUS_FAILED_ECH_BAD_NAME = -106; //* Tried, failed, got an ECH, from a bad name */
 
 //* if a caller wants to index the last entry in the store */
-  {$EXTERNALSYM OSSL_ECHSTORE_LAST}
   OSSL_ECHSTORE_LAST = -1;
 //* if a caller wants all entries in the store, e.g. to print public values */
-  {$EXTERNALSYM OSSL_ECHSTORE_ALL}
   OSSL_ECHSTORE_ALL = -2;
 
 //* Values for the for_retry inputs */
-  {$EXTERNALSYM OSSL_ECH_FOR_RETRY}
   OSSL_ECH_FOR_RETRY = 1;
-  {$EXTERNALSYM OSSL_ECH_NO_RETRY}
   OSSL_ECH_NO_RETRY = 0;
 
 type

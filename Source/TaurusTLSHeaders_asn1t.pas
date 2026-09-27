@@ -515,22 +515,18 @@ type
     default_tt: PASN1_TEMPLATE;
     null_tt: PASN1_TEMPLATE;
   end;
-  {$EXTERNALSYM ASN1_ADB}
   ASN1_ADB = ASN1_ADB_st;
 
 const
 // template flags //
 
 // Field is optional //
-  {$EXTERNALSYM ASN1_TFLG_OPTIONAL}
   ASN1_TFLG_OPTIONAL     = $1;
 
 // Field is a SET OF //
-  {$EXTERNALSYM ASN1_TFLG_SET_OF}
   ASN1_TFLG_SET_OF       = ($1 shl 1);
 
 // Field is a SEQUENCE OF //
-  {$EXTERNALSYM ASN1_TFLG_SEQUENCE_OF}
   ASN1_TFLG_SEQUENCE_OF  = ($2 shl 1);
 
 //
@@ -538,11 +534,9 @@ const
 // when encoded /and/ the corresponding STACK will be modified to match the
 // new order.
  //
-  {$EXTERNALSYM ASN1_TFLG_SET_ORDER}
   ASN1_TFLG_SET_ORDER     = ($3 shl 1);
 
 // Mask for SET OF or SEQUENCE OF //
-  {$EXTERNALSYM ASN1_TFLG_SK_MASK}
   ASN1_TFLG_SK_MASK       = ($3 shl 1);
 
 //
@@ -551,14 +545,11 @@ const
  //
 
 // IMPLICIT tagging //
-  {$EXTERNALSYM ASN1_TFLG_IMPTAG}
   ASN1_TFLG_IMPTAG        = ($1 shl 3);
 
 // EXPLICIT tagging, inner tag from underlying type //
-  {$EXTERNALSYM ASN1_TFLG_EXPTAG}
   ASN1_TFLG_EXPTAG        = ($2 shl 3);
 
-  {$EXTERNALSYM ASN1_TFLG_TAG_MASK}
   ASN1_TFLG_TAG_MASK      = ($3 shl 3);
 
 // context specific IMPLICIT //
@@ -574,19 +565,14 @@ const
  //
 
 // Universal tag //
-  {$EXTERNALSYM ASN1_TFLG_UNIVERSAL}
   ASN1_TFLG_UNIVERSAL     = ($0 shl 6);
 // Application tag //
-  {$EXTERNALSYM ASN1_TFLG_APPLICATION}
   ASN1_TFLG_APPLICATION   = ($1 shl 6);
 // Context specific tag //
-  {$EXTERNALSYM ASN1_TFLG_CONTEXT}
   ASN1_TFLG_CONTEXT       = ($2 shl 6);
 // Private tag //
-  {$EXTERNALSYM ASN1_TFLG_PRIVATE}
   ASN1_TFLG_PRIVATE       = ($3 shl 6);
 
-  {$EXTERNALSYM ASN1_TFLG_TAG_CLASS}
   ASN1_TFLG_TAG_CLASS     = ($3 shl 6);
 
 //
@@ -595,13 +581,10 @@ const
 // relevant type
  //
 
-  {$EXTERNALSYM ASN1_TFLG_ADB_MASK}
   ASN1_TFLG_ADB_MASK      = ($3 shl 8);
 
-  {$EXTERNALSYM ASN1_TFLG_ADB_OID}
   ASN1_TFLG_ADB_OID       = ($1 shl 8);
 
-  {$EXTERNALSYM ASN1_TFLG_ADB_INT}
   ASN1_TFLG_ADB_INT       = ($1 shl 9);
 
 //
@@ -609,11 +592,9 @@ const
 // indefinite length constructed encoding to be used if required.
  //
 
-  {$EXTERNALSYM ASN1_TFLG_NDEF}
   ASN1_TFLG_NDEF          = ($1 shl 11);
 
 // Field is embedded and not a pointer //
-  {$EXTERNALSYM ASN1_TFLG_EMBED}
   ASN1_TFLG_EMBED         = ($1 shl 12);
 
 // This is the actual ASN1 item itself //
@@ -670,22 +651,16 @@ type
  //
  //
 const
-  {$EXTERNALSYM ASN1_ITYPE_PRIMITIVE}
   ASN1_ITYPE_PRIMITIVE            = $0;
 
-  {$EXTERNALSYM ASN1_ITYPE_SEQUENCE}
   ASN1_ITYPE_SEQUENCE             = $1;
 
-  {$EXTERNALSYM ASN1_ITYPE_CHOICE}
   ASN1_ITYPE_CHOICE               = $2;
 
-  {$EXTERNALSYM ASN1_ITYPE_EXTERN}
   ASN1_ITYPE_EXTERN               = $4;
 
-  {$EXTERNALSYM ASN1_ITYPE_MSTRING}
   ASN1_ITYPE_MSTRING              = $5;
 
-  {$EXTERNALSYM ASN1_ITYPE_NDEF_SEQUENCE}
   ASN1_ITYPE_NDEF_SEQUENCE        = $6;
 
 //
@@ -815,54 +790,32 @@ const
 /// Flags in ASN1_AUX ///
 
 /// Use a reference count ///
-  {$EXTERNALSYM ASN1_AFLG_REFCOUNT}
   ASN1_AFLG_REFCOUNT      = 1;
 /// Save the encoding of structure (useful for signatures) ///
-  {$EXTERNALSYM ASN1_AFLG_ENCODING}
   ASN1_AFLG_ENCODING      = 2;
 /// The Sequence length is invalid ///
-  {$EXTERNALSYM ASN1_AFLG_BROKEN}
   ASN1_AFLG_BROKEN        = 4;
 
 /// operation values for asn1_cb ///
 
-  {$EXTERNALSYM ASN1_OP_NEW_PRE}
   ASN1_OP_NEW_PRE             = 0;
-  {$EXTERNALSYM ASN1_OP_NEW_POST}
   ASN1_OP_NEW_POST            = 1;
-  {$EXTERNALSYM ASN1_OP_FREE_PRE}
   ASN1_OP_FREE_PRE            = 2;
-  {$EXTERNALSYM ASN1_OP_FREE_POST}
   ASN1_OP_FREE_POST           = 3;
-  {$EXTERNALSYM ASN1_OP_D2I_PRE}
   ASN1_OP_D2I_PRE             = 4;
-  {$EXTERNALSYM ASN1_OP_D2I_POST}
   ASN1_OP_D2I_POST            = 5;
-  {$EXTERNALSYM ASN1_OP_I2D_PRE}
   ASN1_OP_I2D_PRE             = 6;
-  {$EXTERNALSYM ASN1_OP_I2D_POST}
   ASN1_OP_I2D_POST            = 7;
-  {$EXTERNALSYM ASN1_OP_PRINT_PRE}
   ASN1_OP_PRINT_PRE           = 8;
-  {$EXTERNALSYM ASN1_OP_PRINT_POST}
   ASN1_OP_PRINT_POST          = 9;
-  {$EXTERNALSYM ASN1_OP_STREAM_PRE}
   ASN1_OP_STREAM_PRE          = 10;
-  {$EXTERNALSYM ASN1_OP_STREAM_POST}
   ASN1_OP_STREAM_POST         = 11;
-  {$EXTERNALSYM ASN1_OP_DETACHED_PRE}
   ASN1_OP_DETACHED_PRE        = 12;
-  {$EXTERNALSYM ASN1_OP_DETACHED_POST}
   ASN1_OP_DETACHED_POST       = 13;
-  {$EXTERNALSYM ASN1_OP_DUP_PRE}
   ASN1_OP_DUP_PRE             = 14;
-  {$EXTERNALSYM ASN1_OP_DUP_POST}
   ASN1_OP_DUP_POST            = 15;
-  {$EXTERNALSYM ASN1_OP_GET0_LIBCTX}
   ASN1_OP_GET0_LIBCTX         = 16;
-  {$EXTERNALSYM ASN1_OP_GET0_PROPQ}
   ASN1_OP_GET0_PROPQ          = 17;
-  {$EXTERNALSYM ASN1_OP_GET0_STREAM_CONTENT}
   ASN1_OP_GET0_STREAM_CONTENT = 18;
 
 ///* Macro to implement a primitive type */

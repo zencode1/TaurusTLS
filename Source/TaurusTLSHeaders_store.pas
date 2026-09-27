@@ -57,17 +57,11 @@ const
  * OSSL_STORE_INFO_NAME is typically found when getting a listing of
  * available "files" / "tokens" / what have you.
  *}
-  {$EXTERNALSYM OSSL_STORE_INFO_NAME}
   OSSL_STORE_INFO_NAME          = 1;   //* char * */
-  {$EXTERNALSYM OSSL_STORE_INFO_PARAMS}
   OSSL_STORE_INFO_PARAMS        = 2;   //* EVP_PKEY * */
-  {$EXTERNALSYM OSSL_STORE_INFO_PUBKEY}
   OSSL_STORE_INFO_PUBKEY        = 3;   //* EVP_PKEY * */
-  {$EXTERNALSYM OSSL_STORE_INFO_PKEY}
   OSSL_STORE_INFO_PKEY          = 4;   //* EVP_PKEY * */
-  {$EXTERNALSYM OSSL_STORE_INFO_CERT}
   OSSL_STORE_INFO_CERT          = 5;   //* X509 * */
-  {$EXTERNALSYM OSSL_STORE_INFO_CRL}
   OSSL_STORE_INFO_CRL           = 6;   //* X509_CRL * */
 
 //* OSSL_STORE search types */
@@ -155,7 +149,6 @@ var
  * remain present throughout the lifetime of the returned OSSL_STORE_SEARCH
  *}
   OSSL_STORE_SEARCH_by_name : function(name : PX509_NAME) : POSSL_STORE_SEARCH; cdecl = nil;
-  {$EXTERNALSYM OSSL_STORE_SEARCH_by_issuer_serial}
   OSSL_STORE_SEARCH_by_issuer_serial : function(name : PX509_NAME;
     const serial : PASN1_INTEGER) : POSSL_STORE_SEARCH  cdecl = nil;
   OSSL_STORE_SEARCH_by_key_fingerprint : function(const digest : PEVP_MD;
@@ -168,7 +161,6 @@ var
 //* Search term accessors */
   OSSL_STORE_SEARCH_get_type : function(const criterion : POSSL_STORE_SEARCH) : TIdC_INT  cdecl = nil;
   OSSL_STORE_SEARCH_get0_name : function(const criterion : POSSL_STORE_SEARCH) : PX509_NAME  cdecl = nil;
-  {$EXTERNALSYM OSSL_STORE_SEARCH_get0_serial}
   OSSL_STORE_SEARCH_get0_serial : function(const criterion : POSSL_STORE_SEARCH) : PASN1_INTEGER  cdecl = nil;
   OSSL_STORE_SEARCH_get0_bytes : function(const criterion : POSSL_STORE_SEARCH; var length_ : TIdC_SIZET) : PByte  cdecl = nil;
   OSSL_STORE_SEARCH_get0_string : function(const  criterion : POSSL_STORE_SEARCH) : PIdAnsiChar  cdecl = nil;
@@ -284,7 +276,6 @@ var
  * remain present throughout the lifetime of the returned OSSL_STORE_SEARCH
  *}
   function OSSL_STORE_SEARCH_by_name(name : PX509_NAME) : POSSL_STORE_SEARCH; cdecl; external CLibCrypto;
-  {$EXTERNALSYM OSSL_STORE_SEARCH_by_issuer_serial}
   function OSSL_STORE_SEARCH_by_issuer_serial(name : PX509_NAME;
     const serial : PASN1_INTEGER) : POSSL_STORE_SEARCH cdecl; external CLibCrypto;
   function OSSL_STORE_SEARCH_by_key_fingerprint(const digest : PEVP_MD;
@@ -297,7 +288,6 @@ var
 //* Search term accessors */
   function OSSL_STORE_SEARCH_get_type(const criterion : POSSL_STORE_SEARCH) : TIdC_INT   cdecl; external CLibCrypto;
   function OSSL_STORE_SEARCH_get0_name(const criterion : POSSL_STORE_SEARCH) : PX509_NAME   cdecl; external CLibCrypto;
-  {$EXTERNALSYM OSSL_STORE_SEARCH_get0_serial}
   function OSSL_STORE_SEARCH_get0_serial(const criterion : POSSL_STORE_SEARCH) : PASN1_INTEGER  cdecl; external CLibCrypto;
   function OSSL_STORE_SEARCH_get0_bytes(const criterion : POSSL_STORE_SEARCH; var length_ : TIdC_SIZET) : PByte   cdecl; external CLibCrypto;
   function OSSL_STORE_SEARCH_get0_string(const  criterion : POSSL_STORE_SEARCH) : PIdAnsiChar  cdecl; external CLibCrypto;

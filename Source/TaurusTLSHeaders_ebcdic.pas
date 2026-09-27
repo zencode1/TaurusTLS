@@ -49,15 +49,11 @@ uses
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 var
-  {$EXTERNALSYM ebcdic2ascii}
   ebcdic2ascii: function (dest: Pointer; const srce: Pointer; count: TIdC_SIZET): Pointer; cdecl = nil;
-  {$EXTERNALSYM ascii2ebcdic}
   ascii2ebcdic: function (dest: Pointer; const srce: Pointer; count: TIdC_SIZET): Pointer; cdecl = nil;
 
 {$ELSE}
-  {$EXTERNALSYM ebcdic2ascii}
   function ebcdic2ascii(dest: Pointer; const srce: Pointer; count: TIdC_SIZET): Pointer cdecl; external CLibCrypto;
-  {$EXTERNALSYM ascii2ebcdic}
   function ascii2ebcdic(dest: Pointer; const srce: Pointer; count: TIdC_SIZET): Pointer cdecl; external CLibCrypto;
 
 {$ENDIF}

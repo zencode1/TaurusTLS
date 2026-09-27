@@ -41,13 +41,10 @@ const
   // Added '_CONST' to avoid name clashes
   BF_DECRYPT_CONST = 0;
 
-  {$EXTERNALSYM BF_ROUNDS}
   BF_ROUNDS = 16;
-  {$EXTERNALSYM BF_BLOCK}
   BF_BLOCK  = 8;
 
 type
-  {$EXTERNALSYM BF_LONG}
   BF_LONG = TIdC_UINT;
   PBF_LONG = ^BF_LONG;
 
@@ -66,7 +63,6 @@ type
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 var
-  {$EXTERNALSYM BF_set_key}
   BF_set_key: procedure (key: PBF_KEY; len: TIdC_INT; const data: PByte); cdecl = nil;
 
   BF_encrypt: procedure (data: PBF_LONG; const key: PBF_KEY); cdecl = nil;
@@ -80,7 +76,6 @@ var
   BF_options: function : PIdAnsiChar; cdecl = nil;
 
 {$ELSE}
-  {$EXTERNALSYM BF_set_key}
   procedure BF_set_key(key: PBF_KEY; len: TIdC_INT; const data: PByte) cdecl; external CLibCrypto;
 
   procedure BF_encrypt(data: PBF_LONG; const key: PBF_KEY) cdecl; external CLibCrypto;

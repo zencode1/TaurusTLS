@@ -42,28 +42,17 @@ const
    * These flags are used to control combinations of algorithm (methods) by
    * bitwise "OR"ing.
    *)
-  {$EXTERNALSYM ENGINE_METHOD_RSA}
   ENGINE_METHOD_RSA               = TIdC_UINT($0001);
-  {$EXTERNALSYM ENGINE_METHOD_DSA}
   ENGINE_METHOD_DSA               = TIdC_UINT($0002);
-  {$EXTERNALSYM ENGINE_METHOD_DH}
   ENGINE_METHOD_DH                = TIdC_UINT($0004);
-  {$EXTERNALSYM ENGINE_METHOD_RAND}
   ENGINE_METHOD_RAND              = TIdC_UINT($0008);
-  {$EXTERNALSYM ENGINE_METHOD_CIPHERS}
   ENGINE_METHOD_CIPHERS           = TIdC_UINT($0040);
-  {$EXTERNALSYM ENGINE_METHOD_DIGESTS}
   ENGINE_METHOD_DIGESTS           = TIdC_UINT($0080);
-  {$EXTERNALSYM ENGINE_METHOD_PKEY_METHS}
   ENGINE_METHOD_PKEY_METHS        = TIdC_UINT($0200);
-  {$EXTERNALSYM ENGINE_METHOD_PKEY_ASN1_METHS}
   ENGINE_METHOD_PKEY_ASN1_METHS   = TIdC_UINT($0400);
-  {$EXTERNALSYM ENGINE_METHOD_EC}
   ENGINE_METHOD_EC                = TIdC_UINT($0800);
   (* Obvious all-or-nothing cases. *)
-  {$EXTERNALSYM ENGINE_METHOD_ALL}
   ENGINE_METHOD_ALL               = TIdC_UINT($FFFF);
-  {$EXTERNALSYM ENGINE_METHOD_NONE}
   ENGINE_METHOD_NONE              = TIdC_UINT($0000);
 
   //
@@ -72,7 +61,6 @@ const
   // set by ENGINE_set_table_flags(). The "NOINIT" flag prevents attempts to
   // initialise registered ENGINEs if they are not already initialised.
   //
-  {$EXTERNALSYM ENGINE_TABLE_FLAG_NOINIT}
   ENGINE_TABLE_FLAG_NOINIT        = TIdC_UINT($0001);
 
   //
@@ -81,7 +69,6 @@ const
   // these control commands on behalf of the ENGINE using their "cmd_defns"
   // data.
   //
-  {$EXTERNALSYM ENGINE_FLAGS_MANUAL_CMD_CTRL}
   ENGINE_FLAGS_MANUAL_CMD_CTRL    = TIdC_INT($0002);
 
   //
@@ -94,7 +81,6 @@ const
   // ENGINE_by_id() just increments the existing ENGINE's structural reference
   // count.
   //
-  {$EXTERNALSYM ENGINE_FLAGS_BY_ID_COPY}
   ENGINE_FLAGS_BY_ID_COPY         = TIdC_INT($0004);
 
   //
@@ -103,7 +89,6 @@ const
   // usable as default methods.
   //
 
-  {$EXTERNALSYM ENGINE_FLAGS_NO_REGISTER_ALL}
   ENGINE_FLAGS_NO_REGISTER_ALL    = TIdC_INT($0008);
 
   //
@@ -119,26 +104,22 @@ const
   //
 
   // accepts a 'long' input value (3rd parameter to ENGINE_ctrl) */
-  {$EXTERNALSYM ENGINE_CMD_FLAG_NUMERIC}
   ENGINE_CMD_FLAG_NUMERIC         = TIdC_UINT($0001);
   //
   // accepts string input (cast from 'void*' to 'const char *', 4th parameter
   // to ENGINE_ctrl)
   //
-  {$EXTERNALSYM ENGINE_CMD_FLAG_STRING}
   ENGINE_CMD_FLAG_STRING          = TIdC_UINT($0002);
   //
   // Indicates that the control command takes *no* input. Ie. the control
   // command is unparameterised.
   //
-  {$EXTERNALSYM ENGINE_CMD_FLAG_NO_INPUT}
   ENGINE_CMD_FLAG_NO_INPUT        = TIdC_UINT($0004);
   //
   // Indicates that the control command is internal. This control command won't
   // be shown in any output, and is only usable through the ENGINE_ctrl_cmd()
   // function.
   //
-  {$EXTERNALSYM ENGINE_CMD_FLAG_INTERNAL}
   ENGINE_CMD_FLAG_INTERNAL        = TIdC_UINT($0008);
 
   //
@@ -158,27 +139,20 @@ const
   // sense to some engines.  In such a case, they do nothing but return the
   // error ENGINE_R_CTRL_COMMAND_NOT_IMPLEMENTED.
   //
-  {$EXTERNALSYM ENGINE_CTRL_SET_LOGSTREAM}
   ENGINE_CTRL_SET_LOGSTREAM              = 1;
-  {$EXTERNALSYM ENGINE_CTRL_SET_PASSWORD_CALLBACK}
   ENGINE_CTRL_SET_PASSWORD_CALLBACK      = 2;
-  {$EXTERNALSYM ENGINE_CTRL_HUP}
   ENGINE_CTRL_HUP                        = 3;// Close and reinitialise
                                              // any handles/connections
                                              // etc.
-  {$EXTERNALSYM ENGINE_CTRL_SET_USER_INTERFACE}
   ENGINE_CTRL_SET_USER_INTERFACE         = 4;// Alternative to callback
-  {$EXTERNALSYM ENGINE_CTRL_SET_CALLBACK_DATA}
   ENGINE_CTRL_SET_CALLBACK_DATA          = 5;// User-specific data, used
                                              // when calling the password
                                              // callback and the user
                                              // interface
-  {$EXTERNALSYM ENGINE_CTRL_LOAD_CONFIGURATION}
   ENGINE_CTRL_LOAD_CONFIGURATION         = 6;// Load a configuration,
                                              // given a string that
                                              // represents a file name
                                              // or so
-  {$EXTERNALSYM ENGINE_CTRL_LOAD_SECTION}
   ENGINE_CTRL_LOAD_SECTION               = 7;// Load data from a given
                                              // section in the already
                                              // loaded configuration
@@ -203,25 +177,21 @@ const
   // worth checking this first if the caller is trying to "discover" the
   // engine's capabilities and doesn't want errors generated unnecessarily.
   //
-  {$EXTERNALSYM ENGINE_CTRL_HAS_CTRL_FUNCTION}
   ENGINE_CTRL_HAS_CTRL_FUNCTION          = 10;
   //
   // Returns a positive command number for the first command supported by the
   // engine. Returns zero if no ctrl commands are supported.
   //
-  {$EXTERNALSYM ENGINE_CTRL_GET_FIRST_CMD_TYPE}
   ENGINE_CTRL_GET_FIRST_CMD_TYPE         = 11;
   //
   // The 'long' argument specifies a command implemented by the engine, and the
   // return value is the next command supported, or zero if there are no more.
   //
-  {$EXTERNALSYM ENGINE_CTRL_GET_NEXT_CMD_TYPE}
   ENGINE_CTRL_GET_NEXT_CMD_TYPE          = 12;
   //
   // The 'void*' argument is a command name (cast from 'const char *'), and the
   // return value is the command that corresponds to it.
   //
-  {$EXTERNALSYM ENGINE_CTRL_GET_CMD_FROM_NAME}
   ENGINE_CTRL_GET_CMD_FROM_NAME          = 13;
   //
   // The next two allow a command to be converted into its corresponding string
@@ -231,28 +201,22 @@ const
   // string buffer large enough, and it will be populated with the name of the
   // command (WITH a trailing EOL).
   //
-  {$EXTERNALSYM ENGINE_CTRL_GET_NAME_LEN_FROM_CMD}
   ENGINE_CTRL_GET_NAME_LEN_FROM_CMD      = 14;
-  {$EXTERNALSYM ENGINE_CTRL_GET_NAME_FROM_CMD}
   ENGINE_CTRL_GET_NAME_FROM_CMD          = 15;
   // The next two are similar but give a "short description" of a command. */
-  {$EXTERNALSYM ENGINE_CTRL_GET_DESC_LEN_FROM_CMD}
   ENGINE_CTRL_GET_DESC_LEN_FROM_CMD      = 16;
-  {$EXTERNALSYM ENGINE_CTRL_GET_DESC_FROM_CMD}
   ENGINE_CTRL_GET_DESC_FROM_CMD          = 17;
   //
   // With this command, the return value is the OR'd combination of
   // ENGINE_CMD_FLAG_*** values that indicate what kind of input a given
   // engine-specific ctrl command expects.
   //
-  {$EXTERNALSYM ENGINE_CTRL_GET_CMD_FLAGS}
   ENGINE_CTRL_GET_CMD_FLAGS              = 18;
 
   //
   // ENGINE implementations should start the numbering of their own control
   // commands from this value. (ie. ENGINE_CMD_BASE, ENGINE_CMD_BASE += 1, etc).
   //
-  {$EXTERNALSYM ENGINE_CMD_BASE}
   ENGINE_CMD_BASE                        = 200;
 
   //
@@ -264,14 +228,12 @@ const
   //
 
   // Flags specific to the nCipher "chil" engine */
-  {$EXTERNALSYM ENGINE_CTRL_CHIL_SET_FORKCHECK}
   ENGINE_CTRL_CHIL_SET_FORKCHECK         = 100;
   //
   // Depending on the value of the (long)i argument, this sets or
   // unsets the SimpleForkCheck flag in the CHIL API to enable or
   // disable checking and workarounds for applications that fork().
   //
-  {$EXTERNALSYM ENGINE_CTRL_CHIL_NO_LOCKING}
   ENGINE_CTRL_CHIL_NO_LOCKING            = 101;
   //
   // This prevents the initialisation function from providing mutex
@@ -476,9 +438,7 @@ var
   ENGINE_register_all_pkey_meths: procedure ; cdecl = nil;
 
   ENGINE_register_pkey_asn1_meths: function (e: PENGINE): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM ENGINE_unregister_pkey_asn1_meths}
   ENGINE_unregister_pkey_asn1_meths: procedure (e: PENGINE); cdecl = nil;
-  {$EXTERNALSYM ENGINE_register_all_pkey_asn1_meths}
   ENGINE_register_all_pkey_asn1_meths: procedure ; cdecl = nil;
 
   //
@@ -564,7 +524,6 @@ var
   ENGINE_set_init_function: function (e: PENGINE; init_f: ENGINE_GEN_INT_FUNC_PTR): TIdC_INT; cdecl = nil;
   ENGINE_set_finish_function: function (e: PENGINE; finish_f: ENGINE_GEN_INT_FUNC_PTR): TIdC_INT; cdecl = nil;
   ENGINE_set_ctrl_function: function (e: PENGINE; ctrl_f: ENGINE_CTRL_FUNC_PTR): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM ENGINE_set_load_privkey_function}
   ENGINE_set_load_privkey_function: function (e: PENGINE; loadpriv_f: ENGINE_LOAD_KEY_PTR): TIdC_INT; cdecl = nil;
   ENGINE_set_load_pubkey_function: function (e: PENGINE; loadpub_f: ENGINE_LOAD_KEY_PTR): TIdC_INT; cdecl = nil;
   //function ENGINE_set_load_ssl_client_cert_function(e: PENGINE; loadssl_f: ENGINE_SSL_CLIENT_CERT_PTR): TIdC_INT;
@@ -596,7 +555,6 @@ var
   ENGINE_get_init_function: function (const e: PENGINE): ENGINE_GEN_INT_FUNC_PTR; cdecl = nil;
   ENGINE_get_finish_function: function (const e: PENGINE): ENGINE_GEN_INT_FUNC_PTR; cdecl = nil;
   ENGINE_get_ctrl_function: function (const e: PENGINE): ENGINE_CTRL_FUNC_PTR; cdecl = nil;
-  {$EXTERNALSYM ENGINE_get_load_privkey_function}
   ENGINE_get_load_privkey_function: function (const e: PENGINE): ENGINE_LOAD_KEY_PTR; cdecl = nil;
   ENGINE_get_load_pubkey_function: function (const e: PENGINE): ENGINE_LOAD_KEY_PTR; cdecl = nil;
   //function ENGINE_get_ssl_client_cert_function(const e: PENGINE): ENGINE_SSL_CLIENT_CERT_PTR;
@@ -670,7 +628,6 @@ var
   ENGINE_get_cipher_engine: function (nid: TIdC_INT): PENGINE; cdecl = nil;
   ENGINE_get_digest_engine: function (nid: TIdC_INT): PENGINE; cdecl = nil;
   ENGINE_get_pkey_meth_engine: function (nid: TIdC_INT): PENGINE; cdecl = nil;
-  {$EXTERNALSYM ENGINE_get_pkey_asn1_meth_engine}
   ENGINE_get_pkey_asn1_meth_engine: function (nid: TIdC_INT): PENGINE; cdecl = nil;
   ///*
   // * This sets a new default ENGINE structure for performing RSA operations. If
@@ -688,7 +645,6 @@ var
   ENGINE_set_default_ciphers: function (e: PENGINE): TIdC_INT; cdecl = nil;
   ENGINE_set_default_digests: function (e: PENGINE): TIdC_INT; cdecl = nil;
   ENGINE_set_default_pkey_meths: function (e: PENGINE): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM ENGINE_set_default_pkey_asn1_meths}
   ENGINE_set_default_pkey_asn1_meths: function (e: PENGINE): TIdC_INT; cdecl = nil;
 
   ///*
@@ -815,9 +771,7 @@ var
   procedure ENGINE_register_all_pkey_meths cdecl; external CLibCrypto;
 
   function ENGINE_register_pkey_asn1_meths(e: PENGINE): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM ENGINE_unregister_pkey_asn1_meths}
   procedure ENGINE_unregister_pkey_asn1_meths(e: PENGINE) cdecl; external CLibCrypto;
-  {$EXTERNALSYM ENGINE_register_all_pkey_asn1_meths}
   procedure ENGINE_register_all_pkey_asn1_meths cdecl; external CLibCrypto;
 
   //
@@ -903,7 +857,6 @@ var
   function ENGINE_set_init_function(e: PENGINE; init_f: ENGINE_GEN_INT_FUNC_PTR): TIdC_INT cdecl; external CLibCrypto;
   function ENGINE_set_finish_function(e: PENGINE; finish_f: ENGINE_GEN_INT_FUNC_PTR): TIdC_INT cdecl; external CLibCrypto;
   function ENGINE_set_ctrl_function(e: PENGINE; ctrl_f: ENGINE_CTRL_FUNC_PTR): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM ENGINE_set_load_privkey_function}
   function ENGINE_set_load_privkey_function(e: PENGINE; loadpriv_f: ENGINE_LOAD_KEY_PTR): TIdC_INT cdecl; external CLibCrypto;
   function ENGINE_set_load_pubkey_function(e: PENGINE; loadpub_f: ENGINE_LOAD_KEY_PTR): TIdC_INT cdecl; external CLibCrypto;
   //function ENGINE_set_load_ssl_client_cert_function(e: PENGINE; loadssl_f: ENGINE_SSL_CLIENT_CERT_PTR): TIdC_INT;
@@ -935,7 +888,6 @@ var
   function ENGINE_get_init_function(const e: PENGINE): ENGINE_GEN_INT_FUNC_PTR cdecl; external CLibCrypto;
   function ENGINE_get_finish_function(const e: PENGINE): ENGINE_GEN_INT_FUNC_PTR cdecl; external CLibCrypto;
   function ENGINE_get_ctrl_function(const e: PENGINE): ENGINE_CTRL_FUNC_PTR cdecl; external CLibCrypto;
-  {$EXTERNALSYM ENGINE_get_load_privkey_function}
   function ENGINE_get_load_privkey_function(const e: PENGINE): ENGINE_LOAD_KEY_PTR cdecl; external CLibCrypto;
   function ENGINE_get_load_pubkey_function(const e: PENGINE): ENGINE_LOAD_KEY_PTR cdecl; external CLibCrypto;
   //function ENGINE_get_ssl_client_cert_function(const e: PENGINE): ENGINE_SSL_CLIENT_CERT_PTR;
@@ -1009,7 +961,6 @@ var
   function ENGINE_get_cipher_engine(nid: TIdC_INT): PENGINE cdecl; external CLibCrypto;
   function ENGINE_get_digest_engine(nid: TIdC_INT): PENGINE cdecl; external CLibCrypto;
   function ENGINE_get_pkey_meth_engine(nid: TIdC_INT): PENGINE cdecl; external CLibCrypto;
-  {$EXTERNALSYM ENGINE_get_pkey_asn1_meth_engine}
   function ENGINE_get_pkey_asn1_meth_engine(nid: TIdC_INT): PENGINE cdecl; external CLibCrypto;
   ///*
   // * This sets a new default ENGINE structure for performing RSA operations. If
@@ -1027,7 +978,6 @@ var
   function ENGINE_set_default_ciphers(e: PENGINE): TIdC_INT cdecl; external CLibCrypto;
   function ENGINE_set_default_digests(e: PENGINE): TIdC_INT cdecl; external CLibCrypto;
   function ENGINE_set_default_pkey_meths(e: PENGINE): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM ENGINE_set_default_pkey_asn1_meths}
   function ENGINE_set_default_pkey_asn1_meths(e: PENGINE): TIdC_INT cdecl; external CLibCrypto;
 
   ///*
@@ -1096,7 +1046,6 @@ var
   function ENGINE_get_static_state: Pointer cdecl; external CLibCrypto;
 
 {$ENDIF}
-  {$EXTERNALSYM ENGINE_get_ex_new_index}
 function ENGINE_get_ex_new_index(l : TIdC_LONG; p : PENGINE;
     newf : CRYPTO_EX_new; dupf : CRYPTO_EX_dup; freef : CRYPTO_EX_FREE) : TIdC_INT;
 

@@ -36,7 +36,6 @@ uses
   TaurusTLSHeaders_types;
 
 const
-  {$EXTERNALSYM RAND_DRBG_STRENGTH}
   RAND_DRBG_STRENGTH = 256; // Openssl default RANDOM strength constant.
   RAND_DEFAULT_STRENGTH = RAND_DRBG_STRENGTH; // Default RANDOM strength
 

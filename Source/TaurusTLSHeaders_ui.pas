@@ -42,7 +42,6 @@ uses
 const
   (* These are the possible flags.  They can be or'ed together. *)
   (* Use to have echoing of input *)
-  {$EXTERNALSYM UI_INPUT_FLAG_ECHO}
   UI_INPUT_FLAG_ECHO = $01;
   (*
     * Use a default password.  Where that password is found is completely up to
@@ -51,7 +50,6 @@ const
     * each UI being marked with this flag, or the application might get
     * confused.
   *)
-  {$EXTERNALSYM UI_INPUT_FLAG_DEFAULT_PWD}
   UI_INPUT_FLAG_DEFAULT_PWD = $02;
 
   (*
@@ -64,7 +62,6 @@ const
     *    #define MY_UI_FLAG1       (0x01 << UI_INPUT_FLAG_USER_BASE)
     *
   *)
-  {$EXTERNALSYM UI_INPUT_FLAG_USER_BASE}
   UI_INPUT_FLAG_USER_BASE = 16;
 
   (* The commands *)
@@ -73,14 +70,12 @@ const
     * TaurusTLS error stack before printing any info or added error messages and
     * before any prompting.
   *)
-  {$EXTERNALSYM UI_CTRL_PRINT_ERRORS}
   UI_CTRL_PRINT_ERRORS = 1;
   (*
     * Check if a UI_process() is possible to do again with the same instance of
     * a user interface.  This makes UI_ctrl() return 1 if it is redoable, and 0
     * if not.
   *)
-  {$EXTERNALSYM UI_CTRL_IS_REDOABLE}
   UI_CTRL_IS_REDOABLE = 2;
 
 type
@@ -352,7 +347,6 @@ UI_method_set_reader: function(method: PUI_Method; reader: UI_method_reader_cb):
 UI_method_set_closer: function(method: PUI_Method; closer: UI_method_closer_cb): TIdC_INT; cdecl = nil;
 UI_method_set_data_duplicator: function(method: PUI_Method; duplicator: UI_method_data_duplicator_cb;
   destructor_: UI_method_data_destructor_cb): TIdC_INT; cdecl = nil;
-{$EXTERNALSYM UI_method_set_prompt_constructor}
 UI_method_set_prompt_constructor: function(method: PUI_Method;
   prompt_constructor: UI_method_prompt_constructor_cb): TIdC_INT; cdecl = nil;
 UI_method_set_ex_data: function(method: PUI_Method; idx: TIdC_INT; data: Pointer): TIdC_INT; cdecl = nil;
@@ -362,7 +356,6 @@ UI_method_get_writer: function(const method: PUI_Method): UI_method_writer_cb; c
 UI_method_get_flusher: function(const method: PUI_Method): UI_method_flusher_cb;  cdecl = nil;
 UI_method_get_reader:  function(const method: PUI_Method): UI_method_reader_cb; cdecl = nil;
 UI_method_get_closer:  function(const method: PUI_Method): UI_method_closer_cb; cdecl = nil;
-  {$EXTERNALSYM UI_method_get_prompt_constructor}
 UI_method_get_prompt_constructor: function(const method: PUI_Method): UI_method_prompt_constructor_cb; cdecl = nil;
 UI_method_get_data_duplicator: function(const method: PUI_Method): UI_method_data_duplicator_cb; cdecl = nil;
 UI_method_get_data_destructor:  function(const method: PUI_Method): UI_method_data_destructor_cb; cdecl = nil;
@@ -639,7 +632,6 @@ function UI_method_set_data_duplicator(method: PUI_Method;
   duplicator: UI_method_data_duplicator_cb;
   destructor_: UI_method_data_destructor_cb): TIdC_INT cdecl;
   external CLibCrypto;
-  {$EXTERNALSYM UI_method_set_prompt_constructor}
 function UI_method_set_prompt_constructor(method: PUI_Method;
   prompt_constructor: UI_method_prompt_constructor_cb): TIdC_INT cdecl;
   external CLibCrypto;
@@ -656,7 +648,6 @@ function UI_method_get_reader(const method: PUI_Method)
   : UI_method_reader_cb cdecl; external CLibCrypto;
 function UI_method_get_closer(const method: PUI_Method)
   : UI_method_closer_cb cdecl; external CLibCrypto;
-  {$EXTERNALSYM UI_method_get_prompt_constructor}
 function UI_method_get_prompt_constructor(const method: PUI_Method)
   : UI_method_prompt_constructor_cb cdecl; external CLibCrypto;
 function UI_method_get_data_duplicator(const method: PUI_Method)
@@ -719,7 +710,6 @@ function UI_UTIL_wrap_read_pem_callback(cb: pem_password_cb; rwflag: TIdC_INT)
   : PUI_Method cdecl; external CLibCrypto;
 
 {$ENDIF}
-  {$EXTERNALSYM UI_get_ex_new_index}
 function UI_get_ex_new_index(l : TIdC_LONG; p : PUI;
     newf : CRYPTO_EX_new; dupf : CRYPTO_EX_dup; freef : CRYPTO_EX_FREE) : TIdC_INT;
 

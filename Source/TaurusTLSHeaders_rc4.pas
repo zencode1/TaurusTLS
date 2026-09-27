@@ -104,7 +104,6 @@ uses
 
   type
     PRC4_KEY  = ^RC4_KEY;
-  {$EXTERNALSYM RC4_INT}
     RC4_INT = TIdC_UINT;
     rc4_key_st = record
         x : RC4_INT;
@@ -122,7 +121,6 @@ uses
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 var
   RC4_options: function : PIdAnsiChar; cdecl = nil; {allow_nil}
-  {$EXTERNALSYM RC4_set_key}
   RC4_set_key: procedure (key:PRC4_KEY; len: TIdC_LONG; const data:Pbyte); cdecl = nil; {allow_nil}
   private_RC4_set_key: procedure (key:PRC4_KEY; len: TIdC_LONG; const data:Pbyte); cdecl = nil; {allow_nil}
   RC4: procedure (key:PRC4_KEY; len: TIdC_SIZET; const indata: Pbyte; outdata: Pbyte); cdecl = nil; {allow_nil}
@@ -131,7 +129,6 @@ var
 {interface_body}
 {$IFNDEF OPENSSL_NO_RC4}
   function RC4_options: PIdAnsiChar cdecl; external CLibCrypto; 
-  {$EXTERNALSYM RC4_set_key}
   procedure RC4_set_key(key:PRC4_KEY; len: TIdC_LONG; const data:Pbyte) cdecl; external CLibCrypto; 
   procedure private_RC4_set_key(key:PRC4_KEY; len: TIdC_LONG; const data:Pbyte) cdecl; external CLibCrypto; 
   procedure RC4(key:PRC4_KEY; len: TIdC_SIZET; const indata: Pbyte; outdata: Pbyte) cdecl; external CLibCrypto; 
