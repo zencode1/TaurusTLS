@@ -456,7 +456,6 @@ type
 //  (* Maybe more here *)
 //  end;
 
-  {$EXTERNALSYM ENUMERATED_NAMES}
   ENUMERATED_NAMES = BIT_STRING_BITNAME;
 
   {$EXTERNALSYM BASIC_CONSTRAINTS_st}
@@ -489,14 +488,11 @@ type
   {$EXTERNALSYM POTHERNAME}
   POTHERNAME = ^OTHERNAME;
 
-  {$EXTERNALSYM EDIPartyName_st}
   EDIPartyName_st  = record
     nameAssigner: PASN1_STRING;
     partyName: PASN1_STRING;
   end;
-  {$EXTERNALSYM EDIPARTYNAME}
   EDIPARTYNAME = EDIPartyName_st;
-  {$EXTERNALSYM PEDIPARTYNAME}
   PEDIPARTYNAME = ^EDIPARTYNAME;
 
   {$EXTERNALSYM GENERAL_NAME_st_union}
@@ -547,17 +543,13 @@ type
   STACK_OF_ACCESS_DESCRIPTION = record end;
   PSTACK_OF_ACCESS_DESCRIPTION = ^STACK_OF_ACCESS_DESCRIPTION;
 
-  {$EXTERNALSYM AUTHORITY_INFO_ACCESS}
   AUTHORITY_INFO_ACCESS = PSTACK_OF_ACCESS_DESCRIPTION;
 
 
-  {$EXTERNALSYM EXTENDED_KEY_USAGE}
   EXTENDED_KEY_USAGE = PSTACK_OF_ASN1_OBJECT;
 
-  {$EXTERNALSYM TLS_FEATURE}
   TLS_FEATURE = PSTACK_OF_ASN1_INTEGER;
 
-  {$EXTERNALSYM DIST_POINT_NAME_st_union}
   {$IFDEF DCC}{$WARN UNSAFE_TYPE OFF}{$ENDIF}
   DIST_POINT_NAME_st_union = record
     case TIdC_INT of
@@ -565,19 +557,15 @@ type
       1: (relativename : PSTACK_OF_X509_NAME_ENTRY);
   end;
   {$IFDEF DCC}{$WARN UNSAFE_TYPE DEFAULT}{$ENDIF}
-  {$EXTERNALSYM DIST_POINT_NAME_st}
   DIST_POINT_NAME_st = record
     type_: TIdC_INT;
     (* If relativename then this contains the full distribution point name *)
     dpname: PX509_NAME;
   end;
-  {$EXTERNALSYM DIST_POINT_NAME}
   DIST_POINT_NAME = DIST_POINT_NAME_st;
-  {$EXTERNALSYM PDIST_POINT_NAME}
   PDIST_POINT_NAME = ^DIST_POINT_NAME;
 
 
-  {$EXTERNALSYM DIST_POINT_ST}
   DIST_POINT_ST = record
       distpoint : PDIST_POINT_NAME;
       reasons : PASN1_BIT_STRING;
@@ -585,7 +573,6 @@ type
       dp_reasons : TIdC_INT;
    end;
 
-  {$EXTERNALSYM CRL_DIST_POINTS}
   CRL_DIST_POINTS = PSTACK_OF_DIST_POINT;
 
 //  DEFINE_STACK_OF(DIST_POINT)
@@ -623,24 +610,18 @@ type
   {$EXTERNALSYM PSXNET}
   PSXNET = ^SXNET;
 
-  {$EXTERNALSYM NOTICEREF_st}
   NOTICEREF_st = record
     organization : PASN1_STRING;
     noticenos : PSTACK_OF_ASN1_INTEGER;
   end;
-  {$EXTERNALSYM NOTICEREF}
   NOTICEREF = NOTICEREF_st;
-  {$EXTERNALSYM PNOTICEREF}
   PNOTICEREF = ^NOTICEREF;
 
-  {$EXTERNALSYM USERNOTICE_st}
   USERNOTICE_st = record
     noticeref: PNOTICEREF;
     exptext: PASN1_STRING;
   end;
-  {$EXTERNALSYM USERNOTICE}
   USERNOTICE = USERNOTICE_st;
-  {$EXTERNALSYM PUSERNOTICE}
   PUSERNOTICE = ^USERNOTICE;
 
   {$EXTERNALSYM POLICYQUALINFO_st_union}
@@ -664,33 +645,25 @@ type
   STACK_OF_POLICYQUALINFO = record end;
   PSTACK_OF_POLICYQUALINFO = ^STACK_OF_POLICYQUALINFO;
 
-  {$EXTERNALSYM POLICYINFO_st}
   POLICYINFO_st = record
     policyid : PASN1_OBJECT;
     qualifiers : PSTACK_OF_POLICYQUALINFO;
   end;
-  {$EXTERNALSYM POLICYINFO}
   POLICYINFO = POLICYINFO_st;
-  {$EXTERNALSYM PPOLICYINFO}
   PPOLICYINFO = ^POLICYINFO;
 
   STACK_OF_POLICYINFO = record end;
   PSTACK_OF_POLICYINFO = ^STACK_OF_POLICYINFO;
-  {$EXTERNALSYM CERTIFICATEPOLICIES}
   CERTIFICATEPOLICIES = PSTACK_OF_POLICYINFO;
 
-  {$EXTERNALSYM POLICY_MAPPING_st}
   POLICY_MAPPING_st = record
     issuerDomainPolicy: PASN1_OBJECT;
     subjectDomainPolicy: PASN1_OBJECT;
   end;
-  {$EXTERNALSYM POLICY_MAPPING}
   POLICY_MAPPING = POLICY_MAPPING_st;
-  {$EXTERNALSYM PPOLICY_MAPPING}
   PPOLICY_MAPPING = ^POLICY_MAPPING;
   STACK_OF_POLICY_MAPPING = record end;
   PSTACK_OF_POLICY_MAPPING = ^STACK_OF_POLICY_MAPPING;
-  {$EXTERNALSYM POLICY_MAPPINGS}
   POLICY_MAPPINGS = PSTACK_OF_POLICY_MAPPING;
 
   {$EXTERNALSYM GENERAL_SUBTREE_st}
@@ -706,7 +679,6 @@ type
   STACK_OF_GENERAL_SUBTREE = record end;
   PSTACK_OF_GENERAL_SUBTREE = ^STACK_OF_GENERAL_SUBTREE;
 
-  {$EXTERNALSYM NAME_CONSTRAINTS_st}
   NAME_CONSTRAINTS_st = record
     permittedSubtrees : PSTACK_OF_GENERAL_SUBTREE;
     excludedSubtrees : PSTACK_OF_GENERAL_SUBTREE;
@@ -723,14 +695,11 @@ type
   PPOLICY_CONSTRAINTS = ^POLICY_CONSTRAINTS;
 
   (* Proxy certificate structures, see RFC 3820 *)
-  {$EXTERNALSYM PROXY_POLICY_st}
   PROXY_POLICY_st = record
     policyLanguage: PASN1_OBJECT;
     policy: PASN1_OCTET_STRING;
   end;
-  {$EXTERNALSYM PROXY_POLICY}
   PROXY_POLICY = PROXY_POLICY_st;
-  {$EXTERNALSYM PPROXY_POLICY}
   PPROXY_POLICY = ^PROXY_POLICY;
 //  DECLARE_ASN1_FUNCTIONS(PROXY_POLICY)
 
@@ -745,7 +714,6 @@ type
   PPROXY_CERT_INFO_EXTENSION = ^PROXY_CERT_INFO_EXTENSION;
 //  DECLARE_ASN1_FUNCTIONS(PROXY_CERT_INFO_EXTENSION)
 
-  {$EXTERNALSYM ISSUING_DIST_POint_st}
   ISSUING_DIST_POint_st = record
     distpoint: PDIST_POINT_NAME;
     onlyuser : TIdC_INT;
@@ -780,9 +748,7 @@ type
 //                          0,0,0,0, \
 //                          NULL}
 
-  {$EXTERNALSYM PX509_PURPOSE}
   PX509_PURPOSE = ^X509_PURPOSE;
-  {$EXTERNALSYM x509_purpose_st}
   x509_purpose_st = record
     purpose: TIdC_INT;
     trust: TIdC_INT;                  (* Default trust ID *)
@@ -792,7 +758,6 @@ type
     sname: PIdAnsiChar;
     usr_data: Pointer;
   end;
-  {$EXTERNALSYM X509_PURPOSE}
   X509_PURPOSE = x509_purpose_st;
   STACK_OF_X509_PURPOSE = record end;
   PSTACK_OF_X509_PURPOSE = ^STACK_OF_X509_PURPOSE;
@@ -826,7 +791,6 @@ type
   ASIdOrRange = ASIdOrRange_st;
   {$EXTERNALSYM PASIdOrRange}
   PASIdOrRange = ^ASIdOrRange;
-  {$EXTERNALSYM ASIdOrRanges}
   ASIdOrRanges = PSTACK_OF_ASIdOrRange;
 
   {$EXTERNALSYM ASIdentifierChoice_st}
@@ -857,16 +821,12 @@ type
 //  DECLARE_ASN1_FUNCTIONS(ASIdentifierChoice)
 //  DECLARE_ASN1_FUNCTIONS(ASIdentifiers)
 
-  {$EXTERNALSYM IPAddressRange_st}
   IPAddressRange_st = record
     min, max: PASN1_BIT_STRING;
   end;
-  {$EXTERNALSYM IPAddressRange}
   IPAddressRange = IPAddressRange_st;
-  {$EXTERNALSYM PIPAddressRange}
   PIPAddressRange = ^IPAddressRange;
 
-  {$EXTERNALSYM IPAddressOrRange_st}
   {$IFDEF DCC}{$WARN UNSAFE_TYPE OFF}{$ENDIF}
   IPAddressOrRange_st = record
     type_: TIdC_INT;
@@ -875,9 +835,7 @@ type
       1: (addressRange: PIPAddressRange);
   end;
   {$IFDEF DCC}{$WARN UNSAFE_TYPE DEFAULT}{$ENDIF}
-  {$EXTERNALSYM IPAddressOrRange}
   IPAddressOrRange = IPAddressOrRange_st;
-  {$EXTERNALSYM PIPAddressOrRange}
   PIPAddressOrRange = ^IPAddressOrRange;
 
   STACK_OF_IPAddressOrRange = record end;
@@ -907,7 +865,6 @@ type
   IPAddressFamily = IPAddressFamily_st;
   {$EXTERNALSYM PIPAddressFamily}
   PIPAddressFamily = ^IPAddressFamily;
-  {$EXTERNALSYM IPAddrBlocks}
   IPAddrBlocks = PSTACK_OF_IPAddressFamily;
 
 //  DECLARE_ASN1_FUNCTIONS(IPAddressRange)
@@ -915,32 +872,20 @@ type
 //  DECLARE_ASN1_FUNCTIONS(IPAddressChoice)
 //  DECLARE_ASN1_FUNCTIONS(IPAddressFamily)
 
-  {$EXTERNALSYM NamingAuthority_st}
   NamingAuthority_st = record end;
-  {$EXTERNALSYM NAMING_AUTHORITY}
   NAMING_AUTHORITY = NamingAuthority_st;
-  {$EXTERNALSYM PNAMING_AUTHORITY}
   PNAMING_AUTHORITY = ^NAMING_AUTHORITY;
 
-  {$EXTERNALSYM ProfessionInfo_st}
   ProfessionInfo_st = record end;
-  {$EXTERNALSYM PROFESSION_INFO}
   PROFESSION_INFO = ProfessionInfo_st;
-  {$EXTERNALSYM PPROFESSION_INFO}
   PPROFESSION_INFO = ^PROFESSION_INFO;
 
-  {$EXTERNALSYM Admissions_st}
   Admissions_st = record end;
-  {$EXTERNALSYM ADMISSIONS}
   ADMISSIONS = Admissions_st;
-  {$EXTERNALSYM PADMISSIONS}
   PADMISSIONS = ^ADMISSIONS;
 
-  {$EXTERNALSYM AdmissionSyntax_st}
   AdmissionSyntax_st = record end;
-  {$EXTERNALSYM ADMISSION_SYNTAX}
   ADMISSION_SYNTAX = AdmissionSyntax_st;
-  {$EXTERNALSYM PADMISSION_SYNTAX}
   PADMISSION_SYNTAX = ^ADMISSION_SYNTAX;
 //  DECLARE_ASN1_FUNCTIONS(NAMING_AUTHORITY)
 //  DECLARE_ASN1_FUNCTIONS(PROFESSION_INFO)
@@ -972,7 +917,6 @@ type
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 var
-  {$EXTERNALSYM GENERAL_NAME_cmp}
   GENERAL_NAME_cmp: function (a: PGENERAL_NAME; b: PGENERAL_NAME): TIdC_INT; cdecl = nil;
 
 //  ASN1_BIT_STRING *v2i_ASN1_BIT_STRING(method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; STACK_OF(CONF_VALUE) *nval);
@@ -981,7 +925,6 @@ var
   //function s2i_ASN1_IA5STRING(method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; const _str: PIdAnsiChar): PASN1_IA5STRING;
 
 //  STACK_OF(CONF_VALUE) *i2v_GENERAL_NAME(method: PX509V3_EXT_METHOD; gen: PGENERAL_NAME; STACK_OF(CONF_VALUE) *ret);
-  {$EXTERNALSYM GENERAL_NAME_print}
   GENERAL_NAME_print: function (out_: PBIO; gen: PGENERAL_NAME): TIdC_INT; cdecl = nil;
 
 //  DECLARE_ASN1_FUNCTIONS(GENERAL_NAMES)
@@ -993,16 +936,13 @@ var
 //  DECLARE_ASN1_FUNCTIONS(EDIPARTYNAME)
   {$EXTERNALSYM OTHERNAME_cmp}
   OTHERNAME_cmp: function (a: POTHERNAME; b: POTHERNAME): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM GENERAL_NAME_set0_value}
   GENERAL_NAME_set0_value: procedure (a: PGENERAL_NAME; type_: TIdC_INT; value: Pointer); cdecl = nil;
-  {$EXTERNALSYM GENERAL_NAME_get0_value}
   GENERAL_NAME_get0_value: function (const a: PGENERAL_NAME; ptype: PIdC_INT): Pointer; cdecl = nil;
   {$EXTERNALSYM GENERAL_NAME_set0_othername}
   GENERAL_NAME_set0_othername: function (gen: PGENERAL_NAME; oid: PASN1_OBJECT; value: PASN1_TYPE): TIdC_INT; cdecl = nil;
   {$EXTERNALSYM GENERAL_NAME_get0_otherName}
   GENERAL_NAME_get0_otherName: function (const gen: PGENERAL_NAME; poid: PPASN1_OBJECT; pvalue: PPASN1_TYPE): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM GENERAL_NAMES_free}
   GENERAL_NAMES_free : procedure(a : PGENERAL_NAMES); cdecl =nil;
   //function i2s_ASN1_OCTET_STRING(method: PX509V3_EXT_METHOD; const ia5: PASN1_OCTET_STRING): PIdAnsiChar;
   //function s2i_ASN1_OCTET_STRING(method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; const _str: PIdAnsiChar): PASN1_OCTET_STRING;
@@ -1024,17 +964,13 @@ var
 //  DECLARE_ASN1_FUNCTIONS(DIST_POINT_NAME)
 //  DECLARE_ASN1_FUNCTIONS(ISSUING_DIST_POINT)
 
-  {$EXTERNALSYM DIST_POINT_set_dpname}
   DIST_POINT_set_dpname: function (dpn: PDIST_POINT_NAME; iname: PX509_NAME): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM NAME_CONSTRAINTS_check}
   NAME_CONSTRAINTS_check: function (x: PX509; nc: PNAME_CONSTRAINTS): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM NAME_CONSTRAINTS_check_CN}
   NAME_CONSTRAINTS_check_CN: function (x: PX509; nc: PNAME_CONSTRAINTS): TIdC_INT; cdecl = nil;
 
   {$EXTERNALSYM BASIC_CONSTRAINTS_free}
   BASIC_CONSTRAINTS_free : procedure(bc : PBASIC_CONSTRAINTS); cdecl = nil;
-  {$EXTERNALSYM AUTHORITY_KEYID_free}
   AUTHORITY_KEYID_free : procedure(id : PAUTHORITY_KEYID); cdecl = nil;
 //  DECLARE_ASN1_FUNCTIONS(ACCESS_DESCRIPTION)
 //  DECLARE_ASN1_FUNCTIONS(AUTHORITY_INFO_ACCESS)
@@ -1058,48 +994,34 @@ var
   //function v2i_GENERAL_NAME_ex(out_: PGENERAL_NAME; const method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; cnf: PCONF_VALUE; is_nc: TIdC_INT): PGENERAL_NAME;
   //procedure X509V3_conf_free(_val: PCONF_VALUE);
 
-  {$EXTERNALSYM X509V3_EXT_nconf_nid}
   X509V3_EXT_nconf_nid: function (conf: PCONF; ctx: PX509V3_CTX; ext_nid: TIdC_INT; const value: PIdAnsiChar): PX509_EXTENSION; cdecl = nil;
-  {$EXTERNALSYM X509V3_EXT_nconf}
   X509V3_EXT_nconf: function (conf: PCONF; ctx: PX509V3_CTX; const name: PIdAnsiChar; const value: PIdAnsiChar): PX509_EXTENSION; cdecl = nil;
 //  TIdC_INT X509V3_EXT_add_nconf_sk(conf: PCONF; ctx: PX509V3_CTX; const section: PIdAnsiChar; STACK_OF(X509_EXTENSION) **sk);
-  {$EXTERNALSYM X509V3_EXT_add_nconf}
   X509V3_EXT_add_nconf: function (conf: PCONF; ctx: PX509V3_CTX; const section: PIdAnsiChar; cert: PX509): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509V3_EXT_REQ_add_nconf}
   X509V3_EXT_REQ_add_nconf: function (conf: PCONF; ctx: PX509V3_CTX; const section: PIdAnsiChar; req: PX509_REQ): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509V3_EXT_CRL_add_nconf}
   X509V3_EXT_CRL_add_nconf: function (conf: PCONF; ctx: PX509V3_CTX; const section: PIdAnsiChar; crl: PX509_CRL): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM X509V3_EXT_conf_nid}
   X509V3_EXT_conf_nid: function (conf: Pointer; ctx: PX509V3_CTX; ext_nid: TIdC_INT; const value: PIdAnsiChar): PX509_EXTENSION; cdecl = nil;
 //  X509_EXTENSION *X509V3_EXT_conf_nid(LHASH_OF(CONF_VALUE) *conf; ctx: PX509V3_CTX; ext_nid: TIdC_INT; const value: PIdAnsiChar);
-  {$EXTERNALSYM X509V3_EXT_conf}
   X509V3_EXT_conf: function (conf: Pointer; ctx: PX509V3_CTX; const name: PIdAnsiChar; const value: PIdAnsiChar): PX509_EXTENSION; cdecl = nil;
 //  X509_EXTENSION *X509V3_EXT_conf(LHASH_OF(CONF_VALUE) *conf; ctx: PX509V3_CTX; const name: PIdAnsiChar; const value: PIdAnsiChar);
-  {$EXTERNALSYM X509V3_EXT_add_conf}
   X509V3_EXT_add_conf: function (conf: Pointer; ctx: PX509V3_CTX; const section: PIdAnsiChar; cert: PX509): TIdC_INT; cdecl = nil;
 //  TIdC_INT X509V3_EXT_add_conf(LHASH_OF(CONF_VALUE) *conf; ctx: PX509V3_CTX; const section: PIdAnsiChar; cert: PX509);
-  {$EXTERNALSYM X509V3_EXT_REQ_add_conf}
   X509V3_EXT_REQ_add_conf: function (conf: Pointer; ctx: PX509V3_CTX; const section: PIdAnsiChar; req: PX509_REQ): TIdC_INT; cdecl = nil;
 //  TIdC_INT X509V3_EXT_REQ_add_conf(LHASH_OF(CONF_VALUE) *conf; ctx: PX509V3_CTX; const section: PIdAnsiChar; req: PX509_REQ);
-  {$EXTERNALSYM X509V3_EXT_CRL_add_conf}
   X509V3_EXT_CRL_add_conf: function (conf: Pointer; ctx: PX509V3_CTX; const section: PIdAnsiChar; crl: PX509_CRL): TIdC_INT; cdecl = nil;
 //  TIdC_INT X509V3_EXT_CRL_add_conf(LHASH_OF(CONF_VALUE) *conf; ctx: PX509V3_CTX; const section: PIdAnsiChar; crl: PX509_CRL);
 
 //  TIdC_INT X509V3_add_value_bool_nf(const name: PIdAnsiChar; TIdC_INT asn1_bool; STACK_OF(CONF_VALUE) **extlist);
   //function X509V3_get_value_bool(const value: PCONF_VALUE; asn1_bool: PIdC_INT): TIdC_INT;
   //function X509V3_get_value_int(const value: PCONF_VALUE; aint: PPASN1_INTEGER): TIdC_INT;
-  {$EXTERNALSYM X509V3_set_nconf}
   X509V3_set_nconf: procedure (ctx: PX509V3_CTX; conf: PCONF); cdecl = nil;
 //  void X509V3_set_conf_lhash(ctx: PX509V3_CTX; LHASH_OF(CONF_VALUE) *lhash);
 
-  {$EXTERNALSYM X509V3_get_string}
   X509V3_get_string: function (ctx: PX509V3_CTX; const name: PIdAnsiChar; const section: PIdAnsiChar): PIdAnsiChar; cdecl = nil;
 //  STACK_OF(CONF_VALUE) *X509V3_get_section(ctx: PX509V3_CTX; const section: PIdAnsiChar);
-  {$EXTERNALSYM X509V3_string_free}
   X509V3_string_free: procedure (ctx: PX509V3_CTX; _str: PIdAnsiChar); cdecl = nil;
 //  void X509V3_section_free(ctx: PX509V3_CTX; STACK_OF(CONF_VALUE) *section);
-  {$EXTERNALSYM X509V3_set_ctx}
   X509V3_set_ctx: procedure (ctx: PX509V3_CTX; issuer: PX509; subject: PX509; req: PX509_REQ; crl: PX509_CRL; flags: TIdC_INT); cdecl = nil;
 
 //  TIdC_INT X509V3_add_value(const name: PIdAnsiChar; const value: PIdAnsiChar; STACK_OF(CONF_VALUE) **extlist);
@@ -1112,108 +1034,67 @@ var
   //function i2s_ASN1_ENUMERATED_TABLE(meth: PX509V3_EXT_METHOD; const aint: PASN1_ENUMERATED): PIdAnsiChar;
   //function X509V3_EXT_add(ext: PX509V3_EXT_METHOD): TIdC_INT;
   //function X509V3_EXT_add_list(extlist: PX509V3_EXT_METHOD): TIdC_INT;
-  {$EXTERNALSYM X509V3_EXT_add_alias}
   X509V3_EXT_add_alias: function (nid_to: TIdC_INT; nid_from: TIdC_INT): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509V3_EXT_cleanup}
   X509V3_EXT_cleanup: procedure ; cdecl = nil;
 
   //function X509V3_EXT_get(ext: PX509_EXTENSION): PX509V3_EXT_METHOD;
   //function X509V3_EXT_get_nid(nid: TIdC_INT): PX509V3_EXT_METHOD;
-  {$EXTERNALSYM X509V3_add_standard_extensions}
   X509V3_add_standard_extensions: function : TIdC_INT; cdecl = nil;
 //  STACK_OF(CONF_VALUE) *X509V3_parse_list(const line: PIdAnsiChar);
-  {$EXTERNALSYM X509V3_EXT_d2i}
   X509V3_EXT_d2i: function (ext: PX509_EXTENSION): Pointer; cdecl = nil;
 //  void *X509V3_get_d2i(const STACK_OF(X509_EXTENSION) *x; nid: TIdC_INT; TIdC_INT *crit; TIdC_INT *idx);
 
-  {$EXTERNALSYM X509V3_EXT_i2d}
   X509V3_EXT_i2d: function (ext_nid: TIdC_INT; crit: TIdC_INT; ext_struc: Pointer): PX509_EXTENSION; cdecl = nil;
 //  TIdC_INT X509V3_add1_i2d(STACK_OF(X509_EXTENSION) **x; nid: TIdC_INT; value: Pointer; crit: TIdC_INT; TIdC_ULONG flags);
 
 //  void X509V3_EXT_val_prn(out_: PBIO; STACK_OF(CONF_VALUE) *val; indent: TIdC_INT; TIdC_INT ml);
-  {$EXTERNALSYM X509V3_EXT_print}
   X509V3_EXT_print: function (out_: PBIO; ext: PX509_EXTENSION; flag: TIdC_ULONG; indent: TIdC_INT): TIdC_INT; cdecl = nil;
 //  TIdC_INT X509V3_extensions_print(out_: PBIO; const PIdAnsiChar *title; const STACK_OF(X509_EXTENSION) *exts; flag: TIdC_ULONG; indent: TIdC_INT);
 
-  {$EXTERNALSYM X509_check_ca}
   X509_check_ca: function (x: PX509): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_check_purpose}
   X509_check_purpose: function (x: PX509; id: TIdC_INT; ca: TIdC_INT): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_supported_extension}
   X509_supported_extension: function (ex: PX509_EXTENSION): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_PURPOSE_set}
   X509_PURPOSE_set: function (p: PIdC_INT; purpose: TIdC_INT): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_check_issued}
   X509_check_issued: function (issuer: PX509; subject: PX509): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_check_akid}
   X509_check_akid: function (issuer: PX509; akid: PAUTHORITY_KEYID): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_set_proxy_flag}
   X509_set_proxy_flag: procedure (x: PX509); cdecl = nil;
-  {$EXTERNALSYM X509_set_proxy_pathlen}
   X509_set_proxy_pathlen: procedure (x: PX509; l: TIdC_LONG); cdecl = nil;
-  {$EXTERNALSYM X509_get_proxy_pathlen}
   X509_get_proxy_pathlen: function (x: PX509): TIdC_LONG; cdecl = nil;
 
-  {$EXTERNALSYM X509_get_extension_flags}
   X509_get_extension_flags: function (x: PX509): TIdC_UINT32; cdecl = nil;
-  {$EXTERNALSYM X509_get_key_usage}
   X509_get_key_usage: function (x: PX509): TIdC_UINT32; cdecl = nil;
-  {$EXTERNALSYM X509_get_extended_key_usage}
   X509_get_extended_key_usage: function (x: PX509): TIdC_UINT32; cdecl = nil;
-  {$EXTERNALSYM X509_get0_subject_key_id}
   X509_get0_subject_key_id: function (x: PX509): PASN1_OCTET_STRING; cdecl = nil;
-  {$EXTERNALSYM X509_get0_authority_key_id}
   X509_get0_authority_key_id: function (x: PX509): PASN1_OCTET_STRING; cdecl = nil;
-  {$EXTERNALSYM X509_get0_authority_issuer}
   X509_get0_authority_issuer: function(x : PX509) : PGENERAL_NAMES;  cdecl = nil;
   {$EXTERNALSYM X509_get0_authority_serial}
   X509_get0_authority_serial: function (x: PX509): PASN1_INTEGER; cdecl = nil;
 
-  {$EXTERNALSYM X509_PURPOSE_get_count}
   X509_PURPOSE_get_count: function : TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_PURPOSE_get0}
   X509_PURPOSE_get0: function (idx: TIdC_INT): PX509_PURPOSE; cdecl = nil;
-  {$EXTERNALSYM X509_PURPOSE_get_by_sname}
   X509_PURPOSE_get_by_sname: function (const sname: PIdAnsiChar): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_PURPOSE_get_by_id}
   X509_PURPOSE_get_by_id: function (id: TIdC_INT): TIdC_INT; cdecl = nil;
 //  TIdC_INT X509_PURPOSE_add(id: TIdC_INT, TIdC_INT trust, flags: TIdC_INT, TIdC_INT (*ck) (const X509_PURPOSE *, const X509 *, TIdC_INT), const name: PIdAnsiChar, const sname: PIdAnsiChar, void *arg);
-  {$EXTERNALSYM X509_PURPOSE_get0_name}
   X509_PURPOSE_get0_name: function (const xp: PX509_PURPOSE): PIdAnsiChar; cdecl = nil;
-  {$EXTERNALSYM X509_PURPOSE_get0_sname}
   X509_PURPOSE_get0_sname: function (const xp: PX509_PURPOSE): PIdAnsiChar; cdecl = nil;
-  {$EXTERNALSYM X509_PURPOSE_get_trust}
   X509_PURPOSE_get_trust: function (const xp: PX509_PURPOSE): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_PURPOSE_cleanup}
   X509_PURPOSE_cleanup: procedure ; cdecl = nil;
-  {$EXTERNALSYM X509_PURPOSE_get_id}
   X509_PURPOSE_get_id: function (const v1: PX509_PURPOSE): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM X509_get1_email}
   X509_get1_email : function (x: PX509) : PSTACK_OF_OPENSSL_STRING;  cdecl = nil;
-  {$EXTERNALSYM X509_REQ_get1_email}
   X509_REQ_get1_email : function( x : PX509_REQ) : PSTACK_OF_OPENSSL_STRING;  cdecl = nil;
-  {$EXTERNALSYM X509_email_free}
   X509_email_free : procedure(sk : PSTACK_OF_OPENSSL_STRING); cdecl = nil;
-  {$EXTERNALSYM X509_get1_ocsp}
   X509_get1_ocsp : function(x: PX509) : PSTACK_OF_OPENSSL_STRING; cdecl = nil;
 
-  {$EXTERNALSYM X509_check_host}
   X509_check_host: function (x: PX509; const chk: PIdAnsiChar; chklen: TIdC_SIZET; flags: TIdC_UINT; peername: PPIdAnsiChar): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_check_email}
   X509_check_email: function (x: PX509; const chk: PIdAnsiChar; chklen: TIdC_SIZET; flags: TIdC_UINT): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_check_ip}
   X509_check_ip: function (x: PX509; const chk: PByte; chklen: TIdC_SIZET; flags: TIdC_UINT): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_check_ip_asc}
   X509_check_ip_asc: function (x: PX509; const ipasc: PIdAnsiChar; flags: TIdC_UINT): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM a2i_IPADDRESS}
   a2i_IPADDRESS: function (const ipasc: PIdAnsiChar): PASN1_OCTET_STRING; cdecl = nil;
-  {$EXTERNALSYM a2i_IPADDRESS_NC}
   a2i_IPADDRESS_NC: function (const ipasc: PIdAnsiChar): PASN1_OCTET_STRING; cdecl = nil;
 //  TIdC_INT X509V3_NAME_from_section(X509_NAME *nm; STACK_OF(CONF_VALUE) *dn_sk; TIdC_ULONG chtype);
 
-  {$EXTERNALSYM X509_POLICY_NODE_print}
   X509_POLICY_NODE_print: procedure (out_: PBIO; node: PX509_POLICY_NODE; indent: TIdC_INT); cdecl = nil;
 //  DEFINE_STACK_OF(X509_POLICY_NODE)
 
@@ -1228,7 +1109,6 @@ var
   //function X509v3_addr_add_prefix(address: PIPAddrBlocks; const afi: TIdC_UINT; const safi: PIdC_UINT; a: PByte; const prefixlen: TIdC_INT): TIdC_INT;
   //function X509v3_addr_add_range(address: PIPAddrBlocks; const afi: TIdC_UINT; const safi: PIdC_UINT; min: PByte; max: PByte): TIdC_INT;
   //function X509v3_addr_get_afi(const f: PIPAddressFamily): TIdC_UINT;
-  {$EXTERNALSYM X509v3_addr_get_range}
   X509v3_addr_get_range: function (aor: PIPAddressOrRange; const afi: TIdC_UINT; min: PByte; max: Byte; const _length: TIdC_INT): TIdC_INT; cdecl = nil;
 
   (*
@@ -1250,9 +1130,7 @@ var
   (*
    * Check whether RFC 3779 extensions nest properly in chains.
    *)
-  {$EXTERNALSYM X509v3_asid_validate_path}
   X509v3_asid_validate_path: function (v1: PX509_STORE_CTX): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509v3_addr_validate_path}
   X509v3_addr_validate_path: function (v1: PX509_STORE_CTX): TIdC_INT; cdecl = nil;
 //  TIdC_INT X509v3_asid_validate_resource_set(STACK_OF(X509) *chain; ASIdentifiers *ext; TIdC_INT allow_inheritance);
 //  TIdC_INT X509v3_addr_validate_resource_set(STACK_OF(X509) *chain; IPAddrBlocks *ext; TIdC_INT allow_inheritance);
@@ -1263,42 +1141,28 @@ var
   (*
    * Admission Syntax
    *)
-  {$EXTERNALSYM NAMING_AUTHORITY_get0_authorityId}
   NAMING_AUTHORITY_get0_authorityId: function (const n: PNAMING_AUTHORITY): PASN1_OBJECT; cdecl = nil;
   {$EXTERNALSYM NAMING_AUTHORITY_get0_authorityURL}
   NAMING_AUTHORITY_get0_authorityURL: function (const n: PNAMING_AUTHORITY): PASN1_IA5STRING; cdecl = nil;
-  {$EXTERNALSYM NAMING_AUTHORITY_get0_authorityText}
   NAMING_AUTHORITY_get0_authorityText: function (const n: PNAMING_AUTHORITY): PASN1_STRING; cdecl = nil;
-  {$EXTERNALSYM NAMING_AUTHORITY_set0_authorityId}
   NAMING_AUTHORITY_set0_authorityId: procedure (n: PNAMING_AUTHORITY; namingAuthorityId: PASN1_OBJECT); cdecl = nil;
   {$EXTERNALSYM NAMING_AUTHORITY_set0_authorityURL}
   NAMING_AUTHORITY_set0_authorityURL: procedure (n: PNAMING_AUTHORITY; namingAuthorityUrl: PASN1_IA5STRING); cdecl = nil;
-  {$EXTERNALSYM NAMING_AUTHORITY_set0_authorityText}
   NAMING_AUTHORITY_set0_authorityText: procedure (n: PNAMING_AUTHORITY; namingAuthorityText: PASN1_STRING); cdecl = nil;
 
-  {$EXTERNALSYM ADMISSION_SYNTAX_get0_admissionAuthority}
   ADMISSION_SYNTAX_get0_admissionAuthority: function (const as_: ADMISSION_SYNTAX): PGENERAL_NAME; cdecl = nil;
-  {$EXTERNALSYM ADMISSION_SYNTAX_set0_admissionAuthority}
   ADMISSION_SYNTAX_set0_admissionAuthority: procedure (as_: ADMISSION_SYNTAX; aa: PGENERAL_NAME); cdecl = nil;
 //  const STACK_OF(ADMISSIONS) *ADMISSION_SYNTAX_get0_contentsOfAdmissions(const as_: ADMISSION_SYNTAX);
 //  void ADMISSION_SYNTAX_set0_contentsOfAdmissions(as_: ADMISSION_SYNTAX; STACK_OF(ADMISSIONS) *a);
-  {$EXTERNALSYM ADMISSIONS_get0_admissionAuthority}
   ADMISSIONS_get0_admissionAuthority: function (const a: PADMISSIONS): PGENERAL_NAME; cdecl = nil;
-  {$EXTERNALSYM ADMISSIONS_set0_admissionAuthority}
   ADMISSIONS_set0_admissionAuthority: procedure (a: PADMISSIONS; aa: PGENERAL_NAME); cdecl = nil;
-  {$EXTERNALSYM ADMISSIONS_get0_namingAuthority}
   ADMISSIONS_get0_namingAuthority: function (const a: PADMISSIONS): PNAMING_AUTHORITY; cdecl = nil;
-  {$EXTERNALSYM ADMISSIONS_set0_namingAuthority}
   ADMISSIONS_set0_namingAuthority: procedure (a: PADMISSIONS; na: PNAMING_AUTHORITY); cdecl = nil;
   //function ADMISSIONS_get0_professionInfos(const a: PADMISSIONS): PPROFESSION_INFOS;
   //procedure ADMISSIONS_set0_professionInfos(a: PADMISSIONS; _pi: PPROFESSION_INFOS);
-  {$EXTERNALSYM PROFESSION_INFO_get0_addProfessionInfo}
   PROFESSION_INFO_get0_addProfessionInfo: function (const _pi: PPROFESSION_INFO): PASN1_OCTET_STRING; cdecl = nil;
-  {$EXTERNALSYM PROFESSION_INFO_set0_addProfessionInfo}
   PROFESSION_INFO_set0_addProfessionInfo: procedure (_pi: PPROFESSION_INFO; aos: PASN1_OCTET_STRING); cdecl = nil;
-  {$EXTERNALSYM PROFESSION_INFO_get0_namingAuthority}
   PROFESSION_INFO_get0_namingAuthority: function (const _pi: PPROFESSION_INFO): PNAMING_AUTHORITY; cdecl = nil;
-  {$EXTERNALSYM PROFESSION_INFO_set0_namingAuthority}
   PROFESSION_INFO_set0_namingAuthority: procedure (_pi: PPROFESSION_INFO; na: PNAMING_AUTHORITY); cdecl = nil;
 //  const STACK_OF(ASN1_STRING) *PROFESSION_INFO_get0_professionItems(const _pi: PPROFESSION_INFO);
 //  void PROFESSION_INFO_set0_professionItems(_pi: PPROFESSION_INFO; STACK_OF(ASN1_STRING) *as);
@@ -1311,7 +1175,6 @@ var
 
 
 {$ELSE}
-  {$EXTERNALSYM GENERAL_NAME_cmp}
   function GENERAL_NAME_cmp(a: PGENERAL_NAME; b: PGENERAL_NAME): TIdC_INT cdecl; external CLibCrypto;
 
 //  ASN1_BIT_STRING *v2i_ASN1_BIT_STRING(method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; STACK_OF(CONF_VALUE) *nval);
@@ -1320,7 +1183,6 @@ var
   //function s2i_ASN1_IA5STRING(method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; const _str: PIdAnsiChar): PASN1_IA5STRING;
 
 //  STACK_OF(CONF_VALUE) *i2v_GENERAL_NAME(method: PX509V3_EXT_METHOD; gen: PGENERAL_NAME; STACK_OF(CONF_VALUE) *ret);
-  {$EXTERNALSYM GENERAL_NAME_print}
   function GENERAL_NAME_print(out_: PBIO; gen: PGENERAL_NAME): TIdC_INT cdecl; external CLibCrypto;
 
 //  DECLARE_ASN1_FUNCTIONS(GENERAL_NAMES)
@@ -1332,15 +1194,12 @@ var
 //  DECLARE_ASN1_FUNCTIONS(EDIPARTYNAME)
   {$EXTERNALSYM OTHERNAME_cmp}
   function OTHERNAME_cmp(a: POTHERNAME; b: POTHERNAME): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM GENERAL_NAME_set0_value}
   procedure GENERAL_NAME_set0_value(a: PGENERAL_NAME; type_: TIdC_INT; value: Pointer) cdecl; external CLibCrypto;
-  {$EXTERNALSYM GENERAL_NAME_get0_value}
   function GENERAL_NAME_get0_value(const a: PGENERAL_NAME; ptype: PIdC_INT): Pointer cdecl; external CLibCrypto;
   {$EXTERNALSYM GENERAL_NAME_set0_othername}
   function GENERAL_NAME_set0_othername(gen: PGENERAL_NAME; oid: PASN1_OBJECT; value: PASN1_TYPE): TIdC_INT cdecl; external CLibCrypto;
   {$EXTERNALSYM GENERAL_NAME_get0_otherName}
   function GENERAL_NAME_get0_otherName(const gen: PGENERAL_NAME; poid: PPASN1_OBJECT; pvalue: PPASN1_TYPE): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM GENERAL_NAMES_free}
   procedure GENERAL_NAMES_free(a : PGENERAL_NAMES); cdecl;  external CLibCrypto;
 
   //function i2s_ASN1_OCTET_STRING(method: PX509V3_EXT_METHOD; const ia5: PASN1_OCTET_STRING): PIdAnsiChar;
@@ -1363,16 +1222,12 @@ var
 //  DECLARE_ASN1_FUNCTIONS(DIST_POINT_NAME)
 //  DECLARE_ASN1_FUNCTIONS(ISSUING_DIST_POINT)
 
-  {$EXTERNALSYM DIST_POINT_set_dpname}
   function DIST_POINT_set_dpname(dpn: PDIST_POINT_NAME; iname: PX509_NAME): TIdC_INT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM NAME_CONSTRAINTS_check}
   function NAME_CONSTRAINTS_check(x: PX509; nc: PNAME_CONSTRAINTS): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM NAME_CONSTRAINTS_check_CN}
   function NAME_CONSTRAINTS_check_CN(x: PX509; nc: PNAME_CONSTRAINTS): TIdC_INT cdecl; external CLibCrypto;
   {$EXTERNALSYM BASIC_CONSTRAINTS_free}
   procedure  BASIC_CONSTRAINTS_free(bc : PBASIC_CONSTRAINTS); cdecl;  external CLibCrypto;
-  {$EXTERNALSYM AUTHORITY_KEYID_free}
   procedure AUTHORITY_KEYID_free(id : PAUTHORITY_KEYID); cdecl; external CLibCrypto;
 //  DECLARE_ASN1_FUNCTIONS(ACCESS_DESCRIPTION)
 //  DECLARE_ASN1_FUNCTIONS(AUTHORITY_INFO_ACCESS)
@@ -1396,48 +1251,34 @@ var
   //function v2i_GENERAL_NAME_ex(out_: PGENERAL_NAME; const method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; cnf: PCONF_VALUE; is_nc: TIdC_INT): PGENERAL_NAME;
   //procedure X509V3_conf_free(_val: PCONF_VALUE);
 
-  {$EXTERNALSYM X509V3_EXT_nconf_nid}
   function X509V3_EXT_nconf_nid(conf: PCONF; ctx: PX509V3_CTX; ext_nid: TIdC_INT; const value: PIdAnsiChar): PX509_EXTENSION cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509V3_EXT_nconf}
   function X509V3_EXT_nconf(conf: PCONF; ctx: PX509V3_CTX; const name: PIdAnsiChar; const value: PIdAnsiChar): PX509_EXTENSION cdecl; external CLibCrypto;
 //  TIdC_INT X509V3_EXT_add_nconf_sk(conf: PCONF; ctx: PX509V3_CTX; const section: PIdAnsiChar; STACK_OF(X509_EXTENSION) **sk);
-  {$EXTERNALSYM X509V3_EXT_add_nconf}
   function X509V3_EXT_add_nconf(conf: PCONF; ctx: PX509V3_CTX; const section: PIdAnsiChar; cert: PX509): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509V3_EXT_REQ_add_nconf}
   function X509V3_EXT_REQ_add_nconf(conf: PCONF; ctx: PX509V3_CTX; const section: PIdAnsiChar; req: PX509_REQ): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509V3_EXT_CRL_add_nconf}
   function X509V3_EXT_CRL_add_nconf(conf: PCONF; ctx: PX509V3_CTX; const section: PIdAnsiChar; crl: PX509_CRL): TIdC_INT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM X509V3_EXT_conf_nid}
   function X509V3_EXT_conf_nid(conf: Pointer; ctx: PX509V3_CTX; ext_nid: TIdC_INT; const value: PIdAnsiChar): PX509_EXTENSION cdecl; external CLibCrypto;
 //  X509_EXTENSION *X509V3_EXT_conf_nid(LHASH_OF(CONF_VALUE) *conf; ctx: PX509V3_CTX; ext_nid: TIdC_INT; const value: PIdAnsiChar);
-  {$EXTERNALSYM X509V3_EXT_conf}
   function X509V3_EXT_conf(conf: Pointer; ctx: PX509V3_CTX; const name: PIdAnsiChar; const value: PIdAnsiChar): PX509_EXTENSION cdecl; external CLibCrypto;
 //  X509_EXTENSION *X509V3_EXT_conf(LHASH_OF(CONF_VALUE) *conf; ctx: PX509V3_CTX; const name: PIdAnsiChar; const value: PIdAnsiChar);
-  {$EXTERNALSYM X509V3_EXT_add_conf}
   function X509V3_EXT_add_conf(conf: Pointer; ctx: PX509V3_CTX; const section: PIdAnsiChar; cert: PX509): TIdC_INT cdecl; external CLibCrypto;
 //  TIdC_INT X509V3_EXT_add_conf(LHASH_OF(CONF_VALUE) *conf; ctx: PX509V3_CTX; const section: PIdAnsiChar; cert: PX509);
-  {$EXTERNALSYM X509V3_EXT_REQ_add_conf}
   function X509V3_EXT_REQ_add_conf(conf: Pointer; ctx: PX509V3_CTX; const section: PIdAnsiChar; req: PX509_REQ): TIdC_INT cdecl; external CLibCrypto;
 //  TIdC_INT X509V3_EXT_REQ_add_conf(LHASH_OF(CONF_VALUE) *conf; ctx: PX509V3_CTX; const section: PIdAnsiChar; req: PX509_REQ);
-  {$EXTERNALSYM X509V3_EXT_CRL_add_conf}
   function X509V3_EXT_CRL_add_conf(conf: Pointer; ctx: PX509V3_CTX; const section: PIdAnsiChar; crl: PX509_CRL): TIdC_INT cdecl; external CLibCrypto;
 //  TIdC_INT X509V3_EXT_CRL_add_conf(LHASH_OF(CONF_VALUE) *conf; ctx: PX509V3_CTX; const section: PIdAnsiChar; crl: PX509_CRL);
 
 //  TIdC_INT X509V3_add_value_bool_nf(const name: PIdAnsiChar; TIdC_INT asn1_bool; STACK_OF(CONF_VALUE) **extlist);
   //function X509V3_get_value_bool(const value: PCONF_VALUE; asn1_bool: PIdC_INT): TIdC_INT;
   //function X509V3_get_value_int(const value: PCONF_VALUE; aint: PPASN1_INTEGER): TIdC_INT;
-  {$EXTERNALSYM X509V3_set_nconf}
   procedure X509V3_set_nconf(ctx: PX509V3_CTX; conf: PCONF) cdecl; external CLibCrypto;
 //  void X509V3_set_conf_lhash(ctx: PX509V3_CTX; LHASH_OF(CONF_VALUE) *lhash);
 
-  {$EXTERNALSYM X509V3_get_string}
   function X509V3_get_string(ctx: PX509V3_CTX; const name: PIdAnsiChar; const section: PIdAnsiChar): PIdAnsiChar cdecl; external CLibCrypto;
 //  STACK_OF(CONF_VALUE) *X509V3_get_section(ctx: PX509V3_CTX; const section: PIdAnsiChar);
-  {$EXTERNALSYM X509V3_string_free}
   procedure X509V3_string_free(ctx: PX509V3_CTX; _str: PIdAnsiChar) cdecl; external CLibCrypto;
 //  void X509V3_section_free(ctx: PX509V3_CTX; STACK_OF(CONF_VALUE) *section);
-  {$EXTERNALSYM X509V3_set_ctx}
   procedure X509V3_set_ctx(ctx: PX509V3_CTX; issuer: PX509; subject: PX509; req: PX509_REQ; crl: PX509_CRL; flags: TIdC_INT) cdecl; external CLibCrypto;
 
 //  TIdC_INT X509V3_add_value(const name: PIdAnsiChar; const value: PIdAnsiChar; STACK_OF(CONF_VALUE) **extlist);
@@ -1450,108 +1291,67 @@ var
   //function i2s_ASN1_ENUMERATED_TABLE(meth: PX509V3_EXT_METHOD; const aint: PASN1_ENUMERATED): PIdAnsiChar;
   //function X509V3_EXT_add(ext: PX509V3_EXT_METHOD): TIdC_INT;
   //function X509V3_EXT_add_list(extlist: PX509V3_EXT_METHOD): TIdC_INT;
-  {$EXTERNALSYM X509V3_EXT_add_alias}
   function X509V3_EXT_add_alias(nid_to: TIdC_INT; nid_from: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509V3_EXT_cleanup}
   procedure X509V3_EXT_cleanup cdecl; external CLibCrypto;
 
   //function X509V3_EXT_get(ext: PX509_EXTENSION): PX509V3_EXT_METHOD;
   //function X509V3_EXT_get_nid(nid: TIdC_INT): PX509V3_EXT_METHOD;
-  {$EXTERNALSYM X509V3_add_standard_extensions}
   function X509V3_add_standard_extensions: TIdC_INT cdecl; external CLibCrypto;
 //  STACK_OF(CONF_VALUE) *X509V3_parse_list(const line: PIdAnsiChar);
-  {$EXTERNALSYM X509V3_EXT_d2i}
   function X509V3_EXT_d2i(ext: PX509_EXTENSION): Pointer cdecl; external CLibCrypto;
 //  void *X509V3_get_d2i(const STACK_OF(X509_EXTENSION) *x; nid: TIdC_INT; TIdC_INT *crit; TIdC_INT *idx);
 
-  {$EXTERNALSYM X509V3_EXT_i2d}
   function X509V3_EXT_i2d(ext_nid: TIdC_INT; crit: TIdC_INT; ext_struc: Pointer): PX509_EXTENSION cdecl; external CLibCrypto;
 //  TIdC_INT X509V3_add1_i2d(STACK_OF(X509_EXTENSION) **x; nid: TIdC_INT; value: Pointer; crit: TIdC_INT; TIdC_ULONG flags);
 
 //  void X509V3_EXT_val_prn(out_: PBIO; STACK_OF(CONF_VALUE) *val; indent: TIdC_INT; TIdC_INT ml);
-  {$EXTERNALSYM X509V3_EXT_print}
   function X509V3_EXT_print(out_: PBIO; ext: PX509_EXTENSION; flag: TIdC_ULONG; indent: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
 //  TIdC_INT X509V3_extensions_print(out_: PBIO; const PIdAnsiChar *title; const STACK_OF(X509_EXTENSION) *exts; flag: TIdC_ULONG; indent: TIdC_INT);
 
-  {$EXTERNALSYM X509_check_ca}
   function X509_check_ca(x: PX509): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_check_purpose}
   function X509_check_purpose(x: PX509; id: TIdC_INT; ca: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_supported_extension}
   function X509_supported_extension(ex: PX509_EXTENSION): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_PURPOSE_set}
   function X509_PURPOSE_set(p: PIdC_INT; purpose: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_check_issued}
   function X509_check_issued(issuer: PX509; subject: PX509): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_check_akid}
   function X509_check_akid(issuer: PX509; akid: PAUTHORITY_KEYID): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_set_proxy_flag}
   procedure X509_set_proxy_flag(x: PX509) cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_set_proxy_pathlen}
   procedure X509_set_proxy_pathlen(x: PX509; l: TIdC_LONG) cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_get_proxy_pathlen}
   function X509_get_proxy_pathlen(x: PX509): TIdC_LONG cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM X509_get_extension_flags}
   function X509_get_extension_flags(x: PX509): TIdC_UINT32 cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_get_key_usage}
   function X509_get_key_usage(x: PX509): TIdC_UINT32 cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_get_extended_key_usage}
   function X509_get_extended_key_usage(x: PX509): TIdC_UINT32 cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_get0_subject_key_id}
   function X509_get0_subject_key_id(x: PX509): PASN1_OCTET_STRING cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_get0_authority_key_id}
   function X509_get0_authority_key_id(x: PX509): PASN1_OCTET_STRING cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_get0_authority_issuer}
   function X509_get0_authority_issuer(x: PX509): PGENERAL_NAMES;  cdecl; external CLibCrypto;
   {$EXTERNALSYM X509_get0_authority_serial}
   function X509_get0_authority_serial(x: PX509): PASN1_INTEGER cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM X509_PURPOSE_get_count}
   function X509_PURPOSE_get_count: TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_PURPOSE_get0}
   function X509_PURPOSE_get0(idx: TIdC_INT): PX509_PURPOSE cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_PURPOSE_get_by_sname}
   function X509_PURPOSE_get_by_sname(const sname: PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_PURPOSE_get_by_id}
   function X509_PURPOSE_get_by_id(id: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
 //  TIdC_INT X509_PURPOSE_add(id: TIdC_INT, TIdC_INT trust, flags: TIdC_INT, TIdC_INT (*ck) (const X509_PURPOSE *, const X509 *, TIdC_INT), const name: PIdAnsiChar, const sname: PIdAnsiChar, void *arg);
-  {$EXTERNALSYM X509_PURPOSE_get0_name}
   function X509_PURPOSE_get0_name(const xp: PX509_PURPOSE): PIdAnsiChar cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_PURPOSE_get0_sname}
   function X509_PURPOSE_get0_sname(const xp: PX509_PURPOSE): PIdAnsiChar cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_PURPOSE_get_trust}
   function X509_PURPOSE_get_trust(const xp: PX509_PURPOSE): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_PURPOSE_cleanup}
   procedure X509_PURPOSE_cleanup cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_PURPOSE_get_id}
   function X509_PURPOSE_get_id(const v1: PX509_PURPOSE): TIdC_INT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM X509_get1_email}
   function X509_get1_email(x: PX509) : PSTACK_OF_OPENSSL_STRING; cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_REQ_get1_email}
   function X509_REQ_get1_email( x : PX509_REQ) : PSTACK_OF_OPENSSL_STRING;  cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_email_free}
   procedure X509_email_free(sk : PSTACK_OF_OPENSSL_STRING);  cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_get1_ocsp}
   function X509_get1_ocsp(x: PX509) : PSTACK_OF_OPENSSL_STRING;  cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM X509_check_host}
   function X509_check_host(x: PX509; const chk: PIdAnsiChar; chklen: TIdC_SIZET; flags: TIdC_UINT; peername: PPIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_check_email}
   function X509_check_email(x: PX509; const chk: PIdAnsiChar; chklen: TIdC_SIZET; flags: TIdC_UINT): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_check_ip}
   function X509_check_ip(x: PX509; const chk: PByte; chklen: TIdC_SIZET; flags: TIdC_UINT): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_check_ip_asc}
   function X509_check_ip_asc(x: PX509; const ipasc: PIdAnsiChar; flags: TIdC_UINT): TIdC_INT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM a2i_IPADDRESS}
   function a2i_IPADDRESS(const ipasc: PIdAnsiChar): PASN1_OCTET_STRING cdecl; external CLibCrypto;
-  {$EXTERNALSYM a2i_IPADDRESS_NC}
   function a2i_IPADDRESS_NC(const ipasc: PIdAnsiChar): PASN1_OCTET_STRING cdecl; external CLibCrypto;
 //  TIdC_INT X509V3_NAME_from_section(X509_NAME *nm; STACK_OF(CONF_VALUE) *dn_sk; TIdC_ULONG chtype);
 
-  {$EXTERNALSYM X509_POLICY_NODE_print}
   procedure X509_POLICY_NODE_print(out_: PBIO; node: PX509_POLICY_NODE; indent: TIdC_INT) cdecl; external CLibCrypto;
 //  DEFINE_STACK_OF(X509_POLICY_NODE)
 
@@ -1566,7 +1366,6 @@ var
   //function X509v3_addr_add_prefix(address: PIPAddrBlocks; const afi: TIdC_UINT; const safi: PIdC_UINT; a: PByte; const prefixlen: TIdC_INT): TIdC_INT;
   //function X509v3_addr_add_range(address: PIPAddrBlocks; const afi: TIdC_UINT; const safi: PIdC_UINT; min: PByte; max: PByte): TIdC_INT;
   //function X509v3_addr_get_afi(const f: PIPAddressFamily): TIdC_UINT;
-  {$EXTERNALSYM X509v3_addr_get_range}
   function X509v3_addr_get_range(aor: PIPAddressOrRange; const afi: TIdC_UINT; min: PByte; max: Byte; const _length: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
 
   (*
@@ -1588,9 +1387,7 @@ var
   (*
    * Check whether RFC 3779 extensions nest properly in chains.
    *)
-  {$EXTERNALSYM X509v3_asid_validate_path}
   function X509v3_asid_validate_path(v1: PX509_STORE_CTX): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509v3_addr_validate_path}
   function X509v3_addr_validate_path(v1: PX509_STORE_CTX): TIdC_INT cdecl; external CLibCrypto;
 //  TIdC_INT X509v3_asid_validate_resource_set(STACK_OF(X509) *chain; ASIdentifiers *ext; TIdC_INT allow_inheritance);
 //  TIdC_INT X509v3_addr_validate_resource_set(STACK_OF(X509) *chain; IPAddrBlocks *ext; TIdC_INT allow_inheritance);
@@ -1601,42 +1398,28 @@ var
   (*
    * Admission Syntax
    *)
-  {$EXTERNALSYM NAMING_AUTHORITY_get0_authorityId}
   function NAMING_AUTHORITY_get0_authorityId(const n: PNAMING_AUTHORITY): PASN1_OBJECT cdecl; external CLibCrypto;
   {$EXTERNALSYM NAMING_AUTHORITY_get0_authorityURL}
   function NAMING_AUTHORITY_get0_authorityURL(const n: PNAMING_AUTHORITY): PASN1_IA5STRING cdecl; external CLibCrypto;
-  {$EXTERNALSYM NAMING_AUTHORITY_get0_authorityText}
   function NAMING_AUTHORITY_get0_authorityText(const n: PNAMING_AUTHORITY): PASN1_STRING cdecl; external CLibCrypto;
-  {$EXTERNALSYM NAMING_AUTHORITY_set0_authorityId}
   procedure NAMING_AUTHORITY_set0_authorityId(n: PNAMING_AUTHORITY; namingAuthorityId: PASN1_OBJECT) cdecl; external CLibCrypto;
   {$EXTERNALSYM NAMING_AUTHORITY_set0_authorityURL}
   procedure NAMING_AUTHORITY_set0_authorityURL(n: PNAMING_AUTHORITY; namingAuthorityUrl: PASN1_IA5STRING) cdecl; external CLibCrypto;
-  {$EXTERNALSYM NAMING_AUTHORITY_set0_authorityText}
   procedure NAMING_AUTHORITY_set0_authorityText(n: PNAMING_AUTHORITY; namingAuthorityText: PASN1_STRING) cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM ADMISSION_SYNTAX_get0_admissionAuthority}
   function ADMISSION_SYNTAX_get0_admissionAuthority(const as_: ADMISSION_SYNTAX): PGENERAL_NAME cdecl; external CLibCrypto;
-  {$EXTERNALSYM ADMISSION_SYNTAX_set0_admissionAuthority}
   procedure ADMISSION_SYNTAX_set0_admissionAuthority(as_: ADMISSION_SYNTAX; aa: PGENERAL_NAME) cdecl; external CLibCrypto;
 //  const STACK_OF(ADMISSIONS) *ADMISSION_SYNTAX_get0_contentsOfAdmissions(const as_: ADMISSION_SYNTAX);
 //  void ADMISSION_SYNTAX_set0_contentsOfAdmissions(as_: ADMISSION_SYNTAX; STACK_OF(ADMISSIONS) *a);
-  {$EXTERNALSYM ADMISSIONS_get0_admissionAuthority}
   function ADMISSIONS_get0_admissionAuthority(const a: PADMISSIONS): PGENERAL_NAME cdecl; external CLibCrypto;
-  {$EXTERNALSYM ADMISSIONS_set0_admissionAuthority}
   procedure ADMISSIONS_set0_admissionAuthority(a: PADMISSIONS; aa: PGENERAL_NAME) cdecl; external CLibCrypto;
-  {$EXTERNALSYM ADMISSIONS_get0_namingAuthority}
   function ADMISSIONS_get0_namingAuthority(const a: PADMISSIONS): PNAMING_AUTHORITY cdecl; external CLibCrypto;
-  {$EXTERNALSYM ADMISSIONS_set0_namingAuthority}
   procedure ADMISSIONS_set0_namingAuthority(a: PADMISSIONS; na: PNAMING_AUTHORITY) cdecl; external CLibCrypto;
   //function ADMISSIONS_get0_professionInfos(const a: PADMISSIONS): PPROFESSION_INFOS;
   //procedure ADMISSIONS_set0_professionInfos(a: PADMISSIONS; _pi: PPROFESSION_INFOS);
-  {$EXTERNALSYM PROFESSION_INFO_get0_addProfessionInfo}
   function PROFESSION_INFO_get0_addProfessionInfo(const _pi: PPROFESSION_INFO): PASN1_OCTET_STRING cdecl; external CLibCrypto;
-  {$EXTERNALSYM PROFESSION_INFO_set0_addProfessionInfo}
   procedure PROFESSION_INFO_set0_addProfessionInfo(_pi: PPROFESSION_INFO; aos: PASN1_OCTET_STRING) cdecl; external CLibCrypto;
-  {$EXTERNALSYM PROFESSION_INFO_get0_namingAuthority}
   function PROFESSION_INFO_get0_namingAuthority(const _pi: PPROFESSION_INFO): PNAMING_AUTHORITY cdecl; external CLibCrypto;
-  {$EXTERNALSYM PROFESSION_INFO_set0_namingAuthority}
   procedure PROFESSION_INFO_set0_namingAuthority(_pi: PPROFESSION_INFO; na: PNAMING_AUTHORITY) cdecl; external CLibCrypto;
 //  const STACK_OF(ASN1_STRING) *PROFESSION_INFO_get0_professionItems(const _pi: PPROFESSION_INFO);
 //  void PROFESSION_INFO_set0_professionItems(_pi: PPROFESSION_INFO; STACK_OF(ASN1_STRING) *as);
@@ -1667,12 +1450,9 @@ type
   Tsk_IPAddressOrRange_new_null = function : PSTACK_OF_IPAddressOrRange cdecl;
   Tsk_IPAddressOrRange_free = procedure(st : PSTACK_OF_IPAddressOrRange) cdecl;
   Tsk_IPAddressOrRange_num = function (const sk : PSTACK_OF_IPAddressOrRange) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_IPAddressOrRange_value}
   Tsk_IPAddressOrRange_value = function (const sk : PSTACK_OF_IPAddressOrRange; i : TIdC_INT) : PIPAddressOrRange cdecl;
-  {$EXTERNALSYM Tsk_IPAddressOrRange_push}
   Tsk_IPAddressOrRange_push = function (sk : PSTACK_OF_IPAddressOrRange; st : PIPAddressOrRange) : TIdC_INT cdecl;
   Tsk_IPAddressOrRange_dup = function (sk : PSTACK_OF_IPAddressOrRange) : PSTACK_OF_IPAddressOrRange cdecl;
-  {$EXTERNALSYM Tsk_IPAddressOrRange_find}
   Tsk_IPAddressOrRange_find = function (sk : PSTACK_OF_IPAddressOrRange; _val : PIPAddressOrRange) : TIdC_INT cdecl;
   Tsk_IPAddressOrRange_pop_free = procedure (sk : PSTACK_OF_IPAddressOrRange; func: TOPENSSL_sk_freefunc) cdecl;
   Tsk_IPAddressFamily_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_IPAddressFamily cdecl;
@@ -1712,12 +1492,9 @@ type
   Tsk_DIST_POINT_new_null = function : PSTACK_OF_DIST_POINT cdecl;
   Tsk_DIST_POINT_free = procedure(st : PSTACK_OF_DIST_POINT) cdecl;
   Tsk_DIST_POINT_num = function (const sk : PSTACK_OF_DIST_POINT) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_DIST_POINT_value}
   Tsk_DIST_POINT_value = function (const sk : PSTACK_OF_DIST_POINT; i : TIdC_INT) : PDIST_POINT cdecl;
-  {$EXTERNALSYM Tsk_DIST_POINT_push}
   Tsk_DIST_POINT_push = function (sk : PSTACK_OF_DIST_POINT; st : PDIST_POINT) : TIdC_INT cdecl;
   Tsk_DIST_POINT_dup = function (sk : PSTACK_OF_DIST_POINT) : PSTACK_OF_DIST_POINT cdecl;
-  {$EXTERNALSYM Tsk_DIST_POINT_find}
   Tsk_DIST_POINT_find = function (sk : PSTACK_OF_DIST_POINT; _val : PDIST_POINT) : TIdC_INT cdecl;
   Tsk_DIST_POINT_pop_free = procedure (sk : PSTACK_OF_DIST_POINT; func: TOPENSSL_sk_freefunc) cdecl;
   Tsk_SXNETID_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_SXNETID cdecl;
@@ -1748,24 +1525,18 @@ type
   Tsk_POLICYINFO_new_null = function : PSTACK_OF_POLICYINFO cdecl;
   Tsk_POLICYINFO_free = procedure(st : PSTACK_OF_POLICYINFO) cdecl;
   Tsk_POLICYINFO_num = function (const sk : PSTACK_OF_POLICYINFO) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_POLICYINFO_value}
   Tsk_POLICYINFO_value = function (const sk : PSTACK_OF_POLICYINFO; i : TIdC_INT) : PPOLICYINFO cdecl;
-  {$EXTERNALSYM Tsk_POLICYINFO_push}
   Tsk_POLICYINFO_push = function (sk : PSTACK_OF_POLICYINFO; st : PPOLICYINFO) : TIdC_INT cdecl;
   Tsk_POLICYINFO_dup = function (sk : PSTACK_OF_POLICYINFO) : PSTACK_OF_POLICYINFO cdecl;
-  {$EXTERNALSYM Tsk_POLICYINFO_find}
   Tsk_POLICYINFO_find = function (sk : PSTACK_OF_POLICYINFO; _val : PPOLICYINFO) : TIdC_INT cdecl;
   Tsk_POLICYINFO_pop_free = procedure (sk : PSTACK_OF_POLICYINFO; func: TOPENSSL_sk_freefunc) cdecl;
   Tsk_POLICY_MAPPING_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_POLICY_MAPPING cdecl;
   Tsk_POLICY_MAPPING_new_null = function : PSTACK_OF_POLICY_MAPPING cdecl;
   Tsk_POLICY_MAPPING_free = procedure(st : PSTACK_OF_POLICY_MAPPING) cdecl;
   Tsk_POLICY_MAPPING_num = function (const sk : PSTACK_OF_POLICY_MAPPING) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_POLICY_MAPPING_value}
   Tsk_POLICY_MAPPING_value = function (const sk : PSTACK_OF_POLICY_MAPPING; i : TIdC_INT) : PPOLICY_MAPPING cdecl;
-  {$EXTERNALSYM Tsk_POLICY_MAPPING_push}
   Tsk_POLICY_MAPPING_push = function (sk : PSTACK_OF_POLICY_MAPPING; st : PPOLICY_MAPPING) : TIdC_INT cdecl;
   Tsk_POLICY_MAPPING_dup = function (sk : PSTACK_OF_POLICY_MAPPING) : PSTACK_OF_POLICY_MAPPING cdecl;
-  {$EXTERNALSYM Tsk_POLICY_MAPPING_find}
   Tsk_POLICY_MAPPING_find = function (sk : PSTACK_OF_POLICY_MAPPING; _val : PPOLICY_MAPPING) : TIdC_INT cdecl;
   Tsk_POLICY_MAPPING_pop_free = procedure (sk : PSTACK_OF_POLICY_MAPPING; func: TOPENSSL_sk_freefunc) cdecl;
   Tsk_GENERAL_SUBTREE_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_GENERAL_SUBTREE cdecl;
@@ -1795,12 +1566,9 @@ type
   Tsk_X509_PURPOSE_new_null = function : PSTACK_OF_X509_PURPOSE cdecl;
   Tsk_X509_PURPOSE_free = procedure(st : PSTACK_OF_X509_PURPOSE) cdecl;
   Tsk_X509_PURPOSE_num = function (const sk : PSTACK_OF_X509_PURPOSE) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_X509_PURPOSE_value}
   Tsk_X509_PURPOSE_value = function (const sk : PSTACK_OF_X509_PURPOSE; i : TIdC_INT) : PX509_PURPOSE cdecl;
-  {$EXTERNALSYM Tsk_X509_PURPOSE_push}
   Tsk_X509_PURPOSE_push = function (sk : PSTACK_OF_X509_PURPOSE; st : PX509_PURPOSE) : TIdC_INT cdecl;
   Tsk_X509_PURPOSE_dup = function (sk : PSTACK_OF_X509_PURPOSE) : PSTACK_OF_X509_PURPOSE cdecl;
-  {$EXTERNALSYM Tsk_X509_PURPOSE_find}
   Tsk_X509_PURPOSE_find = function (sk : PSTACK_OF_X509_PURPOSE; _val : PX509_PURPOSE) : TIdC_INT cdecl;
   Tsk_X509_PURPOSE_pop_free = procedure (sk : PSTACK_OF_X509_PURPOSE; func: TOPENSSL_sk_freefunc) cdecl;
 
@@ -1808,12 +1576,9 @@ type
   Tsk_X509_POLICY_NODE_new_null = function : PSTACK_OF_X509_POLICY_NODE cdecl;
   Tsk_X509_POLICY_NODE_free = procedure(st : PSTACK_OF_X509_POLICY_NODE) cdecl;
   Tsk_X509_POLICY_NODE_num = function (const sk : PSTACK_OF_X509_POLICY_NODE) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_X509_POLICY_NODE_value}
   Tsk_X509_POLICY_NODE_value = function (const sk : PSTACK_OF_X509_POLICY_NODE; i : TIdC_INT) : PX509_POLICY_NODE cdecl;
-  {$EXTERNALSYM Tsk_X509_POLICY_NODE_push}
   Tsk_X509_POLICY_NODE_push = function (sk : PSTACK_OF_X509_POLICY_NODE; st : PX509_POLICY_NODE) : TIdC_INT cdecl;
   Tsk_X509_POLICY_NODE_dup = function (sk : PSTACK_OF_X509_POLICY_NODE) : PSTACK_OF_X509_POLICY_NODE cdecl;
-  {$EXTERNALSYM Tsk_X509_POLICY_NODE_find}
   Tsk_X509_POLICY_NODE_find = function (sk : PSTACK_OF_X509_POLICY_NODE; _val : PX509_POLICY_NODE) : TIdC_INT cdecl;
   Tsk_X509_POLICY_NODE_pop_free = procedure (sk : PSTACK_OF_X509_POLICY_NODE; func: TOPENSSL_sk_freefunc) cdecl;
 
@@ -2000,23 +1765,14 @@ var
   {$EXTERNALSYM sk_GENERAL_SUBTREE_pop_free}
   sk_GENERAL_SUBTREE_pop_free : Tsk_GENERAL_SUBTREE_pop_free = nil;
 
-  {$EXTERNALSYM sk_ASN1_STRING_new}
   sk_ASN1_STRING_new :  Tsk_ASN1_STRING_new = nil;
-  {$EXTERNALSYM sk_ASN1_STRING_new_null}
   sk_ASN1_STRING_new_null : Tsk_ASN1_STRING_new_null = nil;
-  {$EXTERNALSYM sk_ASN1_STRING_free}
   sk_ASN1_STRING_free : Tsk_ASN1_STRING_free = nil;
-  {$EXTERNALSYM sk_ASN1_STRING_num}
   sk_ASN1_STRING_num :  Tsk_ASN1_STRING_num = nil;
-  {$EXTERNALSYM sk_ASN1_STRING_value}
   sk_ASN1_STRING_value : Tsk_ASN1_STRING_value = nil;
-  {$EXTERNALSYM sk_ASN1_STRING_push}
   sk_ASN1_STRING_push : Tsk_ASN1_STRING_push = nil;
-  {$EXTERNALSYM sk_ASN1_STRING_dup}
   sk_ASN1_STRING_dup : Tsk_ASN1_STRING_dup = nil;
-  {$EXTERNALSYM sk_ASN1_STRING_find}
   sk_ASN1_STRING_find : Tsk_ASN1_STRING_find = nil;
-  {$EXTERNALSYM sk_ASN1_STRING_pop_free}
   sk_ASN1_STRING_pop_free : Tsk_ASN1_STRING_pop_free = nil;
 
   {$EXTERNALSYM sk_X509_PURPOSE_new}
@@ -2260,23 +2016,14 @@ var
   {$EXTERNALSYM sk_GENERAL_SUBTREE_pop_free}
   procedure sk_GENERAL_SUBTREE_pop_free (sk : PSTACK_OF_GENERAL_SUBTREE; func: TOPENSSL_sk_freefunc) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
 
-  {$EXTERNALSYM sk_ASN1_STRING_new}
   function sk_ASN1_STRING_new(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_ASN1_STRING cdecl; external CLibCrypto name 'OPENSSL_sk_new';
-  {$EXTERNALSYM sk_ASN1_STRING_new_null}
   function sk_ASN1_STRING_new_null : PSTACK_OF_ASN1_STRING cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
-  {$EXTERNALSYM sk_ASN1_STRING_free}
   procedure sk_ASN1_STRING_free(st : PSTACK_OF_ASN1_STRING) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
-  {$EXTERNALSYM sk_ASN1_STRING_num}
   function sk_ASN1_STRING_num (const sk : PSTACK_OF_ASN1_STRING) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_num';
-  {$EXTERNALSYM sk_ASN1_STRING_value}
   function sk_ASN1_STRING_value (const sk : PSTACK_OF_ASN1_STRING; i : TIdC_INT): PASN1_STRING cdecl; external CLibCrypto name 'OPENSSL_sk_value';
-  {$EXTERNALSYM sk_ASN1_STRING_push}
   function sk_ASN1_STRING_push (sk : PSTACK_OF_ASN1_STRING; st : PASN1_STRING): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_push';
-  {$EXTERNALSYM sk_ASN1_STRING_dup}
   function sk_ASN1_STRING_dup (sk : PSTACK_OF_ASN1_STRING) : PSTACK_OF_ASN1_STRING cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
-  {$EXTERNALSYM sk_ASN1_STRING_find}
   function sk_ASN1_STRING_find (sk : PSTACK_OF_ASN1_STRING; _val : PASN1_STRING) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
-  {$EXTERNALSYM sk_ASN1_STRING_pop_free}
   procedure sk_ASN1_STRING_pop_free (sk : PSTACK_OF_ASN1_STRING; func: TOPENSSL_sk_freefunc) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
 
   {$EXTERNALSYM sk_X509_PURPOSE_new}

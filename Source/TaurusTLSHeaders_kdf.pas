@@ -105,64 +105,38 @@ const
 	  files generated for C++. }
 	  
 type
-  {$EXTERNALSYM TEVP_KDF_fn}
   TEVP_KDF_fn = procedure(kdf: PEVP_KDF; arg: Pointer); cdecl;
   TEVP_KDF_name_fn = procedure(name: PIdAnsiChar; data: Pointer); cdecl;
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 var
-  {$EXTERNALSYM EVP_KDF_up_ref}
   EVP_KDF_up_ref: function( kdf : PEVP_KDF) : TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM EVP_KDF_free}
   EVP_KDF_free: procedure (kdf : PEVP_KDF); cdecl = nil;
-  {$EXTERNALSYM EVP_KDF_CTX_dup}
   EVP_KDF_CTX_dup: function(kdf : PEVP_KDF_CTX) : PEVP_KDF_CTX; cdecl = nil;
-  {$EXTERNALSYM EVP_KDF_get0_description}
   EVP_KDF_get0_description: function(kdf : PEVP_KDF) : PIdAnsiChar; cdecl = nil;
-  {$EXTERNALSYM EVP_KDF_is_a}
   EVP_KDF_is_a: function(kdf : PEVP_KDF; name : PIdAnsiChar) : TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM EVP_KDF_get0_name}
   EVP_KDF_get0_name: function(kdf : PEVP_KDF) : PIdAnsiChar; cdecl = nil;
-  {$EXTERNALSYM EVP_KDF_get0_provider}
   EVP_KDF_get0_provider : function(kdf : PEVP_KDF) : POSSL_PROVIDER; cdecl = nil;
-  {$EXTERNALSYM EVP_KDF_CTX_get0_kdf}
   EVP_KDF_CTX_get0_kdf : function(ctx : PEVP_KDF_CTX) : PEVP_KDF; cdecl = nil;
-  {$EXTERNALSYM EVP_KDF_CTX_get1_kdf}
   EVP_KDF_CTX_get1_kdf : function(ctx : PEVP_KDF_CTX) : PEVP_KDF; cdecl = nil;
-  {$EXTERNALSYM EVP_KDF_CTX_kdf}
   EVP_KDF_CTX_kdf : function(ctx : PEVP_KDF_CTX) : PEVP_KDF; cdecl = nil;
-  {$EXTERNALSYM EVP_KDF_CTX_reset}
   EVP_KDF_CTX_reset : procedure(ctx : PEVP_KDF_CTX); cdecl = nil;
-  {$EXTERNALSYM EVP_KDF_CTX_get_kdf_size}
   EVP_KDF_CTX_get_kdf_size : function(ctx : PEVP_KDF_CTX) : TIdC_SIZET; cdecl = nil;
-  {$EXTERNALSYM EVP_KDF_derive}
   EVP_KDF_derive : function(ctx : PEVP_KDF_CTX; key : PIdAnsiChar; keylen : TIdC_SIZET;
     const  params : POSSL_PARAM_ARRAY) : TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM EVP_KDF_CTX_set_SKEY}
   EVP_KDF_CTX_set_SKEY : function(ctx : PEVP_KDF_CTX; key : PEVP_SKEY; paramname : PIdAnsiChar) : TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM EVP_KDF_derive_SKEY}
   EVP_KDF_derive_SKEY : function(ctx : PEVP_KDF_CTX; mgmt : PEVP_SKEYMGMT;
     key_type, propquery : PIdAnsiChar;
     keylen : TIdC_SIZET; const  params : POSSL_PARAM_ARRAY) : PEVP_SKEY; cdecl = nil;
-  {$EXTERNALSYM EVP_KDF_get_params}
   EVP_KDF_get_params : function(kdf : PEVP_KDF; params : POSSL_PARAM_ARRAY) : TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM EVP_KDF_CTX_get_params}
   EVP_KDF_CTX_get_params : function(ctx : PEVP_KDF_CTX; params : POSSL_PARAM_ARRAY) : TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM EVP_KDF_CTX_set_params}
   EVP_KDF_CTX_set_params : function(ctx : PEVP_KDF_CTX; const  params : POSSL_PARAM_ARRAY) : TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM EVP_KDF_gettable_params}
   EVP_KDF_gettable_params : function(kdf : PEVP_KDF) : POSSL_PARAM; cdecl = nil;
-  {$EXTERNALSYM EVP_KDF_gettable_ctx_params}
   EVP_KDF_gettable_ctx_params : function(kdf : PEVP_KDF) : POSSL_PARAM; cdecl = nil;
-  {$EXTERNALSYM EVP_KDF_settable_ctx_params}
   EVP_KDF_settable_ctx_params : function(kdf : PEVP_KDF) : POSSL_PARAM; cdecl = nil;
-  {$EXTERNALSYM EVP_KDF_CTX_gettable_params}
   EVP_KDF_CTX_gettable_params : function(ctx : PEVP_KDF_CTX) : POSSL_PARAM; cdecl = nil;
-  {$EXTERNALSYM EVP_KDF_CTX_settable_params}
   EVP_KDF_CTX_settable_params : function(ctx : PEVP_KDF_CTX) : POSSL_PARAM; cdecl = nil;
-  {$EXTERNALSYM EVP_KDF_do_all_provided}
   EVP_KDF_do_all_provided : procedure (libctx: POSSL_LIB_CTX; fn: TEVP_KDF_fn; arg: Pointer); cdecl = nil;
-  {$EXTERNALSYM EVP_KDF_names_do_all}
   EVP_KDF_names_do_all : function (const kdf: PEVP_KDF; fn: TEVP_KDF_name_fn; data: Pointer): TIdC_INT; cdecl = nil;
 
   {$EXTERNALSYM EVP_PKEY_CTX_set_tls1_prf_md}
@@ -179,7 +153,6 @@ var
   EVP_PKEY_CTX_set1_hkdf_key : function(ctx : PEVP_PKEY_CTX; key :PIdC_UINT8; keylen : TIdC_INT) : TIdC_INT; cdecl = nil;
   {$EXTERNALSYM EVP_PKEY_CTX_add1_hkdf_info}
   EVP_PKEY_CTX_add1_hkdf_info : function(ctx : PEVP_PKEY_CTX; info :PIdC_UINT8; infolen : TIdC_INT) : TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM EVP_PKEY_CTX_set_hkdf_mode}
   EVP_PKEY_CTX_set_hkdf_mode : function(ctx : PEVP_PKEY_CTX; mode : TIdC_INT) : TIdC_INT; cdecl = nil;
   {$EXTERNALSYM EVP_PKEY_CTX_set1_pbe_pass}
   EVP_PKEY_CTX_set1_pbe_pass : function(ctx : PEVP_PKEY_CTX; pass : PIdC_UINT8; passlen : TIdC_INT) : TIdC_INT; cdecl = nil;
@@ -194,58 +167,33 @@ var
   {$EXTERNALSYM EVP_PKEY_CTX_set_scrypt_maxmem_bytes}
   EVP_PKEY_CTX_set_scrypt_maxmem_bytes : function(ctx : PEVP_PKEY_CTX; maxmem_bytes : TIdC_UINT64) : TIdC_INT; cdecl = nil;
 {$ELSE}
-  {$EXTERNALSYM EVP_KDF_up_ref}
   function EVP_KDF_up_ref( kdf : PEVP_KDF) : TIdC_INT; cdecl; external CLibCrypto;
-  {$EXTERNALSYM EVP_KDF_free}
   procedure EVP_KDF_free(kdf : PEVP_KDF); cdecl; external CLibCrypto;
-  {$EXTERNALSYM EVP_KDF_CTX_dup}
   function EVP_KDF_CTX_dup(kdf : PEVP_KDF_CTX) : PEVP_KDF_CTX; cdecl; external CLibCrypto;
-  {$EXTERNALSYM EVP_KDF_get0_description}
   function EVP_KDF_get0_description(kdf : PEVP_KDF) : PIdAnsiChar; cdecl; external CLibCrypto;
-  {$EXTERNALSYM EVP_KDF_is_a}
   function EVP_KDF_is_a(kdf : PEVP_KDF; name : PIdAnsiChar) : TIdC_INT; cdecl; external CLibCrypto;
-  {$EXTERNALSYM EVP_KDF_get0_name}
   function EVP_KDF_get0_name(kdf : PEVP_KDF) : PIdAnsiChar; cdecl; external CLibCrypto;
-  {$EXTERNALSYM EVP_KDF_get0_provider}
   function EVP_KDF_get0_provider(kdf : PEVP_KDF) : POSSL_PROVIDER; cdecl; external CLibCrypto;
-  {$EXTERNALSYM EVP_KDF_CTX_get0_kdf}
   function EVP_KDF_CTX_get0_kdf(ctx : PEVP_KDF_CTX) : PEVP_KDF; cdecl; external CLibCrypto;
-  {$EXTERNALSYM EVP_KDF_CTX_get1_kdf}
   function EVP_KDF_CTX_get1_kdf(ctx : PEVP_KDF_CTX) : PEVP_KDF; cdecl; external CLibCrypto;
-  {$EXTERNALSYM EVP_KDF_CTX_kdf}
   function EVP_KDF_CTX_kdf(ctx : PEVP_KDF_CTX) : PEVP_KDF; cdecl; external CLibCrypto;
-  {$EXTERNALSYM EVP_KDF_CTX_reset}
   procedure EVP_KDF_CTX_reset(ctx : PEVP_KDF_CTX); cdecl; external CLibCrypto;
-  {$EXTERNALSYM EVP_KDF_CTX_get_kdf_size}
   function EVP_KDF_CTX_get_kdf_size(ctx : PEVP_KDF_CTX) : TIdC_SIZET; cdecl; external CLibCrypto;
-  {$EXTERNALSYM EVP_KDF_derive}
   function EVP_KDF_derive(ctx : PEVP_KDF_CTX; key : PIdAnsiChar; keylen : TIdC_SIZET;
     const  params : POSSL_PARAM_ARRAY) : TIdC_INT; cdecl; external CLibCrypto;
-  {$EXTERNALSYM EVP_KDF_CTX_set_SKEY}
   function EVP_KDF_CTX_set_SKEY(ctx : PEVP_KDF_CTX; key : PEVP_SKEY; paramname : PIdAnsiChar) : TIdC_INT; cdecl; external CLibCrypto
-  {$EXTERNALSYM EVP_KDF_derive_SKEY}
   function EVP_KDF_derive_SKEY(ctx : PEVP_KDF_CTX; mgmt : PEVP_SKEYMGMT;
     key_type, propquery : PIdAnsiChar;
     keylen : TIdC_SIZET; const  params : POSSL_PARAM_ARRAY) : PEVP_SKEY; cdecl; external CLibCrypto;
-  {$EXTERNALSYM EVP_KDF_get_params}
   function EVP_KDF_get_params(kdf : PEVP_KDF; params : POSSL_PARAM_ARRAY) : TIdC_INT; cdecl; external CLibCrypto;
-  {$EXTERNALSYM EVP_KDF_CTX_get_params}
   function EVP_KDF_CTX_get_params(ctx : PEVP_KDF_CTX; params : POSSL_PARAM_ARRAY) : TIdC_INT; cdecl; external CLibCrypto;
-  {$EXTERNALSYM EVP_KDF_CTX_set_params}
   function EVP_KDF_CTX_set_params(ctx : PEVP_KDF_CTX; const  params : POSSL_PARAM_ARRAY) : TIdC_INT; cdecl; external CLibCrypto;
-  {$EXTERNALSYM EVP_KDF_gettable_params}
   function EVP_KDF_gettable_params(kdf : PEVP_KDF) : POSSL_PARAM; cdecl; external CLibCrypto;
-  {$EXTERNALSYM EVP_KDF_gettable_ctx_params}
   function EVP_KDF_gettable_ctx_params(kdf : PEVP_KDF) : POSSL_PARAM; cdecl; external CLibCrypto;
-  {$EXTERNALSYM EVP_KDF_settable_ctx_params}
   function EVP_KDF_settable_ctx_params(kdf : PEVP_KDF) : POSSL_PARAM; cdecl; external CLibCrypto;
-  {$EXTERNALSYM EVP_KDF_CTX_gettable_params}
   function EVP_KDF_CTX_gettable_params(ctx : PEVP_KDF_CTX) : POSSL_PARAM; cdecl; external CLibCrypto;
-  {$EXTERNALSYM EVP_KDF_CTX_settable_params}
   function EVP_KDF_CTX_settable_params(ctx : PEVP_KDF_CTX) : POSSL_PARAM; cdecl; external CLibCrypto;
-  {$EXTERNALSYM EVP_KDF_do_all_provided}
   procedure EVP_KDF_do_all_provided(libctx: POSSL_LIB_CTX; fn: TEVP_KDF_fn; arg: Pointer); cdecl; external CLibCrypto;
-  {$EXTERNALSYM EVP_KDF_names_do_all}
   function EVP_KDF_names_do_all(const kdf: PEVP_KDF; fn: TEVP_KDF_name_fn; data: Pointer): TIdC_INT; cdecl; external CLibCrypto;
 
   {$EXTERNALSYM EVP_PKEY_CTX_set_tls1_prf_md}
@@ -262,7 +210,6 @@ var
   function EVP_PKEY_CTX_set1_hkdf_key(ctx : PEVP_PKEY_CTX; key :PIdC_UINT8; keylen : TIdC_INT) : TIdC_INT; cdecl; external CLibCrypto;
   {$EXTERNALSYM EVP_PKEY_CTX_add1_hkdf_info}
   function EVP_PKEY_CTX_add1_hkdf_info(ctx : PEVP_PKEY_CTX; info :PIdC_UINT8; infolen : TIdC_INT) : TIdC_INT; cdecl; external CLibCrypto;
-  {$EXTERNALSYM EVP_PKEY_CTX_set_hkdf_mode}
   function EVP_PKEY_CTX_set_hkdf_mode(ctx : PEVP_PKEY_CTX; mode : TIdC_INT) : TIdC_INT; cdecl; external CLibCrypto;
   {$EXTERNALSYM EVP_PKEY_CTX_set1_pbe_pass}
   function EVP_PKEY_CTX_set1_pbe_pass(ctx : PEVP_PKEY_CTX; pass : PIdC_UINT8; passlen : TIdC_INT) : TIdC_INT; cdecl; external CLibCrypto;

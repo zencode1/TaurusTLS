@@ -51,10 +51,8 @@ const
   CAMELLIA_TABLE_WORD_LEN = CAMELLIA_TABLE_BYTE_LEN div 4;
 
 type
-  {$EXTERNALSYM KEY_TABLE_TYPE}
   KEY_TABLE_TYPE = array[0 .. CAMELLIA_TABLE_WORD_LEN - 1] of TIdC_UINT;
 
-  {$EXTERNALSYM camellia_key_st_u}
   {$IFDEF DCC}{$WARN UNSAFE_TYPE OFF}{$ENDIF}
   camellia_key_st_u = record
     case Integer of
@@ -63,15 +61,12 @@ type
   end;
   {$IFDEF DCC}{$WARN UNSAFE_TYPE DEFAULT}{$ENDIF}
 
-  {$EXTERNALSYM camellia_key_st}
   camellia_key_st = record
     u: camellia_key_st_u;
     grand_rounds: TIdC_INT;
   end;
 
-  {$EXTERNALSYM CAMELLIA_KEY}
   CAMELLIA_KEY = camellia_key_st;
-  {$EXTERNALSYM PCAMELLIA_KEY}
   PCAMELLIA_KEY = ^CAMELLIA_KEY;
 
   TCamellia_ctr128_encrypt_ivec = array[0 .. CAMELLIA_TABLE_WORD_LEN - 1] of Byte;
@@ -88,48 +83,30 @@ var
   {$EXTERNALSYM Camellia_set_key}
   Camellia_set_key: function (const userKey: PByte; const bits: TIdC_INT; key: PCAMELLIA_KEY): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM Camellia_encrypt}
   Camellia_encrypt: procedure (const in_: PByte; const out_: PByte; const key: PCAMELLIA_KEY); cdecl = nil;
-  {$EXTERNALSYM Camellia_decrypt}
   Camellia_decrypt: procedure (const in_: PByte; const out_: PByte; const key: PCAMELLIA_KEY); cdecl = nil;
 
-  {$EXTERNALSYM Camellia_ecb_encrypt}
   Camellia_ecb_encrypt: procedure ( const in_: PByte; const out_: PByte; const key: PCAMELLIA_KEY; const enc: TIdC_INT); cdecl = nil;
-  {$EXTERNALSYM Camellia_cbc_encrypt}
   Camellia_cbc_encrypt: procedure ( const in_: PByte; const out_: PByte; _length: TIdC_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; const enc: TIdC_INT); cdecl = nil;
-  {$EXTERNALSYM Camellia_cfb128_encrypt}
   Camellia_cfb128_encrypt: procedure ( const in_: PByte; const out_: PByte; _length: TIdC_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; num: PIdC_INT; const enc: TIdC_INT); cdecl = nil;
-  {$EXTERNALSYM Camellia_cfb1_encrypt}
   Camellia_cfb1_encrypt: procedure ( const in_: PByte; const out_: PByte; _length: TIdC_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; num: PIdC_INT; const enc: TIdC_INT); cdecl = nil;
-  {$EXTERNALSYM Camellia_cfb8_encrypt}
   Camellia_cfb8_encrypt: procedure ( const in_: PByte; const out_: PByte; _length: TIdC_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; num: PIdC_INT; const enc: TIdC_INT); cdecl = nil;
-  {$EXTERNALSYM Camellia_ofb128_encrypt}
   Camellia_ofb128_encrypt: procedure ( const in_: PByte; const out_: PByte; _length: TIdC_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; num: PIdC_INT); cdecl = nil;
-  {$EXTERNALSYM Camellia_ctr128_encrypt}
   Camellia_ctr128_encrypt: procedure ( const in_: PByte; const out_: PByte; _length: TIdC_SIZET; const key: PCAMELLIA_KEY; ivec: TCamellia_ctr128_encrypt_ivec; ecount_buf: TCamellia_ctr128_encrypt_ecount_buf; num: PIdC_INT); cdecl = nil;
 
 {$ELSE}
   {$EXTERNALSYM Camellia_set_key}
   function Camellia_set_key(const userKey: PByte; const bits: TIdC_INT; key: PCAMELLIA_KEY): TIdC_INT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM Camellia_encrypt}
   procedure Camellia_encrypt(const in_: PByte; const out_: PByte; const key: PCAMELLIA_KEY) cdecl; external CLibCrypto;
-  {$EXTERNALSYM Camellia_decrypt}
   procedure Camellia_decrypt(const in_: PByte; const out_: PByte; const key: PCAMELLIA_KEY) cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM Camellia_ecb_encrypt}
   procedure Camellia_ecb_encrypt( const in_: PByte; const out_: PByte; const key: PCAMELLIA_KEY; const enc: TIdC_INT) cdecl; external CLibCrypto;
-  {$EXTERNALSYM Camellia_cbc_encrypt}
   procedure Camellia_cbc_encrypt( const in_: PByte; const out_: PByte; _length: TIdC_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; const enc: TIdC_INT) cdecl; external CLibCrypto;
-  {$EXTERNALSYM Camellia_cfb128_encrypt}
   procedure Camellia_cfb128_encrypt( const in_: PByte; const out_: PByte; _length: TIdC_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; num: PIdC_INT; const enc: TIdC_INT) cdecl; external CLibCrypto;
-  {$EXTERNALSYM Camellia_cfb1_encrypt}
   procedure Camellia_cfb1_encrypt( const in_: PByte; const out_: PByte; _length: TIdC_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; num: PIdC_INT; const enc: TIdC_INT) cdecl; external CLibCrypto;
-  {$EXTERNALSYM Camellia_cfb8_encrypt}
   procedure Camellia_cfb8_encrypt( const in_: PByte; const out_: PByte; _length: TIdC_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; num: PIdC_INT; const enc: TIdC_INT) cdecl; external CLibCrypto;
-  {$EXTERNALSYM Camellia_ofb128_encrypt}
   procedure Camellia_ofb128_encrypt( const in_: PByte; const out_: PByte; _length: TIdC_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; num: PIdC_INT) cdecl; external CLibCrypto;
-  {$EXTERNALSYM Camellia_ctr128_encrypt}
   procedure Camellia_ctr128_encrypt( const in_: PByte; const out_: PByte; _length: TIdC_SIZET; const key: PCAMELLIA_KEY; ivec: TCamellia_ctr128_encrypt_ivec; ecount_buf: TCamellia_ctr128_encrypt_ecount_buf; num: PIdC_INT) cdecl; external CLibCrypto;
 
 {$ENDIF}

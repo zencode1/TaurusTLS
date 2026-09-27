@@ -54,14 +54,12 @@ type
       1: (q: array[0 .. (WHIRLPOOL_DIGEST_LENGTH div SizeOf(TIdC_DOUBLE)) -1] of TIdC_DOUBLE);
   end;
   {$IFDEF DCC}{$WARN UNSAFE_TYPE DEFAULT}{$ENDIF}
-  {$EXTERNALSYM WHIRLPOOL_CTX}
   WHIRLPOOL_CTX = record
     H: WHIRLPOOL_CTX_union;
     data: array[0 .. (WHIRLPOOL_BBLOCK div 8) -1] of Byte;
     bitoff: TIdC_UINT;
     bitlen: array[0 .. (WHIRLPOOL_COUNTER div SizeOf(TIdC_SIZET)) -1] of TIdC_SIZET;
   end;
-  {$EXTERNALSYM PWHIRLPOOL_CTX}
   PWHIRLPOOL_CTX = ^WHIRLPOOL_CTX;
 
     { The EXTERNALSYM directive is ignored by FPC, however, it is used by Delphi as follows:
@@ -74,25 +72,17 @@ type
 var
   {$EXTERNALSYM WHIRLPOOL_Init}
   WHIRLPOOL_Init: function (c: PWHIRLPOOL_CTX): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM WHIRLPOOL_Update}
   WHIRLPOOL_Update: function (c: PWHIRLPOOL_CTX; inp: Pointer; bytes: TIdC_SIZET): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM WHIRLPOOL_BitUpdate}
   WHIRLPOOL_BitUpdate: procedure (c: PWHIRLPOOL_CTX; inp: Pointer; bits: TIdC_SIZET); cdecl = nil;
-  {$EXTERNALSYM WHIRLPOOL_Final}
   WHIRLPOOL_Final: function (md: PByte; c: PWHIRLPOOL_CTX): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM WHIRLPOOL}
   WHIRLPOOL: function (inp: Pointer; bytes: TIdC_SIZET; md: PByte): PByte; cdecl = nil;
 
 {$ELSE}
   {$EXTERNALSYM WHIRLPOOL_Init}
   function WHIRLPOOL_Init(c: PWHIRLPOOL_CTX): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM WHIRLPOOL_Update}
   function WHIRLPOOL_Update(c: PWHIRLPOOL_CTX; inp: Pointer; bytes: TIdC_SIZET): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM WHIRLPOOL_BitUpdate}
   procedure WHIRLPOOL_BitUpdate(c: PWHIRLPOOL_CTX; inp: Pointer; bits: TIdC_SIZET) cdecl; external CLibCrypto;
-  {$EXTERNALSYM WHIRLPOOL_Final}
   function WHIRLPOOL_Final(md: PByte; c: PWHIRLPOOL_CTX): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM WHIRLPOOL}
   function WHIRLPOOL(inp: Pointer; bytes: TIdC_SIZET; md: PByte): PByte cdecl; external CLibCrypto;
 
 {$ENDIF}

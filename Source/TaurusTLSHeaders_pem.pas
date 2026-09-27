@@ -39,9 +39,7 @@ uses
   TaurusTLSHeaders_x509;
 
 type
-  {$EXTERNALSYM EVP_CIPHER_INFO}
   EVP_CIPHER_INFO = record end;
-  {$EXTERNALSYM PEVP_CIPHER_INFO}
   PEVP_CIPHER_INFO = ^EVP_CIPHER_INFO;
 
 const
@@ -184,67 +182,42 @@ type
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 var
-  {$EXTERNALSYM PEM_get_EVP_CIPHER_INFO}
   PEM_get_EVP_CIPHER_INFO: function (header: PIdAnsiChar; cipher: PEVP_CIPHER_INFO): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM PEM_do_header}
   PEM_do_header: function (cipher: PEVP_CIPHER_INFO; data: PByte; len: PIdC_LONG; callback: pem_password_cb; u: Pointer): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM PEM_read_bio}
   PEM_read_bio: function (bp: PBIO; name: PPIdAnsiChar; header: PPIdAnsiChar; data: PPByte; len: PIdC_LONG): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM PEM_read_bio_ex}
   PEM_read_bio_ex: function (bp: PBIO; name: PPIdAnsiChar; header: PPIdAnsiChar; data: PPByte; len: PIdC_LONG; flags: TIdC_UINT): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM PEM_bytes_read_bio_secmem}
   PEM_bytes_read_bio_secmem: function (pdata: PPByte; plen: PIdC_LONG; pnm: PPIdAnsiChar; const name: PIdAnsiChar; bp: PBIO; cb: pem_password_cb; u: Pointer): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM PEM_write_bio}
   PEM_write_bio: function (bp: PBIO; const name: PIdAnsiChar; const hdr: PIdAnsiChar; const data: PByte; len: TIdC_LONG): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM PEM_bytes_read_bio}
   PEM_bytes_read_bio: function (pdata: PPByte; plen: PIdC_LONG; pnm: PPIdAnsiChar; const name: PIdAnsiChar; bp: PBIO; cb: pem_password_cb; u: Pointer): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM PEM_ASN1_read_bio}
   PEM_ASN1_read_bio: function (d2i: d2i_of_void; const name: PIdAnsiChar; bp: PBIO; x: PPointer; cb: pem_password_cb; u: Pointer): Pointer; cdecl = nil;
-  {$EXTERNALSYM PEM_ASN1_write_bio}
   PEM_ASN1_write_bio: function (i2d: i2d_of_void; const name: PIdAnsiChar; bp: PBIO; x: Pointer; const enc: PEVP_CIPHER; kstr: PByte; klen: TIdC_INT; cb: pem_password_cb; u: Pointer): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM PEM_X509_INFO_read_bio}
   PEM_X509_INFO_read_bio: function (bp: PBIO; sk: PSTACK_OF_X509_INFO; cb: pem_password_cb; u: Pointer): PSTACK_OF_X509_INFO; cdecl = nil;
   {$EXTERNALSYM PEM_X509_INFO_write_bio}
   PEM_X509_INFO_write_bio: function (bp: PBIO; xi: PX509_INFO; enc: PEVP_CIPHER; kstr: PByte; klen: TIdC_INT; cd: pem_password_cb; u: Pointer): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM PEM_SignInit}
   PEM_SignInit: function (ctx: PEVP_MD_CTX; type_: PEVP_MD): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM PEM_SignUpdate}
   PEM_SignUpdate: function (ctx: PEVP_MD_CTX; d: PByte; cnt: Byte): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM PEM_SignFinal}
   PEM_SignFinal: function (ctx: PEVP_MD_CTX; sigret: PByte; siglen: PIdC_UINT; pkey: PEVP_PKEY): TIdC_INT; cdecl = nil;
 
   (* The default pem_password_cb that's used internally *)
-  {$EXTERNALSYM PEM_def_callback}
   PEM_def_callback: function (buf: PIdAnsiChar; num: TIdC_INT; rwflag: TIdC_INT; userdata: Pointer): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM PEM_proc_type}
   PEM_proc_type: procedure (buf: PIdAnsiChar; type_: TIdC_INT); cdecl = nil;
-  {$EXTERNALSYM PEM_dek_info}
   PEM_dek_info: procedure (buf: PIdAnsiChar; const type_: PIdAnsiChar; len: TIdC_INT; _str: PIdAnsiChar); cdecl = nil;
 
-  {$EXTERNALSYM PEM_read_bio_X509}
   PEM_read_bio_X509: function (bp: PBIO; x: PPX509; cb: pem_password_cb; u: Pointer): PX509; cdecl = nil;
-  {$EXTERNALSYM PEM_write_bio_X509}
   PEM_write_bio_X509: function (bp: PBIO; x: PX509): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM PEM_read_bio_X509_AUX}
   PEM_read_bio_X509_AUX: function (bp: PBIO; x: PPX509; cb: pem_password_cb; u: Pointer): PX509; cdecl = nil;
-  {$EXTERNALSYM PEM_write_bio_X509_AUX}
   PEM_write_bio_X509_AUX: function (bp: PBIO; x: PX509): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM PEM_read_bio_X509_REQ}
   PEM_read_bio_X509_REQ: function (bp: PBIO; x: PPX509_REQ; cb: pem_password_cb; u: Pointer): PX509_REQ; cdecl = nil;
-  {$EXTERNALSYM PEM_write_bio_X509_REQ}
   PEM_write_bio_X509_REQ: function (bp: PBIO; x: PX509_REQ): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM PEM_write_bio_X509_REQ_NEW}
   PEM_write_bio_X509_REQ_NEW: function (bp: PBIO; x: PX509_REQ): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM PEM_read_bio_X509_CRL}
   PEM_read_bio_X509_CRL: function (bp: PBIO; x: PPX509_CRL; cb: pem_password_cb; u: Pointer): PX509_CRL; cdecl = nil;
-  {$EXTERNALSYM PEM_write_bio_X509_CRL}
   PEM_write_bio_X509_CRL: function (bp: PBIO; x: PX509_CRL): TIdC_INT; cdecl = nil;
 
   {$EXTERNALSYM PEM_read_bio_PKCS7}
@@ -255,9 +228,7 @@ var
 //  function PEM_read_bio_NETSCAPE_CERT_SEQUENCE(bp: PBIO; x: PPNETSCAPE_CERT_SEQUENCE; cb: pem_password_cb; u: Pointer): PNETSCAPE_CERT_SEQUENCE;
 //  function PEM_write_bio_NETSCAPE_CERT_SEQUENCE(bp: PBIO; x: PNETSCAPE_CERT_SEQUENCE): TIdC_INT;
 
-  {$EXTERNALSYM PEM_read_bio_PKCS8}
   PEM_read_bio_PKCS8: function (bp: PBIO; x: PPX509_SIG; cb: pem_password_cb; u: Pointer): PX509_SIG; cdecl = nil;
-  {$EXTERNALSYM PEM_write_bio_PKCS8}
   PEM_write_bio_PKCS8: function (bp: PBIO; x: PX509_SIG): TIdC_INT; cdecl = nil;
 
   {$EXTERNALSYM PEM_read_bio_PKCS8_PRIV_KEY_INFO}
@@ -266,187 +237,117 @@ var
   PEM_write_bio_PKCS8_PRIV_KEY_INFO: function (bp: PBIO; x: PPKCS8_PRIV_KEY_INFO): TIdC_INT; cdecl = nil;
 
   // RSA
-  {$EXTERNALSYM PEM_read_bio_RSAPrivateKey}
   PEM_read_bio_RSAPrivateKey: function (bp: PBIO; x: PPRSA; cb: pem_password_cb; u: Pointer): PRSA; cdecl = nil;
-  {$EXTERNALSYM PEM_write_bio_RSAPrivateKey}
   PEM_write_bio_RSAPrivateKey: function (bp: PBIO; x: PRSA; const enc: PEVP_CIPHER; kstr: PByte; klen: TIdC_INT; cb: pem_password_cb; u: Pointer): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM PEM_read_bio_RSAPublicKey}
   PEM_read_bio_RSAPublicKey: function (bp: PBIO; x: PPRSA; cb: pem_password_cb; u: Pointer): PRSA; cdecl = nil;
-  {$EXTERNALSYM PEM_write_bio_RSAPublicKey}
   PEM_write_bio_RSAPublicKey: function (bp: PBIO; const x: PRSA): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM PEM_read_bio_RSA_PUBKEY}
   PEM_read_bio_RSA_PUBKEY: function (bp: PBIO; x: PPRSA; cb: pem_password_cb; u: Pointer): PRSA; cdecl = nil;
-  {$EXTERNALSYM PEM_write_bio_RSA_PUBKEY}
   PEM_write_bio_RSA_PUBKEY: function (bp: PBIO; x: PRSA): TIdC_INT; cdecl = nil;
   // ~RSA
 
   // DSA
-  {$EXTERNALSYM PEM_read_bio_DSAPrivateKey}
   PEM_read_bio_DSAPrivateKey: function (bp: PBIO; x: PPDSA; cb: pem_password_cb; u: Pointer): PDSA; cdecl = nil;
-  {$EXTERNALSYM PEM_write_bio_DSAPrivateKey}
   PEM_write_bio_DSAPrivateKey: function (bp: PBIO; x: PDSA; const enc: PEVP_CIPHER; kstr: PByte; klen: TIdC_INT; cb: pem_password_cb; u: Pointer): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM PEM_read_bio_DSA_PUBKEY}
   PEM_read_bio_DSA_PUBKEY: function (bp: PBIO; x: PPDSA; cb: pem_password_cb; u: Pointer): PDSA; cdecl = nil;
-  {$EXTERNALSYM PEM_write_bio_DSA_PUBKEY}
   PEM_write_bio_DSA_PUBKEY: function (bp: PBIO; x: PDSA): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM PEM_read_bio_DSAparams}
   PEM_read_bio_DSAparams: function (bp: PBIO; x: PPDSA; cb: pem_password_cb; u: Pointer): PDSA; cdecl = nil;
-  {$EXTERNALSYM PEM_write_bio_DSAparams}
   PEM_write_bio_DSAparams: function (bp: PBIO; const x: PDSA): TIdC_INT; cdecl = nil;
   // ~DSA
 
   // EC
-  {$EXTERNALSYM PEM_read_bio_ECPKParameters}
   PEM_read_bio_ECPKParameters: function (bp: PBIO; x: PPEC_GROUP; cb: pem_password_cb; u: Pointer): PEC_GROUP; cdecl = nil;
-  {$EXTERNALSYM PEM_write_bio_ECPKParameters}
   PEM_write_bio_ECPKParameters: function (bp: PBIO; const x: PEC_GROUP): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM PEM_read_bio_ECPrivateKey}
   PEM_read_bio_ECPrivateKey: function (bp: PBIO; x: PPEC_KEY; cb: pem_password_cb; u: Pointer): PEC_KEY; cdecl = nil;
-  {$EXTERNALSYM PEM_write_bio_ECPrivateKey}
   PEM_write_bio_ECPrivateKey: function (bp: PBIO; x: PEC_KEY; const enc: PEVP_CIPHER; kstr: PByte; klen: TIdC_INT; cb: pem_password_cb; u: Pointer): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM PEM_read_bio_EC_PUBKEY}
   PEM_read_bio_EC_PUBKEY: function (bp: PBIO; x: PPEC_KEY; cb: pem_password_cb; u: Pointer): PEC_KEY; cdecl = nil;
-  {$EXTERNALSYM PEM_write_bio_EC_PUBKEY}
   PEM_write_bio_EC_PUBKEY: function (bp: PBIO; x: PEC_KEY): TIdC_INT; cdecl = nil;
   // ~EC
 
   // DH
-  {$EXTERNALSYM PEM_read_bio_DHparams}
   PEM_read_bio_DHparams: function (bp: PBIO; x: PPDH; cb: pem_password_cb; u: Pointer): PDH; cdecl = nil;
-  {$EXTERNALSYM PEM_write_bio_DHparams}
   PEM_write_bio_DHparams: function (bp: PBIO; const x: PDH): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM PEM_write_bio_DHxparams}
   PEM_write_bio_DHxparams: function (bp: PBIO; const x: PDH): TIdC_INT; cdecl = nil;
   // ~DH
 
-  {$EXTERNALSYM PEM_read_bio_PrivateKey}
   PEM_read_bio_PrivateKey: function (bp: PBIO; x: PPEVP_PKEY; cb: pem_password_cb; u: Pointer): PEVP_PKEY; cdecl = nil;
-  {$EXTERNALSYM PEM_read_bio_PrivateKey_ex}
   PEM_read_bio_PrivateKey_ex : function (bp : PBIO; x : PPEVP_PKEY; cb: pem_password_cb; u: Pointer;
     libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar) : PEVP_PKEY; cdecl = nil;
-  {$EXTERNALSYM PEM_write_bio_PrivateKey}
   PEM_write_bio_PrivateKey: function (bp: PBIO; x: PEVP_PKEY; const enc: PEVP_CIPHER; kstr: PByte; klen: TIdC_INT; cb: pem_password_cb; u: Pointer): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM PEM_write_bio_PrivateKey_ex}
   PEM_write_bio_PrivateKey_ex : function(bp: PBIO; x: PEVP_PKEY; const enc: PEVP_CIPHER; kstr: PByte; klen: TIdC_INT; cb: pem_password_cb; u: Pointer;
     libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar) : TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM PEM_read_bio_PUBKEY}
   PEM_read_bio_PUBKEY: function (bp: PBIO; x: PPEVP_PKEY; cb: pem_password_cb; u: Pointer): PEVP_PKEY; cdecl = nil;
-  {$EXTERNALSYM PEM_read_bio_PUBKEY_ex}
   PEM_read_bio_PUBKEY_ex : function(bp : PBIO; x : PPEVP_PKEY; cb: pem_password_cb; u : Pointer;
     libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar) : PEVP_PKEY cdecl = nil;
-  {$EXTERNALSYM PEM_write_bio_PUBKEY}
   PEM_write_bio_PUBKEY: function (bp: PBIO; x: PEVP_PKEY): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM PEM_write_bio_PUBKEY_ex}
   PEM_write_bio_PUBKEY_ex: function (bp : PBIO; x: PEVP_PKEY;
     libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM PEM_write_bio_PrivateKey_traditional}
   PEM_write_bio_PrivateKey_traditional: function (bp: PBIO; x: PEVP_PKEY; const enc: PEVP_CIPHER; kstr: PByte; klen: TIdC_INT; cb: pem_password_cb; u: Pointer): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   {$EXTERNALSYM PEM_write_bio_PKCS8PrivateKey_nid}
   PEM_write_bio_PKCS8PrivateKey_nid: function (bp: PBIO; x: PEVP_PKEY; nid: TIdC_INT; kstr: PIdAnsiChar; klen: TIdC_INT; cb: pem_password_cb; u: Pointer): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM PEM_write_bio_PKCS8PrivateKey}
   PEM_write_bio_PKCS8PrivateKey: function (bp: PBIO; x: PEVP_PKEY; const enc: PEVP_CIPHER; kstr: PIdAnsiChar; klen: TIdC_INT; cb: pem_password_cb; u: Pointer): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM i2d_PKCS8PrivateKey_bio}
   i2d_PKCS8PrivateKey_bio: function (bp: PBIO; x: PEVP_PKEY; const enc: PEVP_CIPHER; kstr: PIdAnsiChar; klen: TIdC_INT; cb: pem_password_cb; u: Pointer): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM i2d_PKCS8PrivateKey_nid_bio}
   i2d_PKCS8PrivateKey_nid_bio: function (bp: PBIO; x: PEVP_PKEY; nid: TIdC_INT; kstr: PIdAnsiChar; klen: TIdC_INT; cb: pem_password_cb; u: Pointer): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM d2i_PKCS8PrivateKey_bio}
   d2i_PKCS8PrivateKey_bio: function (bp: PBIO; x: PPEVP_PKEY_CTX; cb: pem_password_cb; u: Pointer): PEVP_PKEY; cdecl = nil;
 
-  {$EXTERNALSYM PEM_read_bio_Parameters}
   PEM_read_bio_Parameters: function (bp: PBIO; x: PPEVP_PKEY): PEVP_PKEY; cdecl = nil;
-  {$EXTERNALSYM PEM_read_bio_Parameters_ex}
   PEM_read_bio_Parameters_ex: function(bp: PBIO; x:PPEVP_PKEY;
     libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar): PEVP_PKEY; cdecl = nil;
-  {$EXTERNALSYM PEM_write_bio_Parameters}
   PEM_write_bio_Parameters: function (bp: PBIO; x: PEVP_PKEY): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM b2i_PrivateKey}
   b2i_PrivateKey: function (const in_: PPByte; _length: TIdC_LONG): PEVP_PKEY; cdecl = nil;
-  {$EXTERNALSYM b2i_PublicKey}
   b2i_PublicKey: function (const in_: PPByte; _length: TIdC_LONG): PEVP_PKEY; cdecl = nil;
-  {$EXTERNALSYM b2i_PrivateKey_bio}
   b2i_PrivateKey_bio: function (in_: PBIO): PEVP_PKEY; cdecl = nil;
-  {$EXTERNALSYM b2i_PublicKey_bio}
   b2i_PublicKey_bio: function (in_: PBIO): PEVP_PKEY; cdecl = nil;
-  {$EXTERNALSYM i2b_PrivateKey_bio}
   i2b_PrivateKey_bio: function (out_: PBIO; pk: PEVP_PKEY): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM i2b_PublicKey_bio}
   i2b_PublicKey_bio: function (out_: PBIO; pk: PEVP_PKEY): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM b2i_PVK_bio}
   b2i_PVK_bio: function (in_: PBIO; cb: pem_password_cb; u: Pointer): PEVP_PKEY; cdecl = nil;
-  {$EXTERNALSYM i2b_PVK_bio}
   i2b_PVK_bio: function (out_: PBIO; pk: PEVP_PKEY; enclevel: TIdC_INT; cb: pem_password_cb; u: Pointer): TIdC_INT; cdecl = nil;
 
 {$ELSE}
-  {$EXTERNALSYM PEM_get_EVP_CIPHER_INFO}
   function PEM_get_EVP_CIPHER_INFO(header: PIdAnsiChar; cipher: PEVP_CIPHER_INFO): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM PEM_do_header}
   function PEM_do_header(cipher: PEVP_CIPHER_INFO; data: PByte; len: PIdC_LONG; callback: pem_password_cb; u: Pointer): TIdC_INT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM PEM_read_bio}
   function PEM_read_bio(bp: PBIO; name: PPIdAnsiChar; header: PPIdAnsiChar; data: PPByte; len: PIdC_LONG): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM PEM_read_bio_ex}
   function PEM_read_bio_ex(bp: PBIO; name: PPIdAnsiChar; header: PPIdAnsiChar; data: PPByte; len: PIdC_LONG; flags: TIdC_UINT): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM PEM_bytes_read_bio_secmem}
   function PEM_bytes_read_bio_secmem(pdata: PPByte; plen: PIdC_LONG; pnm: PPIdAnsiChar; const name: PIdAnsiChar; bp: PBIO; cb: pem_password_cb; u: Pointer): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM PEM_write_bio}
   function PEM_write_bio(bp: PBIO; const name: PIdAnsiChar; const hdr: PIdAnsiChar; const data: PByte; len: TIdC_LONG): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM PEM_bytes_read_bio}
   function PEM_bytes_read_bio(pdata: PPByte; plen: PIdC_LONG; pnm: PPIdAnsiChar; const name: PIdAnsiChar; bp: PBIO; cb: pem_password_cb; u: Pointer): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM PEM_ASN1_read_bio}
   function PEM_ASN1_read_bio(d2i: d2i_of_void; const name: PIdAnsiChar; bp: PBIO; x: PPointer; cb: pem_password_cb; u: Pointer): Pointer cdecl; external CLibCrypto;
-  {$EXTERNALSYM PEM_ASN1_write_bio}
   function PEM_ASN1_write_bio(i2d: i2d_of_void; const name: PIdAnsiChar; bp: PBIO; x: Pointer; const enc: PEVP_CIPHER; kstr: PByte; klen: TIdC_INT; cb: pem_password_cb; u: Pointer): TIdC_INT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM PEM_X509_INFO_read_bio}
   function PEM_X509_INFO_read_bio(bp: PBIO; sk: PSTACK_OF_X509_INFO; cb: pem_password_cb; u: Pointer): PSTACK_OF_X509_INFO cdecl; external CLibCrypto;
   {$EXTERNALSYM PEM_X509_INFO_write_bio}
   function PEM_X509_INFO_write_bio(bp: PBIO; xi: PX509_INFO; enc: PEVP_CIPHER; kstr: PByte; klen: TIdC_INT; cd: pem_password_cb; u: Pointer): TIdC_INT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM PEM_SignInit}
   function PEM_SignInit(ctx: PEVP_MD_CTX; type_: PEVP_MD): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM PEM_SignUpdate}
   function PEM_SignUpdate(ctx: PEVP_MD_CTX; d: PByte; cnt: Byte): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM PEM_SignFinal}
   function PEM_SignFinal(ctx: PEVP_MD_CTX; sigret: PByte; siglen: PIdC_UINT; pkey: PEVP_PKEY): TIdC_INT cdecl; external CLibCrypto;
 
   (* The default pem_password_cb that's used internally *)
-  {$EXTERNALSYM PEM_def_callback}
   function PEM_def_callback(buf: PIdAnsiChar; num: TIdC_INT; rwflag: TIdC_INT; userdata: Pointer): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM PEM_proc_type}
   procedure PEM_proc_type(buf: PIdAnsiChar; type_: TIdC_INT) cdecl; external CLibCrypto;
-  {$EXTERNALSYM PEM_dek_info}
   procedure PEM_dek_info(buf: PIdAnsiChar; const type_: PIdAnsiChar; len: TIdC_INT; _str: PIdAnsiChar) cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM PEM_read_bio_X509}
   function PEM_read_bio_X509(bp: PBIO; x: PPX509; cb: pem_password_cb; u: Pointer): PX509 cdecl; external CLibCrypto;
-  {$EXTERNALSYM PEM_write_bio_X509}
   function PEM_write_bio_X509(bp: PBIO; x: PX509): TIdC_INT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM PEM_read_bio_X509_AUX}
   function PEM_read_bio_X509_AUX(bp: PBIO; x: PPX509; cb: pem_password_cb; u: Pointer): PX509 cdecl; external CLibCrypto;
-  {$EXTERNALSYM PEM_write_bio_X509_AUX}
   function PEM_write_bio_X509_AUX(bp: PBIO; x: PX509): TIdC_INT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM PEM_read_bio_X509_REQ}
   function PEM_read_bio_X509_REQ(bp: PBIO; x: PPX509_REQ; cb: pem_password_cb; u: Pointer): PX509_REQ cdecl; external CLibCrypto;
-  {$EXTERNALSYM PEM_write_bio_X509_REQ}
   function PEM_write_bio_X509_REQ(bp: PBIO; x: PX509_REQ): TIdC_INT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM PEM_write_bio_X509_REQ_NEW}
   function PEM_write_bio_X509_REQ_NEW(bp: PBIO; x: PX509_REQ): TIdC_INT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM PEM_read_bio_X509_CRL}
   function PEM_read_bio_X509_CRL(bp: PBIO; x: PPX509_CRL; cb: pem_password_cb; u: Pointer): PX509_CRL cdecl; external CLibCrypto;
-  {$EXTERNALSYM PEM_write_bio_X509_CRL}
   function PEM_write_bio_X509_CRL(bp: PBIO; x: PX509_CRL): TIdC_INT cdecl; external CLibCrypto;
 
   {$EXTERNALSYM PEM_read_bio_PKCS7}
@@ -457,9 +358,7 @@ var
 //  function PEM_read_bio_NETSCAPE_CERT_SEQUENCE(bp: PBIO; x: PPNETSCAPE_CERT_SEQUENCE; cb: pem_password_cb; u: Pointer): PNETSCAPE_CERT_SEQUENCE;
 //  function PEM_write_bio_NETSCAPE_CERT_SEQUENCE(bp: PBIO; x: PNETSCAPE_CERT_SEQUENCE): TIdC_INT;
 
-  {$EXTERNALSYM PEM_read_bio_PKCS8}
   function PEM_read_bio_PKCS8(bp: PBIO; x: PPX509_SIG; cb: pem_password_cb; u: Pointer): PX509_SIG cdecl; external CLibCrypto;
-  {$EXTERNALSYM PEM_write_bio_PKCS8}
   function PEM_write_bio_PKCS8(bp: PBIO; x: PX509_SIG): TIdC_INT cdecl; external CLibCrypto;
 
   {$EXTERNALSYM PEM_read_bio_PKCS8_PRIV_KEY_INFO}
@@ -468,126 +367,81 @@ var
   function PEM_write_bio_PKCS8_PRIV_KEY_INFO(bp: PBIO; x: PPKCS8_PRIV_KEY_INFO): TIdC_INT cdecl; external CLibCrypto;
 
   // RSA
-  {$EXTERNALSYM PEM_read_bio_RSAPrivateKey}
   function PEM_read_bio_RSAPrivateKey(bp: PBIO; x: PPRSA; cb: pem_password_cb; u: Pointer): PRSA cdecl; external CLibCrypto;
-  {$EXTERNALSYM PEM_write_bio_RSAPrivateKey}
   function PEM_write_bio_RSAPrivateKey(bp: PBIO; x: PRSA; const enc: PEVP_CIPHER; kstr: PByte; klen: TIdC_INT; cb: pem_password_cb; u: Pointer): TIdC_INT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM PEM_read_bio_RSAPublicKey}
   function PEM_read_bio_RSAPublicKey(bp: PBIO; x: PPRSA; cb: pem_password_cb; u: Pointer): PRSA cdecl; external CLibCrypto;
-  {$EXTERNALSYM PEM_write_bio_RSAPublicKey}
   function PEM_write_bio_RSAPublicKey(bp: PBIO; const x: PRSA): TIdC_INT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM PEM_read_bio_RSA_PUBKEY}
   function PEM_read_bio_RSA_PUBKEY(bp: PBIO; x: PPRSA; cb: pem_password_cb; u: Pointer): PRSA cdecl; external CLibCrypto;
-  {$EXTERNALSYM PEM_write_bio_RSA_PUBKEY}
   function PEM_write_bio_RSA_PUBKEY(bp: PBIO; x: PRSA): TIdC_INT cdecl; external CLibCrypto;
   // ~RSA
 
   // DSA
-  {$EXTERNALSYM PEM_read_bio_DSAPrivateKey}
   function PEM_read_bio_DSAPrivateKey(bp: PBIO; x: PPDSA; cb: pem_password_cb; u: Pointer): PDSA cdecl; external CLibCrypto;
-  {$EXTERNALSYM PEM_write_bio_DSAPrivateKey}
   function PEM_write_bio_DSAPrivateKey(bp: PBIO; x: PDSA; const enc: PEVP_CIPHER; kstr: PByte; klen: TIdC_INT; cb: pem_password_cb; u: Pointer): TIdC_INT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM PEM_read_bio_DSA_PUBKEY}
   function PEM_read_bio_DSA_PUBKEY(bp: PBIO; x: PPDSA; cb: pem_password_cb; u: Pointer): PDSA cdecl; external CLibCrypto;
-  {$EXTERNALSYM PEM_write_bio_DSA_PUBKEY}
   function PEM_write_bio_DSA_PUBKEY(bp: PBIO; x: PDSA): TIdC_INT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM PEM_read_bio_DSAparams}
   function PEM_read_bio_DSAparams(bp: PBIO; x: PPDSA; cb: pem_password_cb; u: Pointer): PDSA cdecl; external CLibCrypto;
-  {$EXTERNALSYM PEM_write_bio_DSAparams}
   function PEM_write_bio_DSAparams(bp: PBIO; const x: PDSA): TIdC_INT cdecl; external CLibCrypto;
   // ~DSA
 
   // EC
-  {$EXTERNALSYM PEM_read_bio_ECPKParameters}
   function PEM_read_bio_ECPKParameters(bp: PBIO; x: PPEC_GROUP; cb: pem_password_cb; u: Pointer): PEC_GROUP cdecl; external CLibCrypto;
-  {$EXTERNALSYM PEM_write_bio_ECPKParameters}
   function PEM_write_bio_ECPKParameters(bp: PBIO; const x: PEC_GROUP): TIdC_INT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM PEM_read_bio_ECPrivateKey}
   function PEM_read_bio_ECPrivateKey(bp: PBIO; x: PPEC_KEY; cb: pem_password_cb; u: Pointer): PEC_KEY cdecl; external CLibCrypto;
-  {$EXTERNALSYM PEM_write_bio_ECPrivateKey}
   function PEM_write_bio_ECPrivateKey(bp: PBIO; x: PEC_KEY; const enc: PEVP_CIPHER; kstr: PByte; klen: TIdC_INT; cb: pem_password_cb; u: Pointer): TIdC_INT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM PEM_read_bio_EC_PUBKEY}
   function PEM_read_bio_EC_PUBKEY(bp: PBIO; x: PPEC_KEY; cb: pem_password_cb; u: Pointer): PEC_KEY cdecl; external CLibCrypto;
-  {$EXTERNALSYM PEM_write_bio_EC_PUBKEY}
   function PEM_write_bio_EC_PUBKEY(bp: PBIO; x: PEC_KEY): TIdC_INT cdecl; external CLibCrypto;
   // ~EC
 
   // DH
-  {$EXTERNALSYM PEM_read_bio_DHparams}
   function PEM_read_bio_DHparams(bp: PBIO; x: PPDH; cb: pem_password_cb; u: Pointer): PDH cdecl; external CLibCrypto;
-  {$EXTERNALSYM PEM_write_bio_DHparams}
   function PEM_write_bio_DHparams(bp: PBIO; const x: PDH): TIdC_INT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM PEM_write_bio_DHxparams}
   function PEM_write_bio_DHxparams(bp: PBIO; const x: PDH): TIdC_INT cdecl; external CLibCrypto;
   // ~DH
 
-  {$EXTERNALSYM PEM_read_bio_PrivateKey}
   function PEM_read_bio_PrivateKey(bp: PBIO; x: PPEVP_PKEY; cb: pem_password_cb; u: Pointer): PEVP_PKEY cdecl; external CLibCrypto;
-  {$EXTERNALSYM PEM_read_bio_PrivateKey_ex}
   function PEM_read_bio_PrivateKey_ex(bp : PBIO; x : PPEVP_PKEY; cb: pem_password_cb; u: Pointer;
     libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar) : PEVP_PKEY cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM PEM_write_bio_PrivateKey}
   function PEM_write_bio_PrivateKey(bp: PBIO; x: PEVP_PKEY; const enc: PEVP_CIPHER; kstr: PByte; klen: TIdC_INT; cb: pem_password_cb; u: Pointer): TIdC_INT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM PEM_read_bio_PUBKEY}
   function PEM_read_bio_PUBKEY(bp: PBIO; x: PPEVP_PKEY; cb: pem_password_cb; u: Pointer): PEVP_PKEY cdecl; external CLibCrypto;
-  {$EXTERNALSYM PEM_read_bio_PUBKEY_ex}
   function PEM_read_bio_PUBKEY_ex(bp : PBIO; x : PPEVP_PKEY; cb: pem_password_cb; u : Pointer;
     libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar) : PEVP_PKEY cdecl; external CLibCrypto;
-  {$EXTERNALSYM PEM_write_bio_PUBKEY}
   function PEM_write_bio_PUBKEY(bp: PBIO; x: PEVP_PKEY): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM PEM_write_bio_PUBKEY_ex}
   function PEM_write_bio_PUBKEY_ex(bp : PBIO; x: PEVP_PKEY;
     libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM PEM_write_bio_PrivateKey_ex}
   function PEM_write_bio_PrivateKey_ex(bp: PBIO; x: PEVP_PKEY; const enc: PEVP_CIPHER; kstr: PByte; klen: TIdC_INT; cb: pem_password_cb; u: Pointer;
     libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar) : TIdC_INT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM PEM_write_bio_PrivateKey_traditional}
   function PEM_write_bio_PrivateKey_traditional(bp: PBIO; x: PEVP_PKEY; const enc: PEVP_CIPHER; kstr: PByte; klen: TIdC_INT; cb: pem_password_cb; u: Pointer): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
 
   {$EXTERNALSYM PEM_write_bio_PKCS8PrivateKey_nid}
   function PEM_write_bio_PKCS8PrivateKey_nid(bp: PBIO; x: PEVP_PKEY; nid: TIdC_INT; kstr: PIdAnsiChar; klen: TIdC_INT; cb: pem_password_cb; u: Pointer): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM PEM_write_bio_PKCS8PrivateKey}
   function PEM_write_bio_PKCS8PrivateKey(bp: PBIO; x: PEVP_PKEY; const enc: PEVP_CIPHER; kstr: PIdAnsiChar; klen: TIdC_INT; cb: pem_password_cb; u: Pointer): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM i2d_PKCS8PrivateKey_bio}
   function i2d_PKCS8PrivateKey_bio(bp: PBIO; x: PEVP_PKEY; const enc: PEVP_CIPHER; kstr: PIdAnsiChar; klen: TIdC_INT; cb: pem_password_cb; u: Pointer): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM i2d_PKCS8PrivateKey_nid_bio}
   function i2d_PKCS8PrivateKey_nid_bio(bp: PBIO; x: PEVP_PKEY; nid: TIdC_INT; kstr: PIdAnsiChar; klen: TIdC_INT; cb: pem_password_cb; u: Pointer): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM d2i_PKCS8PrivateKey_bio}
   function d2i_PKCS8PrivateKey_bio(bp: PBIO; x: PPEVP_PKEY_CTX; cb: pem_password_cb; u: Pointer): PEVP_PKEY cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM PEM_read_bio_Parameters}
   function PEM_read_bio_Parameters(bp: PBIO; x: PPEVP_PKEY): PEVP_PKEY cdecl; external CLibCrypto;
-  {$EXTERNALSYM PEM_read_bio_Parameters_ex}
   function PEM_read_bio_Parameters_ex(bp: PBIO; x:PPEVP_PKEY;
     libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar): PEVP_PKEY cdecl; external CLibCrypto;
-  {$EXTERNALSYM PEM_write_bio_Parameters}
   function PEM_write_bio_Parameters(bp: PBIO; x: PEVP_PKEY): TIdC_INT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM b2i_PrivateKey}
   function b2i_PrivateKey(const in_: PPByte; _length: TIdC_LONG): PEVP_PKEY cdecl; external CLibCrypto;
-  {$EXTERNALSYM b2i_PublicKey}
   function b2i_PublicKey(const in_: PPByte; _length: TIdC_LONG): PEVP_PKEY cdecl; external CLibCrypto;
-  {$EXTERNALSYM b2i_PrivateKey_bio}
   function b2i_PrivateKey_bio(in_: PBIO): PEVP_PKEY cdecl; external CLibCrypto;
-  {$EXTERNALSYM b2i_PublicKey_bio}
   function b2i_PublicKey_bio(in_: PBIO): PEVP_PKEY cdecl; external CLibCrypto;
-  {$EXTERNALSYM i2b_PrivateKey_bio}
   function i2b_PrivateKey_bio(out_: PBIO; pk: PEVP_PKEY): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM i2b_PublicKey_bio}
   function i2b_PublicKey_bio(out_: PBIO; pk: PEVP_PKEY): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM b2i_PVK_bio}
   function b2i_PVK_bio(in_: PBIO; cb: pem_password_cb; u: Pointer): PEVP_PKEY cdecl; external CLibCrypto;
-  {$EXTERNALSYM i2b_PVK_bio}
   function i2b_PVK_bio(out_: PBIO; pk: PEVP_PKEY; enclevel: TIdC_INT; cb: pem_password_cb; u: Pointer): TIdC_INT cdecl; external CLibCrypto;
 
 {$ENDIF}

@@ -1876,7 +1876,6 @@ const
 
 type
   (* TLS Session Ticket extension struct *)
-  {$EXTERNALSYM tls_session_ticket_ext_st}
   tls_session_ticket_ext_st = record
     _length: TIdC_USHORT;
     data: Pointer;
@@ -1893,14 +1892,10 @@ var
   {$EXTERNALSYM SSL_set_tlsext_host_name}
   SSL_set_tlsext_host_name: function (s: PSSL; const name: PIdAnsiChar): TIdC_LONG; cdecl = nil; {removed 1.0.0}
 
-  {$EXTERNALSYM SSL_CTX_set_tlsext_max_fragment_length}
   SSL_CTX_set_tlsext_max_fragment_length: function (ctx: PSSL_CTx; mode: TIdC_UINT8): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_set_tlsext_max_fragment_length}
   SSL_set_tlsext_max_fragment_length: function (ssl: PSSL; mode: TIdC_UINT8): TIdC_INT; cdecl = nil; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSL_get_servername}
   SSL_get_servername: function (const s: PSSL; const type_: TIdC_INT): PIdAnsiChar; cdecl = nil;
-  {$EXTERNALSYM SSL_get_servername_type}
   SSL_get_servername_type: function (const s: PSSL): TIdC_INT; cdecl = nil;
   (*
    * SSL_export_keying_material exports a value derived from the master secret,
@@ -1909,7 +1904,6 @@ var
    * flag controls whether a context is included.) It returns 1 on success and
    * 0 or -1 otherwise.
    *)
-  {$EXTERNALSYM SSL_export_keying_material}
   SSL_export_keying_material: function (s: PSSL; out_: PByte; olen: TIdC_SIZET; const label_: PIdAnsiChar; llen: TIdC_SIZET; const context: PByte; contextlen: TIdC_SIZET; use_context: TIdC_INT): TIdC_INT; cdecl = nil;
 
   (*
@@ -1919,16 +1913,11 @@ var
    * |olen| bytes to |out| given a label and optional context. It
    * returns 1 on success and 0 otherwise.
    *)
-  {$EXTERNALSYM SSL_export_keying_material_early}
   SSL_export_keying_material_early: function (s: PSSL; out_: PByte; olen: TIdC_SIZET; const label_: PIdAnsiChar; llen: TIdC_SIZET; const context: PByte; contextlen: TIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSL_get_peer_signature_type_nid}
   SSL_get_peer_signature_type_nid: function (const s: PSSl; pnid: PIdC_INT): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_get_signature_type_nid}
   SSL_get_signature_type_nid: function (const s: PSSl; pnid: PIdC_INT): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_get_sigalgs}
   SSL_get_sigalgs: function (s: PSSl; idx: TIdC_INT; psign: PIdC_INT; phash: PIdC_INT; psignandhash: PIdC_INT; rsig: PByte; rhash: PByte): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_get_shared_sigalgs}
   SSL_get_shared_sigalgs: function (s: PSSl; idx: TIdC_INT; psign: PIdC_INT; phash: PIdC_INT; psignandhash: PIdC_INT; rsig: PByte; rhash: PByte): TIdC_INT; cdecl = nil;
 
   //__owur TIdC_INT SSL_check_chain(s: PSSL, X509 *x, EVP_PKEY *pk, STACK_OF(X509) *chain);
@@ -1999,14 +1988,10 @@ var
 
 {$ELSE}
 
-  {$EXTERNALSYM SSL_CTX_set_tlsext_max_fragment_length}
   function SSL_CTX_set_tlsext_max_fragment_length(ctx: PSSL_CTx; mode: TIdC_UINT8): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_set_tlsext_max_fragment_length}
   function SSL_set_tlsext_max_fragment_length(ssl: PSSL; mode: TIdC_UINT8): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSL_get_servername}
   function SSL_get_servername(const s: PSSL; const type_: TIdC_INT): PIdAnsiChar cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_get_servername_type}
   function SSL_get_servername_type(const s: PSSL): TIdC_INT cdecl; external CLibSSL;
   (*
    * SSL_export_keying_material exports a value derived from the master secret,
@@ -2015,7 +2000,6 @@ var
    * flag controls whether a context is included.) It returns 1 on success and
    * 0 or -1 otherwise.
    *)
-  {$EXTERNALSYM SSL_export_keying_material}
   function SSL_export_keying_material(s: PSSL; out_: PByte; olen: TIdC_SIZET; const label_: PIdAnsiChar; llen: TIdC_SIZET; const context: PByte; contextlen: TIdC_SIZET; use_context: TIdC_INT): TIdC_INT cdecl; external CLibSSL;
 
   (*
@@ -2025,16 +2009,11 @@ var
    * |olen| bytes to |out| given a label and optional context. It
    * returns 1 on success and 0 otherwise.
    *)
-  {$EXTERNALSYM SSL_export_keying_material_early}
   function SSL_export_keying_material_early(s: PSSL; out_: PByte; olen: TIdC_SIZET; const label_: PIdAnsiChar; llen: TIdC_SIZET; const context: PByte; contextlen: TIdC_SIZET): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSL_get_peer_signature_type_nid}
   function SSL_get_peer_signature_type_nid(const s: PSSl; pnid: PIdC_INT): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_get_signature_type_nid}
   function SSL_get_signature_type_nid(const s: PSSl; pnid: PIdC_INT): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_get_sigalgs}
   function SSL_get_sigalgs(s: PSSl; idx: TIdC_INT; psign: PIdC_INT; phash: PIdC_INT; psignandhash: PIdC_INT; rsig: PByte; rhash: PByte): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_get_shared_sigalgs}
   function SSL_get_shared_sigalgs(s: PSSl; idx: TIdC_INT; psign: PIdC_INT; phash: PIdC_INT; psignandhash: PIdC_INT; rsig: PByte; rhash: PByte): TIdC_INT cdecl; external CLibSSL;
 
   //__owur TIdC_INT SSL_check_chain(s: PSSL, X509 *x, EVP_PKEY *pk, STACK_OF(X509) *chain);

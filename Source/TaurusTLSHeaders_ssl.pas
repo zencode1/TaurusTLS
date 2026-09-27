@@ -1634,9 +1634,7 @@ type
    * This is needed to stop compilers complaining about the 'struct ssl_st *'
    * function parameters used to prototype callbacks in SSL_CTX.
    *)
-  {$EXTERNALSYM ssl_crock_st}
   ssl_crock_st = PSSL;
-  {$EXTERNALSYM TLS_SESSION_TICKET_EXT}
   TLS_SESSION_TICKET_EXT = tls_session_ticket_ext_st;
   {$EXTERNALSYM SSL_METHOD}
   SSL_METHOD = record end;
@@ -1652,21 +1650,13 @@ type
   {$EXTERNALSYM PSSL_SESSION}
   PSSL_SESSION = ^SSL_SESSION;
   PPSSL_SESSION = ^PSSL_SESSION;
-  {$EXTERNALSYM lhash_st_SSL_SESSION}
   lhash_st_SSL_SESSION = record end;
-  {$EXTERNALSYM Plhash_st_SSL_SESSION}
   Plhash_st_SSL_SESSION = ^lhash_st_SSL_SESSION;
-  {$EXTERNALSYM TLS_SIGALGS}
   TLS_SIGALGS = record end;
-  {$EXTERNALSYM PTLS_SIGALGS}
   PTLS_SIGALGS = ^TLS_SIGALGS;
-  {$EXTERNALSYM SSL_CONF_CTX}
   SSL_CONF_CTX = record end;
-  {$EXTERNALSYM PSSL_CONF_CTX}
   PSSL_CONF_CTX = ^SSL_CONF_CTX;
-  {$EXTERNALSYM SSL_COMP}
   SSL_COMP = record end;
-  {$EXTERNALSYM PSSL_COMP}
   PSSL_COMP = ^SSL_COMP;
   STACK_OF_SSL_CIPHER = record end;
   PSTACK_OF_SSL_CIPHER = ^STACK_OF_SSL_CIPHER;
@@ -1674,81 +1664,57 @@ type
   STACK_OF_SSL_COMP = record end;
   PSTACK_OF_SSL_COMP = ^STACK_OF_SSL_COMP;
 
-  {$EXTERNALSYM ssl_shutdown_ex_args_st}
   ssl_shutdown_ex_args_st = record
     quic_error_code : TIdC_UINT64;
     quic_reason : PIdAnsiChar;
   end;
-  {$EXTERNALSYM SSL_SHUTDOWN_EX_ARGS}
   SSL_SHUTDOWN_EX_ARGS = ssl_shutdown_ex_args_st;
-  {$EXTERNALSYM PSSL_SHUTDOWN_EX_ARGS}
   PSSL_SHUTDOWN_EX_ARGS = ^SSL_SHUTDOWN_EX_ARGS;
 
-  {$EXTERNALSYM ssl_stream_reset_args_st}
   ssl_stream_reset_args_st = record
     quic_error_code : TIdC_UINT64;
   end;
-  {$EXTERNALSYM SSL_STREAM_RESET_ARGS}
   SSL_STREAM_RESET_ARGS = ssl_stream_reset_args_st;
-  {$EXTERNALSYM PSSL_STREAM_RESET_ARGS}
   PSSL_STREAM_RESET_ARGS = ^SSL_STREAM_RESET_ARGS;
 
   (* SRTP protection profiles for use with the use_srtp extension (RFC 5764)*)
-  {$EXTERNALSYM srtp_protection_profile_st}
   srtp_protection_profile_st = record
     name: PIdAnsiChar;
     id: TIdC_ULONG;
   end;
-  {$EXTERNALSYM SRTP_PROTECTION_PROFILE}
   SRTP_PROTECTION_PROFILE = srtp_protection_profile_st;
-  {$EXTERNALSYM PSRTP_PROTECTION_PROFILE}
   PSRTP_PROTECTION_PROFILE = ^SRTP_PROTECTION_PROFILE;
   STACK_OF_SRTP_PROTECTION_PROFILE = record end;
   PSTACK_OF_SRTP_PROTECTION_PROFILE = ^STACK_OF_SRTP_PROTECTION_PROFILE;
 
-  {$EXTERNALSYM ssl_conn_close_info_st}
   ssl_conn_close_info_st = record
     error_code, frame_type : TIdC_UINT64;
     reason : PIdAnsiChar;
     reason_len : TIdC_SIZET;
     flags : TIdC_UINT32;
   end;
-  {$EXTERNALSYM SSL_CONN_CLOSE_INFO}
   SSL_CONN_CLOSE_INFO = ssl_conn_close_info_st;
-  {$EXTERNALSYM PSSL_CONN_CLOSE_INFO}
   PSSL_CONN_CLOSE_INFO = ^SSL_CONN_CLOSE_INFO;
-  {$EXTERNALSYM ssl_poll_item_st}
   ssl_poll_item_st = record
      desc : BIO_POLL_DESCRIPTOR;
       events, revents : TIdC_UINT64;
   end;
-  {$EXTERNALSYM SSL_POLL_ITEM}
   SSL_POLL_ITEM = ssl_poll_item_st;
-  {$EXTERNALSYM PSSL_POLL_ITEM}
   PSSL_POLL_ITEM = ^SSL_POLL_ITEM;
   (* Typedefs for handling custom extensions *)
-  {$EXTERNALSYM custom_ext_add_cb}
   custom_ext_add_cb = function (s: PSSL; ext_type: TIdC_UINT; const out_: PByte; outlen: PIdC_SIZET; al: PIdC_INT; add_arg: Pointer): TIdC_INT; cdecl;
-  {$EXTERNALSYM custom_ext_free_cb}
   custom_ext_free_cb = procedure (s: PSSL; ext_type: TIdC_UINT; const out_: PByte; add_arg: Pointer); cdecl;
-  {$EXTERNALSYM custom_ext_parse_cb}
   custom_ext_parse_cb = function (s: PSSL; ext_type: TIdC_UINT; const in_: PByte; inlen: TIdC_SIZET; al: PIdC_INT; parse_arg: Pointer): TIdC_INT; cdecl;
 
-  {$EXTERNALSYM SSL_custom_ext_add_cb_ex}
   SSL_custom_ext_add_cb_ex = function (s: PSSL; ext_type: TIdC_UINT; context: TIdC_UINT; const out_: PByte; outlen: PIdC_SIZET; x: Px509; chainidx: TIdC_SIZET; al: PIdC_INT; add_arg: Pointer): TIdC_INT; cdecl;
-  {$EXTERNALSYM SSL_custom_ext_free_cb_ex}
   SSL_custom_ext_free_cb_ex = procedure (s: PSSL; ext_type: TIdC_UINT; context: TIdC_UINT; const out_: PByte; add_arg: Pointer); cdecl;
-  {$EXTERNALSYM SSL_custom_ext_parse_cb_ex}
   SSL_custom_ext_parse_cb_ex = function (s: PSSL; ext_type: TIdC_UINT; context: TIdC_UINT; const in_: PByte; inlen: TIdC_SIZET; x: Px509; chainidx: TIdC_SIZET; al: PIdC_INT; parse_arg: Pointer): TIdC_INT; cdecl;
 
   (* Typedef for verification callback *)
-  {$EXTERNALSYM SSL_verify_cb}
   SSL_verify_cb = function (const preverify_ok: TIdC_INT; x509_ctx: PX509_STORE_CTX): TIdC_INT; cdecl;
 
-  {$EXTERNALSYM tls_session_ticket_ext_cb_fn}
   tls_session_ticket_ext_cb_fn = function (s: PSSL; const data: PByte; len: TIdC_INT; arg: Pointer): TIdC_INT; cdecl;
 
-  {$EXTERNALSYM tls_session_secret_cb_fn}
   tls_session_secret_cb_fn = function(s : PSSL; secret : Pointer; secret_len : PIdC_INT;
                                       peer_ciphers : PSTACK_OF_SSL_CIPHER;
                                       const  cipher : PPSSL_CIPHER; arg : Pointer) : TIdC_INT; cdecl;
@@ -1765,11 +1731,9 @@ type
    * bytes. The callback can alter this length to be less if desired. It is
    * also an error for the callback to set the size to zero.
    *)
-  {$EXTERNALSYM GEN_SESSION_CB}
   GEN_SESSION_CB = function (ssl: PSSL; id: PByte; id_len: PIdC_UINT): TIdC_INT; cdecl;
 
   SSL_CTX_info_callback = procedure (const ssl: PSSL; type_: TIdC_INT; _val: TIdC_INT); cdecl;
-  {$EXTERNALSYM SSL_CTX_client_cert_cb}
   SSL_CTX_client_cert_cb = function (ssl: PSSL; var x509: Px509; var pkey: PEVP_PKEY): TIdC_INT; cdecl;
 
   SSL_CTX_cookie_verify_cb = function (ssl: PSSL; cookie: PByte; cookie_len: PIdC_UINT): TIdC_INT; cdecl;
@@ -1777,22 +1741,16 @@ type
   SSL_CTX_set_stateless_cookie_generate_cb_gen_stateless_cookie_cb = function (ssl: PSSL; cookie: PByte; cookie_len: PIdC_SIZET): TIdC_INT; cdecl;
   SSL_CTX_set_stateless_cookie_verify_cb_verify_stateless_cookie_cb = function (ssl: PSSL; const cookie: PByte; cookie_len: TIdC_SIZET): TIdC_INT; cdecl;
 
-  {$EXTERNALSYM SSL_CTX_alpn_select_cb_func}
   SSL_CTX_alpn_select_cb_func = function (ssl: PSSL; var out_: PIdC_UINT8; var outlen: TIdC_UINT8; const in_: PIdC_UINT8; inlen: TIdC_UINT; arg: Pointer): TIdC_INT; cdecl;
-  {$EXTERNALSYM SSL_psk_client_cb_func}
   SSL_psk_client_cb_func = function (ssl: PSSL; const hint: PIdAnsiChar; identity: PIdAnsiChar; max_identity_len: TIdC_UINT; psk: PByte; max_psk_len: TIdC_UINT): TIdC_UINT; cdecl;
-  {$EXTERNALSYM SSL_psk_server_cb_func}
   SSL_psk_server_cb_func = function (ssl: PSSL; const identity: PIdAnsiChar; psk: PByte; max_psk_len: TIdC_UINT): TIdC_UINT; cdecl;
-  {$EXTERNALSYM SSL_psk_find_session_cb_func}
   SSL_psk_find_session_cb_func = function (ssl: PSSL; const identity: PByte; identity_len: TIdC_SIZET; sess: PPSSL_SESSION): TIdC_INT; cdecl;
-  {$EXTERNALSYM SSL_psk_use_session_cb_func}
   SSL_psk_use_session_cb_func = function (ssl: PSSL; const md: PEVP_MD; const id: PPByte; idlen: PIdC_SIZET; sess: PPSSL_SESSION): TIdC_INT; cdecl;
 
   (*
    * A callback for logging out TLS key material. This callback should log out
    * |line| followed by a newline.
    *)
-  {$EXTERNALSYM SSL_CTX_keylog_cb_func}
   SSL_CTX_keylog_cb_func = procedure(const ssl: PSSL; const line: PIdAnsiChar); cdecl;
 
   (*
@@ -1807,7 +1765,6 @@ type
    * TLS_ST_BEFORE = No handshake has been initiated yet
    * TLS_ST_OK = A handshake has been successfully completed
    *)
-  {$EXTERNALSYM TLS_ST_OK}
   TLS_ST_OK = (
     DTLS_ST_CR_HELLO_VERIFY_REQUEST,
     TLS_ST_CR_SRVR_HELLO,
@@ -1862,17 +1819,14 @@ type
     TLS_ST_SR_ACK,
     TLS_ST_SW_ACK
   );
-  {$EXTERNALSYM OSSL_HANDSHAKE_STATE}
   OSSL_HANDSHAKE_STATE = TLS_ST_OK;
 
-  {$EXTERNALSYM SSL_CTX_set_cert_verify_callback_cb}
   SSL_CTX_set_cert_verify_callback_cb = function (v1: PX509_STORE_CTX; v2: Pointer): TIdC_INT; cdecl;
   SSL_CTX_set_cert_cb_cb = function (ssl: PSSL; arg: Pointer): TIdC_INT; cdecl;
 
   SSL_CTX_set_srp_client_pwd_callback_cb = function (v1: PSSL; v2: Pointer): PIdAnsiChar; cdecl;
   SSL_CTX_set_srp_verify_param_callback_cb = function (v1: PSSL; v2: Pointer): TIdC_INT; cdecl;
   SSL_CTX_set_srp_username_callback_cb = function (v1: PSSL; v2: PIdC_INT; v3: Pointer): TIdC_INT; cdecl;
-  {$EXTERNALSYM SSL_client_hello_cb_fn}
   SSL_client_hello_cb_fn = function (s: PSSL; al: PIdC_INT; arg: Pointer): TIdC_INT; cdecl;
   SSL_callback_ctrl_v3 = procedure; cdecl;
   SSL_CTX_callback_ctrl_v3 = procedure; cdecl;
@@ -1892,11 +1846,9 @@ type
    * The underlying callback is a static function in libssl.
    *)
   SSL_CT_VALIDATION = (
-  {$EXTERNALSYM SSL_CT_VALIDATION_PERMISSIVE}
     SSL_CT_VALIDATION_PERMISSIVE = 0,
     SSL_CT_VALIDATION_STRICT
   );
-  {$EXTERNALSYM ssl_ct_validation_cb}
   ssl_ct_validation_cb = function(const ctx : PCT_POLICY_EVAL_CTX;
                                   const scts : PSTACK_OF_SCT; arg : Pointer) : TIdC_INT; cdecl;
 
@@ -1904,27 +1856,20 @@ type
 
   (* Status codes passed to the decrypt session ticket callback. Some of these
    * are for internal use only and are never passed to the callback. *)
-  {$EXTERNALSYM SSL_TICKET_STATUS}
   SSL_TICKET_STATUS = TIdC_INT;
-  {$EXTERNALSYM SSL_TICKET_RETURN}
   SSL_TICKET_RETURN = TIdC_INT;
 
-  {$EXTERNALSYM SSL_CTX_generate_session_ticket_fn}
   SSL_CTX_generate_session_ticket_fn = function(s: PSSL; arg: Pointer): TIdC_INT; cdecl;
 
-  {$EXTERNALSYM SSL_CTX_decrypt_session_ticket_fn}
   SSL_CTX_decrypt_session_ticket_fn = function (s: PSSL; ss: PSSL_SESSION; const keyname: PByte; keyname_length: TIdC_SIZET; status: SSL_TICKET_STATUS; arg: Pointer): SSL_TICKET_RETURN; cdecl;
 
-  {$EXTERNALSYM DTLS_timer_cb}
   DTLS_timer_cb = function(s: PSSL; timer_us: TIdC_UINT): TIdC_UINT; cdecl;
-  {$EXTERNALSYM SSL_allow_early_data_cb_fn}
   SSL_allow_early_data_cb_fn = function(s: PSSL; arg: Pointer): TIdC_INT; cdecl;
 
   SSL_CTX_sess_new_cb = function (ssl: PSSL; sess: PSSL_SESSION): TIdC_INT; cdecl;
 
   SSL_CTX_sess_remove_cb = procedure(ctx: PSSL_CTX; sess: PSSL_SESSION); cdecl;
 
-  {$EXTERNALSYM TSSL_CTX_set_verify_callback}
   TSSL_CTX_set_verify_callback = function (ok : TIdC_INT; ctx : PX509_STORE_CTX) : TIdC_INT; cdecl;
 
   Tmsg_callback = procedure(write_p, version, content_type : TIdC_INT;
@@ -2124,9 +2069,7 @@ var
   //        SSL_CTX_ctrl((ctx),SSL_CTRL_CLEAR_MODE,(op),NULL)
 
 var
-  {$EXTERNALSYM SSL_CTX_set_msg_callback}
   SSL_CTX_set_msg_callback : procedure (ctx: PSSL_CTX; cb : Tmsg_callback); cdecl = nil;
-  {$EXTERNALSYM SSL_set_msg_callback}
   SSL_set_msg_callback : procedure (ssl: PSSL; cb : Tmsg_callback); cdecl = nil;
 
   //# ifndef OPENSSL_NO_SRP
@@ -2140,16 +2083,11 @@ var
   //__owur TIdC_INT SRP_Calc_A_param(s: PSSL);
 
   // # endif
-  {$EXTERNALSYM SSL_CTX_sessions}
   SSL_CTX_sessions : function(ctx: PSSL_CTX) : Plhash_st_SSL_SESSION; cdecl = nil;
 
-  {$EXTERNALSYM SSL_CTX_sess_set_new_cb}
   SSL_CTX_sess_set_new_cb: procedure (ctx: PSSL_CTX; new_session_cb: SSL_CTX_sess_new_cb); cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_sess_get_new_cb}
   SSL_CTX_sess_get_new_cb: function (ctx: PSSL_CTX): SSL_CTX_sess_new_cb; cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_sess_set_remove_cb}
   SSL_CTX_sess_set_remove_cb: procedure (ctx: PSSL_CTX; remove_session_cb: SSL_CTX_sess_remove_cb); cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_sess_get_remove_cb}
   SSL_CTX_sess_get_remove_cb: function (ctx: PSSL_CTX): SSL_CTX_sess_remove_cb; cdecl = nil;
 
   //void SSL_CTX_sess_set_get_cb(ctx: PSSL_CTX,
@@ -2161,24 +2099,15 @@ var
   //SSL_SESSION *(*SSL_CTX_sess_get_get_cb(ctx: PSSL_CTX)) (struct ssl_st *ssl,
   //                                                       const d: PByteata,
   //                                                       TIdC_INT len, TIdC_INT *copy);
-  {$EXTERNALSYM SSL_CTX_set_info_callback}
   SSL_CTX_set_info_callback: procedure (ctx: PSSL_CTX; cb: SSL_CTX_info_callback); cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_get_info_callback}
   SSL_CTX_get_info_callback: function (ctx: PSSL_CTX): SSL_CTX_info_callback; cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_set_client_cert_cb}
   SSL_CTX_set_client_cert_cb: procedure (ctx: PSSL_CTX; client_cert_cb: SSL_CTX_client_cert_cb); cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_get_client_cert_cb}
   SSL_CTX_get_client_cert_cb: function (ctx: PSSL_CTX): SSL_CTX_client_cert_cb; cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_set_client_cert_engine}
   SSL_CTX_set_client_cert_engine: function (ctx: PSSL_CTX; e: PENGINE): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM SSL_CTX_set_cookie_generate_cb}
   SSL_CTX_set_cookie_generate_cb: procedure (ctx: PSSL_CTX; app_gen_cookie_cb: SSL_CTX_cookie_verify_cb); cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_set_cookie_verify_cb}
   SSL_CTX_set_cookie_verify_cb: procedure (ctx: PSSL_CTX; app_verify_cookie_cb: SSL_CTX_set_cookie_verify_cb_app_verify_cookie_cb); cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_set_stateless_cookie_generate_cb}
   SSL_CTX_set_stateless_cookie_generate_cb: procedure (ctx: PSSL_CTX; gen_stateless_cookie_cb: SSL_CTX_set_stateless_cookie_generate_cb_gen_stateless_cookie_cb); cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_set_stateless_cookie_verify_cb}
   SSL_CTX_set_stateless_cookie_verify_cb: procedure (ctx: PSSL_CTX; verify_stateless_cookie_cb: SSL_CTX_set_stateless_cookie_verify_cb_verify_stateless_cookie_cb); cdecl = nil; {introduced 1.1.0}
 
   //__owur TIdC_INT SSL_CTX_set_alpn_protos(ctx: PSSL_CTX, const Byte *protos,
@@ -2186,17 +2115,11 @@ var
   //__owur TIdC_INT SSL_set_alpn_protos(ssl: PSSL, const Byte *protos,
   //                               TIdC_UINT protos_len);
 
-  {$EXTERNALSYM SSL_CTX_set_alpn_select_cb}
   SSL_CTX_set_alpn_select_cb: procedure (ctx: PSSL_CTX; cb: SSL_CTX_alpn_select_cb_func; arg: Pointer); cdecl = nil;
-  {$EXTERNALSYM SSL_get0_alpn_selected}
   SSL_get0_alpn_selected: procedure (const ssl: PSSL; const data: PPByte; len: PIdC_UINT); cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_set_psk_client_callback}
   SSL_CTX_set_psk_client_callback: procedure (ctx: PSSL_CTX; cb: SSL_psk_client_cb_func); cdecl = nil;
-  {$EXTERNALSYM SSL_set_psk_client_callback}
   SSL_set_psk_client_callback: procedure (ssl: PSSL; cb: SSL_psk_client_cb_func); cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_set_psk_server_callback}
   SSL_CTX_set_psk_server_callback: procedure (ctx: PSSL_CTX; cb: SSL_psk_server_cb_func); cdecl = nil;
-  {$EXTERNALSYM SSL_set_psk_server_callback}
   SSL_set_psk_server_callback: procedure (ssl: PSSL; cb: SSL_psk_server_cb_func); cdecl = nil;
 
   //__owur TIdC_INT SSL_CTX_use_psk_identity_hint(ctx: PSSL_CTX, const PIdAnsiChar *identity_hint);
@@ -2204,22 +2127,16 @@ var
   //const PIdAnsiChar *SSL_get_psk_identity_hint(const s: PSSL);
   //const PIdAnsiChar *SSL_get_psk_identity(const s: PSSL);
 
-  {$EXTERNALSYM SSL_set_psk_find_session_callback}
   SSL_set_psk_find_session_callback: procedure (s: PSSL; cb: SSL_psk_find_session_cb_func); cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_set_psk_find_session_callback}
   SSL_CTX_set_psk_find_session_callback: procedure (ctx: PSSL_CTX; cb: SSL_psk_find_session_cb_func); cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_set_psk_use_session_callback}
   SSL_set_psk_use_session_callback: procedure (s: PSSL; cb: SSL_psk_use_session_cb_func); cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_set_psk_use_session_callback}
   SSL_CTX_set_psk_use_session_callback: procedure (ctx: PSSL_CTX; cb: SSL_psk_use_session_cb_func); cdecl = nil; {introduced 1.1.0}
 
   ///* Register callbacks to handle custom TLS Extensions for client or server. */
 
-  {$EXTERNALSYM SSL_CTX_has_client_custom_ext}
    SSL_CTX_has_client_custom_ext : function(const ctx: PSSL_CTX;
                                             ext_type : TIdC_UINT) : TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM SSL_CTX_add_client_custom_ext}
   SSL_CTX_add_client_custom_ext : function(ctx: PSSL_CTX;
                                            ext_type : TIdC_UINT;
                                            add_cb : custom_ext_add_cb;
@@ -2228,7 +2145,6 @@ var
                                            parse_cb : custom_ext_parse_cb;
                                            parse_arg : Pointer) : TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM SSL_CTX_add_server_custom_ext}
   SSL_CTX_add_server_custom_ext : function(ctx: PSSL_CTX;
                                          ext_type : TIdC_UINT;
                                          add_cb : custom_ext_add_cb;
@@ -2237,7 +2153,6 @@ var
                                          parse_cb : custom_ext_parse_cb;
                                          parse_arg : Pointer) : TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM SSL_CTX_add_custom_ext}
   SSL_CTX_add_custom_ext : function(ctx: PSSL_CTX;  ext_type : TIdC_UINT;
                                    context : TIdC_UINT;
                                    add_cb : SSL_custom_ext_add_cb_ex;
@@ -2246,7 +2161,6 @@ var
                                    parse_cb : SSL_custom_ext_parse_cb_ex;
                                    parse_arg : Pointer) : TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM SSL_extension_supported}
   SSL_extension_supported : function( ext_type : TIdC_UINT) : TIdC_INT; cdecl = nil;
 
 
@@ -2265,29 +2179,19 @@ var
    * is intended for debugging use with tools like Wireshark. The cb function
    * should log line followed by a newline.
    *)
-  {$EXTERNALSYM SSL_CTX_set_keylog_callback}
   SSL_CTX_set_keylog_callback: procedure (ctx: PSSL_CTX; cb: SSL_CTX_keylog_cb_func); cdecl = nil; {introduced 1.1.0}
   (*
    * SSL_CTX_get_keylog_callback returns the callback configured by
    * SSL_CTX_set_keylog_callback.
    *)
-  {$EXTERNALSYM SSL_CTX_get_keylog_callback}
   SSL_CTX_get_keylog_callback: function (const ctx: PSSL_CTX): SSL_CTX_keylog_cb_func; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_set_max_early_data}
   SSL_CTX_set_max_early_data: function (ctx: PSSL_CTX; max_early_data: TIdC_UINT32): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_get_max_early_data}
   SSL_CTX_get_max_early_data: function (const ctx: PSSL_CTX): TIdC_UINT32; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_set_max_early_data}
   SSL_set_max_early_data: function (s: PSSL; max_early_data: TIdC_UINT32): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_get_max_early_data}
   SSL_get_max_early_data: function (const s: PSSL): TIdC_UINT32; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_set_recv_max_early_data}
   SSL_CTX_set_recv_max_early_data: function (ctx: PSSL_CTX; recv_max_early_data: TIdC_UINT32): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_get_recv_max_early_data}
   SSL_CTX_get_recv_max_early_data: function (const ctx: PSSL_CTX): TIdC_UINT32; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_set_recv_max_early_data}
   SSL_set_recv_max_early_data: function (s: PSSL; recv_max_early_data: TIdC_UINT32): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_get_recv_max_early_data}
   SSL_get_recv_max_early_data: function (const s: PSSL): TIdC_UINT32; cdecl = nil; {introduced 1.1.0}
 
   ///*
@@ -2331,9 +2235,7 @@ var
    *   -- that we expected from peer (SSL_get_peer_finished).
    * Returns length (0 == no Finished so far), copies up to 'count' bytes.
    *)
-  {$EXTERNALSYM SSL_get_finished}
   SSL_get_finished: function (const s: PSSL; var buf; count: TIdC_SIZET): TIdC_SIZET; cdecl = nil;
-  {$EXTERNALSYM SSL_get_peer_finished}
   SSL_get_peer_finished: function (const s: PSSL; var buf; count: TIdC_SIZET): TIdC_SIZET; cdecl = nil;
 
   //# if OPENSSL_API_COMPAT < 0x10100000L
@@ -2384,176 +2286,99 @@ var
   //#  define SSL_set_tmp_rsa_callback(ssl, cb)        while(0) (cb)(NULL, 0, 0)
   //# endif
   //
-  {$EXTERNALSYM BIO_f_ssl}
   BIO_f_ssl: function : PBIO_METHOD; cdecl = nil;
-  {$EXTERNALSYM BIO_new_ssl}
   BIO_new_ssl: function (ctx: PSSL_CTX; client: TIdC_INT): PBIO; cdecl = nil;
-  {$EXTERNALSYM BIO_new_ssl_connect}
   BIO_new_ssl_connect: function (ctx: PSSL_CTX): PBIO; cdecl = nil;
-  {$EXTERNALSYM BIO_new_buffer_ssl_connect}
   BIO_new_buffer_ssl_connect: function (ctx: PSSL_CTX): PBIO; cdecl = nil;
-  {$EXTERNALSYM BIO_ssl_copy_session_id}
   BIO_ssl_copy_session_id: function (to_: PBIO; from: PBIO): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM SSL_CTX_set_cipher_list}
   SSL_CTX_set_cipher_list: function (v1: PSSL_CTX; const _str: PIdAnsiChar): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_new}
   SSL_CTX_new: function (const meth: PSSL_METHOD): PSSL_CTX; cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_new_ex}
   SSL_CTX_new_ex: function(libctx : POSSL_LIB_CTX; const propq : PIdAnsichar;
                            const meth : PSSL_METHOD) : PSSL_CTX; cdecl = nil; {introduced 3.0.0}
-  {$EXTERNALSYM SSL_CTX_set_timeout}
   SSL_CTX_set_timeout: function (ctx: PSSL_CTX; t: TIdC_LONG): TIdC_LONG; cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_get_timeout}
   SSL_CTX_get_timeout: function (const ctx: PSSL_CTX): TIdC_LONG; cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_get_cert_store}
   SSL_CTX_get_cert_store: function (const v1: PSSL_CTX): PX509_STORE; cdecl = nil;
-  {$EXTERNALSYM SSL_want}
   SSL_want: function (const s: PSSL): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_clear}
   SSL_clear: function (s: PSSL): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM BIO_ssl_shutdown}
   BIO_ssl_shutdown: procedure (ssl_bio: PBIO); cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_up_ref}
   SSL_CTX_up_ref: function (ctx: PSSL_CTX): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_free}
   SSL_CTX_free: procedure (v1: PSSL_CTX); cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_set_cert_store}
   SSL_CTX_set_cert_store: procedure (v1: PSSL_CTX; v2: PX509_STORE); cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_set1_cert_store}
   SSL_CTX_set1_cert_store: procedure (v1: PSSL_CTX; v2: PX509_STORE); cdecl = nil; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSL_CTX_flush_sessions_ex}
   SSL_CTX_flush_sessions_ex: procedure(ctx : PSSL_CTX; tm : TOSSL_TIMET); cdecl = nil; {introduced 3.4.0}
-  {$EXTERNALSYM SSL_CTX_flush_sessions}
   SSL_CTX_flush_sessions: procedure (ctx: PSSL_CTX; tm: TIdC_LONG); cdecl = nil;
 
-  {$EXTERNALSYM SSL_get_current_cipher}
   SSL_get_current_cipher: function (const s: PSSL): PSSL_CIPHER; cdecl = nil;
-  {$EXTERNALSYM SSL_get_pending_cipher}
   SSL_get_pending_cipher: function (const s: PSSL): PSSL_CIPHER; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CIPHER_get_bits}
   SSL_CIPHER_get_bits: function (const c: PSSL_CIPHER; var alg_bits: TIdC_INT): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_CIPHER_get_version}
   SSL_CIPHER_get_version: function (const c: PSSL_CIPHER): PIdAnsiChar; cdecl = nil;
-  {$EXTERNALSYM SSL_CIPHER_get_name}
   SSL_CIPHER_get_name: function (const c: PSSL_CIPHER): PIdAnsiChar; cdecl = nil;
-  {$EXTERNALSYM SSL_CIPHER_standard_name}
   SSL_CIPHER_standard_name: function (const c: PSSL_CIPHER): PIdAnsiChar; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM OPENSSL_cipher_name}
   OPENSSL_cipher_name: function (const rfc_name: PIdAnsiChar): PIdAnsiChar; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CIPHER_get_id}
   SSL_CIPHER_get_id: function (const c: PSSL_CIPHER): TIdC_UINT32; cdecl = nil;
-  {$EXTERNALSYM SSL_CIPHER_get_protocol_id}
   SSL_CIPHER_get_protocol_id: function (const c: PSSL_CIPHER): TIdC_UINT16; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CIPHER_get_kx_nid}
   SSL_CIPHER_get_kx_nid: function (const c: PSSL_CIPHER): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CIPHER_get_auth_nid}
   SSL_CIPHER_get_auth_nid: function (const c: PSSL_CIPHER): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CIPHER_get_handshake_digest}
   SSL_CIPHER_get_handshake_digest: function (const c: PSSL_CIPHER): PEVP_MD; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CIPHER_is_aead}
   SSL_CIPHER_is_aead: function (const c: PSSL_CIPHER): TIdC_INT; cdecl = nil; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSL_get_fd}
   SSL_get_fd: function (const s: PSSL): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_get_rfd}
   SSL_get_rfd: function (const s: PSSL): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_get_wfd}
   SSL_get_wfd: function (const s: PSSL): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_get_cipher_list}
   SSL_get_cipher_list: function (const s: PSSL; n: TIdC_INT): PIdAnsiChar; cdecl = nil;
-  {$EXTERNALSYM SSL_get_shared_ciphers}
   SSL_get_shared_ciphers: function (const s: PSSL; buf: PIdAnsiChar; size: TIdC_INT): PIdAnsiChar; cdecl = nil;
-  {$EXTERNALSYM SSL_get_read_ahead}
   SSL_get_read_ahead: function (const s: PSSL): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_pending}
   SSL_pending: function (const s: PSSL): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_has_pending}
   SSL_has_pending: function (const s: PSSL): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_set_fd}
   SSL_set_fd: function (s: PSSL; fd: TIdC_INT): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_set_rfd}
   SSL_set_rfd: function (s: PSSL; fd: TIdC_INT): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_set_wfd}
   SSL_set_wfd: function (s: PSSL; fd: TIdC_INT): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_set0_rbio}
   SSL_set0_rbio: procedure (s: PSSL; rbio: PBIO); cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_set0_wbio}
   SSL_set0_wbio: procedure (s: PSSL; wbio: PBIO); cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_set_bio}
   SSL_set_bio: procedure (s: PSSL; rbio: PBIO; wbio: PBIO); cdecl = nil;
-  {$EXTERNALSYM SSL_get_rbio}
   SSL_get_rbio: function (const s: PSSL): PBIO; cdecl = nil;
-  {$EXTERNALSYM SSL_get_wbio}
   SSL_get_wbio: function (const s: PSSL): PBIO; cdecl = nil;
-  {$EXTERNALSYM SSL_set_cipher_list}
   SSL_set_cipher_list: function (s: PSSL; const _str: PIdAnsiChar): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_set_ciphersuites}
   SSL_CTX_set_ciphersuites: function (ctx: PSSL_CTX; const _str: PIdAnsiChar): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_set_ciphersuites}
   SSL_set_ciphersuites: function (s: PSSL; const _str: PIdAnsiChar): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_get_verify_mode}
   SSL_get_verify_mode: function (const s: PSSL): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_get_verify_depth}
   SSL_get_verify_depth: function (const s: PSSL): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_get_verify_callback}
   SSL_get_verify_callback: function (const s: PSSL): SSL_verify_cb; cdecl = nil;
-  {$EXTERNALSYM SSL_set_read_ahead}
   SSL_set_read_ahead: procedure (s: PSSL; yes: TIdC_INT); cdecl = nil;
-  {$EXTERNALSYM SSL_set_verify}
   SSL_set_verify: procedure (s: PSSL; mode: TIdC_INT; callback: SSL_verify_cb); cdecl = nil;
-  {$EXTERNALSYM SSL_set_verify_depth}
   SSL_set_verify_depth: procedure (s: PSSL; depth: TIdC_INT); cdecl = nil;
-  {$EXTERNALSYM SSL_set_cert_cb}
   SSL_set_cert_cb : procedure(s: PSSL; cb : SSL_CTX_set_cert_cb_cb; arg : Pointer); cdecl = nil;
 
-  {$EXTERNALSYM SSL_use_RSAPrivateKey}
   SSL_use_RSAPrivateKey: function (ssl: PSSL; rsa: PRSA): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_use_RSAPrivateKey_ASN1}
   SSL_use_RSAPrivateKey_ASN1: function (ssl: PSSL; const d: PByte; len: TIdC_LONG): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_use_PrivateKey}
   SSL_use_PrivateKey: function (ssl: PSSL; pkey: PEVP_PKEY): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_use_PrivateKey_ASN1}
   SSL_use_PrivateKey_ASN1: function (pk: TIdC_INT; ssl: PSSL; const d: PByte; len: TIdC_LONG): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_use_certificate}
   SSL_use_certificate: function (ssl: PSSL; x: PX509): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_use_certificate_ASN1}
   SSL_use_certificate_ASN1: function (ssl: PSSL; const d: PByte; len: TIdC_INT): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_use_cert_and_key}
   SSL_use_cert_and_key : function(ssl: PSSL; x509: PX509; privatekey : PEVP_PKEY;
                                   chain : PSTACK_OF_X509; override_ : TIdC_INT) : TIdC_INT; cdecl = nil;
 
   (* Set serverinfo data for the current active cert. *)
-  {$EXTERNALSYM SSL_CTX_use_serverinfo}
   SSL_CTX_use_serverinfo: function (ctx: PSSL_CTX; const serverinfo: PByte; serverinfo_length: TIdC_SIZET): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_use_serverinfo_ex}
   SSL_CTX_use_serverinfo_ex: function (ctx: PSSL_CTX; version: TIdC_UINT; const serverinfo: PByte; serverinfo_length: TIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_use_serverinfo_file}
   SSL_CTX_use_serverinfo_file: function (ctx: PSSL_CTX; const file_: PIdAnsiChar): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM SSL_use_RSAPrivateKey_file}
   SSL_use_RSAPrivateKey_file: function (ssl: PSSL; const file_: PIdAnsiChar; type_: TIdC_INT): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM SSL_use_PrivateKey_file}
   SSL_use_PrivateKey_file: function (ssl: PSSL; const file_: PIdAnsiChar; type_: TIdC_INT): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_use_certificate_file}
   SSL_use_certificate_file: function (ssl: PSSL; const file_: PIdAnsiChar; type_: TIdC_INT): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM SSL_CTX_use_RSAPrivateKey_file}
   SSL_CTX_use_RSAPrivateKey_file: function (ctx: PSSL_CTX; const file_: PIdAnsiChar; type_: TIdC_INT): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM SSL_CTX_use_PrivateKey_file}
   SSL_CTX_use_PrivateKey_file: function (ctx: PSSL_CTX; const file_: PIdAnsiChar; type_: TIdC_INT): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_use_certificate_file}
   SSL_CTX_use_certificate_file: function (ctx: PSSL_CTX; const file_: PIdAnsiChar; type_: TIdC_INT): TIdC_INT; cdecl = nil;
   (* PEM type *)
   {$EXTERNALSYM SSL_CTX_use_certificate_chain_file}
   SSL_CTX_use_certificate_chain_file: function (ctx: PSSL_CTX; const file_: PIdAnsiChar): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_use_certificate_chain_file}
   SSL_use_certificate_chain_file: function (ssl: PSSL; const file_: PIdAnsiChar): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_load_client_CA_file}
   SSL_load_client_CA_file: function (const file_: PIdAnsiChar): PSTACK_OF_X509_NAME; cdecl = nil;
   {$EXTERNALSYM SSL_add_file_cert_subjects_to_stack}
   SSL_add_file_cert_subjects_to_stack: function (stackCAs: PSTACK_OF_X509_NAME; const file_: PIdAnsiChar):TIdC_INT; cdecl = nil;
@@ -2568,232 +2393,133 @@ var
   {$EXTERNALSYM SSL_load_error_strings}
   SSL_load_error_strings: procedure ; cdecl = nil; {removed 1.1.0}
 
-  {$EXTERNALSYM SSL_state_string}
   SSL_state_string: function (const s: PSSL): PIdAnsiChar; cdecl = nil;
-  {$EXTERNALSYM SSL_rstate_string}
   SSL_rstate_string: function (const s: PSSL): PIdAnsiChar; cdecl = nil;
-  {$EXTERNALSYM SSL_state_string_long}
   SSL_state_string_long: function (const s: PSSL): PIdAnsiChar; cdecl = nil;
-  {$EXTERNALSYM SSL_rstate_string_long}
   SSL_rstate_string_long: function (const s: PSSL): PIdAnsiChar; cdecl = nil;
-  {$EXTERNALSYM SSL_SESSION_get_time_ex}
   SSL_SESSION_get_time_ex: function (const s : PSSL_SESSION) : TOSSL_TIMET; cdecl = nil; {introduced 3.3.0}
-  {$EXTERNALSYM SSL_SESSION_set_time_ex}
   SSL_SESSION_set_time_ex: function(s : PSSL_SESSION; t : TOSSL_TIMET) : TOSSL_TIMET; cdecl = nil; {introduced 3.3.0}
-  {$EXTERNALSYM SSL_SESSION_get_time}
   SSL_SESSION_get_time: function (const s: PSSL_SESSION): TIdC_LONG; cdecl = nil;
-  {$EXTERNALSYM SSL_SESSION_set_time}
   SSL_SESSION_set_time: function (s: PSSL_SESSION; t: TIdC_LONG): TIdC_LONG; cdecl = nil;
-  {$EXTERNALSYM SSL_SESSION_get_timeout}
   SSL_SESSION_get_timeout: function (const s: PSSL_SESSION): TIdC_LONG; cdecl = nil;
-  {$EXTERNALSYM SSL_SESSION_set_timeout}
   SSL_SESSION_set_timeout: function (s: PSSL_SESSION; t: TIdC_LONG): TIdC_LONG; cdecl = nil;
-  {$EXTERNALSYM SSL_SESSION_get_protocol_version}
   SSL_SESSION_get_protocol_version: function (const s: PSSL_SESSION): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_SESSION_set_protocol_version}
   SSL_SESSION_set_protocol_version: function (s: PSSL_SESSION; version: TIdC_INT): TIdC_INT; cdecl = nil; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSL_SESSION_get0_hostname}
   SSL_SESSION_get0_hostname: function (const s: PSSL_SESSION): PIdAnsiChar; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_SESSION_set1_hostname}
   SSL_SESSION_set1_hostname: function (s: PSSL_SESSION; const hostname: PIdAnsiChar): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_SESSION_get0_alpn_selected}
   SSL_SESSION_get0_alpn_selected: procedure (const s: PSSL_SESSION; const alpn: PPByte; len: PIdC_SIZET); cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_SESSION_set1_alpn_selected}
   SSL_SESSION_set1_alpn_selected: function (s: PSSL_SESSION; const alpn: PByte; len: TIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_SESSION_get0_cipher}
   SSL_SESSION_get0_cipher: function (const s: PSSL_SESSION): PSSL_CIPHER; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_SESSION_set_cipher}
   SSL_SESSION_set_cipher: function (s: PSSL_SESSION; const cipher: PSSL_CIPHER): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_SESSION_has_ticket}
   SSL_SESSION_has_ticket: function (const s: PSSL_SESSION): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_SESSION_get_ticket_lifetime_hint}
   SSL_SESSION_get_ticket_lifetime_hint: function (const s: PSSL_SESSION): TIdC_ULONG; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_SESSION_get0_ticket}
   SSL_SESSION_get0_ticket: procedure (const s: PSSL_SESSION; const tick: PPByte; len: PIdC_SIZET); cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_SESSION_get_max_early_data}
   SSL_SESSION_get_max_early_data: function (const s: PSSL_SESSION): TIdC_UINT32; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_SESSION_set_max_early_data}
   SSL_SESSION_set_max_early_data: function (s: PSSL_SESSION; max_early_data: TIdC_UINT32): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_copy_session_id}
   SSL_copy_session_id: function (to_: PSSL; const from: PSSL): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_SESSION_get0_peer}
   SSL_SESSION_get0_peer: function (s: PSSL_SESSION): PX509; cdecl = nil;
-  {$EXTERNALSYM SSL_SESSION_set1_id_context}
   SSL_SESSION_set1_id_context: function (s: PSSL_SESSION; const sid_ctx: PByte; sid_ctx_len: TIdC_UINT): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_SESSION_set1_id}
   SSL_SESSION_set1_id: function (s: PSSL_SESSION; const sid: PByte; sid_len: TIdC_UINT): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_SESSION_is_resumable}
   SSL_SESSION_is_resumable: function (const s: PSSL_SESSION): TIdC_INT; cdecl = nil; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSL_SESSION_new}
   SSL_SESSION_new: function : PSSL_SESSION; cdecl = nil;
-  {$EXTERNALSYM SSL_SESSION_dup}
   SSL_SESSION_dup: function (src: PSSL_SESSION): PSSL_SESSION; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_SESSION_get_id}
   SSL_SESSION_get_id: function (const s: PSSL_SESSION; len: PIdC_UINT): PByte; cdecl = nil;
-  {$EXTERNALSYM SSL_SESSION_get0_id_context}
   SSL_SESSION_get0_id_context: function (const s: PSSL_SESSION; len: PIdC_UINT): PByte; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_SESSION_get_compress_id}
   SSL_SESSION_get_compress_id: function (const s: PSSL_SESSION): TIdC_UINT; cdecl = nil;
-  {$EXTERNALSYM SSL_SESSION_print}
   SSL_SESSION_print: function (fp: PBIO; const ses: PSSL_SESSION): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_SESSION_print_keylog}
   SSL_SESSION_print_keylog: function (bp: PBIO; const x: PSSL_SESSION): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_SESSION_up_ref}
   SSL_SESSION_up_ref: function (ses: PSSL_SESSION): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_SESSION_free}
   SSL_SESSION_free: procedure (ses: PSSL_SESSION); cdecl = nil;
-  {$EXTERNALSYM i2d_SSL_SESSION}
   i2d_SSL_SESSION : function(in_ : PSSL_SESSION;  pp : PPByte) : TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_set_session}
   SSL_set_session: function (to_: PSSL; session: PSSL_SESSION): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_add_session}
   SSL_CTX_add_session: function (ctx: PSSL_CTX; session: PSSL_SESSION): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_remove_session}
   SSL_CTX_remove_session: function (ctx: PSSL_CTX; session: PSSL_SESSION): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_set_generate_session_id}
   SSL_CTX_set_generate_session_id: function (ctx: PSSL_CTX; cb: GEN_SESSION_CB): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_set_generate_session_id}
   SSL_set_generate_session_id: function (s: PSSL; cb: GEN_SESSION_CB): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_has_matching_session_id}
   SSL_has_matching_session_id: function (const s: PSSL; const id: PByte; id_len: TIdC_UINT): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM d2i_SSL_SESSION}
   d2i_SSL_SESSION: function (a: PPSSL_SESSION; const pp: PPByte; _length: TIdC_LONG): PSSL_SESSION; cdecl = nil;
 
   {$EXTERNALSYM SSL_get_peer_certificate}
   SSL_get_peer_certificate: function (const s: PSSL): PX509; cdecl = nil; {removed 3.0.0}
 
-  {$EXTERNALSYM SSL_get_peer_cert_chain}
   SSL_get_peer_cert_chain : function(const s: PSSL) : PSTACK_OF_X509;  cdecl = nil;
 
-  {$EXTERNALSYM SSL_CTX_get_verify_mode}
   SSL_CTX_get_verify_mode: function (const ctx: PSSL_CTX): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_get_verify_depth}
   SSL_CTX_get_verify_depth: function (const ctx: PSSL_CTX): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_get_verify_callback}
   SSL_CTX_get_verify_callback: function (const ctx: PSSL_CTX): SSL_verify_cb; cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_set_verify}
   SSL_CTX_set_verify: procedure (ctx: PSSL_CTX; mode: TIdC_INT; callback: SSL_verify_cb); cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_set_verify_depth}
   SSL_CTX_set_verify_depth: procedure (ctx: PSSL_CTX; depth: TIdC_INT); cdecl = nil;
   {$EXTERNALSYM SSL_CTX_set_cert_verify_callback}
   SSL_CTX_set_cert_verify_callback: procedure (ctx: PSSL_CTX; cb: SSL_CTX_set_cert_verify_callback_cb; arg: Pointer); cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_set_cert_cb}
   SSL_CTX_set_cert_cb: procedure (c: PSSL_CTX; cb: SSL_CTX_set_cert_cb_cb; arg: Pointer); cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_use_RSAPrivateKey}
   SSL_CTX_use_RSAPrivateKey: function (ctx: PSSL_CTX; rsa: PRSA): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_use_RSAPrivateKey_ASN1}
   SSL_CTX_use_RSAPrivateKey_ASN1: function (ctx: PSSL_CTX; const d: PByte; len: TIdC_LONG): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_use_PrivateKey}
   SSL_CTX_use_PrivateKey: function (ctx: PSSL_CTX; pkey: PEVP_PKEY): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_use_PrivateKey_ASN1}
   SSL_CTX_use_PrivateKey_ASN1: function (pk: TIdC_INT; ctx: PSSL_CTX; const d: PByte; len: TIdC_LONG): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_use_certificate}
   SSL_CTX_use_certificate: function (ctx: PSSL_CTX; x: PX509): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_use_certificate_ASN1}
   SSL_CTX_use_certificate_ASN1: function (ctx: PSSL_CTX; len: TIdC_INT; const d: PByte): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_use_cert_and_key}
   SSL_CTX_use_cert_and_key : function(ctx: PSSL_CTX; x509: PX509; privatekey : PEVP_PKEY; chain : PSTACK_OF_X509; _override : TIdC_INT) : TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM SSL_CTX_set_default_passwd_cb}
   SSL_CTX_set_default_passwd_cb: procedure (ctx: PSSL_CTX; cb: pem_password_cb); cdecl = nil; {introduced 1.1.0}
   {$EXTERNALSYM SSL_CTX_set_default_passwd_cb_userdata}
   SSL_CTX_set_default_passwd_cb_userdata: procedure (ctx: PSSL_CTX; u: Pointer); cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_get_default_passwd_cb}
   SSL_CTX_get_default_passwd_cb: function (ctx: PSSL_CTX): pem_password_cb; cdecl = nil;  {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_get_default_passwd_cb_userdata}
   SSL_CTX_get_default_passwd_cb_userdata: function (ctx: PSSL_CTX): Pointer; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_set_default_passwd_cb}
   SSL_set_default_passwd_cb: procedure (s: PSSL; cb: pem_password_cb); cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_set_default_passwd_cb_userdata}
   SSL_set_default_passwd_cb_userdata: procedure (s: PSSL; u: Pointer); cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_get_default_passwd_cb}
   SSL_get_default_passwd_cb: function (s: PSSL): pem_password_cb; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_get_default_passwd_cb_userdata}
   SSL_get_default_passwd_cb_userdata: function (s: PSSL): Pointer; cdecl = nil; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSL_CTX_check_private_key}
   SSL_CTX_check_private_key: function (const ctx: PSSL_CTX): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_check_private_key}
   SSL_check_private_key: function (const ctx: PSSL): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM SSL_CTX_set_session_id_context}
   SSL_CTX_set_session_id_context: function (ctx: PSSL_CTX; const sid_ctx: PByte; sid_ctx_len: TIdC_UINT): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM SSL_new}
   SSL_new: function (ctx: PSSL_CTX): PSSL; cdecl = nil;
-  {$EXTERNALSYM SSL_up_ref}
   SSL_up_ref: function (s: PSSL): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_is_dtls}
   SSL_is_dtls: function (const s: PSSL): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_set_session_id_context}
   SSL_set_session_id_context: function (ssl: PSSL; const sid_ctx: PByte; sid_ctx_len: TIdC_UINT): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM SSL_CTX_set_purpose}
   SSL_CTX_set_purpose: function (ctx: PSSL_CTX; purpose: TIdC_INT): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_set_purpose}
   SSL_set_purpose: function (ssl: PSSL; purpose: TIdC_INT): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_set_trust}
   SSL_CTX_set_trust: function (ctx: PSSL_CTX; trust: TIdC_INT): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_set_trust}
   SSL_set_trust: function (ssl: PSSL; trust: TIdC_INT): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM SSL_set1_host}
   SSL_set1_host: function (s: PSSL; const hostname: PIdAnsiChar): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_add1_host}
   SSL_add1_host: function (s: PSSL; const hostname: PIdAnsiChar): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_get0_peername}
   SSL_get0_peername: function (s: PSSL): PIdAnsiChar; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_set_hostflags}
   SSL_set_hostflags: procedure (s: PSSL; flags: TIdC_UINT); cdecl = nil; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSL_CTX_dane_enable}
   SSL_CTX_dane_enable: function (ctx: PSSL_CTX): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_dane_mtype_set}
   SSL_CTX_dane_mtype_set: function (ctx: PSSL_CTX; const md: PEVP_MD; mtype: TIdC_UINT8; _ord: TIdC_UINT8): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_dane_enable}
   SSL_dane_enable: function (s: PSSL; const basedomain: PIdAnsiChar): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_dane_tlsa_add}
   SSL_dane_tlsa_add: function (s: PSSL; usage: TIdC_UINT8; selector: TIdC_UINT8; mtype: TIdC_UINT8; const data: PByte; dlen: TIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_get0_dane_authority}
   SSL_get0_dane_authority: function (s: PSSL; mcert: PPX509; mspki: PPEVP_PKEY): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_get0_dane_tlsa}
   SSL_get0_dane_tlsa: function (s: PSSL; usage: PIdC_UINT8; selector: PIdC_UINT8; mtype: PIdC_UINT8; const data: PPByte; dlen: PIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   (*
    * Bridge opacity barrier between libcrypt and libssl, also needed to support
    * offline testing in test/danetest.c
    *)
-  {$EXTERNALSYM SSL_get0_dane}
   SSL_get0_dane: function (ssl: PSSL): PSSL_DANE; cdecl = nil; {introduced 1.1.0}
 
   (*
    * DANE flags
    *)
-  {$EXTERNALSYM SSL_CTX_dane_set_flags}
   SSL_CTX_dane_set_flags: function (ctx: PSSL_CTX; flags: TIdC_ULONG): TIdC_ULONG; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_dane_clear_flags}
   SSL_CTX_dane_clear_flags: function (ctx: PSSL_CTX; flags: TIdC_ULONG): TIdC_ULONG; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_dane_set_flags}
   SSL_dane_set_flags: function (ssl: PSSL; flags: TIdC_ULONG): TIdC_ULONG; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_dane_clear_flags}
   SSL_dane_clear_flags: function (ssl: PSSL; flags: TIdC_ULONG): TIdC_ULONG; cdecl = nil; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSL_CTX_set1_param}
   SSL_CTX_set1_param: function (ctx: PSSL_CTX; vpm: PX509_VERIFY_PARAM): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_set1_param}
   SSL_set1_param: function (ssl: PSSL; vpm: PX509_VERIFY_PARAM): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM SSL_CTX_get0_param}
   SSL_CTX_get0_param: function (ctx: PSSL_CTX): PX509_VERIFY_PARAM; cdecl = nil;
-  {$EXTERNALSYM SSL_get0_param}
   SSL_get0_param: function (ssl: PSSL): PX509_VERIFY_PARAM; cdecl = nil;
 
-  {$EXTERNALSYM SSL_CTX_set_srp_username}
   SSL_CTX_set_srp_username: function (ctx: PSSL_CTX; name: PIdAnsiChar): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_set_srp_password}
   SSL_CTX_set_srp_password: function (ctx: PSSL_CTX; password: PIdAnsiChar): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_set_srp_strength}
   SSL_CTX_set_srp_strength: function (ctx: PSSL_CTX; strength: TIdC_INT): TIdC_INT; cdecl = nil;
 
   {$EXTERNALSYM SSL_CTX_set_srp_client_pwd_callback}
@@ -2803,11 +2529,8 @@ var
   {$EXTERNALSYM SSL_CTX_set_srp_username_callback}
   SSL_CTX_set_srp_username_callback: function (ctx: PSSL_CTX; cb: SSL_CTX_set_srp_username_callback_cb): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM SSL_CTX_set_srp_cb_arg}
   SSL_CTX_set_srp_cb_arg: function (ctx: PSSL_CTX; arg: Pointer): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_set_srp_server_param}
   SSL_set_srp_server_param: function (s: PSSL; const N: PBIGNUm; const g: PBIGNUm; sa: PBIGNUm; v: PBIGNUm; info: PIdAnsiChar): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_set_srp_server_param_pw}
   SSL_set_srp_server_param_pw: function (s: PSSL; const user: PIdAnsiChar; const pass: PIdAnsiChar; const grp: PIdAnsiChar): TIdC_INT; cdecl = nil;
 
   //__owur BIGNUM *SSL_get_srp_g(s: PSSL);
@@ -2819,154 +2542,95 @@ var
   ///*
   // * ClientHello callback and helpers.
   // */
-  {$EXTERNALSYM SSL_CTX_set_client_hello_cb}
   SSL_CTX_set_client_hello_cb: procedure (c: PSSL_CTX; cb: SSL_client_hello_cb_fn; arg: Pointer); cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_client_hello_isv2}
   SSL_client_hello_isv2: function (s: PSSL): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_client_hello_get0_legacy_version}
   SSL_client_hello_get0_legacy_version: function (s: PSSL): TIdC_UINT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_client_hello_get0_random}
   SSL_client_hello_get0_random: function (s: PSSL; const out_: PPByte): TIdC_SIZET; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_client_hello_get0_session_id}
   SSL_client_hello_get0_session_id: function (s: PSSL; const out_: PPByte): TIdC_SIZET; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_client_hello_get0_ciphers}
   SSL_client_hello_get0_ciphers: function (s: PSSL; const out_: PPByte): TIdC_SIZET; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_client_hello_get0_compression_methods}
   SSL_client_hello_get0_compression_methods: function (s: PSSL; const out_: PPByte): TIdC_SIZET; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_client_hello_get1_extensions_present}
   SSL_client_hello_get1_extensions_present: function (s: PSSL; out_: PPIdC_INT; outlen: PIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_client_hello_get0_ext}
   SSL_client_hello_get0_ext: function (s: PSSL; type_: TIdC_UINT; const out_: PPByte; outlen: PIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_certs_clear}
   SSL_certs_clear: procedure (s: PSSL); cdecl = nil;
-  {$EXTERNALSYM SSL_free}
   SSL_free: procedure (ssl: PSSL); cdecl = nil;
 
   (*
    * Windows application developer has to include windows.h to use these.
    *)
-  {$EXTERNALSYM SSL_waiting_for_async}
   SSL_waiting_for_async: function (s: PSSL): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   {$EXTERNALSYM SSL_get_all_async_fds}
   SSL_get_all_async_fds: function (s: PSSL; fds: POSSL_ASYNC_FD; numfds: PIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   {$EXTERNALSYM SSL_get_changed_async_fds}
   SSL_get_changed_async_fds: function (s: PSSL; addfd: POSSL_ASYNC_FD; numaddfds: PIdC_SIZET; delfd: POSSL_ASYNC_FD; numdelfds: PIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_accept}
   SSL_accept: function (ssl: PSSL): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_stateless}
   SSL_stateless: function (s: PSSL): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_connect}
   SSL_connect: function (ssl: PSSL): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_read}
   SSL_read: function (ssl: PSSL; var buf; num: TIdC_INT): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_read_ex}
   SSL_read_ex: function (ssl: PSSL; var buf; num: TIdC_SIZET; var readbytes: TIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSL_read_early_data}
   SSL_read_early_data: function (s: PSSL; var buf; num: TIdC_SIZET; var readbytes: TIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_peek}
   SSL_peek: function (ssl: PSSL; var buf; num: TIdC_INT): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_peek_ex}
   SSL_peek_ex: function (ssl: PSSL; var buf; num: TIdC_SIZET; var readbytes: TIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_write}
   SSL_write: function (ssl: PSSL; const buf; num: TIdC_INT): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_write_ex}
   SSL_write_ex: function (s: PSSL; const buf; num: TIdC_SIZET; var written: TIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_write_ex2}
   SSL_write_ex2: function (s: PSSL; const buf; num : TIdC_SIZET; flags : TIdC_UINT64; var written: TIdC_SIZET) : TIdC_INT; cdecl = nil; {introduced 3.3.0}
 
-  {$EXTERNALSYM SSL_write_early_data}
   SSL_write_early_data: function (s: PSSL; const buf; num: TIdC_SIZET; var written: TIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_callback_ctrl}
   SSL_callback_ctrl: function (v1: PSSL; v2: TIdC_INT; v3: SSL_callback_ctrl_v3): TIdC_LONG; cdecl = nil;
 
-  {$EXTERNALSYM SSL_ctrl}
   SSL_ctrl: function (ssl: PSSL; cmd: TIdC_INT; larg: TIdC_LONG; parg: Pointer): TIdC_LONG; cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_ctrl}
   SSL_CTX_ctrl: function (ctx: PSSL_CTX; cmd: TIdC_INT; larg: TIdC_LONG; parg: Pointer): TIdC_LONG; cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_callback_ctrl}
   SSL_CTX_callback_ctrl: function (v1: PSSL_CTX; v2: TIdC_INT; v3: SSL_CTX_callback_ctrl_v3): TIdC_LONG; cdecl = nil;
 
-  {$EXTERNALSYM SSL_get_early_data_status}
   SSL_get_early_data_status: function (const s: PSSL): TIdC_INT; cdecl = nil; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSL_get_error}
   SSL_get_error: function (const s: PSSL; ret_code: TIdC_INT): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_get_version}
   SSL_get_version: function (const s: PSSL): PIdAnsiChar; cdecl = nil;
 
   (* This sets the 'default' SSL version that SSL_new() will create *)
-  {$EXTERNALSYM SSL_CTX_set_ssl_version}
   SSL_CTX_set_ssl_version: function (ctx: PSSL_CTX; const meth: PSSL_METHOD): TIdC_INT; cdecl = nil;
 
   ///* Negotiate highest available SSL/TLS version */
-  {$EXTERNALSYM TLS_method}
   TLS_method: function : PSSL_METHOD; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM TLS_server_method}
   TLS_server_method: function : PSSL_METHOD; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM TLS_client_method}
   TLS_client_method: function : PSSL_METHOD; cdecl = nil; {introduced 1.1.0}
 
-  {$EXTERNALSYM DTLS_method}
   DTLS_method: function : PSSL_METHOD; cdecl = nil; //* DTLS 1.0 and 1.2 */
-  {$EXTERNALSYM DTLS_server_method}
   DTLS_server_method: function : PSSL_METHOD; cdecl = nil; //* DTLS 1.0 and 1.2 */
-  {$EXTERNALSYM DTLS_client_method}
   DTLS_client_method: function : PSSL_METHOD; cdecl = nil; //* DTLS 1.0 and 1.2 */
 
-  {$EXTERNALSYM DTLS_get_data_mtu}
   DTLS_get_data_mtu : function (const s: PSSL) : TIdC_SIZET; cdecl = nil;
 
-  {$EXTERNALSYM SSL_get_ciphers}
   SSL_get_ciphers : function(const s: PSSL) : PSTACK_OF_SSL_CIPHER; cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_get_ciphers}
   SSL_CTX_get_ciphers : function(const ctx: PSSL_CTX) : PSTACK_OF_SSL_CIPHER; cdecl = nil;
-  {$EXTERNALSYM SSL_get_client_ciphers}
   SSL_get_client_ciphers : function(const s: PSSL) : PSTACK_OF_SSL_CIPHER; cdecl = nil;
-  {$EXTERNALSYM SSL_get1_supported_ciphers}
   SSL_get1_supported_ciphers : function(s: PSSL) : PSTACK_OF_SSL_CIPHER; cdecl = nil;
 
-  {$EXTERNALSYM SSL_do_handshake}
   SSL_do_handshake: function(s: PSSL) : TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM SSL_key_update}
   SSL_key_update: function (s: PSSL; updatetype: TIdC_INT): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_get_key_update_type}
   SSL_get_key_update_type: function (const s: PSSL): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_renegotiate}
   SSL_renegotiate: function (s: PSSL): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_renegotiate_abbreviated}
   SSL_renegotiate_abbreviated: function (s: PSSL): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_shutdown}
   SSL_shutdown: function (s: PSSL): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM  SSL_shutdown_ex}
   SSL_shutdown_ex: function(ssl : PSSL; flags : TIdC_UINT64;
                            const args : PSSL_SHUTDOWN_EX_ARGS;
                            args_len : TIdC_SIZET) : TIdC_INT; cdecl = nil;   {introduced 3.2.0}
 
-  {$EXTERNALSYM SSL_stream_conclude}
   SSL_stream_conclude : function(ssl : PSSL; flags : TIdC_UINT64) : TIdC_INT; cdecl = nil;  {introduced 3.2.0}
-  {$EXTERNALSYM SSL_stream_reset}
   SSL_stream_reset : function(ssl : PSSL;
                             args : PSSL_STREAM_RESET_ARGS;
                             args_len : TIdC_SIZET) : TIdC_INT; cdecl = nil;  {introduced 3.2.0}
 
-  {$EXTERNALSYM SSL_get_stream_read_state}
   SSL_get_stream_read_state : function(ssl : PSSL) : TIdC_INT; cdecl = nil;  {introduced 3.2.0}
-  {$EXTERNALSYM SSL_get_stream_write_state}
   SSL_get_stream_write_state : function(ssl : PSSL) : TIdC_INT;  cdecl = nil;  {introduced 3.2.0}
-  {$EXTERNALSYM SSL_get_stream_read_error_code}
   SSL_get_stream_read_error_code : function(ssl : PSSL; uapp_error_code : PIdC_UINT64) : TIdC_INT; cdecl = nil;  {introduced 3.2.0}
-  {$EXTERNALSYM SSL_get_stream_write_error_code}
   SSL_get_stream_write_error_code : function(ssl : PSSL; app_error_code : PIdC_UINT64) : TIdC_INT; cdecl = nil; {introduced 3.2.0}
-  {$EXTERNALSYM SSL_get_conn_close_info}
   SSL_get_conn_close_info : function(ssl : PSSL;
                                  info : PSSL_CONN_CLOSE_INFO;
                                  info_len : TIdC_SIZET) : TIdC_INT; cdecl = nil;  {introduced 3.2.0}
 
-  {$EXTERNALSYM SSL_get_value_uint}
   SSL_get_value_uint : function(s : PSSL; class_ : TIdC_UINT32; id  : TIdC_UINT32; v : PIdC_UINT64) : TIdC_INT; cdecl = nil; {introduced 3.3.0}
-  {$EXTERNALSYM SSL_set_value_uint}
   SSL_set_value_uint : function(s : PSSL; class_ : TIdC_UINT32; id  : TIdC_UINT32;  v : TIdC_UINT64) : TIdC_INT; cdecl = nil; {introduced 3.3.0}
   {$EXTERNALSYM SSL_poll}
   SSL_poll : function(items : PSSL_POLL_ITEM;
@@ -2976,63 +2640,37 @@ var
                     flags : TIdC_UINT64;
                     result_count : PIdC_SIZET) : TIdC_INT; cdecl = nil; {introduced 3.3.0}
 
-  {$EXTERNALSYM SSL_CTX_set_post_handshake_auth}
   SSL_CTX_set_post_handshake_auth: procedure (ctx: PSSL_CTX; _val: TIdC_INT); cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_set_post_handshake_auth}
   SSL_set_post_handshake_auth: procedure (s: PSSL; _val: TIdC_INT); cdecl = nil; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSL_renegotiate_pending}
   SSL_renegotiate_pending: function (const s: PSSL): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_verify_client_post_handshake}
   SSL_verify_client_post_handshake: function (s: PSSL): TIdC_INT; cdecl = nil; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSL_CTX_get_ssl_method}
   SSL_CTX_get_ssl_method: function (const ctx: PSSL_CTX): PSSL_METHOD; cdecl = nil;
-  {$EXTERNALSYM SSL_get_ssl_method}
   SSL_get_ssl_method: function (const s: PSSL): PSSL_METHOD; cdecl = nil;
-  {$EXTERNALSYM SSL_set_ssl_method}
   SSL_set_ssl_method: function (s: PSSL; const method: PSSL_METHOD): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_alert_type_string_long}
   SSL_alert_type_string_long: function (value: TIdC_INT): PIdAnsiChar; cdecl = nil;
-  {$EXTERNALSYM SSL_alert_type_string}
   SSL_alert_type_string: function (value: TIdC_INT): PIdAnsiChar; cdecl = nil;
-  {$EXTERNALSYM SSL_alert_desc_string_long}
   SSL_alert_desc_string_long: function (value: TIdC_INT): PIdAnsiChar; cdecl = nil;
-  {$EXTERNALSYM SSL_alert_desc_string}
   SSL_alert_desc_string: function (value: TIdC_INT): PIdAnsiChar; cdecl = nil;
 
-  {$EXTERNALSYM SSL_set0_CA_list}
   SSL_set0_CA_list : procedure(s: PSSL; name_list : PSTACK_OF_X509_NAME); cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_set0_CA_list}
   SSL_CTX_set0_CA_list : procedure(ctx: PSSL_CTX; name_list : PSTACK_OF_X509_NAME); cdecl = nil;
-  {$EXTERNALSYM SSL_get0_CA_list}
   SSL_get0_CA_list : function(const s: PSSL) : PSTACK_OF_X509_NAME;  cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_get0_CA_list}
   SSL_CTX_get0_CA_list : function(const ctx: PSSL_CTX) : PSTACK_OF_X509_NAME; cdecl = nil;
-  {$EXTERNALSYM SSL_add1_to_CA_list}
   SSL_add1_to_CA_list : function(ssl: PSSL; const x : PX509) : TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_add1_to_CA_list}
   SSL_CTX_add1_to_CA_list : function(ctx: PSSL_CTX; const x : PX509) : TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_get0_peer_CA_list}
   SSL_get0_peer_CA_list : function (const s: PSSL) : PSTACK_OF_X509_NAME; cdecl = nil;
 
-  {$EXTERNALSYM SSL_set_client_CA_list}
   SSL_set_client_CA_list : procedure(s: PSSL; name_list : PSTACK_OF_X509_NAME); cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_set_client_CA_list}
   SSL_CTX_set_client_CA_list : procedure(ctx: PSSL_CTX; name_list : PSTACK_OF_X509_NAME); cdecl = nil;
-  {$EXTERNALSYM SSL_get_client_CA_list}
   SSL_get_client_CA_list : function(const s: PSSL) : PSTACK_OF_X509_NAME; cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_get_client_CA_list}
   SSL_CTX_get_client_CA_list : function(const s : PSSL_CTX) : PSTACK_OF_X509_NAME; cdecl = nil;
 
-  {$EXTERNALSYM SSL_add_client_CA}
   SSL_add_client_CA: function (ssl: PSSL; x: PX509): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_add_client_CA}
   SSL_CTX_add_client_CA: function (ctx: PSSL_CTX; x: PX509): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM SSL_set_connect_state}
   SSL_set_connect_state: procedure (s: PSSL); cdecl = nil;
-  {$EXTERNALSYM SSL_set_accept_state}
   SSL_set_accept_state: procedure (s: PSSL); cdecl = nil;
 
   //__owur TIdC_LONG SSL_get_default_timeout(const s: PSSL);
@@ -3045,119 +2683,73 @@ var
 
   //__owur PIdAnsiChar *SSL_CIPHER_description(const SSL_CIPHER *, PIdAnsiChar *buf, TIdC_INT size);
   //__owur STACK_OF(X509_NAME) *SSL_dup_CA_list(const STACK_OF(X509_NAME) *sk);
-  {$EXTERNALSYM SSL_CIPHER_description}
   SSL_CIPHER_description: function (cipher: PSSL_CIPHER; buf: PIdAnsiChar; size_ :TIdC_INT): PIdAnsiChar; cdecl = nil;
 
-  {$EXTERNALSYM SSL_dup}
   SSL_dup: function (ssl: PSSL): PSSL; cdecl = nil;
 
-  {$EXTERNALSYM SSL_get_certificate}
   SSL_get_certificate: function (const ssl: PSSL): PX509; cdecl = nil;
   (*
    * EVP_PKEY
    *)
-  {$EXTERNALSYM SSL_get_privatekey}
   SSL_get_privatekey: function (const ssl: PSSL): PEVP_PKEY; cdecl = nil;
 
-  {$EXTERNALSYM SSL_CTX_get0_certificate}
   SSL_CTX_get0_certificate: function (const ctx: PSSL_CTX): PX509; cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_get0_privatekey}
   SSL_CTX_get0_privatekey: function (const ctx: PSSL_CTX): PEVP_PKEY; cdecl = nil;
 
-  {$EXTERNALSYM SSL_CTX_set_quiet_shutdown}
   SSL_CTX_set_quiet_shutdown: procedure (ctx: PSSL_CTX; mode: TIdC_INT); cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_get_quiet_shutdown}
   SSL_CTX_get_quiet_shutdown: function (const ctx: PSSL_CTX): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_set_quiet_shutdown}
   SSL_set_quiet_shutdown: procedure (ssl: PSSL; mode: TIdC_INT); cdecl = nil;
-  {$EXTERNALSYM SSL_get_quiet_shutdown}
   SSL_get_quiet_shutdown: function (const ssl: PSSL): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_set_shutdown}
   SSL_set_shutdown: procedure (ssl: PSSL; mode: TIdC_INT); cdecl = nil;
-  {$EXTERNALSYM SSL_get_shutdown}
   SSL_get_shutdown: function (const ssl: PSSL): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_version}
   SSL_version: function (const ssl: PSSL): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_client_version}
   SSL_client_version: function (const s: PSSL): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   {$EXTERNALSYM SSL_CTX_set_default_verify_paths}
   SSL_CTX_set_default_verify_paths: function (ctx: PSSL_CTX): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_set_default_verify_dir}
   SSL_CTX_set_default_verify_dir: function (ctx: PSSL_CTX): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_set_default_verify_file}
   SSL_CTX_set_default_verify_file: function (ctx: PSSL_CTX): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_load_verify_locations}
   SSL_CTX_load_verify_locations: function (ctx: PSSL_CTX; const CAfile: PIdAnsiChar; const CApath: PIdAnsiChar): TIdC_INT; cdecl = nil;
   //# define SSL_get0_session SSL_get_session/* just peek at pointer */
-  {$EXTERNALSYM SSL_get_session}
   SSL_get_session: function (const ssl: PSSL): PSSL_SESSION; cdecl = nil;
   (* obtain a reference count *)
-  {$EXTERNALSYM SSL_get1_session}
   SSL_get1_session: function (ssl: PSSL): PSSL_SESSION; cdecl = nil;
-  {$EXTERNALSYM SSL_get_SSL_CTX}
   SSL_get_SSL_CTX: function (const ssl: PSSL): PSSL_CTX; cdecl = nil;
-  {$EXTERNALSYM SSL_set_SSL_CTX}
   SSL_set_SSL_CTX: function (ssl: PSSL; ctx: PSSL_CTX): PSSL_CTX; cdecl = nil;
-  {$EXTERNALSYM SSL_set_info_callback}
   SSL_set_info_callback: procedure (ssl: PSSL; cb: SSL_info_callback); cdecl = nil;
-  {$EXTERNALSYM SSL_get_info_callback}
   SSL_get_info_callback: function (const ssl: PSSL): SSL_info_callback; cdecl = nil;
   {$EXTERNALSYM SSL_get_state}
   SSL_get_state: function (const ssl: PSSL): OSSL_HANDSHAKE_STATE; cdecl = nil; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSL_set_verify_result}
   SSL_set_verify_result: procedure (ssl: PSSL; v: TIdC_LONG); cdecl = nil;
-  {$EXTERNALSYM SSL_get_verify_result}
   SSL_get_verify_result: function (const ssl: PSSL): TIdC_LONG; cdecl = nil;
-  {$EXTERNALSYM SSL_get0_verified_chain}
   SSL_get0_verified_chain : function(const s: PSSL) : PSTACK_OF_X509; cdecl = nil;
 
-  {$EXTERNALSYM SSL_get_client_random}
   SSL_get_client_random: function (const ssl: PSSL; out_: PByte; outlen: TIdC_SIZET): TIdC_SIZET; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_get_server_random}
   SSL_get_server_random: function (const ssl: PSSL; out_: PByte; outlen: TIdC_SIZET): TIdC_SIZET; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_SESSION_get_master_key}
   SSL_SESSION_get_master_key: function (const sess: PSSL_SESSION; out_: PByte; outlen: TIdC_SIZET): TIdC_SIZET; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_SESSION_set1_master_key}
   SSL_SESSION_set1_master_key: function (sess: PSSL_SESSION; const in_: PByte; len: TIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_SESSION_get_max_fragment_length}
   SSL_SESSION_get_max_fragment_length: function (const sess: PSSL_SESSION): TIdC_UINT8; cdecl = nil; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSL_set_ex_data}
   SSL_set_ex_data: function (ssl: PSSL; idx: TIdC_INT; data: Pointer): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_get_ex_data}
   SSL_get_ex_data: function (const ssl: PSSL; idx: TIdC_INT): Pointer; cdecl = nil;
-  {$EXTERNALSYM SSL_SESSION_set_ex_data}
   SSL_SESSION_set_ex_data: function (ss: PSSL_SESSION; idx: TIdC_INT; data: Pointer): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_SESSION_get_ex_data}
   SSL_SESSION_get_ex_data: function (const ss: PSSL_SESSION; idx: TIdC_INT): Pointer; cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_set_ex_data}
   SSL_CTX_set_ex_data: function (ssl: PSSL_CTX; idx: TIdC_INT; data: Pointer): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_get_ex_data}
   SSL_CTX_get_ex_data: function (const ssl: PSSL_CTX; idx: TIdC_INT): Pointer; cdecl = nil;
 
   {$EXTERNALSYM SSL_get_ex_data_X509_STORE_CTX_idx}
   SSL_get_ex_data_X509_STORE_CTX_idx: function : TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM SSL_CTX_set_default_read_buffer_len}
   SSL_CTX_set_default_read_buffer_len: procedure (ctx: PSSL_CTX; len: TIdC_SIZET); cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_set_default_read_buffer_len}
   SSL_set_default_read_buffer_len: procedure (s: PSSL; len: TIdC_SIZET); cdecl = nil; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSL_CTX_set_tmp_dh_callback}
   SSL_CTX_set_tmp_dh_callback: procedure (ctx: PSSL_CTX; dh: SSL_CTX_set_tmp_dh_callback_dh); cdecl = nil;
-  {$EXTERNALSYM SSL_set_tmp_dh_callback}
   SSL_set_tmp_dh_callback: procedure (ssl: PSSL; dh: SSL_set_tmp_dh_callback_dh); cdecl = nil;
 
-  {$EXTERNALSYM SSL_get_current_compression}
   SSL_get_current_compression : function (const s: PSSL) : PCOMP_METHOD; cdecl = nil;
-  {$EXTERNALSYM SSL_get_current_expansion}
   SSL_get_current_expansion : function (const s: PSSL) : PCOMP_METHOD; cdecl = nil;
-  {$EXTERNALSYM SSL_COMP_get_name}
   SSL_COMP_get_name : function(const _comp : PCOMP_METHOD) : PIdAnsiChar; cdecl = nil;
-  {$EXTERNALSYM SSL_COMP_get0_name}
   SSL_COMP_get0_name : function(const _comp : PSSL_COMP) : PIdAnsiChar; cdecl = nil;
-  {$EXTERNALSYM SSL_COMP_get_id}
   SSL_COMP_get_id : function(const _comp : PSSL_COMP) : TIdC_INT; cdecl = nil;
   {$EXTERNALSYM SSL_COMP_get_compression_methods}
   SSL_COMP_get_compression_methods : function : PSTACK_OF_SSL_COMP; cdecl = nil;
@@ -3166,142 +2758,88 @@ var
   //# if OPENSSL_API_COMPAT < 0x10100000L
   //#  define SSL_COMP_free_compression_methods() while(0) continue
   //# endif
-  {$EXTERNALSYM SSL_COMP_add_compression_method}
   SSL_COMP_add_compression_method : function(id : TIdC_INT; cm : PCOMP_METHOD) : TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM SSL_CIPHER_find}
   SSL_CIPHER_find: function (ssl: PSSL; const _ptr: PByte): PSSL_CIPHER; cdecl = nil;
-  {$EXTERNALSYM SSL_CIPHER_get_cipher_nid}
   SSL_CIPHER_get_cipher_nid: function (const c: PSSL_CIPHEr): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CIPHER_get_digest_nid}
   SSL_CIPHER_get_digest_nid: function (const c: PSSL_CIPHEr): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   //TIdC_INT SSL_bytes_to_cipher_list(s: PSSL, const Byte *bytes, TIdC_SIZET len,
   //                             TIdC_INT isv2format, STACK_OF(SSL_CIPHER) **sk,
   //                             STACK_OF(SSL_CIPHER) **scsvs);
 
   (* TLS extensions functions *)
-  {$EXTERNALSYM SSL_set_session_ticket_ext}
   SSL_set_session_ticket_ext: function (s: PSSL; ext_data: Pointer; ext_len: TIdC_INT): TIdC_INT; cdecl = nil;
   //
-  {$EXTERNALSYM SSL_set_session_ticket_ext_cb}
   SSL_set_session_ticket_ext_cb: function (s: PSSL; cb: tls_session_ticket_ext_cb_fn; arg: Pointer): TIdC_INT; cdecl = nil;
 
   ///* Pre-shared secret session resumption functions */
-  {$EXTERNALSYM  SSL_set_session_secret_cb}
   SSL_set_session_secret_cb: function(s: PSSL;
                                       session_secret_cb : tls_session_secret_cb_fn;
                                       arg : Pointer) : TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM SSL_CTX_set_not_resumable_session_callback}
   SSL_CTX_set_not_resumable_session_callback: procedure (ctx: PSSL_CTX; cb: SSL_CTX_set_not_resumable_session_callback_cb); cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_set_not_resumable_session_callback}
   SSL_set_not_resumable_session_callback: procedure (ssl: PSSL; cb: SSL_set_not_resumable_session_callback_cb); cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_set_record_padding_callback}
   SSL_CTX_set_record_padding_callback: procedure (ctx: PSSL_CTX; cb: SSL_CTX_set_record_padding_callback_cb); cdecl = nil; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSL_CTX_set_record_padding_callback_arg}
   SSL_CTX_set_record_padding_callback_arg: procedure (ctx: PSSL_CTX; arg: Pointer); cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_get_record_padding_callback_arg}
   SSL_CTX_get_record_padding_callback_arg: function (const ctx: PSSL_CTX): Pointer; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_set_block_padding}
   SSL_CTX_set_block_padding: function (ctx: PSSL_CTX; block_size: TIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSL_set_record_padding_callback}
   SSL_set_record_padding_callback: procedure (ssl: PSSL; cb: SSL_set_record_padding_callback_cb); cdecl = nil; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSL_set_record_padding_callback_arg}
   SSL_set_record_padding_callback_arg: procedure (ssl: PSSL; arg: Pointer); cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_get_record_padding_callback_arg}
   SSL_get_record_padding_callback_arg: function (const ssl: PSSL): Pointer; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_set_block_padding}
   SSL_set_block_padding: function (ssl: PSSL; block_size: TIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_set_num_tickets}
   SSL_set_num_tickets: function (s: PSSL; num_tickets: TIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_get_num_tickets}
   SSL_get_num_tickets: function (const s: PSSL): TIdC_SIZET; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_set_num_tickets}
   SSL_CTX_set_num_tickets: function (ctx: PSSL_CTX; num_tickets: TIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_get_num_tickets}
   SSL_CTX_get_num_tickets: function (const ctx: PSSL_CTX): TIdC_SIZET; cdecl = nil; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSL_handle_events}
   SSL_handle_events: function(s : PSSL) : TIdC_INT; cdecl = nil;  {introduced 3.2.0}
   {$EXTERNALSYM SSL_get_event_timeout}
   SSL_get_event_timeout: function(s : PSSL; tv : Ptimeval; is_infinite : TIdC_INT) : TIdC_INT; cdecl = nil; {introduced 3.2.0}
-  {$EXTERNALSYM SSL_get_rpoll_descriptor}
   SSL_get_rpoll_descriptor: function(s : PSSL;  desc : PBIO_POLL_DESCRIPTOR) : TIdC_INT; cdecl = nil; {introduced 3.2.0}
-  {$EXTERNALSYM SSL_get_wpoll_descriptor}
   SSL_get_wpoll_descriptor: function(s : PSSL;  desc : PBIO_POLL_DESCRIPTOR) : TIdC_INT; cdecl = nil; {introduced 3.2.0}
-  {$EXTERNALSYM SSL_net_read_desired}
   SSL_net_read_desired: function(s : PSSL) : TIdC_INT; cdecl = nil;  {introduced 3.2.0}
-  {$EXTERNALSYM SSL_net_write_desired}
   SSL_net_write_desired: function(s : PSSL) : TIdC_INT; cdecl = nil;  {introduced 3.2.0}
-  {$EXTERNALSYM SSL_set_blocking_mode}
   SSL_set_blocking_mode: function(s : PSSL; blocking : TIdC_INT) : TIdC_INT; cdecl = nil;  {introduced 3.2.0}
-  {$EXTERNALSYM SSL_get_blocking_mode}
   SSL_get_blocking_mode: function(s : PSSL) : TIdC_INT; cdecl = nil;  {introduced 3.2.0}
-  {$EXTERNALSYM SSL_set1_initial_peer_addr}
   SSL_set1_initial_peer_addr : function(s : PSSL; peer_addr : PBIO_ADDR) : TIdC_INT; cdecl = nil;  {introduced 3.2.0}
-  {$EXTERNALSYM SSL_get0_connection}
   SSL_get0_connection: function(s : PSSL) : PSSL; cdecl = nil;   {introduced 3.2.0}
-  {$EXTERNALSYM SSL_is_connection}
   SSL_is_connection: function(s : PSSL) : TIdC_INT; cdecl = nil;   {introduced 3.2.0}
 
-  {$EXTERNALSYM SSL_is_listener}
   SSL_is_listener : function(ssl : PSSL) : TIdC_INT; cdecl = nil;  {introduced 3.5.0}
-  {$EXTERNALSYM SSL_get0_listener}
   SSL_get0_listener : function(s : PSSL) : PSSL; cdecl = nil;  {introduced 3.5.0}
-  {$EXTERNALSYM SSL_new_listener}
   SSL_new_listener : function(ctx : PSSL_CTX; flags : TIdC_UINT64) : PSSL; cdecl = nil; {introduced 3.5.0}
-  {$EXTERNALSYM SSL_new_listener_from}
   SSL_new_listener_from : function(ssl : PSSL; flags : TIdC_UINT64) : PSSL; cdecl = nil; {introduced 3.5.0}
-  {$EXTERNALSYM SSL_new_from_listener}
   SSL_new_from_listener : function(ssl : PSSL; flags : TIdC_UINT64) : PSSL; cdecl = nil; {introduced 3.5.0}
-  {$EXTERNALSYM SSL_accept_connection}
   SSL_accept_connection : function(ssl : PSSL; flags : TIdC_UINT64) : PSSL; cdecl = nil; {introduced 3.5.0}
-  {$EXTERNALSYM SSL_get_accept_connection_queue_len}
   SSL_get_accept_connection_queue_len : function(ssl : PSSL) : TIdC_SIZET; cdecl = nil; {introduced 3.5.0}
-  {$EXTERNALSYM SSL_listen}
   SSL_listen : function(ssl : PSSL) : TIdC_INT; cdecl = nil; {introduced 3.5.0}
 
-  {$EXTERNALSYM SSL_is_domain}
   SSL_is_domain : function(s : PSSL) : TIdC_INT; cdecl = nil; {introduced 3.5.0}
-  {$EXTERNALSYM SSL_get0_domain}
   SSL_get0_domain : function(s : PSSL) : PSSL; cdecl = nil;  {introduced 3.5.0}
-  {$EXTERNALSYM SSL_new_domain}
   SSL_new_domain : function(ctx : PSSL_CTX; flags : TIdC_UINT64) : PSSL; cdecl = nil; {introduced 3.5.0}
 
-  {$EXTERNALSYM SSL_CTX_set_domain_flags}
   SSL_CTX_set_domain_flags : function(ctx : PSSL_CTX ; domain_flags : TIdC_UINT64) : TIdC_INT; cdecl = nil; {introduced 3.5.0}
-  {$EXTERNALSYM SSL_CTX_get_domain_flags}
   SSL_CTX_get_domain_flags : function(ctx : PSSL_CTX; domain_flags : PIdC_UINT64) : TIdC_INT; cdecl = nil; {introduced 3.5.0}
-  {$EXTERNALSYM SSL_get_domain_flags}
   SSL_get_domain_flags : function(ssl : PSSL; domain_flags  : PIdC_UINT64) : TIdC_INT; cdecl = nil;  {introduced 3.5.0}
 
-  {$EXTERNALSYM SSL_get_stream_type}
   SSL_get_stream_type : function(s : PSSL) : TIdC_INT; cdecl = nil;  {introduced 3.2.0}
 
-  {$EXTERNALSYM SSL_get_stream_id}
   SSL_get_stream_id : function(s : PSSL) : TIdC_UINT64; cdecl = nil;   {introduced 3.2.0}
-  {$EXTERNALSYM SSL_is_stream_local}
   SSL_is_stream_local : function(s : PSSL) : TIdC_INT; cdecl = nil;   {introduced 3.2.0}
 
-  {$EXTERNALSYM SSL_set_default_stream_mode}
   SSL_set_default_stream_mode: function(s : PSSL; mode : TIdC_UINT32) : TIdC_INT; cdecl = nil;   {introduced 3.2.0}
 
-  {$EXTERNALSYM SSL_new_stream}
   SSL_new_stream: function(s : PSSL; flags : TIdC_UINT64) : PSSL; cdecl = nil;  {introduced 3.2.0}
 
-  {$EXTERNALSYM SSL_set_incoming_stream_policy}
   SSL_set_incoming_stream_policy: function(s : PSSL; policy : TIdC_INT; aec : TIdC_UINT64) : TIdC_INT; cdecl = nil;  {introduced 3.2.0}
 
-  {$EXTERNALSYM SSL_accept_stream}
   SSL_accept_stream: function(s : PSSL; flags : TIdC_UINT64) : PSSL; cdecl = nil;   {introduced 3.2.0}
-  {$EXTERNALSYM SSL_get_accept_stream_queue_len}
   SSL_get_accept_stream_queue_len : function(s : PSSL) : TIdC_SIZET; cdecl = nil;    {introduced 3.2.0}
 
   {$IFNDEF  OPENSSL_NO_QUIC}
-  {$EXTERNALSYM SSL_inject_net_dgram}
   SSL_inject_net_dgram: function(s : PSSL; buf : PIdAnsiChar;
                                 buf_len : TIdC_SIZET;
                                 peer : PBIO_ADDR;
@@ -3314,40 +2852,24 @@ var
 
   {$EXTERNALSYM SSL_session_reused}
   SSL_session_reused: function (const s: PSSL): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_is_server}
   SSL_is_server: function (const s: PSSL): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM SSL_CONF_CTX_new}
   SSL_CONF_CTX_new: function : PSSL_CONF_CTX; cdecl = nil;
-  {$EXTERNALSYM SSL_CONF_CTX_finish}
   SSL_CONF_CTX_finish: function (cctx: PSSL_CONF_CTX): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_CONF_CTX_free}
   SSL_CONF_CTX_free: procedure (cctx: PSSL_CONF_CTX); cdecl = nil;
-  {$EXTERNALSYM SSL_CONF_CTX_set_flags}
   SSL_CONF_CTX_set_flags: function (cctx: PSSL_CONF_CTX; flags: TIdC_UINT): TIdC_UINT; cdecl = nil;
-  {$EXTERNALSYM SSL_CONF_CTX_clear_flags}
   SSL_CONF_CTX_clear_flags: function (cctx: PSSL_CONF_CTX; flags: TIdC_UINT): TIdC_UINT; cdecl = nil;
-  {$EXTERNALSYM SSL_CONF_CTX_set1_prefix}
   SSL_CONF_CTX_set1_prefix: function (cctx: PSSL_CONF_CTX; const pre: PIdAnsiChar): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_CONF_cmd}
   SSL_CONF_cmd: function (cctx: PSSL_CONF_CTX; const cmd: PIdAnsiChar; const value: PIdAnsiChar): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_CONF_cmd_argv}
   SSL_CONF_cmd_argv: function (cctx: PSSL_CONF_CTX; pargc: PIdC_INT; pargv: PPPIdAnsiChar): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_CONF_cmd_value_type}
   SSL_CONF_cmd_value_type: function (cctx: PSSL_CONF_CTX; const cmd: PIdAnsiChar): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM SSL_CONF_CTX_set_ssl}
   SSL_CONF_CTX_set_ssl: procedure (cctx: PSSL_CONF_CTX; ssl: PSSL); cdecl = nil;
-  {$EXTERNALSYM SSL_CONF_CTX_set_ssl_ctx}
   SSL_CONF_CTX_set_ssl_ctx: procedure (cctx: PSSL_CONF_CTX; ctx: PSSL_CTX); cdecl = nil;
-  {$EXTERNALSYM SSL_add_ssl_module}
   SSL_add_ssl_module: procedure ; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_config}
   SSL_config: function (s: PSSL; const name: PIdAnsiChar): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_config}
   SSL_CTX_config: function (ctx: PSSL_CTX; const name: PIdAnsiChar): TIdC_INT; cdecl = nil; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSL_trace}
   SSL_trace : procedure(write_p: TIdC_INT; version: TIdC_INT; content_type: TIdC_INT; const buf; len: TIdC_SIZET; ssl: PSSL; arg: Pointer); cdecl = nil;
 
   {$EXTERNALSYM DTLSv1_listen}
@@ -3376,9 +2898,7 @@ var
   // * NOTE: A side-effect of setting a CT callback is that an OCSP stapled response
   // *       will be requested.
   // */
-  {$EXTERNALSYM SSL_set_ct_validation_callback}
   SSL_set_ct_validation_callback : function(s: PSSL; callback: ssl_ct_validation_cb; arg: Pointer): TIdC_INT;  cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_set_ct_validation_callback}
   SSL_CTX_set_ct_validation_callback : function(ctx: PSSL_CTX; callback: ssl_ct_validation_cb; arg: Pointer): TIdC_INT;  cdecl = nil;
 
   //#define SSL_disable_ct(s) \
@@ -3400,103 +2920,67 @@ var
   // * least one valid SCT, or else handshake termination will be requested.  The
   // * handshake may continue anyway if SSL_VERIFY_NONE is in_ effect.
   // */
-  {$EXTERNALSYM SSL_enable_ct}
   SSL_enable_ct: function (s: PSSL; validation_mode: TIdC_INT): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_enable_ct}
   SSL_CTX_enable_ct: function (ctx: PSSL_CTX; validation_mode: TIdC_INT): TIdC_INT; cdecl = nil; {introduced 1.1.0}
 
   ///*
   // * Report whether a non-NULL callback is enabled.
   // */
-  {$EXTERNALSYM SSL_ct_is_enabled}
   SSL_ct_is_enabled: function (const s: PSSL): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_ct_is_enabled}
   SSL_CTX_ct_is_enabled: function (const ctx: PSSL_CTX): TIdC_INT; cdecl = nil; {introduced 1.1.0}
 
   ///* Gets the SCTs received from a connection */
-  {$EXTERNALSYM SSL_get0_peer_scts}
   SSL_get0_peer_scts: function(s: PSSL) : PSTACK_OF_SCT; cdecl = nil;
 
-  {$EXTERNALSYM SSL_CTX_set_default_ctlog_list_file}
   SSL_CTX_set_default_ctlog_list_file: function (ctx: PSSL_CTX): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_set_ctlog_list_file}
   SSL_CTX_set_ctlog_list_file: function (ctx: PSSL_CTX; const path: PIdAnsiChar): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_set0_ctlog_store}
   SSL_CTX_set0_ctlog_store: procedure (ctx: PSSL_CTX; logs: PCTLOG_STORE); cdecl = nil; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSL_CTX_get0_ctlog_store}
   SSL_CTX_get0_ctlog_store: function(const ctx: PSSL_CTX) : PCTLOG_STORE; cdecl = nil;
 
   // # endif /* OPENSSL_NO_CT */
 
-  {$EXTERNALSYM SSL_set_security_level}
   SSL_set_security_level: procedure (s: PSSL; level: TIdC_INT); cdecl = nil; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSL_get_security_level}
   SSL_get_security_level : function(const s: PSSL) : TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_set_security_callback}
   SSL_set_security_callback: procedure (s: PSSL; cb: SSL_security_callback); cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_get_security_callback}
   SSL_get_security_callback: function (const s: PSSL): SSL_security_callback; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_set0_security_ex_data}
   SSL_set0_security_ex_data: procedure (s: PSSL; ex: Pointer); cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_get0_security_ex_data}
   SSL_get0_security_ex_data: function (const s: PSSL): Pointer; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_set_security_level}
   SSL_CTX_set_security_level: procedure (ctx: PSSL_CTX; level: TIdC_INT); cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_get_security_level}
   SSL_CTX_get_security_level: function (const ctx: PSSL_CTX): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_set_security_callback}
   SSL_CTX_set_security_callback : procedure(ctx: PSSL_CTX; cb: SSL_security_callback); cdecl = nil;
-  {$EXTERNALSYM SSL_CTX_get_security_callback}
   SSL_CTX_get_security_callback : function(const ctx: PSSL_CTX) : SSL_security_callback; cdecl = nil;
 
-  {$EXTERNALSYM SSL_CTX_get0_security_ex_data}
   SSL_CTX_get0_security_ex_data: function (const ctx: PSSL_CTX): Pointer; cdecl = nil; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSL_CTX_set0_security_ex_data}
   SSL_CTX_set0_security_ex_data: procedure (ctx: PSSL_CTX; ex: Pointer); cdecl = nil; {introduced 1.1.0}
 
-  {$EXTERNALSYM OPENSSL_init_ssl}
   OPENSSL_init_ssl: function (opts: TIdC_UINT64; const settings: POPENSSL_INIT_SETTINGS): TIdC_INT; cdecl = nil; {introduced 1.1.0}
 
   //# ifndef OPENSSL_NO_UNIT_TEST
   //__owur const struct openssl_ssl_test_functions *SSL_test_functions(void);
   //# endif
 
-  {$EXTERNALSYM SSL_free_buffers}
   SSL_free_buffers: function (ssl: PSSL): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_alloc_buffers}
   SSL_alloc_buffers: function (ssl: PSSL): TIdC_INT; cdecl = nil; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSL_CTX_set_session_ticket_cb}
   SSL_CTX_set_session_ticket_cb: function (ctx: PSSL_CTX; gen_cb: SSL_CTX_generate_session_ticket_fn; dec_cb: SSL_CTX_decrypt_session_ticket_fn; arg: Pointer): TIdC_INT; cdecl = nil; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSL_SESSION_set1_ticket_appdata}
   SSL_SESSION_set1_ticket_appdata: function (ss: PSSL_SESSION; const data: Pointer; len: TIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_SESSION_get0_ticket_appdata}
   SSL_SESSION_get0_ticket_appdata: function (ss: PSSL_SESSION; data: PPointer; len: PIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
 
   //extern const PIdAnsiChar SSL_version_str[];
 
-  {$EXTERNALSYM DTLS_set_timer_cb}
   DTLS_set_timer_cb: procedure (s: PSSL; cb: DTLS_timer_cb); cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_set_allow_early_data_cb}
   SSL_CTX_set_allow_early_data_cb: procedure (ctx: PSSL_CTX; cb: SSL_allow_early_data_cb_fN; arg: Pointer); cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_set_allow_early_data_cb}
   SSL_set_allow_early_data_cb: procedure (s: PSSL; cb: SSL_allow_early_data_cb_fN; arg: Pointer); cdecl = nil; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSLv2_method}
   SSLv2_method: function : PSSL_METHOD; cdecl = nil; {removed 1.1.0 allow_nil} // SSLv2
-  {$EXTERNALSYM SSLv2_server_method}
   SSLv2_server_method: function : PSSL_METHOD; cdecl = nil; {removed 1.1.0 allow_nil} // SSLv2
-  {$EXTERNALSYM SSLv2_client_method}
   SSLv2_client_method: function : PSSL_METHOD; cdecl = nil; {removed 1.1.0 allow_nil} // SSLv2
-  {$EXTERNALSYM SSLv3_method}
   SSLv3_method: function : PSSL_METHOD; cdecl = nil; {removed 1.1.0 allow_nil} // SSLv3
-  {$EXTERNALSYM SSLv3_server_method}
   SSLv3_server_method: function : PSSL_METHOD; cdecl = nil; {removed 1.1.0 allow_nil} // SSLv3
-  {$EXTERNALSYM SSLv3_client_method}
   SSLv3_client_method: function : PSSL_METHOD; cdecl = nil; {removed 1.1.0 allow_nil} // SSLv3
   {$EXTERNALSYM SSLv23_method}
   SSLv23_method: function : PSSL_METHOD; cdecl = nil; {removed 1.1.0 allow_nil} // SSLv3 but can rollback to v2
@@ -3504,30 +2988,19 @@ var
   SSLv23_server_method: function : PSSL_METHOD; cdecl = nil; {removed 1.1.0 allow_nil} // SSLv3 but can rollback to v2
   {$EXTERNALSYM SSLv23_client_method}
   SSLv23_client_method: function : PSSL_METHOD; cdecl = nil; {removed 1.1.0 allow_nil} // SSLv3 but can rollback to v2
-  {$EXTERNALSYM TLSv1_method}
   TLSv1_method: function : PSSL_METHOD; cdecl = nil; {removed 1.1.0 allow_nil} // TLSv1.0
-  {$EXTERNALSYM TLSv1_server_method}
   TLSv1_server_method: function : PSSL_METHOD; cdecl = nil; {removed 1.1.0 allow_nil} // TLSv1.0
-  {$EXTERNALSYM TLSv1_client_method}
   TLSv1_client_method: function : PSSL_METHOD; cdecl = nil; {removed 1.1.0 allow_nil} // TLSv1.0
-  {$EXTERNALSYM TLSv1_1_method}
   TLSv1_1_method: function : PSSL_METHOD; cdecl = nil; {removed 1.1.0 allow_nil} //TLS1.1
-  {$EXTERNALSYM TLSv1_1_server_method}
   TLSv1_1_server_method: function : PSSL_METHOD; cdecl = nil; {removed 1.1.0 allow_nil} //TLS1.1
-  {$EXTERNALSYM TLSv1_1_client_method}
   TLSv1_1_client_method: function : PSSL_METHOD; cdecl = nil; {removed 1.1.0 allow_nil} //TLS1.1
-  {$EXTERNALSYM TLSv1_2_method}
   TLSv1_2_method: function :  PSSL_METHOD; cdecl = nil; {removed 1.1.0 allow_nil}		// TLSv1.2
-  {$EXTERNALSYM TLSv1_2_server_method}
   TLSv1_2_server_method: function : PSSL_METHOD; cdecl = nil; {removed 1.1.0 allow_nil}	// TLSv1.2 
-  {$EXTERNALSYM TLSv1_2_client_method}
   TLSv1_2_client_method: function : PSSL_METHOD; cdecl = nil; {removed 1.1.0 allow_nil}	// TLSv1.2
 
   //X509 *SSL_get0_peer_certificate(const SSL *s);
-  {$EXTERNALSYM SSL_get0_peer_certificate}
   SSL_get0_peer_certificate: function (const s: PSSL): PX509; cdecl = nil; {introduced 3.3.0}
   // X509 *SSL_get1_peer_certificate(const SSL *s);
-  {$EXTERNALSYM SSL_get1_peer_certificate}
   SSL_get1_peer_certificate: function (const s: PSSL): PX509; cdecl = nil; {introduced 3.3.0}
 
 
@@ -3558,9 +3031,7 @@ var
   //# define SSL_CTX_clear_mode(ctx,op) \
   //        SSL_CTX_ctrl((ctx),SSL_CTRL_CLEAR_MODE,(op),NULL)
 
-  {$EXTERNALSYM SSL_CTX_set_msg_callback}
   procedure SSL_CTX_set_msg_callback(ctx: PSSL_CTX; cb : Tmsg_callback) cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_set_msg_callback}
   procedure SSL_set_msg_callback(ssl: PSSL; cb : Tmsg_callback) cdecl; external CLibSSL;
 
   //# ifndef OPENSSL_NO_SRP
@@ -3575,16 +3046,11 @@ var
   //__owur TIdC_INT SRP_Calc_A_param(s: PSSL);
 
   // # endif
-  {$EXTERNALSYM SSL_CTX_sessions}
   function SSL_CTX_sessions(ctx: PSSL_CTX) : Plhash_st_SSL_SESSION cdecl; external CLibSSL;
 
-  {$EXTERNALSYM SSL_CTX_sess_set_new_cb}
   procedure SSL_CTX_sess_set_new_cb(ctx: PSSL_CTX; new_session_cb: SSL_CTX_sess_new_cb) cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_sess_get_new_cb}
   function SSL_CTX_sess_get_new_cb(ctx: PSSL_CTX): SSL_CTX_sess_new_cb cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_sess_set_remove_cb}
   procedure SSL_CTX_sess_set_remove_cb(ctx: PSSL_CTX; remove_session_cb: SSL_CTX_sess_remove_cb) cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_sess_get_remove_cb}
   function SSL_CTX_sess_get_remove_cb(ctx: PSSL_CTX): SSL_CTX_sess_remove_cb cdecl; external CLibSSL;
 
   //void SSL_CTX_sess_set_get_cb(ctx: PSSL_CTX,
@@ -3596,24 +3062,15 @@ var
   //SSL_SESSION *(*SSL_CTX_sess_get_get_cb(ctx: PSSL_CTX)) (struct ssl_st *ssl,
   //                                                       const d: PByteata,
   //                                                       TIdC_INT len, TIdC_INT *copy);
-  {$EXTERNALSYM SSL_CTX_set_info_callback}
   procedure SSL_CTX_set_info_callback(ctx: PSSL_CTX; cb: SSL_CTX_info_callback) cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_get_info_callback}
   function SSL_CTX_get_info_callback(ctx: PSSL_CTX): SSL_CTX_info_callback cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_set_client_cert_cb}
   procedure SSL_CTX_set_client_cert_cb(ctx: PSSL_CTX; client_cert_cb: SSL_CTX_client_cert_cb) cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_get_client_cert_cb}
   function SSL_CTX_get_client_cert_cb(ctx: PSSL_CTX): SSL_CTX_client_cert_cb cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_set_client_cert_engine}
   function SSL_CTX_set_client_cert_engine(ctx: PSSL_CTX; e: PENGINE): TIdC_INT cdecl; external CLibSSL;
 
-  {$EXTERNALSYM SSL_CTX_set_cookie_generate_cb}
   procedure SSL_CTX_set_cookie_generate_cb(ctx: PSSL_CTX; app_gen_cookie_cb: SSL_CTX_cookie_verify_cb) cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_set_cookie_verify_cb}
   procedure SSL_CTX_set_cookie_verify_cb(ctx: PSSL_CTX; app_verify_cookie_cb: SSL_CTX_set_cookie_verify_cb_app_verify_cookie_cb) cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_set_stateless_cookie_generate_cb}
   procedure SSL_CTX_set_stateless_cookie_generate_cb(ctx: PSSL_CTX; gen_stateless_cookie_cb: SSL_CTX_set_stateless_cookie_generate_cb_gen_stateless_cookie_cb) cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_set_stateless_cookie_verify_cb}
   procedure SSL_CTX_set_stateless_cookie_verify_cb(ctx: PSSL_CTX; verify_stateless_cookie_cb: SSL_CTX_set_stateless_cookie_verify_cb_verify_stateless_cookie_cb) cdecl; external CLibSSL; {introduced 1.1.0}
 
   //__owur TIdC_INT SSL_CTX_set_alpn_protos(ctx: PSSL_CTX, const Byte *protos,
@@ -3621,17 +3078,11 @@ var
   //__owur TIdC_INT SSL_set_alpn_protos(ssl: PSSL, const Byte *protos,
   //                               TIdC_UINT protos_len);
 
-  {$EXTERNALSYM SSL_CTX_set_alpn_select_cb}
   procedure SSL_CTX_set_alpn_select_cb(ctx: PSSL_CTX; cb: SSL_CTX_alpn_select_cb_func; arg: Pointer) cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_get0_alpn_selected}
   procedure SSL_get0_alpn_selected(const ssl: PSSL; const data: PPByte; len: PIdC_UINT) cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_set_psk_client_callback}
   procedure SSL_CTX_set_psk_client_callback(ctx: PSSL_CTX; cb: SSL_psk_client_cb_func) cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_set_psk_client_callback}
   procedure SSL_set_psk_client_callback(ssl: PSSL; cb: SSL_psk_client_cb_func) cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_set_psk_server_callback}
   procedure SSL_CTX_set_psk_server_callback(ctx: PSSL_CTX; cb: SSL_psk_server_cb_func) cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_set_psk_server_callback}
   procedure SSL_set_psk_server_callback(ssl: PSSL; cb: SSL_psk_server_cb_func) cdecl; external CLibSSL;
 
   //__owur TIdC_INT SSL_CTX_use_psk_identity_hint(ctx: PSSL_CTX, const PIdAnsiChar *identity_hint);
@@ -3639,22 +3090,16 @@ var
   //const PIdAnsiChar *SSL_get_psk_identity_hint(const s: PSSL);
   //const PIdAnsiChar *SSL_get_psk_identity(const s: PSSL);
 
-  {$EXTERNALSYM SSL_set_psk_find_session_callback}
   procedure SSL_set_psk_find_session_callback(s: PSSL; cb: SSL_psk_find_session_cb_func) cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_set_psk_find_session_callback}
   procedure SSL_CTX_set_psk_find_session_callback(ctx: PSSL_CTX; cb: SSL_psk_find_session_cb_func) cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_set_psk_use_session_callback}
   procedure SSL_set_psk_use_session_callback(s: PSSL; cb: SSL_psk_use_session_cb_func) cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_set_psk_use_session_callback}
   procedure SSL_CTX_set_psk_use_session_callback(ctx: PSSL_CTX; cb: SSL_psk_use_session_cb_func) cdecl; external CLibSSL; {introduced 1.1.0}
 
   ///* Register callbacks to handle custom TLS Extensions for client or server. */
 
-  {$EXTERNALSYM SSL_CTX_has_client_custom_ext}
   function SSL_CTX_has_client_custom_ext(const ctx: PSSL_CTX;
               ext_type : TIdC_UINT) : TIdC_INT cdecl; external CLibSSL;
 
-  {$EXTERNALSYM SSL_CTX_add_client_custom_ext}
   function SSL_CTX_add_client_custom_ext(ctx: PSSL_CTX;
                                            ext_type : TIdC_UINT;
                                            add_cb : custom_ext_add_cb;
@@ -3663,7 +3108,6 @@ var
                                            parse_cb : custom_ext_parse_cb;
                                            parse_arg : Pointer) : TIdC_INT cdecl; external CLibSSL;
 
-  {$EXTERNALSYM SSL_CTX_add_server_custom_ext}
   function SSL_CTX_add_server_custom_ext(ctx: PSSL_CTX;
                                          ext_type : TIdC_UINT;
                                          add_cb : custom_ext_add_cb;
@@ -3672,7 +3116,6 @@ var
                                          parse_cb : custom_ext_parse_cb;
                                          parse_arg : Pointer) : TIdC_INT cdecl; external CLibSSL;
 
-  {$EXTERNALSYM SSL_CTX_add_custom_ext}
   function  SSL_CTX_add_custom_ext(ctx: PSSL_CTX;  ext_type : TIdC_UINT;
                                    context : TIdC_UINT;
                                    add_cb : SSL_custom_ext_add_cb_ex;
@@ -3681,7 +3124,6 @@ var
                                    parse_cb : SSL_custom_ext_parse_cb_ex;
                                    parse_arg : Pointer) : TIdC_INT cdecl; external CLibSSL;
 
-  {$EXTERNALSYM SSL_extension_supported}
   function SSL_extension_supported( ext_type : TIdC_UINT) : TIdC_INT cdecl; external CLibSSL;
 
 
@@ -3699,29 +3141,19 @@ var
    * is intended for debugging use with tools like Wireshark. The cb function
    * should log line followed by a newline.
    *)
-  {$EXTERNALSYM SSL_CTX_set_keylog_callback}
   procedure SSL_CTX_set_keylog_callback(ctx: PSSL_CTX; cb: SSL_CTX_keylog_cb_func) cdecl; external CLibSSL; {introduced 1.1.0}
   (*
    * SSL_CTX_get_keylog_callback returns the callback configured by
    * SSL_CTX_set_keylog_callback.
    *)
-  {$EXTERNALSYM SSL_CTX_get_keylog_callback}
   function SSL_CTX_get_keylog_callback(const ctx: PSSL_CTX): SSL_CTX_keylog_cb_func cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_set_max_early_data}
   function SSL_CTX_set_max_early_data(ctx: PSSL_CTX; max_early_data: TIdC_UINT32): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_get_max_early_data}
   function SSL_CTX_get_max_early_data(const ctx: PSSL_CTX): TIdC_UINT32 cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_set_max_early_data}
   function SSL_set_max_early_data(s: PSSL; max_early_data: TIdC_UINT32): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_get_max_early_data}
   function SSL_get_max_early_data(const s: PSSL): TIdC_UINT32 cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_set_recv_max_early_data}
   function SSL_CTX_set_recv_max_early_data(ctx: PSSL_CTX; recv_max_early_data: TIdC_UINT32): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_get_recv_max_early_data}
   function SSL_CTX_get_recv_max_early_data(const ctx: PSSL_CTX): TIdC_UINT32 cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_set_recv_max_early_data}
   function SSL_set_recv_max_early_data(s: PSSL; recv_max_early_data: TIdC_UINT32): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_get_recv_max_early_data}
   function SSL_get_recv_max_early_data(const s: PSSL): TIdC_UINT32 cdecl; external CLibSSL; {introduced 1.1.0}
 
   ///*
@@ -3757,9 +3189,7 @@ var
    *   -- that we expected from peer (SSL_get_peer_finished).
    * Returns length (0 == no Finished so far), copies up to 'count' bytes.
    *)
-  {$EXTERNALSYM SSL_get_finished}
   function SSL_get_finished(const s: PSSL; var buf; count: TIdC_SIZET): TIdC_SIZET cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_get_peer_finished}
   function SSL_get_peer_finished(const s: PSSL; var buf; count: TIdC_SIZET): TIdC_SIZET cdecl; external CLibSSL;
 
   //# if OPENSSL_API_COMPAT < 0x10100000L
@@ -3808,176 +3238,99 @@ var
   //#  define SSL_set_tmp_rsa_callback(ssl, cb)        while(0) (cb)(NULL, 0, 0)
   //# endif
   //
-  {$EXTERNALSYM BIO_f_ssl}
   function BIO_f_ssl: PBIO_METHOD cdecl; external CLibSSL;
-  {$EXTERNALSYM BIO_new_ssl}
   function BIO_new_ssl(ctx: PSSL_CTX; client: TIdC_INT): PBIO cdecl; external CLibSSL;
-  {$EXTERNALSYM BIO_new_ssl_connect}
   function BIO_new_ssl_connect(ctx: PSSL_CTX): PBIO cdecl; external CLibSSL;
-  {$EXTERNALSYM BIO_new_buffer_ssl_connect}
   function BIO_new_buffer_ssl_connect(ctx: PSSL_CTX): PBIO cdecl; external CLibSSL;
-  {$EXTERNALSYM BIO_ssl_copy_session_id}
   function BIO_ssl_copy_session_id(to_: PBIO; from: PBIO): TIdC_INT cdecl; external CLibSSL;
 
-  {$EXTERNALSYM SSL_CTX_set_cipher_list}
   function SSL_CTX_set_cipher_list(v1: PSSL_CTX; const _str: PIdAnsiChar): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_new}
   function SSL_CTX_new(const meth: PSSL_METHOD): PSSL_CTX cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_new_ex}
   function SSL_CTX_new_ex(libctx : POSSL_LIB_CTX; const propq : PIdAnsichar;
                           const meth : PSSL_METHOD) : PSSL_CTX; cdecl; external CLibSSL; {introduced 3.0.0}
-  {$EXTERNALSYM SSL_CTX_set_timeout}
   function SSL_CTX_set_timeout(ctx: PSSL_CTX; t: TIdC_LONG): TIdC_LONG cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_get_timeout}
   function SSL_CTX_get_timeout(const ctx: PSSL_CTX): TIdC_LONG cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_get_cert_store}
   function SSL_CTX_get_cert_store(const v1: PSSL_CTX): PX509_STORE cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_want}
   function SSL_want(const s: PSSL): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_clear}
   function SSL_clear(s: PSSL): TIdC_INT cdecl; external CLibSSL;
 
-  {$EXTERNALSYM BIO_ssl_shutdown}
   procedure BIO_ssl_shutdown(ssl_bio: PBIO) cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_up_ref}
   function SSL_CTX_up_ref(ctx: PSSL_CTX): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_free}
   procedure SSL_CTX_free(v1: PSSL_CTX) cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_set_cert_store}
   procedure SSL_CTX_set_cert_store(v1: PSSL_CTX; v2: PX509_STORE) cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_set1_cert_store}
   procedure SSL_CTX_set1_cert_store(v1: PSSL_CTX; v2: PX509_STORE) cdecl; external CLibSSL; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSL_CTX_flush_sessions_ex}
   procedure SSL_CTX_flush_sessions_ex(ctx : PSSL_CTX; tm : TOSSL_TIMET); cdecl; external CLibSSL; {introduced 3.4.0}
-  {$EXTERNALSYM SSL_CTX_flush_sessions}
   procedure SSL_CTX_flush_sessions(ctx: PSSL_CTX; tm: TIdC_LONG) cdecl; external CLibSSL;
 
-  {$EXTERNALSYM SSL_get_current_cipher}
   function SSL_get_current_cipher(const s: PSSL): PSSL_CIPHER cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_get_pending_cipher}
   function SSL_get_pending_cipher(const s: PSSL): PSSL_CIPHER cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CIPHER_get_bits}
   function SSL_CIPHER_get_bits(const c: PSSL_CIPHER; var alg_bits: TIdC_INT): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CIPHER_get_version}
   function SSL_CIPHER_get_version(const c: PSSL_CIPHER): PIdAnsiChar cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CIPHER_get_name}
   function SSL_CIPHER_get_name(const c: PSSL_CIPHER): PIdAnsiChar cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CIPHER_standard_name}
   function SSL_CIPHER_standard_name(const c: PSSL_CIPHER): PIdAnsiChar cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM OPENSSL_cipher_name}
   function OPENSSL_cipher_name(const rfc_name: PIdAnsiChar): PIdAnsiChar cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CIPHER_get_id}
   function SSL_CIPHER_get_id(const c: PSSL_CIPHER): TIdC_UINT32 cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CIPHER_get_protocol_id}
   function SSL_CIPHER_get_protocol_id(const c: PSSL_CIPHER): TIdC_UINT16 cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CIPHER_get_kx_nid}
   function SSL_CIPHER_get_kx_nid(const c: PSSL_CIPHER): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CIPHER_get_auth_nid}
   function SSL_CIPHER_get_auth_nid(const c: PSSL_CIPHER): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CIPHER_get_handshake_digest}
   function SSL_CIPHER_get_handshake_digest(const c: PSSL_CIPHER): PEVP_MD cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CIPHER_is_aead}
   function SSL_CIPHER_is_aead(const c: PSSL_CIPHER): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSL_get_fd}
   function SSL_get_fd(const s: PSSL): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_get_rfd}
   function SSL_get_rfd(const s: PSSL): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_get_wfd}
   function SSL_get_wfd(const s: PSSL): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_get_cipher_list}
   function SSL_get_cipher_list(const s: PSSL; n: TIdC_INT): PIdAnsiChar cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_get_shared_ciphers}
   function SSL_get_shared_ciphers(const s: PSSL; buf: PIdAnsiChar; size: TIdC_INT): PIdAnsiChar cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_get_read_ahead}
   function SSL_get_read_ahead(const s: PSSL): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_pending}
   function SSL_pending(const s: PSSL): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_has_pending}
   function SSL_has_pending(const s: PSSL): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_set_fd}
   function SSL_set_fd(s: PSSL; fd: TIdC_INT): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_set_rfd}
   function SSL_set_rfd(s: PSSL; fd: TIdC_INT): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_set_wfd}
   function SSL_set_wfd(s: PSSL; fd: TIdC_INT): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_set0_rbio}
   procedure SSL_set0_rbio(s: PSSL; rbio: PBIO) cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_set0_wbio}
   procedure SSL_set0_wbio(s: PSSL; wbio: PBIO) cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_set_bio}
   procedure SSL_set_bio(s: PSSL; rbio: PBIO; wbio: PBIO) cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_get_rbio}
   function SSL_get_rbio(const s: PSSL): PBIO cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_get_wbio}
   function SSL_get_wbio(const s: PSSL): PBIO cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_set_cipher_list}
   function SSL_set_cipher_list(s: PSSL; const _str: PIdAnsiChar): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_set_ciphersuites}
   function SSL_CTX_set_ciphersuites(ctx: PSSL_CTX; const _str: PIdAnsiChar): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_set_ciphersuites}
   function SSL_set_ciphersuites(s: PSSL; const _str: PIdAnsiChar): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_get_verify_mode}
   function SSL_get_verify_mode(const s: PSSL): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_get_verify_depth}
   function SSL_get_verify_depth(const s: PSSL): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_get_verify_callback}
   function SSL_get_verify_callback(const s: PSSL): SSL_verify_cb cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_set_read_ahead}
   procedure SSL_set_read_ahead(s: PSSL; yes: TIdC_INT) cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_set_verify}
   procedure SSL_set_verify(s: PSSL; mode: TIdC_INT; callback: SSL_verify_cb) cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_set_verify_depth}
   procedure SSL_set_verify_depth(s: PSSL; depth: TIdC_INT) cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_set_cert_cb}
   procedure SSL_set_cert_cb(s: PSSL; cb : SSL_CTX_set_cert_cb_cb; arg : Pointer) cdecl; external CLibSSL;
 
-  {$EXTERNALSYM SSL_use_RSAPrivateKey}
   function SSL_use_RSAPrivateKey(ssl: PSSL; rsa: PRSA): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_use_RSAPrivateKey_ASN1}
   function SSL_use_RSAPrivateKey_ASN1(ssl: PSSL; const d: PByte; len: TIdC_LONG): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_use_PrivateKey}
   function SSL_use_PrivateKey(ssl: PSSL; pkey: PEVP_PKEY): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_use_PrivateKey_ASN1}
   function SSL_use_PrivateKey_ASN1(pk: TIdC_INT; ssl: PSSL; const d: PByte; len: TIdC_LONG): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_use_certificate}
   function SSL_use_certificate(ssl: PSSL; x: PX509): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_use_certificate_ASN1}
   function SSL_use_certificate_ASN1(ssl: PSSL; const d: PByte; len: TIdC_INT): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_use_cert_and_key}
   function SSL_use_cert_and_key(ssl: PSSL; x509: PX509; privatekey : PEVP_PKEY;
                                    chain : PSTACK_OF_X509; _override : TIdC_INT) : TIdC_INT cdecl; external CLibSSL;
 
   (* Set serverinfo data for the current active cert. *)
-  {$EXTERNALSYM SSL_CTX_use_serverinfo}
   function SSL_CTX_use_serverinfo(ctx: PSSL_CTX; const serverinfo: PByte; serverinfo_length: TIdC_SIZET): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_use_serverinfo_ex}
   function SSL_CTX_use_serverinfo_ex(ctx: PSSL_CTX; version: TIdC_UINT; const serverinfo: PByte; serverinfo_length: TIdC_SIZET): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_use_serverinfo_file}
   function SSL_CTX_use_serverinfo_file(ctx: PSSL_CTX; const file_: PIdAnsiChar): TIdC_INT cdecl; external CLibSSL;
 
-  {$EXTERNALSYM SSL_use_RSAPrivateKey_file}
   function SSL_use_RSAPrivateKey_file(ssl: PSSL; const file_: PIdAnsiChar; type_: TIdC_INT): TIdC_INT cdecl; external CLibSSL;
 
-  {$EXTERNALSYM SSL_use_PrivateKey_file}
   function SSL_use_PrivateKey_file(ssl: PSSL; const file_: PIdAnsiChar; type_: TIdC_INT): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_use_certificate_file}
   function SSL_use_certificate_file(ssl: PSSL; const file_: PIdAnsiChar; type_: TIdC_INT): TIdC_INT cdecl; external CLibSSL;
 
-  {$EXTERNALSYM SSL_CTX_use_RSAPrivateKey_file}
   function SSL_CTX_use_RSAPrivateKey_file(ctx: PSSL_CTX; const file_: PIdAnsiChar; type_: TIdC_INT): TIdC_INT cdecl; external CLibSSL;
 
-  {$EXTERNALSYM SSL_CTX_use_PrivateKey_file}
   function SSL_CTX_use_PrivateKey_file(ctx: PSSL_CTX; const file_: PIdAnsiChar; type_: TIdC_INT): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_use_certificate_file}
   function SSL_CTX_use_certificate_file(ctx: PSSL_CTX; const file_: PIdAnsiChar; type_: TIdC_INT): TIdC_INT cdecl; external CLibSSL;
   (* PEM type *)
   {$EXTERNALSYM SSL_CTX_use_certificate_chain_file}
   function SSL_CTX_use_certificate_chain_file(ctx: PSSL_CTX; const file_: PIdAnsiChar): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_use_certificate_chain_file}
   function SSL_use_certificate_chain_file(ssl: PSSL; const file_: PIdAnsiChar): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_load_client_CA_file}
   function SSL_load_client_CA_file(const file_: PIdAnsiChar): PSTACK_OF_X509_NAME cdecl; external CLibSSL;
   {$EXTERNALSYM SSL_add_file_cert_subjects_to_stack}
   function SSL_add_file_cert_subjects_to_stack(stackCAs: PSTACK_OF_X509_NAME; const file_: PIdAnsiChar):TIdC_INT cdecl; external CLibSSL;
@@ -3990,229 +3343,130 @@ var
   //                     | OPENSSL_INIT_LOAD_CRYPTO_STRINGS, NULL)
   //# endif
 
-  {$EXTERNALSYM SSL_state_string}
   function SSL_state_string(const s: PSSL): PIdAnsiChar cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_rstate_string}
   function SSL_rstate_string(const s: PSSL): PIdAnsiChar cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_state_string_long}
   function SSL_state_string_long(const s: PSSL): PIdAnsiChar cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_rstate_string_long}
   function SSL_rstate_string_long(const s: PSSL): PIdAnsiChar cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_SESSION_get_time_ex}
   function SSL_SESSION_get_time_ex(const s : PSSL_SESSION) : TOSSL_TIMET cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_SESSION_set_time_ex}
   function SSL_SESSION_set_time_ex(s : PSSL_SESSION; t : TOSSL_TIMET) : TOSSL_TIMET cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_SESSION_get_time}
   function SSL_SESSION_get_time(const s: PSSL_SESSION): TIdC_LONG cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_SESSION_set_time}
   function SSL_SESSION_set_time(s: PSSL_SESSION; t: TIdC_LONG): TIdC_LONG cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_SESSION_get_timeout}
   function SSL_SESSION_get_timeout(const s: PSSL_SESSION): TIdC_LONG cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_SESSION_set_timeout}
   function SSL_SESSION_set_timeout(s: PSSL_SESSION; t: TIdC_LONG): TIdC_LONG cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_SESSION_get_protocol_version}
   function SSL_SESSION_get_protocol_version(const s: PSSL_SESSION): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_SESSION_set_protocol_version}
   function SSL_SESSION_set_protocol_version(s: PSSL_SESSION; version: TIdC_INT): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSL_SESSION_get0_hostname}
   function SSL_SESSION_get0_hostname(const s: PSSL_SESSION): PIdAnsiChar cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_SESSION_set1_hostname}
   function SSL_SESSION_set1_hostname(s: PSSL_SESSION; const hostname: PIdAnsiChar): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_SESSION_get0_alpn_selected}
   procedure SSL_SESSION_get0_alpn_selected(const s: PSSL_SESSION; const alpn: PPByte; len: PIdC_SIZET) cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_SESSION_set1_alpn_selected}
   function SSL_SESSION_set1_alpn_selected(s: PSSL_SESSION; const alpn: PByte; len: TIdC_SIZET): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_SESSION_get0_cipher}
   function SSL_SESSION_get0_cipher(const s: PSSL_SESSION): PSSL_CIPHER cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_SESSION_set_cipher}
   function SSL_SESSION_set_cipher(s: PSSL_SESSION; const cipher: PSSL_CIPHER): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_SESSION_has_ticket}
   function SSL_SESSION_has_ticket(const s: PSSL_SESSION): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_SESSION_get_ticket_lifetime_hint}
   function SSL_SESSION_get_ticket_lifetime_hint(const s: PSSL_SESSION): TIdC_ULONG cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_SESSION_get0_ticket}
   procedure SSL_SESSION_get0_ticket(const s: PSSL_SESSION; const tick: PPByte; len: PIdC_SIZET) cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_SESSION_get_max_early_data}
   function SSL_SESSION_get_max_early_data(const s: PSSL_SESSION): TIdC_UINT32 cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_SESSION_set_max_early_data}
   function SSL_SESSION_set_max_early_data(s: PSSL_SESSION; max_early_data: TIdC_UINT32): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_copy_session_id}
   function SSL_copy_session_id(to_: PSSL; const from: PSSL): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_SESSION_get0_peer}
   function SSL_SESSION_get0_peer(s: PSSL_SESSION): PX509 cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_SESSION_set1_id_context}
   function SSL_SESSION_set1_id_context(s: PSSL_SESSION; const sid_ctx: PByte; sid_ctx_len: TIdC_UINT): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_SESSION_set1_id}
   function SSL_SESSION_set1_id(s: PSSL_SESSION; const sid: PByte; sid_len: TIdC_UINT): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_SESSION_is_resumable}
   function SSL_SESSION_is_resumable(const s: PSSL_SESSION): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSL_SESSION_new}
   function SSL_SESSION_new: PSSL_SESSION cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_SESSION_dup}
   function SSL_SESSION_dup(src: PSSL_SESSION): PSSL_SESSION cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_SESSION_get_id}
   function SSL_SESSION_get_id(const s: PSSL_SESSION; len: PIdC_UINT): PByte cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_SESSION_get0_id_context}
   function SSL_SESSION_get0_id_context(const s: PSSL_SESSION; len: PIdC_UINT): PByte cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_SESSION_get_compress_id}
   function SSL_SESSION_get_compress_id(const s: PSSL_SESSION): TIdC_UINT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_SESSION_print}
   function SSL_SESSION_print(fp: PBIO; const ses: PSSL_SESSION): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_SESSION_print_keylog}
   function SSL_SESSION_print_keylog(bp: PBIO; const x: PSSL_SESSION): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_SESSION_up_ref}
   function SSL_SESSION_up_ref(ses: PSSL_SESSION): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_SESSION_free}
   procedure SSL_SESSION_free(ses: PSSL_SESSION) cdecl; external CLibSSL;
-  {$EXTERNALSYM i2d_SSL_SESSION}
   function i2d_SSL_SESSION(in_ : PSSL_SESSION; pp : PPByte) : TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_set_session}
   function SSL_set_session(to_: PSSL; session: PSSL_SESSION): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_add_session}
   function SSL_CTX_add_session(ctx: PSSL_CTX; session: PSSL_SESSION): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_remove_session}
   function SSL_CTX_remove_session(ctx: PSSL_CTX; session: PSSL_SESSION): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_set_generate_session_id}
   function SSL_CTX_set_generate_session_id(ctx: PSSL_CTX; cb: GEN_SESSION_CB): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_set_generate_session_id}
   function SSL_set_generate_session_id(s: PSSL; cb: GEN_SESSION_CB): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_has_matching_session_id}
   function SSL_has_matching_session_id(const s: PSSL; const id: PByte; id_len: TIdC_UINT): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM d2i_SSL_SESSION}
   function d2i_SSL_SESSION(a: PPSSL_SESSION; const pp: PPByte; _length: TIdC_LONG): PSSL_SESSION cdecl; external CLibSSL;
 
-  {$EXTERNALSYM SSL_get_peer_cert_chain}
   function SSL_get_peer_cert_chain(const s: PSSL) : PSTACK_OF_X509 cdecl; external CLibSSL;
 
-  {$EXTERNALSYM SSL_CTX_get_verify_mode}
   function SSL_CTX_get_verify_mode(const ctx: PSSL_CTX): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_get_verify_depth}
   function SSL_CTX_get_verify_depth(const ctx: PSSL_CTX): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_get_verify_callback}
   function SSL_CTX_get_verify_callback(const ctx: PSSL_CTX): SSL_verify_cb cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_set_verify}
   procedure SSL_CTX_set_verify(ctx: PSSL_CTX; mode: TIdC_INT; callback: SSL_verify_cb) cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_set_verify_depth}
   procedure SSL_CTX_set_verify_depth(ctx: PSSL_CTX; depth: TIdC_INT) cdecl; external CLibSSL;
   {$EXTERNALSYM SSL_CTX_set_cert_verify_callback}
   procedure SSL_CTX_set_cert_verify_callback(ctx: PSSL_CTX; cb: SSL_CTX_set_cert_verify_callback_cb; arg: Pointer) cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_set_cert_cb}
   procedure SSL_CTX_set_cert_cb(c: PSSL_CTX; cb: SSL_CTX_set_cert_cb_cb; arg: Pointer) cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_use_RSAPrivateKey}
   function SSL_CTX_use_RSAPrivateKey(ctx: PSSL_CTX; rsa: PRSA): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_use_RSAPrivateKey_ASN1}
   function SSL_CTX_use_RSAPrivateKey_ASN1(ctx: PSSL_CTX; const d: PByte; len: TIdC_LONG): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_use_PrivateKey}
   function SSL_CTX_use_PrivateKey(ctx: PSSL_CTX; pkey: PEVP_PKEY): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_use_PrivateKey_ASN1}
   function SSL_CTX_use_PrivateKey_ASN1(pk: TIdC_INT; ctx: PSSL_CTX; const d: PByte; len: TIdC_LONG): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_use_certificate}
   function SSL_CTX_use_certificate(ctx: PSSL_CTX; x: PX509): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_use_certificate_ASN1}
   function SSL_CTX_use_certificate_ASN1(ctx: PSSL_CTX; len: TIdC_INT; const d: PByte): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_use_cert_and_key}
   function SSL_CTX_use_cert_and_key(ctx: PSSL_CTX; x509: PX509; privatekey : PEVP_PKEY; chain : PSTACK_OF_X509; _override : TIdC_INT) : TIdC_INT  cdecl; external CLibSSL;
 
-  {$EXTERNALSYM SSL_CTX_set_default_passwd_cb}
   procedure SSL_CTX_set_default_passwd_cb(ctx: PSSL_CTX; cb: pem_password_cb) cdecl; external CLibSSL; {introduced 1.1.0}
   {$EXTERNALSYM SSL_CTX_set_default_passwd_cb_userdata}
   procedure SSL_CTX_set_default_passwd_cb_userdata(ctx: PSSL_CTX; u: Pointer) cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_get_default_passwd_cb}
   function SSL_CTX_get_default_passwd_cb(ctx: PSSL_CTX): pem_password_cb cdecl; external CLibSSL;  {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_get_default_passwd_cb_userdata}
   function SSL_CTX_get_default_passwd_cb_userdata(ctx: PSSL_CTX): Pointer cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_set_default_passwd_cb}
   procedure SSL_set_default_passwd_cb(s: PSSL; cb: pem_password_cb) cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_set_default_passwd_cb_userdata}
   procedure SSL_set_default_passwd_cb_userdata(s: PSSL; u: Pointer) cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_get_default_passwd_cb}
   function SSL_get_default_passwd_cb(s: PSSL): pem_password_cb cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_get_default_passwd_cb_userdata}
   function SSL_get_default_passwd_cb_userdata(s: PSSL): Pointer cdecl; external CLibSSL; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSL_CTX_check_private_key}
   function SSL_CTX_check_private_key(const ctx: PSSL_CTX): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_check_private_key}
   function SSL_check_private_key(const ctx: PSSL): TIdC_INT cdecl; external CLibSSL;
 
-  {$EXTERNALSYM SSL_CTX_set_session_id_context}
   function SSL_CTX_set_session_id_context(ctx: PSSL_CTX; const sid_ctx: PByte; sid_ctx_len: TIdC_UINT): TIdC_INT cdecl; external CLibSSL;
 
-  {$EXTERNALSYM SSL_new}
   function SSL_new(ctx: PSSL_CTX): PSSL cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_up_ref}
   function SSL_up_ref(s: PSSL): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_is_dtls}
   function SSL_is_dtls(const s: PSSL): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_set_session_id_context}
   function SSL_set_session_id_context(ssl: PSSL; const sid_ctx: PByte; sid_ctx_len: TIdC_UINT): TIdC_INT cdecl; external CLibSSL;
 
-  {$EXTERNALSYM SSL_CTX_set_purpose}
   function SSL_CTX_set_purpose(ctx: PSSL_CTX; purpose: TIdC_INT): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_set_purpose}
   function SSL_set_purpose(ssl: PSSL; purpose: TIdC_INT): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_set_trust}
   function SSL_CTX_set_trust(ctx: PSSL_CTX; trust: TIdC_INT): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_set_trust}
   function SSL_set_trust(ssl: PSSL; trust: TIdC_INT): TIdC_INT cdecl; external CLibSSL;
 
-  {$EXTERNALSYM SSL_set1_host}
   function SSL_set1_host(s: PSSL; const hostname: PIdAnsiChar): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_add1_host}
   function SSL_add1_host(s: PSSL; const hostname: PIdAnsiChar): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_get0_peername}
   function SSL_get0_peername(s: PSSL): PIdAnsiChar cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_set_hostflags}
   procedure SSL_set_hostflags(s: PSSL; flags: TIdC_UINT) cdecl; external CLibSSL; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSL_CTX_dane_enable}
   function SSL_CTX_dane_enable(ctx: PSSL_CTX): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_dane_mtype_set}
   function SSL_CTX_dane_mtype_set(ctx: PSSL_CTX; const md: PEVP_MD; mtype: TIdC_UINT8; _ord: TIdC_UINT8): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_dane_enable}
   function SSL_dane_enable(s: PSSL; const basedomain: PIdAnsiChar): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_dane_tlsa_add}
   function SSL_dane_tlsa_add(s: PSSL; usage: TIdC_UINT8; selector: TIdC_UINT8; mtype: TIdC_UINT8; const data: PByte; dlen: TIdC_SIZET): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_get0_dane_authority}
   function SSL_get0_dane_authority(s: PSSL; mcert: PPX509; mspki: PPEVP_PKEY): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_get0_dane_tlsa}
   function SSL_get0_dane_tlsa(s: PSSL; usage: PIdC_UINT8; selector: PIdC_UINT8; mtype: PIdC_UINT8; const data: PPByte; dlen: PIdC_SIZET): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
   (*
    * Bridge opacity barrier between libcrypt and libssl, also needed to support
    * offline testing in test/danetest.c
    *)
-  {$EXTERNALSYM SSL_get0_dane}
   function SSL_get0_dane(ssl: PSSL): PSSL_DANE cdecl; external CLibSSL; {introduced 1.1.0}
 
   (*
    * DANE flags
    *)
-  {$EXTERNALSYM SSL_CTX_dane_set_flags}
   function SSL_CTX_dane_set_flags(ctx: PSSL_CTX; flags: TIdC_ULONG): TIdC_ULONG cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_dane_clear_flags}
   function SSL_CTX_dane_clear_flags(ctx: PSSL_CTX; flags: TIdC_ULONG): TIdC_ULONG cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_dane_set_flags}
   function SSL_dane_set_flags(ssl: PSSL; flags: TIdC_ULONG): TIdC_ULONG cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_dane_clear_flags}
   function SSL_dane_clear_flags(ssl: PSSL; flags: TIdC_ULONG): TIdC_ULONG cdecl; external CLibSSL; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSL_CTX_set1_param}
   function SSL_CTX_set1_param(ctx: PSSL_CTX; vpm: PX509_VERIFY_PARAM): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_set1_param}
   function SSL_set1_param(ssl: PSSL; vpm: PX509_VERIFY_PARAM): TIdC_INT cdecl; external CLibSSL;
 
-  {$EXTERNALSYM SSL_CTX_get0_param}
   function SSL_CTX_get0_param(ctx: PSSL_CTX): PX509_VERIFY_PARAM cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_get0_param}
   function SSL_get0_param(ssl: PSSL): PX509_VERIFY_PARAM cdecl; external CLibSSL;
 
-  {$EXTERNALSYM SSL_CTX_set_srp_username}
   function SSL_CTX_set_srp_username(ctx: PSSL_CTX; name: PIdAnsiChar): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_set_srp_password}
   function SSL_CTX_set_srp_password(ctx: PSSL_CTX; password: PIdAnsiChar): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_set_srp_strength}
   function SSL_CTX_set_srp_strength(ctx: PSSL_CTX; strength: TIdC_INT): TIdC_INT cdecl; external CLibSSL;
 
   {$EXTERNALSYM SSL_CTX_set_srp_client_pwd_callback}
@@ -4222,11 +3476,8 @@ var
   {$EXTERNALSYM SSL_CTX_set_srp_username_callback}
   function SSL_CTX_set_srp_username_callback(ctx: PSSL_CTX; cb: SSL_CTX_set_srp_username_callback_cb): TIdC_INT cdecl; external CLibSSL;
 
-  {$EXTERNALSYM SSL_CTX_set_srp_cb_arg}
   function SSL_CTX_set_srp_cb_arg(ctx: PSSL_CTX; arg: Pointer): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_set_srp_server_param}
   function SSL_set_srp_server_param(s: PSSL; const N: PBIGNUm; const g: PBIGNUm; sa: PBIGNUm; v: PBIGNUm; info: PIdAnsiChar): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_set_srp_server_param_pw}
   function SSL_set_srp_server_param_pw(s: PSSL; const user: PIdAnsiChar; const pass: PIdAnsiChar; const grp: PIdAnsiChar): TIdC_INT cdecl; external CLibSSL;
 
   //__owur BIGNUM *SSL_get_srp_g(s: PSSL);
@@ -4238,152 +3489,93 @@ var
   ///*
   // * ClientHello callback and helpers.
   // */
-  {$EXTERNALSYM SSL_CTX_set_client_hello_cb}
   procedure SSL_CTX_set_client_hello_cb(c: PSSL_CTX; cb: SSL_client_hello_cb_fn; arg: Pointer) cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_client_hello_isv2}
   function SSL_client_hello_isv2(s: PSSL): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_client_hello_get0_legacy_version}
   function SSL_client_hello_get0_legacy_version(s: PSSL): TIdC_UINT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_client_hello_get0_random}
   function SSL_client_hello_get0_random(s: PSSL; const out_: PPByte): TIdC_SIZET cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_client_hello_get0_session_id}
   function SSL_client_hello_get0_session_id(s: PSSL; const out_: PPByte): TIdC_SIZET cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_client_hello_get0_ciphers}
   function SSL_client_hello_get0_ciphers(s: PSSL; const out_: PPByte): TIdC_SIZET cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_client_hello_get0_compression_methods}
   function SSL_client_hello_get0_compression_methods(s: PSSL; const out_: PPByte): TIdC_SIZET cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_client_hello_get1_extensions_present}
   function SSL_client_hello_get1_extensions_present(s: PSSL; out_: PPIdC_INT; outlen: PIdC_SIZET): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_client_hello_get0_ext}
   function SSL_client_hello_get0_ext(s: PSSL; type_: TIdC_UINT; const out_: PPByte; outlen: PIdC_SIZET): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_certs_clear}
   procedure SSL_certs_clear(s: PSSL) cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_free}
   procedure SSL_free(ssl: PSSL) cdecl; external CLibSSL;
 
   (*
    * Windows application developer has to include windows.h to use these.
    *)
-  {$EXTERNALSYM SSL_waiting_for_async}
   function SSL_waiting_for_async(s: PSSL): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
   {$EXTERNALSYM SSL_get_all_async_fds}
   function SSL_get_all_async_fds(s: PSSL; fds: POSSL_ASYNC_FD; numfds: PIdC_SIZET): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
   {$EXTERNALSYM SSL_get_changed_async_fds}
   function SSL_get_changed_async_fds(s: PSSL; addfd: POSSL_ASYNC_FD; numaddfds: PIdC_SIZET; delfd: POSSL_ASYNC_FD; numdelfds: PIdC_SIZET): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_accept}
   function SSL_accept(ssl: PSSL): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_stateless}
   function SSL_stateless(s: PSSL): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_connect}
   function SSL_connect(ssl: PSSL): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_read}
   function SSL_read(ssl: PSSL; var buf; num: TIdC_INT): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_read_ex}
   function SSL_read_ex(ssl: PSSL; var buf; num: TIdC_SIZET; var readbytes: TIdC_SIZET): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSL_read_early_data}
   function SSL_read_early_data(s: PSSL; var buf; num: TIdC_SIZET; var readbytes: TIdC_SIZET): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_peek}
   function SSL_peek(ssl: PSSL; var buf; num: TIdC_INT): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_peek_ex}
   function SSL_peek_ex(ssl: PSSL; var buf; num: TIdC_SIZET; var readbytes: TIdC_SIZET): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_write}
   function SSL_write(ssl: PSSL; const buf; num: TIdC_INT): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_write_ex}
   function SSL_write_ex(s: PSSL; const buf; num: TIdC_SIZET; var written: TIdC_SIZET): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_write_ex2}
   function SSL_write_ex2(s: PSSL; const buf; num : TIdC_SIZET; flags : TIdC_UINT64; var written: TIdC_SIZET) : TIdC_INT cdecl; external CLibSSL; {introduced 3.3.0}
-  {$EXTERNALSYM SSL_write_early_data}
   function SSL_write_early_data(s: PSSL; const buf; num: TIdC_SIZET; var written: TIdC_SIZET): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_callback_ctrl}
   function SSL_callback_ctrl(v1: PSSL; v2: TIdC_INT; v3: SSL_callback_ctrl_v3): TIdC_LONG cdecl; external CLibSSL;
 
-  {$EXTERNALSYM SSL_ctrl}
   function SSL_ctrl(ssl: PSSL; cmd: TIdC_INT; larg: TIdC_LONG; parg: Pointer): TIdC_LONG cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_ctrl}
   function SSL_CTX_ctrl(ctx: PSSL_CTX; cmd: TIdC_INT; larg: TIdC_LONG; parg: Pointer): TIdC_LONG cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_callback_ctrl}
   function SSL_CTX_callback_ctrl(v1: PSSL_CTX; cmd: TIdC_INT; fp: SSL_CTX_callback_ctrl_v3): TIdC_LONG cdecl; external CLibSSL;
 
-  {$EXTERNALSYM SSL_get_early_data_status}
   function SSL_get_early_data_status(const s: PSSL): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSL_get_error}
   function SSL_get_error(const s: PSSL; ret_code: TIdC_INT): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_get_version}
   function SSL_get_version(const s: PSSL): PIdAnsiChar cdecl; external CLibSSL;
 
   (* This sets the 'default' SSL version that SSL_new() will create *)
-  {$EXTERNALSYM SSL_CTX_set_ssl_version}
   function SSL_CTX_set_ssl_version(ctx: PSSL_CTX; const meth: PSSL_METHOD): TIdC_INT cdecl; external CLibSSL;
 
   ///* Negotiate highest available SSL/TLS version */
-  {$EXTERNALSYM TLS_method}
   function TLS_method: PSSL_METHOD cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM TLS_server_method}
   function TLS_server_method: PSSL_METHOD cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM TLS_client_method}
   function TLS_client_method: PSSL_METHOD cdecl; external CLibSSL; {introduced 1.1.0}
 
-  {$EXTERNALSYM DTLS_method}
   function DTLS_method : PSSL_METHOD cdecl; external CLibSSL; //* DTLS 1.0 and 1.2 */
-  {$EXTERNALSYM DTLS_server_method}
   function DTLS_server_method : PSSL_METHOD cdecl; external CLibSSL; //* DTLS 1.0 and 1.2 */
-  {$EXTERNALSYM DTLS_client_method}
   function DTLS_client_method : PSSL_METHOD cdecl; external CLibSSL; //* DTLS 1.0 and 1.2 */
 
-  {$EXTERNALSYM DTLS_get_data_mtu}
   function DTLS_get_data_mtu(const s: PSSL) : TIdC_SIZET cdecl; external CLibSSL;
   //
-  {$EXTERNALSYM SSL_get_ciphers}
   function SSL_get_ciphers(const s: PSSL) : PSTACK_OF_SSL_CIPHER cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_get_ciphers}
   function SSL_CTX_get_ciphers(const ctx: PSSL_CTX) : PSTACK_OF_SSL_CIPHER cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_get_client_ciphers}
   function SSL_get_client_ciphers(const s: PSSL) : PSTACK_OF_SSL_CIPHER cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_get1_supported_ciphers}
   function SSL_get1_supported_ciphers(s: PSSL) : PSTACK_OF_SSL_CIPHER cdecl; external CLibSSL;
   //
-  {$EXTERNALSYM SSL_do_handshake}
   function SSL_do_handshake(s: PSSL) : TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_key_update}
   function SSL_key_update(s: PSSL; updatetype: TIdC_INT): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_get_key_update_type}
   function SSL_get_key_update_type(const s: PSSL): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_renegotiate}
   function SSL_renegotiate(s: PSSL): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_renegotiate_abbreviated}
   function SSL_renegotiate_abbreviated(s: PSSL): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_shutdown}
   function SSL_shutdown(s: PSSL): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_shutdown_ex}
   function SSL_shutdown_ex(ssl : PSSL; flags : TIdC_UINT64;
                            const args : PSSL_SHUTDOWN_EX_ARGS;
                            args_len : TIdC_SIZET) : TIdC_INT cdecl; external CLibSSL; {introduced 3.2.0}
 
-  {$EXTERNALSYM SSL_stream_conclude}
   function SSL_stream_conclude(ssl : PSSL; flags : TIdC_UINT64) : TIdC_INT cdecl; external CLibSSL;  {introduced 3.2.0}
-  {$EXTERNALSYM SSL_stream_reset}
   function SSL_stream_reset(ssl : PSSL;
                             args : PSSL_STREAM_RESET_ARGS;
                             args_len : TIdC_SIZET) : TIdC_INT cdecl; external CLibSSL;  {introduced 3.2.0}
-  {$EXTERNALSYM SSL_get_stream_read_state}
   function SSL_get_stream_read_state(ssl : PSSL) : TIdC_INT cdecl; external CLibSSL;  {introduced 3.2.0}
-  {$EXTERNALSYM SSL_get_stream_write_state}
   function SSL_get_stream_write_state(ssl : PSSL) : TIdC_INT cdecl; external CLibSSL;  {introduced 3.2.0}
 
-  {$EXTERNALSYM SSL_get_stream_read_error_code}
   function SSL_get_stream_read_error_code(ssl : PSSL; uapp_error_code : PIdC_UINT64) : TIdC_INT cdecl; external CLibSSL;  {introduced 3.2.0}
-  {$EXTERNALSYM SSL_get_stream_write_error_code}
   function SSL_get_stream_write_error_code(ssl : PSSL; app_error_code : PIdC_UINT64) : TIdC_INT cdecl; external CLibSSL;  {introduced 3.2.0}
 
-  {$EXTERNALSYM SSL_get_conn_close_info}
   function SSL_get_conn_close_info(ssl : PSSL;
                                    info : PSSL_CONN_CLOSE_INFO;
                                    info_len : TIdC_SIZET) : TIdC_INT cdecl; external CLibSSL; {introduced 3.2.0}
-  {$EXTERNALSYM SSL_get_value_uint}
   function SSL_get_value_uint(s : PSSL; class_ : TIdC_UINT32; id  : TIdC_UINT32; v : PIdC_UINT64) : TIdC_INT cdecl; external CLibSSL; {introduced 3.3.0}
-  {$EXTERNALSYM SSL_set_value_uint}
   function SSL_set_value_uint(s : PSSL; class_ : TIdC_UINT32; id  : TIdC_UINT32;  v : TIdC_UINT64) : TIdC_INT cdecl; external CLibSSL; {introduced 3.3.0}
   {$EXTERNALSYM SSL_poll}
   function SSL_poll(items : PSSL_POLL_ITEM;
@@ -4393,63 +3585,37 @@ var
                     flags : TIdC_UINT64;
                     result_count : PIdC_SIZET) : TIdC_INT cdecl; external CLibSSL; {introduced 3.3.0}
 
-  {$EXTERNALSYM SSL_CTX_set_post_handshake_auth}
   procedure SSL_CTX_set_post_handshake_auth(ctx: PSSL_CTX; _val: TIdC_INT) cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_set_post_handshake_auth}
   procedure SSL_set_post_handshake_auth(s: PSSL; _val: TIdC_INT) cdecl; external CLibSSL; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSL_renegotiate_pending}
   function SSL_renegotiate_pending(const s: PSSL): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_verify_client_post_handshake}
   function SSL_verify_client_post_handshake(s: PSSL): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSL_CTX_get_ssl_method}
   function SSL_CTX_get_ssl_method(const ctx: PSSL_CTX): PSSL_METHOD cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_get_ssl_method}
   function SSL_get_ssl_method(const s: PSSL): PSSL_METHOD cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_set_ssl_method}
   function SSL_set_ssl_method(s: PSSL; const method: PSSL_METHOD): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_alert_type_string_long}
   function SSL_alert_type_string_long(value: TIdC_INT): PIdAnsiChar cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_alert_type_string}
   function SSL_alert_type_string(value: TIdC_INT): PIdAnsiChar cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_alert_desc_string_long}
   function SSL_alert_desc_string_long(value: TIdC_INT): PIdAnsiChar cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_alert_desc_string}
   function SSL_alert_desc_string(value: TIdC_INT): PIdAnsiChar cdecl; external CLibSSL;
 
-  {$EXTERNALSYM SSL_set0_CA_list}
   procedure SSL_set0_CA_list(s : PSSL; name_list : PSTACK_OF_X509_NAME) cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_set0_CA_list}
   procedure SSL_CTX_set0_CA_list(ctx: PSSL_CTX; name_list : PSTACK_OF_X509_NAME) cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_get0_CA_list}
   function SSL_get0_CA_list(const s: PSSL) : PSTACK_OF_X509_NAME cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_get0_CA_list}
   function SSL_CTX_get0_CA_list(const ctx: PSSL_CTX) : PSTACK_OF_X509_NAME cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_add1_to_CA_list}
   function SSL_add1_to_CA_list(ssl: PSSL; const x : PX509) : TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_add1_to_CA_list}
   function SSL_CTX_add1_to_CA_list(ctx: PSSL_CTX; const x : PX509) : TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_get0_peer_CA_list}
   function SSL_get0_peer_CA_list(const s: PSSL) : PSTACK_OF_X509_NAME cdecl; external CLibSSL;
 
-  {$EXTERNALSYM SSL_set_client_CA_list}
   procedure SSL_set_client_CA_list(s: PSSL;  name_list : PSTACK_OF_X509_NAME) cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_set_client_CA_list}
   procedure SSL_CTX_set_client_CA_list(ctx: PSSL_CTX; name_list : PSTACK_OF_X509_NAME) cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_get_client_CA_list}
   function SSL_get_client_CA_list(const s: PSSL) : PSTACK_OF_X509_NAME cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_get_client_CA_list}
   function SSL_CTX_get_client_CA_list(const s : PSSL_CTX) : PSTACK_OF_X509_NAME cdecl; external CLibSSL;
 
-  {$EXTERNALSYM SSL_add_client_CA}
   function SSL_add_client_CA(ssl: PSSL; x: PX509): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_add_client_CA}
   function SSL_CTX_add_client_CA(ctx: PSSL_CTX; x: PX509): TIdC_INT cdecl; external CLibSSL;
 
-  {$EXTERNALSYM SSL_set_connect_state}
   procedure SSL_set_connect_state(s: PSSL) cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_set_accept_state}
   procedure SSL_set_accept_state(s: PSSL) cdecl; external CLibSSL;
 
   //__owur TIdC_LONG SSL_get_default_timeout(const s: PSSL);
@@ -4460,119 +3626,73 @@ var
 
   //__owur PIdAnsiChar *SSL_CIPHER_description(const SSL_CIPHER *, PIdAnsiChar *buf, TIdC_INT size);
   //__owur STACK_OF(X509_NAME) *SSL_dup_CA_list(const STACK_OF(X509_NAME) *sk);
-  {$EXTERNALSYM SSL_CIPHER_description}
   function SSL_CIPHER_description(cipher: PSSL_CIPHER; buf: PIdAnsiChar; size_ :TIdC_INT): PIdAnsiChar cdecl; external CLibSSL;
 
-  {$EXTERNALSYM SSL_dup}
   function SSL_dup(ssl: PSSL): PSSL cdecl; external CLibSSL;
 
-  {$EXTERNALSYM SSL_get_certificate}
   function SSL_get_certificate(const ssl: PSSL): PX509 cdecl; external CLibSSL;
   (*
    * EVP_PKEY
    *)
-  {$EXTERNALSYM SSL_get_privatekey}
   function SSL_get_privatekey(const ssl: PSSL): PEVP_PKEY cdecl; external CLibSSL;
 
-  {$EXTERNALSYM SSL_CTX_get0_certificate}
   function SSL_CTX_get0_certificate(const ctx: PSSL_CTX): PX509 cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_get0_privatekey}
   function SSL_CTX_get0_privatekey(const ctx: PSSL_CTX): PEVP_PKEY cdecl; external CLibSSL;
 
-  {$EXTERNALSYM SSL_CTX_set_quiet_shutdown}
   procedure SSL_CTX_set_quiet_shutdown(ctx: PSSL_CTX; mode: TIdC_INT) cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_get_quiet_shutdown}
   function SSL_CTX_get_quiet_shutdown(const ctx: PSSL_CTX): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_set_quiet_shutdown}
   procedure SSL_set_quiet_shutdown(ssl: PSSL; mode: TIdC_INT) cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_get_quiet_shutdown}
   function SSL_get_quiet_shutdown(const ssl: PSSL): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_set_shutdown}
   procedure SSL_set_shutdown(ssl: PSSL; mode: TIdC_INT) cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_get_shutdown}
   function SSL_get_shutdown(const ssl: PSSL): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_version}
   function SSL_version(const ssl: PSSL): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_client_version}
   function SSL_client_version(const s: PSSL): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
   {$EXTERNALSYM SSL_CTX_set_default_verify_paths}
   function SSL_CTX_set_default_verify_paths(ctx: PSSL_CTX): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_set_default_verify_dir}
   function SSL_CTX_set_default_verify_dir(ctx: PSSL_CTX): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_set_default_verify_file}
   function SSL_CTX_set_default_verify_file(ctx: PSSL_CTX): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_load_verify_locations}
   function SSL_CTX_load_verify_locations(ctx: PSSL_CTX; const CAfile: PIdAnsiChar; const CApath: PIdAnsiChar): TIdC_INT cdecl; external CLibSSL;
   //# define SSL_get0_session SSL_get_session/* just peek at pointer */
-  {$EXTERNALSYM SSL_get_session}
   function SSL_get_session(const ssl: PSSL): PSSL_SESSION cdecl; external CLibSSL;
   (* obtain a reference count *)
-  {$EXTERNALSYM SSL_get1_session}
   function SSL_get1_session(ssl: PSSL): PSSL_SESSION cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_get_SSL_CTX}
   function SSL_get_SSL_CTX(const ssl: PSSL): PSSL_CTX cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_set_SSL_CTX}
   function SSL_set_SSL_CTX(ssl: PSSL; ctx: PSSL_CTX): PSSL_CTX cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_set_info_callback}
   procedure SSL_set_info_callback(ssl: PSSL; cb: SSL_info_callback) cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_get_info_callback}
   function SSL_get_info_callback(const ssl: PSSL): SSL_info_callback cdecl; external CLibSSL;
   {$EXTERNALSYM SSL_get_state}
   function SSL_get_state(const ssl: PSSL): OSSL_HANDSHAKE_STATE cdecl; external CLibSSL; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSL_set_verify_result}
   procedure SSL_set_verify_result(ssl: PSSL; v: TIdC_LONG) cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_get_verify_result}
   function SSL_get_verify_result(const ssl: PSSL): TIdC_LONG cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_get0_verified_chain}
   function SSL_get0_verified_chain(const s: PSSL) : PSTACK_OF_X509 cdecl; external CLibSSL;
 
-  {$EXTERNALSYM SSL_get_client_random}
   function SSL_get_client_random(const ssl: PSSL; out_: PByte; outlen: TIdC_SIZET): TIdC_SIZET cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_get_server_random}
   function SSL_get_server_random(const ssl: PSSL; out_: PByte; outlen: TIdC_SIZET): TIdC_SIZET cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_SESSION_get_master_key}
   function SSL_SESSION_get_master_key(const sess: PSSL_SESSION; out_: PByte; outlen: TIdC_SIZET): TIdC_SIZET cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_SESSION_set1_master_key}
   function SSL_SESSION_set1_master_key(sess: PSSL_SESSION; const in_: PByte; len: TIdC_SIZET): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_SESSION_get_max_fragment_length}
   function SSL_SESSION_get_max_fragment_length(const sess: PSSL_SESSION): TIdC_UINT8 cdecl; external CLibSSL; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSL_set_ex_data}
   function SSL_set_ex_data(ssl: PSSL; idx: TIdC_INT; data: Pointer): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_get_ex_data}
   function SSL_get_ex_data(const ssl: PSSL; idx: TIdC_INT): Pointer cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_SESSION_set_ex_data}
   function SSL_SESSION_set_ex_data(ss: PSSL_SESSION; idx: TIdC_INT; data: Pointer): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_SESSION_get_ex_data}
   function SSL_SESSION_get_ex_data(const ss: PSSL_SESSION; idx: TIdC_INT): Pointer cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_set_ex_data}
   function SSL_CTX_set_ex_data(ssl: PSSL_CTX; idx: TIdC_INT; data: Pointer): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_get_ex_data}
   function SSL_CTX_get_ex_data(const ssl: PSSL_CTX; idx: TIdC_INT): Pointer cdecl; external CLibSSL;
 
   {$EXTERNALSYM SSL_get_ex_data_X509_STORE_CTX_idx}
   function SSL_get_ex_data_X509_STORE_CTX_idx: TIdC_INT cdecl; external CLibSSL;
 
-  {$EXTERNALSYM SSL_CTX_set_default_read_buffer_len}
   procedure SSL_CTX_set_default_read_buffer_len(ctx: PSSL_CTX; len: TIdC_SIZET) cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_set_default_read_buffer_len}
   procedure SSL_set_default_read_buffer_len(s: PSSL; len: TIdC_SIZET) cdecl; external CLibSSL; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSL_CTX_set_tmp_dh_callback}
   procedure SSL_CTX_set_tmp_dh_callback(ctx: PSSL_CTX; dh: SSL_CTX_set_tmp_dh_callback_dh) cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_set_tmp_dh_callback}
   procedure SSL_set_tmp_dh_callback(ssl: PSSL; dh: SSL_set_tmp_dh_callback_dh) cdecl; external CLibSSL;
 
-  {$EXTERNALSYM SSL_get_current_compression}
   function SSL_get_current_compression (const s: PSSL) : PCOMP_METHOD cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_get_current_expansion}
   function SSL_get_current_expansion (const s: PSSL) : PCOMP_METHOD cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_COMP_get_name}
   function SSL_COMP_get_name(const _comp : PCOMP_METHOD) : PIdAnsiChar cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_COMP_get0_name}
   function SSL_COMP_get0_name(const _comp : PSSL_COMP) : PIdAnsiChar cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_COMP_get_id}
   function SSL_COMP_get_id(const _comp : PSSL_COMP) : TIdC_INT cdecl; external CLibSSL;
   {$EXTERNALSYM SSL_COMP_get_compression_methods}
   function SSL_COMP_get_compression_methods : PSTACK_OF_SSL_COMP cdecl; external CLibSSL;
@@ -4581,144 +3701,89 @@ var
   //# if OPENSSL_API_COMPAT < 0x10100000L
   //#  define SSL_COMP_free_compression_methods() while(0) continue
   //# endif
-  {$EXTERNALSYM SSL_COMP_add_compression_method}
   function SSL_COMP_add_compression_method(id : TIdC_INT; cm : PCOMP_METHOD) : TIdC_INT cdecl; external CLibSSL;
 
 
-  {$EXTERNALSYM SSL_CIPHER_find}
   function SSL_CIPHER_find(ssl: PSSL; const _ptr: PByte): PSSL_CIPHER cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CIPHER_get_cipher_nid}
   function SSL_CIPHER_get_cipher_nid(const c: PSSL_CIPHEr): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CIPHER_get_digest_nid}
   function SSL_CIPHER_get_digest_nid(const c: PSSL_CIPHEr): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_bytes_to_cipher_list}
   function SSL_bytes_to_cipher_list(s: PSSL; const bytes : PByte;  len : TIdC_SIZET;
                                     isv2format : TIdC_INT; sk : PPSTACK_OF_SSL_CIPHER;
                                     scsvs : PPSTACK_OF_SSL_CIPHER) : TIdC_INT cdecl; external CLibSSL;
 
   (* TLS extensions functions *)
-  {$EXTERNALSYM SSL_set_session_ticket_ext}
   function SSL_set_session_ticket_ext(s: PSSL; ext_data: Pointer; ext_len: TIdC_INT): TIdC_INT cdecl; external CLibSSL;
   //
-  {$EXTERNALSYM SSL_set_session_ticket_ext_cb}
   function SSL_set_session_ticket_ext_cb(s: PSSL; cb: tls_session_ticket_ext_cb_fn; arg: Pointer): TIdC_INT cdecl; external CLibSSL;
 
   ///* Pre-shared secret session resumption functions */
-  {$EXTERNALSYM SSL_set_session_secret_cb}
   function  SSL_set_session_secret_cb(s: PSSL;
                                        session_secret_cb : tls_session_secret_cb_fn;
                                        arg : Pointer) : TIdC_INT cdecl; external CLibSSL;
 
-  {$EXTERNALSYM SSL_CTX_set_not_resumable_session_callback}
   procedure SSL_CTX_set_not_resumable_session_callback(ctx: PSSL_CTX; cb: SSL_CTX_set_not_resumable_session_callback_cb) cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_set_not_resumable_session_callback}
   procedure SSL_set_not_resumable_session_callback(ssl: PSSL; cb: SSL_set_not_resumable_session_callback_cb) cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_set_record_padding_callback}
   procedure SSL_CTX_set_record_padding_callback(ctx: PSSL_CTX; cb: SSL_CTX_set_record_padding_callback_cb) cdecl; external CLibSSL; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSL_CTX_set_record_padding_callback_arg}
   procedure SSL_CTX_set_record_padding_callback_arg(ctx: PSSL_CTX; arg: Pointer) cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_get_record_padding_callback_arg}
   function SSL_CTX_get_record_padding_callback_arg(const ctx: PSSL_CTX): Pointer cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_set_block_padding}
   function SSL_CTX_set_block_padding(ctx: PSSL_CTX; block_size: TIdC_SIZET): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSL_set_record_padding_callback}
   procedure SSL_set_record_padding_callback(ssl: PSSL; cb: SSL_set_record_padding_callback_cb) cdecl; external CLibSSL; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSL_set_record_padding_callback_arg}
   procedure SSL_set_record_padding_callback_arg(ssl: PSSL; arg: Pointer) cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_get_record_padding_callback_arg}
   function SSL_get_record_padding_callback_arg(const ssl: PSSL): Pointer cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_set_block_padding}
   function SSL_set_block_padding(ssl: PSSL; block_size: TIdC_SIZET): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_set_num_tickets}
   function SSL_set_num_tickets(s: PSSL; num_tickets: TIdC_SIZET): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_get_num_tickets}
   function SSL_get_num_tickets(const s: PSSL): TIdC_SIZET cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_set_num_tickets}
   function SSL_CTX_set_num_tickets(ctx: PSSL_CTX; num_tickets: TIdC_SIZET): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_get_num_tickets}
   function SSL_CTX_get_num_tickets(const ctx: PSSL_CTX): TIdC_SIZET cdecl; external CLibSSL; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSL_handle_events}
   function SSL_handle_events(s : PSSL) : TIdC_INT cdecl; external CLibSSL;  {introduced 3.2.0}
   {$EXTERNALSYM SSL_get_event_timeout}
   function SSL_get_event_timeout(s : PSSL; tv : Ptimeval; is_infinite : TIdC_INT) : TIdC_INT cdecl; external CLibSSL; {introduced 3.2.0}
-  {$EXTERNALSYM SSL_get_rpoll_descriptor}
   function SSL_get_rpoll_descriptor(s : PSSL;  desc : PBIO_POLL_DESCRIPTOR) : TIdC_INT cdecl; external CLibSSL; {introduced 3.2.0}
-  {$EXTERNALSYM SSL_get_wpoll_descriptor}
   function SSL_get_wpoll_descriptor(s : PSSL;  desc : PBIO_POLL_DESCRIPTOR) : TIdC_INT cdecl; external CLibSSL; {introduced 3.2.0}
-  {$EXTERNALSYM SSL_net_read_desired}
   function SSL_net_read_desired(s : PSSL) : TIdC_INT cdecl; external CLibSSL;  {introduced 3.2.0}
-  {$EXTERNALSYM SSL_net_write_desired}
   function SSL_net_write_desired(s : PSSL) : TIdC_INT cdecl; external CLibSSL;  {introduced 3.2.0}
-  {$EXTERNALSYM SSL_set_blocking_mode}
   function SSL_set_blocking_mode(s : PSSL; blocking : TIdC_INT) : TIdC_INT cdecl; external CLibSSL;  {introduced 3.2.0}
-  {$EXTERNALSYM SSL_get_blocking_mode}
   function SSL_get_blocking_mode(s : PSSL) : TIdC_INT cdecl; external CLibSSL;  {introduced 3.2.0}
-  {$EXTERNALSYM SSL_set1_initial_peer_addr}
   function SSL_set1_initial_peer_addr(s : PSSL; peer_addr : PBIO_ADDR) : TIdC_INT  cdecl; external CLibSSL;  {introduced 3.2.0}
-  {$EXTERNALSYM SSL_get0_connection}
   function SSL_get0_connection(s : PSSL) : PSSL cdecl; external CLibSSL;   {introduced 3.2.0}
-  {$EXTERNALSYM SSL_is_connection}
   function SSL_is_connection(s : PSSL) : TIdC_INT cdecl; external CLibSSL;   {introduced 3.2.0}
 
-  {$EXTERNALSYM SSL_is_listener}
   function SSL_is_listener(ssl : PSSL) : TIdC_INT cdecl; external CLibSSL;  {introduced 3.5.0}
-  {$EXTERNALSYM SSL_get0_listener}
   function SSL_get0_listener(s : PSSL) : PSSL cdecl; external CLibSSL;  {introduced 3.5.0}
-  {$EXTERNALSYM SSL_new_listener}
   function SSL_new_listener(ctx : PSSL_CTX; flags : TIdC_UINT64) : PSSL cdecl; external CLibSSL; {introduced 3.5.0}
-  {$EXTERNALSYM SSL_new_listener_from}
   function SSL_new_listener_from(ssl : PSSL; flags : TIdC_UINT64) : PSSL cdecl; external CLibSSL; {introduced 3.5.0}
-  {$EXTERNALSYM SSL_new_from_listener}
   function SSL_new_from_listener(ssl : PSSL; flags : TIdC_UINT64) : PSSL cdecl; external CLibSSL; {introduced 3.5.0}
-  {$EXTERNALSYM SSL_accept_connection}
   function SSL_accept_connection(ssl : PSSL; flags : TIdC_UINT64) : PSSL cdecl; external CLibSSL; {introduced 3.5.0}
-  {$EXTERNALSYM SSL_get_accept_connection_queue_len}
   function SSL_get_accept_connection_queue_len(ssl : PSSL) : TIdC_SIZET cdecl; external CLibSSL; {introduced 3.5.0}
-  {$EXTERNALSYM SSL_listen}
   function SSL_listen(ssl : PSSL) : TIdC_INT cdecl; external CLibSSL; {introduced 3.5.0}
 
-  {$EXTERNALSYM SSL_is_domain}
   function SSL_is_domain(s : PSSL) : TIdC_INT cdecl; external CLibSSL; {introduced 3.5.0}
-  {$EXTERNALSYM SSL_get0_domain}
   function SSL_get0_domain(s : PSSL) : PSSL cdecl; external CLibSSL;  {introduced 3.5.0}
-  {$EXTERNALSYM SSL_new_domain}
   function SSL_new_domain(ctx : PSSL_CTX; flags : TIdC_UINT64) : PSSL cdecl; external CLibSSL; {introduced 3.5.0}
 
-  {$EXTERNALSYM SSL_CTX_set_domain_flags}
   function SSL_CTX_set_domain_flags(ctx : PSSL_CTX ; domain_flags : TIdC_UINT64) : TIdC_INT cdecl; external CLibSSL; {introduced 3.5.0}
-  {$EXTERNALSYM SSL_CTX_get_domain_flags}
   function SSL_CTX_get_domain_flags(ctx : PSSL_CTX; domain_flags : PIdC_UINT64) : TIdC_INT cdecl; external CLibSSL; {introduced 3.5.0}
-  {$EXTERNALSYM SSL_get_domain_flags}
   function SSL_get_domain_flags(ssl : PSSL; domain_flags  : PIdC_UINT64) : TIdC_INT cdecl; external CLibSSL;  {introduced 3.5.0}
 
-  {$EXTERNALSYM SSL_get_stream_type}
   function SSL_get_stream_type(s : PSSL) : TIdC_INT cdecl; external CLibSSL;  {introduced 3.2.0}
 
-  {$EXTERNALSYM SSL_get_stream_id}
   function SSL_get_stream_id(s : PSSL) : TIdC_UINT64 cdecl; external CLibSSL;  {introduced 3.2.0}
-  {$EXTERNALSYM SSL_is_stream_local}
   function SSL_is_stream_local(s : PSSL) : TIdC_INT cdecl; external CLibSSL;    {introduced 3.2.0}
 
-  {$EXTERNALSYM SSL_set_default_stream_mode}
   function SSL_set_default_stream_mode(s : PSSL; mode : TIdC_UINT32) : TIdC_INT  cdecl; external CLibSSL;  {introduced 3.2.0}
 
-  {$EXTERNALSYM SSL_new_stream}
   function SSL_new_stream(s : PSSL; flags : TIdC_UINT64) : PSSL  cdecl; external CLibSSL;  {introduced 3.2.0}
 
-  {$EXTERNALSYM SSL_set_incoming_stream_policy}
   function SSL_set_incoming_stream_policy(s : PSSL; policy : TIdC_INT; aec : TIdC_UINT64) : TIdC_INT  cdecl; external CLibSSL;   {introduced 3.2.0}
 
-  {$EXTERNALSYM SSL_accept_stream}
   function SSL_accept_stream(s : PSSL; flags : TIdC_UINT64) : PSSL  cdecl; external CLibSSL;   {introduced 3.2.0}
-  {$EXTERNALSYM SSL_get_accept_stream_queue_len}
   function SSL_get_accept_stream_queue_len(s : PSSL) : TIdC_SIZET  cdecl; external CLibSSL;   {introduced 3.2.0}
 
   {$IFNDEF  OPENSSL_NO_QUIC}
-  {$EXTERNALSYM SSL_inject_net_dgram}
   function SSL_inject_net_dgram(s : PSSL; buf : PIdAnsiChar;
                                 buf_len : TIdC_SIZET;
                                 peer : PBIO_ADDR;
@@ -4731,40 +3796,24 @@ var
 
   {$EXTERNALSYM SSL_session_reused}
   function SSL_session_reused(const s: PSSL): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_is_server}
   function SSL_is_server(const s: PSSL): TIdC_INT cdecl; external CLibSSL;
 
-  {$EXTERNALSYM SSL_CONF_CTX_new}
   function SSL_CONF_CTX_new: PSSL_CONF_CTX cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CONF_CTX_finish}
   function SSL_CONF_CTX_finish(cctx: PSSL_CONF_CTX): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CONF_CTX_free}
   procedure SSL_CONF_CTX_free(cctx: PSSL_CONF_CTX) cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CONF_CTX_set_flags}
   function SSL_CONF_CTX_set_flags(cctx: PSSL_CONF_CTX; flags: TIdC_UINT): TIdC_UINT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CONF_CTX_clear_flags}
   function SSL_CONF_CTX_clear_flags(cctx: PSSL_CONF_CTX; flags: TIdC_UINT): TIdC_UINT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CONF_CTX_set1_prefix}
   function SSL_CONF_CTX_set1_prefix(cctx: PSSL_CONF_CTX; const pre: PIdAnsiChar): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CONF_cmd}
   function SSL_CONF_cmd(cctx: PSSL_CONF_CTX; const cmd: PIdAnsiChar; const value: PIdAnsiChar): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CONF_cmd_argv}
   function SSL_CONF_cmd_argv(cctx: PSSL_CONF_CTX; pargc: PIdC_INT; pargv: PPPIdAnsiChar): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CONF_cmd_value_type}
   function SSL_CONF_cmd_value_type(cctx: PSSL_CONF_CTX; const cmd: PIdAnsiChar): TIdC_INT cdecl; external CLibSSL;
 
-  {$EXTERNALSYM SSL_CONF_CTX_set_ssl}
   procedure SSL_CONF_CTX_set_ssl(cctx: PSSL_CONF_CTX; ssl: PSSL) cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CONF_CTX_set_ssl_ctx}
   procedure SSL_CONF_CTX_set_ssl_ctx(cctx: PSSL_CONF_CTX; ctx: PSSL_CTX) cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_add_ssl_module}
   procedure SSL_add_ssl_module cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_config}
   function SSL_config(s: PSSL; const name: PIdAnsiChar): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_config}
   function SSL_CTX_config(ctx: PSSL_CTX; const name: PIdAnsiChar): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSL_trace}
   procedure SSL_trace(write_p: TIdC_INT; version: TIdC_INT; content_type: TIdC_INT; const buf; len: TIdC_SIZET; ssl: PSSL; arg: Pointer) cdecl; external CLibSSL;
 
   {$EXTERNALSYM DTLSv1_listen}
@@ -4793,9 +3842,7 @@ var
   // * NOTE: A side-effect of setting a CT callback is that an OCSP stapled response
   // *       will be requested.
   // */
-  {$EXTERNALSYM SSL_set_ct_validation_callback}
   function SSL_set_ct_validation_callback(s: PSSL; callback: ssl_ct_validation_cb; arg: Pointer): TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_set_ct_validation_callback}
   function SSL_CTX_set_ct_validation_callback(ctx: PSSL_CTX; callback: ssl_ct_validation_cb; arg: Pointer): TIdC_INT cdecl; external CLibSSL;
 
   //#define SSL_disable_ct(s) \
@@ -4817,95 +3864,63 @@ var
   // * least one valid SCT, or else handshake termination will be requested.  The
   // * handshake may continue anyway if SSL_VERIFY_NONE is in_ effect.
   // */
-  {$EXTERNALSYM SSL_enable_ct}
   function SSL_enable_ct(s: PSSL; validation_mode: TIdC_INT): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_enable_ct}
   function SSL_CTX_enable_ct(ctx: PSSL_CTX; validation_mode: TIdC_INT): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
 
   ///*
   // * Report whether a non-NULL callback is enabled.
   // */
-  {$EXTERNALSYM SSL_ct_is_enabled}
   function SSL_ct_is_enabled(const s: PSSL): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_ct_is_enabled}
   function SSL_CTX_ct_is_enabled(const ctx: PSSL_CTX): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
 
   ///* Gets the SCTs received from a connection */
-  {$EXTERNALSYM SSL_get0_peer_scts}
   function SSL_get0_peer_scts(s: PSSL) : PSTACK_OF_SCT cdecl; external CLibSSL;
 
-  {$EXTERNALSYM SSL_CTX_set_default_ctlog_list_file}
   function SSL_CTX_set_default_ctlog_list_file(ctx: PSSL_CTX): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_set_ctlog_list_file}
   function SSL_CTX_set_ctlog_list_file(ctx: PSSL_CTX; const path: PIdAnsiChar): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_set0_ctlog_store}
   procedure SSL_CTX_set0_ctlog_store(ctx: PSSL_CTX; logs: PCTLOG_STORE) cdecl; external CLibSSL; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSL_CTX_get0_ctlog_store}
   function SSL_CTX_get0_ctlog_store(const ctx: PSSL_CTX) : PCTLOG_STORE cdecl; external CLibSSL;
 
   // # endif /* OPENSSL_NO_CT */
 
-  {$EXTERNALSYM SSL_set_security_level}
   procedure SSL_set_security_level(s: PSSL; level: TIdC_INT) cdecl; external CLibSSL; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSL_get_security_level}
   function SSL_get_security_level(const s: PSSL) : TIdC_INT cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_set_security_callback}
   procedure SSL_set_security_callback(s: PSSL; cb: SSL_security_callback) cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_get_security_callback}
   function SSL_get_security_callback(const s: PSSL): SSL_security_callback cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_set0_security_ex_data}
   procedure SSL_set0_security_ex_data(s: PSSL; ex: Pointer) cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_get0_security_ex_data}
   function SSL_get0_security_ex_data(const s: PSSL): Pointer cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_set_security_level}
   procedure SSL_CTX_set_security_level(ctx: PSSL_CTX; level: TIdC_INT) cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_get_security_level}
   function SSL_CTX_get_security_level(const ctx: PSSL_CTX): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_set_security_callback}
   procedure SSL_CTX_set_security_callback(ctx: PSSL_CTX; cb: SSL_security_callback) cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_get_security_callback}
   function SSL_CTX_get_security_callback(const ctx: PSSL_CTX) : SSL_security_callback cdecl; external CLibSSL;
-  {$EXTERNALSYM SSL_CTX_get0_security_ex_data}
   function SSL_CTX_get0_security_ex_data(const ctx: PSSL_CTX): Pointer cdecl; external CLibSSL; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSL_CTX_set0_security_ex_data}
   procedure SSL_CTX_set0_security_ex_data(ctx: PSSL_CTX; ex: Pointer) cdecl; external CLibSSL; {introduced 1.1.0}
 
-  {$EXTERNALSYM OPENSSL_init_ssl}
   function OPENSSL_init_ssl(opts: TIdC_UINT64; const settings: POPENSSL_INIT_SETTINGS): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
 
   //# ifndef OPENSSL_NO_UNIT_TEST
   //__owur const struct openssl_ssl_test_functions *SSL_test_functions(void);
   //# endif
 
-  {$EXTERNALSYM SSL_free_buffers}
   function SSL_free_buffers(ssl: PSSL): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_alloc_buffers}
   function SSL_alloc_buffers(ssl: PSSL): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSL_CTX_set_session_ticket_cb}
   function SSL_CTX_set_session_ticket_cb(ctx: PSSL_CTX; gen_cb: SSL_CTX_generate_session_ticket_fn; dec_cb: SSL_CTX_decrypt_session_ticket_fn; arg: Pointer): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSL_SESSION_set1_ticket_appdata}
   function SSL_SESSION_set1_ticket_appdata(ss: PSSL_SESSION; const data: Pointer; len: TIdC_SIZET): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_SESSION_get0_ticket_appdata}
   function SSL_SESSION_get0_ticket_appdata(ss: PSSL_SESSION; data: PPointer; len: PIdC_SIZET): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
 
   //extern const PIdAnsiChar SSL_version_str[];
 
-  {$EXTERNALSYM DTLS_set_timer_cb}
   procedure DTLS_set_timer_cb(s: PSSL; cb: DTLS_timer_cb) cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_CTX_set_allow_early_data_cb}
   procedure SSL_CTX_set_allow_early_data_cb(ctx: PSSL_CTX; cb: SSL_allow_early_data_cb_fN; arg: Pointer) cdecl; external CLibSSL; {introduced 1.1.0}
-  {$EXTERNALSYM SSL_set_allow_early_data_cb}
   procedure SSL_set_allow_early_data_cb(s: PSSL; cb: SSL_allow_early_data_cb_fN; arg: Pointer) cdecl; external CLibSSL; {introduced 1.1.0}
 
 
-  {$EXTERNALSYM SSL_get0_peer_certificate}
   function SSL_get0_peer_certificate(const s: PSSL): PX509 cdecl; external CLibSSL; {introduced 3.3.0}
-  {$EXTERNALSYM SSL_get1_peer_certificate}
   function SSL_get1_peer_certificate(const s: PSSL): PX509 cdecl; external CLibSSL; {introduced 3.3.0}
 
 
@@ -5086,12 +4101,9 @@ type
   Tsk_SSL_COMP_new_null = function : PSTACK_OF_SSL_COMP cdecl;
   Tsk_SSL_COMP_free = procedure(st : PSTACK_OF_SSL_COMP) cdecl;
   Tsk_SSL_COMP_num = function (const sk : PSTACK_OF_SSL_COMP) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_SSL_COMP_value}
   Tsk_SSL_COMP_value = function (const sk : PSTACK_OF_SSL_COMP; i : TIdC_INT) : PSSL_COMP cdecl;
-  {$EXTERNALSYM Tsk_SSL_COMP_push}
   Tsk_SSL_COMP_push = function (sk : PSTACK_OF_SSL_COMP; st : PSSL_COMP) : TIdC_INT cdecl;
   Tsk_SSL_COMP_dup = function (sk : PSTACK_OF_SSL_COMP) : PSTACK_OF_SSL_COMP cdecl;
-  {$EXTERNALSYM Tsk_SSL_COMP_find}
   Tsk_SSL_COMP_find = function (sk : PSTACK_OF_SSL_COMP; _val : PSSL_COMP) : TIdC_INT cdecl;
   Tsk_SSL_COMP_pop_free = procedure (sk : PSTACK_OF_SSL_COMP; func: TOPENSSL_sk_freefunc) cdecl;
 
@@ -5099,12 +4111,9 @@ type
   Tsk_SRTP_PROTECTION_PROFILE_new_null = function : PSTACK_OF_SRTP_PROTECTION_PROFILE cdecl;
   Tsk_SRTP_PROTECTION_PROFILE_free = procedure(st : PSTACK_OF_SRTP_PROTECTION_PROFILE) cdecl;
   Tsk_SRTP_PROTECTION_PROFILE_num = function (const sk : PSTACK_OF_SRTP_PROTECTION_PROFILE) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_SRTP_PROTECTION_PROFILE_value}
   Tsk_SRTP_PROTECTION_PROFILE_value = function (const sk : PSTACK_OF_SRTP_PROTECTION_PROFILE; i : TIdC_INT) : PSRTP_PROTECTION_PROFILE cdecl;
-  {$EXTERNALSYM Tsk_SRTP_PROTECTION_PROFILE_push}
   Tsk_SRTP_PROTECTION_PROFILE_push = function (sk : PSTACK_OF_SRTP_PROTECTION_PROFILE; st : PSRTP_PROTECTION_PROFILE) : TIdC_INT cdecl;
   Tsk_SRTP_PROTECTION_PROFILE_dup = function (sk : PSTACK_OF_SRTP_PROTECTION_PROFILE) : PSTACK_OF_SRTP_PROTECTION_PROFILE cdecl;
-  {$EXTERNALSYM Tsk_SRTP_PROTECTION_PROFILE_find}
   Tsk_SRTP_PROTECTION_PROFILE_find = function (sk : PSTACK_OF_SRTP_PROTECTION_PROFILE; _val : PSRTP_PROTECTION_PROFILE) : TIdC_INT cdecl;
   Tsk_SRTP_PROTECTION_PROFILE_pop_free = procedure (sk : PSTACK_OF_SRTP_PROTECTION_PROFILE; func: TOPENSSL_sk_freefunc) cdecl;
 
@@ -5351,7 +4360,6 @@ function SSL_get_stream_write_buf_used(ssl : PSSL; value : PIdC_UINT64) : TIdC_I
   {$EXTERNALSYM SSL_get_stream_write_buf_avail}
 function SSL_get_stream_write_buf_avail(ssl : PSSL; value : PIdC_UINT64) : TIdC_INT;
 
-  {$EXTERNALSYM SSL_as_poll_descriptor}
 function SSL_as_poll_descriptor(s : PSSL) : BIO_POLL_DESCRIPTOR;
 
   {$EXTERNALSYM DTLSv1_get_timeout}

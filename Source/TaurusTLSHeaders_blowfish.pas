@@ -51,14 +51,11 @@ type
   BF_LONG = TIdC_UINT;
   PBF_LONG = ^BF_LONG;
 
-  {$EXTERNALSYM bf_key_st}
   bf_key_st = record
     p: array[0 .. BF_ROUNDS + 2 - 1] of BF_LONG;
     s: array[0 .. 4 * 256 - 1] of BF_LONG;
   end;
-  {$EXTERNALSYM BF_KEY}
   BF_KEY = bf_key_st;
-  {$EXTERNALSYM PBF_KEY}
   PBF_KEY = ^BF_KEY;
 
     { The EXTERNALSYM directive is ignored by FPC, however, it is used by Delphi as follows:
@@ -72,42 +69,28 @@ var
   {$EXTERNALSYM BF_set_key}
   BF_set_key: procedure (key: PBF_KEY; len: TIdC_INT; const data: PByte); cdecl = nil;
 
-  {$EXTERNALSYM BF_encrypt}
   BF_encrypt: procedure (data: PBF_LONG; const key: PBF_KEY); cdecl = nil;
-  {$EXTERNALSYM BF_decrypt}
   BF_decrypt: procedure (data: PBF_LONG; const key: PBF_KEY); cdecl = nil;
 
-  {$EXTERNALSYM BF_ecb_encrypt}
   BF_ecb_encrypt: procedure (const in_: PByte; out_: PByte; key: PBF_KEY; enc: TIdC_INT); cdecl = nil;
-  {$EXTERNALSYM BF_cbc_encrypt}
   BF_cbc_encrypt: procedure (const in_: PByte; out_: PByte; _length: TIdC_LONG; schedule: PBF_KEY; ivec: PByte; enc: TIdC_INT); cdecl = nil;
-  {$EXTERNALSYM BF_cfb64_encrypt}
   BF_cfb64_encrypt: procedure (const in_: PByte; out_: PByte; _length: TIdC_LONG; schedule: PBF_KEY; ivec: PByte; num: PIdC_INT; enc: TIdC_INT); cdecl = nil;
-  {$EXTERNALSYM BF_ofb64_encrypt}
   BF_ofb64_encrypt: procedure (const in_: PByte; out_: PByte; _length: TIdC_LONG; schedule: PBF_KEY; ivec: PByte; num: PIdC_INT); cdecl = nil;
 
-  {$EXTERNALSYM BF_options}
   BF_options: function : PIdAnsiChar; cdecl = nil;
 
 {$ELSE}
   {$EXTERNALSYM BF_set_key}
   procedure BF_set_key(key: PBF_KEY; len: TIdC_INT; const data: PByte) cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM BF_encrypt}
   procedure BF_encrypt(data: PBF_LONG; const key: PBF_KEY) cdecl; external CLibCrypto;
-  {$EXTERNALSYM BF_decrypt}
   procedure BF_decrypt(data: PBF_LONG; const key: PBF_KEY) cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM BF_ecb_encrypt}
   procedure BF_ecb_encrypt(const in_: PByte; out_: PByte; key: PBF_KEY; enc: TIdC_INT) cdecl; external CLibCrypto;
-  {$EXTERNALSYM BF_cbc_encrypt}
   procedure BF_cbc_encrypt(const in_: PByte; out_: PByte; _length: TIdC_LONG; schedule: PBF_KEY; ivec: PByte; enc: TIdC_INT) cdecl; external CLibCrypto;
-  {$EXTERNALSYM BF_cfb64_encrypt}
   procedure BF_cfb64_encrypt(const in_: PByte; out_: PByte; _length: TIdC_LONG; schedule: PBF_KEY; ivec: PByte; num: PIdC_INT; enc: TIdC_INT) cdecl; external CLibCrypto;
-  {$EXTERNALSYM BF_ofb64_encrypt}
   procedure BF_ofb64_encrypt(const in_: PByte; out_: PByte; _length: TIdC_LONG; schedule: PBF_KEY; ivec: PByte; num: PIdC_INT) cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM BF_options}
   function BF_options: PIdAnsiChar cdecl; external CLibCrypto;
 
 {$ENDIF}

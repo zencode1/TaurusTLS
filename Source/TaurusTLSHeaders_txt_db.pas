@@ -56,7 +56,6 @@ type
 // DEFINE_SPECIAL_STACK_OF(OPENSSL_PSTRING, OPENSSL_STRING)
 
   qual_func =  function (v1: POPENSSL_STRING): TIdC_INT;
-  {$EXTERNALSYM txt_db_st}
   txt_db_st = record
     num_fields: TIdC_INT;
     data: Pointer; // STACK_OF(OPENSSL_PSTRING) *
@@ -67,9 +66,7 @@ type
     arg2: TIdC_LONG;
     arg_row: POPENSSL_STRING;
   end;
-  {$EXTERNALSYM TXT_DB}
   TXT_DB = txt_db_st;
-  {$EXTERNALSYM PTXT_DB}
   PTXT_DB = ^TXT_DB;
 
   TXT_DB_create_index_qual = function(v1: POPENSSL_STRING): TIdC_INT;
@@ -82,29 +79,19 @@ type
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 var
-  {$EXTERNALSYM TXT_DB_read}
   TXT_DB_read: function (in_: PBIO; num: TIdC_INT): PTXT_DB; cdecl = nil;
-  {$EXTERNALSYM TXT_DB_write}
   TXT_DB_write: function (out_: PBIO; db: PTXT_DB): TIdC_LONG; cdecl = nil;
   //function TXT_DB_create_index(db: PTXT_DB; field: TIdC_INT; qual: TXT_DB_create_index_qual; hash: OPENSSL_LH_HashFunc; cmp: OPENSSL_LH_COMPFUNC): TIdC_INT;
-  {$EXTERNALSYM TXT_DB_free}
   TXT_DB_free: procedure (db: PTXT_DB); cdecl = nil;
-  {$EXTERNALSYM TXT_DB_get_by_index}
   TXT_DB_get_by_index: function (db: PTXT_DB; idx: TIdC_INT; value: POPENSSL_STRING): POPENSSL_STRING; cdecl = nil;
-  {$EXTERNALSYM TXT_DB_insert}
   TXT_DB_insert: function (db: PTXT_DB; value: POPENSSL_STRING): TIdC_INT; cdecl = nil;
 
 {$ELSE}
-  {$EXTERNALSYM TXT_DB_read}
   function TXT_DB_read(in_: PBIO; num: TIdC_INT): PTXT_DB cdecl; external CLibCrypto;
-  {$EXTERNALSYM TXT_DB_write}
   function TXT_DB_write(out_: PBIO; db: PTXT_DB): TIdC_LONG cdecl; external CLibCrypto;
   //function TXT_DB_create_index(db: PTXT_DB; field: TIdC_INT; qual: TXT_DB_create_index_qual; hash: OPENSSL_LH_HashFunc; cmp: OPENSSL_LH_COMPFUNC): TIdC_INT;
-  {$EXTERNALSYM TXT_DB_free}
   procedure TXT_DB_free(db: PTXT_DB) cdecl; external CLibCrypto;
-  {$EXTERNALSYM TXT_DB_get_by_index}
   function TXT_DB_get_by_index(db: PTXT_DB; idx: TIdC_INT; value: POPENSSL_STRING): POPENSSL_STRING cdecl; external CLibCrypto;
-  {$EXTERNALSYM TXT_DB_insert}
   function TXT_DB_insert(db: PTXT_DB; value: POPENSSL_STRING): TIdC_INT cdecl; external CLibCrypto;
 
 {$ENDIF}

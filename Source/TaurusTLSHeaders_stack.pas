@@ -59,7 +59,6 @@ uses
   TOPENSSL_sk_freefunc = procedure (_para1:pointer);cdecl;
   TOPENSSL_sk_freefunc_thunk = function (_para1 : TOPENSSL_sk_freefunc; _para2 : Pointer) : Pointer;cdecl;
   TOPENSSL_sk_copyfunc = function (_para1:pointer):pointer;cdecl;
-  {$EXTERNALSYM OPENSSL_sk_copyfunc_thunk}
   OPENSSL_sk_copyfunc_thunk = function (_para1 : TOPENSSL_sk_copyfunc; _para2 : Pointer):pointer; cdecl;
   OPENSSL_sk_set_cmp_thunks_c_thunk = function(cmp: TOPENSSL_sk_compfunc; const a, b: Pointer): TIdC_INT; cdecl;
 
@@ -71,59 +70,32 @@ uses
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 var
-  {$EXTERNALSYM OPENSSL_sk_num}
   OPENSSL_sk_num: function (_para1:POPENSSL_STACK):TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM OPENSSL_sk_value}
   OPENSSL_sk_value: function (_para1:POPENSSL_STACK; _para2:TIdC_INT):pointer; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM OPENSSL_sk_set}
   OPENSSL_sk_set: function (st:POPENSSL_STACK; i:TIdC_INT; data:pointer):pointer; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM OPENSSL_sk_new}
   OPENSSL_sk_new: function (cmp:TOPENSSL_sk_compfunc):POPENSSL_STACK; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM OPENSSL_sk_new_null}
   OPENSSL_sk_new_null: function :POPENSSL_STACK; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM OPENSSL_sk_new_reserve}
   OPENSSL_sk_new_reserve: function (c:TOPENSSL_sk_compfunc; n:TIdC_INT):POPENSSL_STACK; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM OPENSSL_sk_set_thunks}
   OPENSSL_sk_set_thunks : function(st : POPENSSL_STACK; f_thunk : TOPENSSL_sk_freefunc_thunk) :POPENSSL_STACK; cdecl = nil;
-  {$EXTERNALSYM OPENSSL_sk_set_cmp_thunks}
   OPENSSL_sk_set_cmp_thunks : function(st : POPENSSL_STACK; c_thunk : OPENSSL_sk_set_cmp_thunks_c_thunk) : POPENSSL_STACK; cdecl = nil;
-  {$EXTERNALSYM OPENSSL_sk_set_copy_thunks}
   OPENSSL_sk_set_copy_thunks : function(st : POPENSSL_STACK; cp_func : OPENSSL_sk_copyfunc_thunk) : POPENSSL_STACK; cdecl = nil;
-  {$EXTERNALSYM OPENSSL_sk_reserve}
   OPENSSL_sk_reserve: function (st:POPENSSL_STACK; n:TIdC_INT):TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM OPENSSL_sk_free}
   OPENSSL_sk_free: procedure (_para1:POPENSSL_STACK); cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM OPENSSL_sk_pop_free}
   OPENSSL_sk_pop_free: procedure (st:POPENSSL_STACK; func:TOPENSSL_sk_freefunc); cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM OPENSSL_sk_deep_copy}
   OPENSSL_sk_deep_copy: function (_para1:POPENSSL_STACK; c:TOPENSSL_sk_copyfunc; f:TOPENSSL_sk_freefunc):POPENSSL_STACK; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM OPENSSL_sk_insert}
   OPENSSL_sk_insert: function (sk:POPENSSL_STACK; data:pointer; where:TIdC_INT):TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM OPENSSL_sk_delete}
   OPENSSL_sk_delete: function (st:POPENSSL_STACK; loc:TIdC_INT):pointer; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM OPENSSL_sk_delete_ptr}
   OPENSSL_sk_delete_ptr: function (st:POPENSSL_STACK; p:pointer):pointer; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM OPENSSL_sk_find}
   OPENSSL_sk_find: function (st:POPENSSL_STACK; data:pointer):TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM OPENSSL_sk_find_ex}
   OPENSSL_sk_find_ex: function (st:POPENSSL_STACK; data:pointer):TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM OPENSSL_sk_push}
   OPENSSL_sk_push: function (st:POPENSSL_STACK; data:pointer):TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM OPENSSL_sk_unshift}
   OPENSSL_sk_unshift: function (st:POPENSSL_STACK; data:pointer):TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM OPENSSL_sk_shift}
   OPENSSL_sk_shift: function (st:POPENSSL_STACK):pointer; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM OPENSSL_sk_pop}
   OPENSSL_sk_pop: function (st:POPENSSL_STACK):pointer; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM OPENSSL_sk_zero}
   OPENSSL_sk_zero: procedure (st:POPENSSL_STACK); cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM OPENSSL_sk_set_cmp_func}
   OPENSSL_sk_set_cmp_func: function (sk:POPENSSL_STACK; cmp:TOPENSSL_sk_compfunc):TOPENSSL_sk_compfunc; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM OPENSSL_sk_dup}
   OPENSSL_sk_dup: function (st:POPENSSL_STACK):POPENSSL_STACK; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM OPENSSL_sk_sort}
   OPENSSL_sk_sort: procedure (st:POPENSSL_STACK); cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM OPENSSL_sk_is_sorted}
   OPENSSL_sk_is_sorted: function (st:POPENSSL_STACK):TIdC_INT; cdecl = nil; {introduced 1.1.0}
 
   {$EXTERNALSYM sk_num}
@@ -175,60 +147,33 @@ var
 
   procedure LoadStackFunctions(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 {$ELSE}
-  {$EXTERNALSYM OPENSSL_sk_num}
   function OPENSSL_sk_num(_para1:POPENSSL_STACK):TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM OPENSSL_sk_value}
   function OPENSSL_sk_value(_para1:POPENSSL_STACK; _para2:TIdC_INT):pointer cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM OPENSSL_sk_set}
   function OPENSSL_sk_set(st:POPENSSL_STACK; i:TIdC_INT; data:pointer):pointer cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM OPENSSL_sk_new}
   function OPENSSL_sk_new(cmp:TOPENSSL_sk_compfunc):POPENSSL_STACK cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM OPENSSL_sk_new_null}
   function OPENSSL_sk_new_null:POPENSSL_STACK cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM OPENSSL_sk_new_reserve}
   function OPENSSL_sk_new_reserve(c:TOPENSSL_sk_compfunc; n:TIdC_INT):POPENSSL_STACK cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM OPENSSL_sk_set_thunks}
   function OPENSSL_sk_set_thunks(st : POPENSSL_STACK; f_thunk : TOPENSSL_sk_freefunc_thunk) :POPENSSL_STACK cdecl; external CLibCrypto;
-  {$EXTERNALSYM OPENSSL_sk_set_cmp_thunks}
   function OPENSSL_sk_set_cmp_thunks(st : POPENSSL_STACK; c_thunk : OPENSSL_sk_set_cmp_thunks_c_thunk) : POPENSSL_STACK cdecl; external CLibCrypto;
-  {$EXTERNALSYM OPENSSL_sk_set_copy_thunks}
   function OPENSSL_sk_set_copy_thunks(st : POPENSSL_STACK; cp_func : OPENSSL_sk_copyfunc_thunk) : POPENSSL_STACK cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM OPENSSL_sk_reserve}
   function OPENSSL_sk_reserve(st:POPENSSL_STACK; n:TIdC_INT):TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM OPENSSL_sk_free}
   procedure OPENSSL_sk_free(_para1:POPENSSL_STACK) cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM OPENSSL_sk_pop_free}
   procedure OPENSSL_sk_pop_free(st:POPENSSL_STACK; func:TOPENSSL_sk_freefunc) cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM OPENSSL_sk_deep_copy}
   function OPENSSL_sk_deep_copy(_para1:POPENSSL_STACK; c:TOPENSSL_sk_copyfunc; f:TOPENSSL_sk_freefunc):POPENSSL_STACK cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM OPENSSL_sk_insert}
   function OPENSSL_sk_insert(sk:POPENSSL_STACK; data:pointer; where:TIdC_INT):TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM OPENSSL_sk_delete}
   function OPENSSL_sk_delete(st:POPENSSL_STACK; loc:TIdC_INT):pointer cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM OPENSSL_sk_delete_ptr}
   function OPENSSL_sk_delete_ptr(st:POPENSSL_STACK; p:pointer):pointer cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM OPENSSL_sk_find}
   function OPENSSL_sk_find(st:POPENSSL_STACK; data:pointer):TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM OPENSSL_sk_find_ex}
   function OPENSSL_sk_find_ex(st:POPENSSL_STACK; data:pointer):TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM OPENSSL_sk_push}
   function OPENSSL_sk_push(st:POPENSSL_STACK; data:pointer):TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM OPENSSL_sk_unshift}
   function OPENSSL_sk_unshift(st:POPENSSL_STACK; data:pointer):TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM OPENSSL_sk_shift}
   function OPENSSL_sk_shift(st:POPENSSL_STACK):pointer cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM OPENSSL_sk_pop}
   function OPENSSL_sk_pop(st:POPENSSL_STACK):pointer cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM OPENSSL_sk_zero}
   procedure OPENSSL_sk_zero(st:POPENSSL_STACK) cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM OPENSSL_sk_set_cmp_func}
   function OPENSSL_sk_set_cmp_func(sk:POPENSSL_STACK; cmp:TOPENSSL_sk_compfunc):TOPENSSL_sk_compfunc cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM OPENSSL_sk_dup}
   function OPENSSL_sk_dup(st:POPENSSL_STACK):POPENSSL_STACK cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM OPENSSL_sk_sort}
   procedure OPENSSL_sk_sort(st:POPENSSL_STACK) cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM OPENSSL_sk_is_sorted}
   function OPENSSL_sk_is_sorted(st:POPENSSL_STACK):TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
 
 

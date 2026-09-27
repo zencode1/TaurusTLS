@@ -69,15 +69,12 @@ uses
      *
      * An array of these is always terminated by function_id == 0
       }
-  {$EXTERNALSYM ossl_dispatch_st}
       ossl_dispatch_st = record
           function_id : TIdC_LONG;
           _function: procedure;cdecl;
         end;
 
-  {$EXTERNALSYM OSSL_DISPATCH}
      OSSL_DISPATCH = ossl_dispatch_st;
-  {$EXTERNALSYM POSSL_DISPATCH}
      POSSL_DISPATCH = ^OSSL_DISPATCH;
 
     {
@@ -93,7 +90,6 @@ uses
      *
      * An array of these is always terminated by id == 0 && ptr == NULL
       }
-  {$EXTERNALSYM ossl_item_st}
       ossl_item_st = record
           id : dword;
           _ptr : pointer;
@@ -105,14 +101,12 @@ uses
      *
      * An array of these is always terminated by algorithm_names == NULL
       }
-  {$EXTERNALSYM ossl_algorithm_st}
       ossl_algorithm_st = record
           algorithm_names : PIdAnsiChar;
           property_definition : PIdAnsiChar;
           implementation_ : ^OSSL_DISPATCH;
           algorithm_description : PIdAnsiChar;
         end;
-  {$EXTERNALSYM OSSL_ALGORITHM}
       OSSL_ALGORITHM = ossl_algorithm_st;
 
     {
@@ -126,7 +120,6 @@ uses
     { value being passed in or out  }
     { data size  }
     { returned content size  }
-  {$EXTERNALSYM ossl_param_st}
       ossl_param_st = record
           key : PIdAnsiChar;
           data_type : dword;
@@ -134,11 +127,8 @@ uses
           data_size : TIdC_SSIZET;
           return_size : TIdC_SSIZET;
         end;
-   {$EXTERNALSYM OSSL_PARAM}
       OSSL_PARAM        = ossl_param_st;
-   {$EXTERNALSYM POSSL_PARAM}
       POSSL_PARAM       = ^OSSL_PARAM;
-   {$EXTERNALSYM POSSL_PARAM_ARRAY}
       POSSL_PARAM_ARRAY = POSSL_PARAM; // declaration of "array of OSSL_PARAM"
 
     { Currently supported OSSL_PARAM data types  }
@@ -230,7 +220,6 @@ uses
       }
 
     type
-      {$EXTERNALSYM OSSL_thread_stop_handler_fn}
       OSSL_thread_stop_handler_fn = procedure (arg:pointer);cdecl;
     {-
      * Provider entry point
@@ -252,13 +241,11 @@ uses
       }
 
 type
-     {$EXTERNALSYM OSSL_provider_init_fn}
       OSSL_provider_init_fn = function (const handle: POSSL_CORE_HANDLE;
                                     const in_: POSSL_DISPATCH;
                                     var out_: POSSL_DISPATCH;
                                     var provctx: pointer): TIdC_INT cdecl;
 
-    {$EXTERNALSYM OSSL_provider_init}
     OSSL_provider_init = OSSL_provider_init_fn;
 
     {
@@ -274,10 +261,8 @@ type
      * libcrypto may use the OSSL_PARAM array to create arguments for an
      * application callback it knows about.
       }
-    {$EXTERNALSYM  OSSL_CALLBACK}
     OSSL_CALLBACK = function(params: POSSL_PARAM_ARRAY; arg: pointer): TIdC_INT cdecl;
 
-    {$EXTERNALSYM OSSL_INOUT_CALLBACK}
     OSSL_INOUT_CALLBACK = function(in_params: POSSL_PARAM_ARRAY;
                                   out_params: POSSL_PARAM_ARRAY; arg: pointer): TIdC_INT cdecl;
 
@@ -287,7 +272,6 @@ type
      * This is similar to the generic callback function above, but adds a
      * result parameter.
       }
-    {$EXTERNALSYM OSSL_PASSPHRASE_CALLBACK}
     OSSL_PASSPHRASE_CALLBACK = function(pass: PIdAnsiChar; pass_size: TIdC_SSIZET;
                                        pass_len: PIdC_SSIZET;
                                        params: POSSL_PARAM_ARRAY; arg: pointer): TIdC_INT cdecl;

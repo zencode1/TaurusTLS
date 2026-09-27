@@ -37,9 +37,7 @@ uses
 
 type
   // moved from asn1
-  {$EXTERNALSYM ASN1_ITEM_EXP}
   ASN1_ITEM_EXP = record end;
-  {$EXTERNALSYM PASN1_ITEM_EXP}
   PASN1_ITEM_EXP = ^ASN1_ITEM_EXP;
 
 //# ifndef OPENSSL_EXPORT_VAR_AS_FUNCTION
@@ -483,7 +481,6 @@ type
 // ///
 
 type
-  {$EXTERNALSYM ASN1_TEMPLATE_st}
   ASN1_TEMPLATE_st = record
     flags: TIdC_ULONG;
     tag: TIdC_LONG;
@@ -491,9 +488,7 @@ type
     fieldname: PIdAnsiChar;
     item: PASN1_ITEM_EXP;
   end;
-  {$EXTERNALSYM ASN1_TEMPLATE}
   ASN1_TEMPLATE = ASN1_TEMPLATE_st;
-  {$EXTERNALSYM PASN1_TEMPLATE}
   PASN1_TEMPLATE = ^ASN1_TEMPLATE;
 
 ///// Macro to extract ASN1_ITEM and ASN1_ADB pointer from PASN1_TEMPLATE ///
@@ -503,18 +498,14 @@ type
 
   adb_cb_callback = function(psel: PIdC_LONG): TIdC_INT;
 
-  {$EXTERNALSYM ASN1_ADB_TABLE_st}
   ASN1_ADB_TABLE_st = record
     value: TIdC_LONG;
     tt: PASN1_TEMPLATE;
   end;
 
-  {$EXTERNALSYM ASN1_ADB_TABLE}
   ASN1_ADB_TABLE = ASN1_ADB_TABLE_st;
-  {$EXTERNALSYM PASN1_ADB_TABLE}
   PASN1_ADB_TABLE = ^ASN1_ADB_TABLE;
 
-  {$EXTERNALSYM ASN1_ADB_st}
   ASN1_ADB_st = record
     flags: TIdC_ULONG;
     offset: TIdC_ULONG;
@@ -628,7 +619,6 @@ const
 // This is the actual ASN1 item itself //
 
 type
-  {$EXTERNALSYM ASN1_ITEM_st}
   ASN1_ITEM_st = record
     itype: TIdAnsiChar;
     utype: TIdC_LONG;
@@ -704,7 +694,6 @@ const
  //
 
 type
-  {$EXTERNALSYM ASN1_TLC_st}
   ASN1_TLC_st = record
     valid: TIdAnsiChar;
     ret: TIdC_INT;
@@ -713,60 +702,41 @@ type
     pclass: TIdC_INT;
     hdrlen: TIdC_INT;
   end;
-  {$EXTERNALSYM ASN1_TLC}
   ASN1_TLC = ASN1_TLC_st;
-  {$EXTERNALSYM PASN1_TLC}
   PASN1_TLC = ^ASN1_TLC;
 
-  {$EXTERNALSYM ASN1_ex_d2i}
   ASN1_ex_d2i = function(pval: PPASN1_VALUE; const AIn: PPByte; len: TIdC_LONG;
     const it: PASN1_ITEM; tag: TIdC_INT; aclass: TIdC_INT;
     opt: TIdAnsiChar; ctx: PASN1_TLC): TIdC_INT;
-  {$EXTERNALSYM PASN1_ex_d2i}
   PASN1_ex_d2i = ^ASN1_ex_d2i;
 
-  {$EXTERNALSYM ASN1_ex_i2d}
   ASN1_ex_i2d = function(pval: PPASN1_VALUE; AOut: PPByte; const it: PASN1_ITEM;
     tag: TIdC_INT; aclass: TIdC_INT): TIdC_INT;
-  {$EXTERNALSYM PASN1_ex_i2d}
   PASN1_ex_i2d = ^ASN1_ex_i2d;
 
-  {$EXTERNALSYM ASN1_ex_new_func}
   ASN1_ex_new_func = function(pval: PPASN1_VALUE; const it: PASN1_ITEM): TIdC_INT;
-  {$EXTERNALSYM PASN1_ex_new_func}
   PASN1_ex_new_func = ^ASN1_ex_new_func;
 
-  {$EXTERNALSYM ASN1_ex_free_func}
   ASN1_ex_free_func = procedure(pval: PPASN1_VALUE; const it: PASN1_ITEM);
-  {$EXTERNALSYM PASN1_ex_free_func}
   PASN1_ex_free_func = ^ASN1_ex_free_func;
 
-  {$EXTERNALSYM ASN1_ex_print_func}
   ASN1_ex_print_func = function(AOut: PBIO; pval: PPASN1_VALUE; indent: TIdC_INT;
     const fname: PIdAnsiChar; const pctx: PASN1_PCTX): TIdC_INT;
-  {$EXTERNALSYM PASN1_ex_print_func}
   PASN1_ex_print_func = ^ASN1_ex_print_func;
 
-  {$EXTERNALSYM ASN1_primitive_i2c}
   ASN1_primitive_i2c = function(pval: PPASN1_VALUE; const cont: PIdAnsiChar;
     puttype: PIdC_INT; const it: PASN1_ITEM): TIdC_INT;
-  {$EXTERNALSYM PASN1_primitive_i2c}
   PASN1_primitive_i2c = ^ASN1_primitive_i2c;
 
-  {$EXTERNALSYM ASN1_primitive_c2i}
   ASN1_primitive_c2i = function(pval: PPASN1_VALUE; const cont: PByte;
     len: TIdC_INT; utype: TIdC_INT; free_cont: PIdAnsiChar;
     const it: PASN1_ITEM): TIdC_INT;
-  {$EXTERNALSYM PASN1_primitive_c2i}
   PASN1_primitive_c2i = ^ASN1_primitive_c2i;
 
-  {$EXTERNALSYM ASN1_primitive_print}
   ASN1_primitive_print = function(AOut: PBIO; pval: PPASN1_VALUE;
     const it: PASN1_ITEM; indent: TIdC_INT; const pctx: PASN1_PCTX): TIdC_INT;
-  {$EXTERNALSYM PASN1_primitive_print}
   PASN1_primitive_print = ^ASN1_primitive_print;
 
-  {$EXTERNALSYM ASN1_EXTERN_FUNCS_st}
   ASN1_EXTERN_FUNCS_st = record
     app_data: Pointer;
     asn1_ex_new: PASN1_ex_new_func;
@@ -777,10 +747,8 @@ type
     asn1_ex_print: PASN1_ex_print_func;
   end;
 
-  {$EXTERNALSYM ASN1_EXTERN_FUNCS}
   ASN1_EXTERN_FUNCS = ASN1_EXTERN_FUNCS_st;
 
-  {$EXTERNALSYM ASN1_PRIMITIVE_FUNCS_st}
   ASN1_PRIMITIVE_FUNCS_st = record
     app_data: Pointer;
     flags: TIdC_ULONG;
@@ -792,7 +760,6 @@ type
     prim_print: PASN1_primitive_print;
   end;
 
-  {$EXTERNALSYM ASN1_PRIMITIVE_FUNCS}
   ASN1_PRIMITIVE_FUNCS = ASN1_PRIMITIVE_FUNCS_st;
 
 //
@@ -808,12 +775,9 @@ type
  // more appropriate.
  //
 
-  {$EXTERNALSYM ASN1_aux_cb}
   ASN1_aux_cb = function(operation: TIdC_INT; AIn: PASN1_VALUE; const it: PASN1_ITEM; exarg: Pointer): TIdC_INT;
-  {$EXTERNALSYM PASN1_aux_cb}
   PASN1_aux_cb = ^ASN1_aux_cb;
 
-  {$EXTERNALSYM ASN1_AUX_st}
   ASN1_AUX_st = record
     app_data: Pointer;
     flags: TIdC_INT;
@@ -823,23 +787,19 @@ type
     enc_offset: TidC_INT;
   end;
 
-  {$EXTERNALSYM ASN1_AUX}
   ASN1_AUX = ASN1_AUX_st;
 
 // For print related callbacks exarg points to this structure
 
-  {$EXTERNALSYM ASN1_PRINT_ARG_st}
   ASN1_PRINT_ARG_st = record
     AOut: PBIO;
     indent: TIdC_INT;
     pctx: PASN1_PCTX;
   end;
 
-  {$EXTERNALSYM ASN1_PRINT_ARG}
   ASN1_PRINT_ARG = ASN1_PRINT_ARG_st;
 
 // For streaming related callbacks exarg points to this structure
-  {$EXTERNALSYM ASN1_STREAM_ARG_st}
   ASN1_STREAM_ARG_st = record
     // BIO to stream through
     FOut: PBIO;
@@ -849,7 +809,6 @@ type
     boundary: PPByte;
   end;
 
-  {$EXTERNALSYM ASN1_STREAM_ARG}
   ASN1_STREAM_ARG = ASN1_STREAM_ARG_st;
 
 const
@@ -1075,27 +1034,19 @@ const
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 var
-  {$EXTERNALSYM ASN1_item_ex_new}
   ASN1_item_ex_new: function (pval: PPASN1_VALUE; const it: PASN1_ITEM): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM ASN1_item_ex_free}
   ASN1_item_ex_free: procedure (pval: PPASN1_VALUE; const it: PASN1_ITEM); cdecl = nil;
 
-  {$EXTERNALSYM ASN1_item_ex_d2i}
   ASN1_item_ex_d2i: function (pval: PPASN1_VALUE; const AIn: PPByte; len: TIdC_LONG; const it: PASN1_ITEM; tag: TIdC_INT; aclass: TIdC_INT; opt: AnsiChar; ctx: PASN1_TLC): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM ASN1_item_ex_i2d}
   ASN1_item_ex_i2d: function (pval: PPASN1_VALUE; AOut: PPByte; const it: PASN1_ITEM; tag: TIdC_INT; aclass: TIdC_INT): TIdC_INT; cdecl = nil;
 
 {$ELSE}
-  {$EXTERNALSYM ASN1_item_ex_new}
   function ASN1_item_ex_new(pval: PPASN1_VALUE; const it: PASN1_ITEM): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM ASN1_item_ex_free}
   procedure ASN1_item_ex_free(pval: PPASN1_VALUE; const it: PASN1_ITEM) cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM ASN1_item_ex_d2i}
   function ASN1_item_ex_d2i(pval: PPASN1_VALUE; const AIn: PPByte; len: TIdC_LONG; const it: PASN1_ITEM; tag: TIdC_INT; aclass: TIdC_INT; opt: TIdAnsiChar; ctx: PASN1_TLC): TIdC_INT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM ASN1_item_ex_i2d}
   function ASN1_item_ex_i2d(pval: PPASN1_VALUE; AOut: PPByte; const it: PASN1_ITEM; tag: TIdC_INT; aclass: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
 
 {$ENDIF}

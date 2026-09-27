@@ -46,16 +46,12 @@ const
   IDEA_KEY_LENGTH = 16;
 
 type
-  {$EXTERNALSYM IDEA_INT}
   IDEA_INT = type TIdC_INT;
 
-  {$EXTERNALSYM idea_key_st}
   idea_key_st = record
     data: array[0..8, 0..5] of IDEA_INT;
   end;
-  {$EXTERNALSYM IDEA_KEY_SCHEDULE}
   IDEA_KEY_SCHEDULE = idea_key_st;
-  {$EXTERNALSYM PIDEA_KEY_SCHEDULE}
   PIDEA_KEY_SCHEDULE = ^IDEA_KEY_SCHEDULE;
 
     { The EXTERNALSYM directive is ignored by FPC, however, it is used by Delphi as follows:
@@ -66,39 +62,23 @@ type
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 var
-  {$EXTERNALSYM IDEA_options}
   IDEA_options: function : PIdAnsiChar; cdecl = nil;
-  {$EXTERNALSYM IDEA_ecb_encrypt}
   IDEA_ecb_encrypt: procedure (const in_: PByte; var out_; ks: PIDEA_KEY_SCHEDULE); cdecl = nil;
-  {$EXTERNALSYM IDEA_set_encrypt_key}
   IDEA_set_encrypt_key: procedure (const key: PByte; ks: PIDEA_KEY_SCHEDULE); cdecl = nil;
-  {$EXTERNALSYM IDEA_set_decrypt_key}
   IDEA_set_decrypt_key: procedure (ek: PIDEA_KEY_SCHEDULE; dk: PIDEA_KEY_SCHEDULE); cdecl = nil;
-  {$EXTERNALSYM IDEA_cbc_encrypt}
   IDEA_cbc_encrypt: procedure (const in_: PByte; var out_; _length: TIdC_LONG; ks: PIDEA_KEY_SCHEDULE; iv: PByte; enc: TIdC_INT); cdecl = nil;
-  {$EXTERNALSYM IDEA_cfb64_encrypt}
   IDEA_cfb64_encrypt: procedure (const in_: PByte; var out_; _length: TIdC_LONG; ks: PIDEA_KEY_SCHEDULE; iv: PByte; num: PIdC_INT; enc: TIdC_INT); cdecl = nil;
-  {$EXTERNALSYM IDEA_ofb64_encrypt}
   IDEA_ofb64_encrypt: procedure (const in_: PByte; var out_; _length: TIdC_LONG; ks: PIDEA_KEY_SCHEDULE; iv: PByte; num: PIdC_INT); cdecl = nil;
-  {$EXTERNALSYM IDEA_encrypt}
   IDEA_encrypt: procedure (in_: PIdC_LONG; ks: PIDEA_KEY_SCHEDULE); cdecl = nil;
 
 {$ELSE}
-  {$EXTERNALSYM IDEA_options}
   function IDEA_options: PIdAnsiChar cdecl; external CLibCrypto;
-  {$EXTERNALSYM IDEA_ecb_encrypt}
   procedure IDEA_ecb_encrypt(const in_: PByte; var out_; ks: PIDEA_KEY_SCHEDULE) cdecl; external CLibCrypto;
-  {$EXTERNALSYM IDEA_set_encrypt_key}
   procedure IDEA_set_encrypt_key(const key: PByte; ks: PIDEA_KEY_SCHEDULE) cdecl; external CLibCrypto;
-  {$EXTERNALSYM IDEA_set_decrypt_key}
   procedure IDEA_set_decrypt_key(ek: PIDEA_KEY_SCHEDULE; dk: PIDEA_KEY_SCHEDULE) cdecl; external CLibCrypto;
-  {$EXTERNALSYM IDEA_cbc_encrypt}
   procedure IDEA_cbc_encrypt(const in_: PByte; var out_; _length: TIdC_LONG; ks: PIDEA_KEY_SCHEDULE; iv: PByte; enc: TIdC_INT) cdecl; external CLibCrypto;
-  {$EXTERNALSYM IDEA_cfb64_encrypt}
   procedure IDEA_cfb64_encrypt(const in_: PByte; var out_; _length: TIdC_LONG; ks: PIDEA_KEY_SCHEDULE; iv: PByte; num: PIdC_INT; enc: TIdC_INT) cdecl; external CLibCrypto;
-  {$EXTERNALSYM IDEA_ofb64_encrypt}
   procedure IDEA_ofb64_encrypt(const in_: PByte; var out_; _length: TIdC_LONG; ks: PIDEA_KEY_SCHEDULE; iv: PByte; num: PIdC_INT) cdecl; external CLibCrypto;
-  {$EXTERNALSYM IDEA_encrypt}
   procedure IDEA_encrypt(in_: PIdC_LONG; ks: PIDEA_KEY_SCHEDULE) cdecl; external CLibCrypto;
 
 {$ENDIF}

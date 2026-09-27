@@ -413,54 +413,36 @@ type
   certificate chain.
   *)
 
-  {$EXTERNALSYM X509_LOOKUP_TYPE}
   X509_LOOKUP_TYPE = (
-  {$EXTERNALSYM X509_LU_NONE}
     X509_LU_NONE = 0,
     X509_LU_X509,
     X509_LU_CRL
   );
 
-  {$EXTERNALSYM X509_STORE_CTX_verify_cb}
   X509_STORE_CTX_verify_cb = function(v1: TIdC_INT; v2: PX509_STORE_CTX): TIdC_INT; cdecl;
-  {$EXTERNALSYM X509_STORE_CTX_verify_fn}
   X509_STORE_CTX_verify_fn = function(v1: PX509_STORE_CTX): TIdC_INT; cdecl;
-  {$EXTERNALSYM X509_STORE_CTX_get_issuer_fn}
   X509_STORE_CTX_get_issuer_fn = function(issuer: PPX509; ctx: PX509_STORE_CTX; x: PX509): TIdC_INT; cdecl;
-  {$EXTERNALSYM X509_STORE_CTX_check_issued_fn}
   X509_STORE_CTX_check_issued_fn = function(ctx: PX509_STORE_CTX; x: PX509; issuer: PX509): TIdC_INT; cdecl;
-  {$EXTERNALSYM X509_STORE_CTX_check_revocation_fn}
   X509_STORE_CTX_check_revocation_fn = function(ctx: PX509_STORE_CTX): TIdC_INT; cdecl;
-  {$EXTERNALSYM X509_STORE_CTX_get_crl_fn}
   X509_STORE_CTX_get_crl_fn = function(ctx: PX509_STORE_CTX; crl: PPX509_CRL; x: PX509): TIdC_INT; cdecl;
-  {$EXTERNALSYM X509_STORE_CTX_check_crl_fn}
   X509_STORE_CTX_check_crl_fn = function(ctx: PX509_STORE_CTX; crl: PX509_CRL): TIdC_INT;  cdecl;
-  {$EXTERNALSYM X509_STORE_CTX_cert_crl_fn}
   X509_STORE_CTX_cert_crl_fn = function(ctx: PX509_STORE_CTX; crl: PX509_CRL; x: PX509): TIdC_INT; cdecl;
-  {$EXTERNALSYM X509_STORE_CTX_check_policy_fn}
   X509_STORE_CTX_check_policy_fn = function(ctx: PX509_STORE_CTX): TIdC_INT; cdecl;
-  {$EXTERNALSYM X509_STORE_CTX_lookup_certs_fn}
   X509_STORE_CTX_lookup_certs_fn = function(ctx : PX509_STORE_CTX;
      nm : PX509_NAME) : PSTACK_OF_X509; cdecl;
-  {$EXTERNALSYM X509_STORE_CTX_lookup_crls_fn}
   X509_STORE_CTX_lookup_crls_fn = function(ctx : PX509_STORE_CTX;
      nm : PX509_NAME) : PSTACK_OF_X509_CRL; cdecl;
-  {$EXTERNALSYM X509_STORE_CTX_cleanup_fn}
   X509_STORE_CTX_cleanup_fn = function(ctx: PX509_STORE_CTX): TIdC_INT; cdecl;
 
-  {$EXTERNALSYM X509_LOOKUP_ctrl_fn}
   X509_LOOKUP_ctrl_fn = function(ctx: PX509_LOOKUP; cmd: TIdC_INT;
     const argc: PIdAnsiChar; argl: TIdC_LONG; ret: PPIdAnsiChar): TIdC_INT; cdecl;
-  {$EXTERNALSYM X509_LOOKUP_get_by_subject_fn}
   X509_LOOKUP_get_by_subject_fn = function(ctx: PX509_LOOKUP;
     type_: X509_LOOKUP_TYPE; name: PX509_NAME; ret: PX509_OBJECT): TIdC_INT; cdecl;
   {$EXTERNALSYM X509_LOOKUP_get_by_issuer_serial_fn}
   X509_LOOKUP_get_by_issuer_serial_fn = function(ctx: PX509_LOOKUP;
     type_: X509_LOOKUP_TYPE; name: PX509_NAME; serial: PASN1_INTEGER; ret: PX509_OBJECT): TIdC_INT; cdecl;
-  {$EXTERNALSYM X509_LOOKUP_get_by_fingerprint_fn}
   X509_LOOKUP_get_by_fingerprint_fn = function(ctx: PX509_LOOKUP; type_: X509_LOOKUP_TYPE;
     const bytes: PByte; len: TIdC_INT; ret: PX509_OBJECT): TIdC_INT; cdecl;
-  {$EXTERNALSYM X509_LOOKUP_get_by_alias_fn}
   X509_LOOKUP_get_by_alias_fn = function(ctx: PX509_LOOKUP; type_: X509_LOOKUP_TYPE;
     const _str: PIdAnsiChar; len: TIdC_INT; ret: PX509_OBJECT): TIdC_INT; cdecl;
 
@@ -477,192 +459,109 @@ type
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 var
-  {$EXTERNALSYM X509_STORE_set_depth}
   X509_STORE_set_depth: function (store: PX509_STORE; depth: TIdC_INT): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM X509_STORE_CTX_set_depth}
   X509_STORE_CTX_set_depth: procedure (ctx: PX509_STORE_CTX; depth: TIdC_INT); cdecl = nil;
 
-  {$EXTERNALSYM X509_OBJECT_idx_by_subject}
   X509_OBJECT_idx_by_subject : function(h : PSTACK_OF_X509_OBJECT;
      _type : X509_LOOKUP_TYPE; name : PX509_NAME) : TIdC_INT cdecl = nil;
-  {$EXTERNALSYM X509_OBJECT_retrieve_by_subject}
   X509_OBJECT_retrieve_by_subject : function(h : PSTACK_OF_X509_OBJECT;
      _type : X509_LOOKUP_TYPE; name : PX509_NAME) : PX509_OBJECT; cdecl = nil;
-  {$EXTERNALSYM X509_OBJECT_retrieve_match}
   X509_OBJECT_retrieve_match : function(h : PSTACK_OF_X509_OBJECT;
     x : PX509_OBJECT) : PX509_OBJECT; cdecl = nil;
 
-  {$EXTERNALSYM X509_OBJECT_up_ref_count}
   X509_OBJECT_up_ref_count: function (a: PX509_OBJECT): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_OBJECT_new}
   X509_OBJECT_new: function : PX509_OBJECT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM X509_OBJECT_free}
   X509_OBJECT_free: procedure (a: PX509_OBJECT); cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM X509_OBJECT_get_type}
   X509_OBJECT_get_type: function (const a: PX509_OBJECT): X509_LOOKUP_TYPE; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM X509_OBJECT_get0_X509}
   X509_OBJECT_get0_X509: function (const a: PX509_OBJECT): PX509; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM X509_OBJECT_set1_X509}
   X509_OBJECT_set1_X509: function (a: PX509_OBJECT; obj: PX509): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM X509_OBJECT_get0_X509_CRL}
   X509_OBJECT_get0_X509_CRL: function (a: PX509_OBJECT): PX509_CRL; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM X509_OBJECT_set1_X509_CRL}
   X509_OBJECT_set1_X509_CRL: function (a: PX509_OBJECT; obj: PX509_CRL): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_new}
   X509_STORE_new: function : PX509_STORE; cdecl = nil;
-  {$EXTERNALSYM X509_STORE_free}
   X509_STORE_free: procedure (v: PX509_STORE); cdecl = nil;
-  {$EXTERNALSYM X509_STORE_lock}
   X509_STORE_lock: function (ctx: PX509_STORE): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_unlock}
   X509_STORE_unlock: function (ctx: PX509_STORE): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_up_ref}
   X509_STORE_up_ref: function (v: PX509_STORE): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_get1_objects}
   X509_STORE_get1_objects: function(xs : PX509_STORE) : PSTACK_OF_X509_OBJECT cdecl = nil;
-  {$EXTERNALSYM X509_STORE_get0_objects}
   X509_STORE_get0_objects: function(v : PX509_STORE) : PSTACK_OF_X509_OBJECT; cdecl = nil;
 
-  {$EXTERNALSYM X509_STORE_CTX_get1_certs}
   X509_STORE_CTX_get1_certs : function(st : PX509_STORE_CTX; nm : PX509_NAME) : PSTACK_OF_X509; cdecl = nil;
-  {$EXTERNALSYM X509_STORE_CTX_get1_crls}
   X509_STORE_CTX_get1_crls : function(st : PX509_STORE_CTX; nm : PX509_NAME) : PSTACK_OF_X509_CRL; cdecl = nil;
-  {$EXTERNALSYM X509_STORE_set_flags}
   X509_STORE_set_flags: function (ctx: PX509_STORE; flags: TIdC_ULONG): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_STORE_set_purpose}
   X509_STORE_set_purpose: function (ctx: PX509_STORE; purpose: TIdC_INT): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_STORE_set_trust}
   X509_STORE_set_trust: function (ctx: PX509_STORE; trust: TIdC_INT): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_STORE_set1_param}
   X509_STORE_set1_param: function (ctx: PX509_STORE; pm: PX509_VERIFY_PARAM): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_STORE_get0_param}
   X509_STORE_get0_param: function (ctx: PX509_STORE): PX509_VERIFY_PARAM; cdecl = nil; {introduced 1.1.0}
 
-  {$EXTERNALSYM X509_STORE_set_verify}
   X509_STORE_set_verify: procedure (ctx: PX509_STORE; verify: X509_STORE_CTX_verify_fn); cdecl = nil; {introduced 1.1.0}
   //#define X509_STORE_set_verify_func(ctx, func) \
   //            X509_STORE_set_verify((ctx),(func))
-  {$EXTERNALSYM X509_STORE_CTX_set_verify}
   X509_STORE_CTX_set_verify: procedure (ctx: PX509_STORE_CTX; verify: X509_STORE_CTX_verify_fn); cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_get_verify}
   X509_STORE_get_verify: function (ctx: PX509_STORE): X509_STORE_CTX_verify_fn; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_set_verify_cb}
   X509_STORE_set_verify_cb: procedure (ctx: PX509_STORE; verify_cb: X509_STORE_CTX_verify_cb); cdecl = nil;
   //# define X509_STORE_set_verify_cb_func(ctx,func) \
   //            X509_STORE_set_verify_cb((ctx),(func))
-  {$EXTERNALSYM X509_STORE_get_verify_cb}
   X509_STORE_get_verify_cb: function (ctx: PX509_STORE): X509_STORE_CTX_verify_cb; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_set_get_issuer}
   X509_STORE_set_get_issuer: procedure (ctx: PX509_STORE; get_issuer: X509_STORE_CTX_get_issuer_fn); cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_get_get_issuer}
   X509_STORE_get_get_issuer: function (ctx: PX509_STORE): X509_STORE_CTX_get_issuer_fn; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_set_check_issued}
   X509_STORE_set_check_issued: procedure (ctx: PX509_STORE; check_issued: X509_STORE_CTX_check_issued_fn); cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_get_check_issued}
   X509_STORE_get_check_issued: function (ctx: PX509_STORE): X509_STORE_CTX_check_issued_fn; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_set_check_revocation}
   X509_STORE_set_check_revocation: procedure (ctx: PX509_STORE; check_revocation: X509_STORE_CTX_check_revocation_fn); cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_get_check_revocation}
   X509_STORE_get_check_revocation: function (ctx: PX509_STORE): X509_STORE_CTX_check_revocation_fn; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_set_get_crl}
   X509_STORE_set_get_crl: procedure (ctx: PX509_STORE; get_crl: X509_STORE_CTX_get_crl_fn); cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_get_get_crl}
   X509_STORE_get_get_crl: function (ctx: PX509_STORE): X509_STORE_CTX_get_crl_fn; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_set_check_crl}
   X509_STORE_set_check_crl: procedure (ctx: PX509_STORE; check_crl: X509_STORE_CTX_check_crl_fn); cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_get_check_crl}
   X509_STORE_get_check_crl: function (ctx: PX509_STORE): X509_STORE_CTX_check_crl_fn; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_set_cert_crl}
   X509_STORE_set_cert_crl: procedure (ctx: PX509_STORE; cert_crl: X509_STORE_CTX_cert_crl_fn); cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_get_cert_crl}
   X509_STORE_get_cert_crl: function (ctx: PX509_STORE): X509_STORE_CTX_cert_crl_fn; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_set_check_policy}
   X509_STORE_set_check_policy: procedure (ctx: PX509_STORE; check_policy: X509_STORE_CTX_check_policy_fn); cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_get_check_policy}
   X509_STORE_get_check_policy: function (ctx: PX509_STORE): X509_STORE_CTX_check_policy_fn; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_set_lookup_certs}
   X509_STORE_set_lookup_certs : procedure(ctx: PX509_STORE; lookup_certs: X509_STORE_CTX_lookup_certs_fn);  cdecl = nil;
-  {$EXTERNALSYM X509_STORE_get_lookup_certs}
   X509_STORE_get_lookup_certs : function(ctx: PX509_STORE): X509_STORE_CTX_lookup_certs_fn; cdecl = nil;
-  {$EXTERNALSYM X509_STORE_set_lookup_crls}
   X509_STORE_set_lookup_crls : procedure(ctx: PX509_STORE; lookup_crls: X509_STORE_CTX_lookup_crls_fn); cdecl = nil;
 //  #define X509_STORE_set_lookup_crls_cb(ctx, func) \
 //      X509_STORE_set_lookup_crls((ctx), (func))
-  {$EXTERNALSYM X509_STORE_get_lookup_crls}
   X509_STORE_get_lookup_crls : function(ctx: PX509_STORE): X509_STORE_CTX_lookup_crls_fn; cdecl = nil;
-  {$EXTERNALSYM X509_STORE_set_cleanup}
   X509_STORE_set_cleanup: procedure (ctx: PX509_STORE; cleanup: X509_STORE_CTX_cleanup_fn); cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_get_cleanup}
   X509_STORE_get_cleanup: function (ctx: PX509_STORE): X509_STORE_CTX_cleanup_fn; cdecl = nil; {introduced 1.1.0}
 
-  {$EXTERNALSYM X509_STORE_set_ex_data}
   X509_STORE_set_ex_data: function (ctx: PX509_STORE; idx: TIdC_INT; data: Pointer): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_get_ex_data}
   X509_STORE_get_ex_data: function (ctx: PX509_STORE; idx: TIdC_INT): Pointer; cdecl = nil; {introduced 1.1.0}
 
-  {$EXTERNALSYM X509_STORE_CTX_new}
   X509_STORE_CTX_new: function : PX509_STORE_CTX; cdecl = nil;
 
-  {$EXTERNALSYM X509_STORE_CTX_get1_issuer}
   X509_STORE_CTX_get1_issuer: function (issuer: PPX509; ctx: PX509_STORE_CTX; x: PX509): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM X509_STORE_CTX_free}
   X509_STORE_CTX_free: procedure (ctx: PX509_STORE_CTX); cdecl = nil;
-  {$EXTERNALSYM X509_STORE_CTX_init}
   X509_STORE_CTX_init : function(ctx: PX509_STORE_CTX; store: PX509_STORE; x509: PX509; chain: PSTACK_OF_X509) : TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_STORE_CTX_set0_trusted_stack}
   X509_STORE_CTX_set0_trusted_stack : procedure (ctx: PX509_STORE_CTX; sk: PSTACK_OF_X509); cdecl = nil;
-  {$EXTERNALSYM X509_STORE_CTX_cleanup}
   X509_STORE_CTX_cleanup: procedure (ctx: PX509_STORE_CTX); cdecl = nil;
 
-  {$EXTERNALSYM X509_STORE_CTX_get0_store}
   X509_STORE_CTX_get0_store: function (ctx: PX509_STORE_CTX): PX509_STORE; cdecl = nil;
-  {$EXTERNALSYM X509_STORE_CTX_get0_cert}
   X509_STORE_CTX_get0_cert: function (ctx: PX509_STORE_CTX): PX509; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_CTX_get0_untrusted}
   X509_STORE_CTX_get0_untrusted : function(ctx : PX509_STORE_CTX) : PSTACK_OF_X509; cdecl = nil;
-  {$EXTERNALSYM X509_STORE_CTX_set0_untrusted}
   X509_STORE_CTX_set0_untrusted : procedure(ctx : PX509_STORE_CTX; sk : PSTACK_OF_X509); cdecl = nil;
-  {$EXTERNALSYM X509_STORE_CTX_set_verify_cb}
   X509_STORE_CTX_set_verify_cb: procedure (ctx: PX509_STORE_CTX; verify: X509_STORE_CTX_verify_cb); cdecl = nil;
-  {$EXTERNALSYM X509_STORE_CTX_get_verify_cb}
   X509_STORE_CTX_get_verify_cb: function (ctx: PX509_STORE_CTX): X509_STORE_CTX_verify_cb; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_CTX_get_verify}
   X509_STORE_CTX_get_verify: function (ctx: PX509_STORE_CTX): X509_STORE_CTX_verify_fn; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_CTX_get_get_issuer}
   X509_STORE_CTX_get_get_issuer: function (ctx: PX509_STORE_CTX): X509_STORE_CTX_get_issuer_fn; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_CTX_get_check_issued}
   X509_STORE_CTX_get_check_issued: function (ctx: PX509_STORE_CTX): X509_STORE_CTX_check_issued_fn; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_CTX_get_check_revocation}
   X509_STORE_CTX_get_check_revocation: function (ctx: PX509_STORE_CTX): X509_STORE_CTX_check_revocation_fn; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_CTX_get_get_crl}
   X509_STORE_CTX_get_get_crl: function (ctx: PX509_STORE_CTX): X509_STORE_CTX_get_crl_fn; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_CTX_get_check_crl}
   X509_STORE_CTX_get_check_crl: function (ctx: PX509_STORE_CTX): X509_STORE_CTX_check_crl_fn; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_CTX_get_cert_crl}
   X509_STORE_CTX_get_cert_crl: function (ctx: PX509_STORE_CTX): X509_STORE_CTX_cert_crl_fn; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_CTX_get_check_policy}
   X509_STORE_CTX_get_check_policy: function (ctx: PX509_STORE_CTX): X509_STORE_CTX_check_policy_fn; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_CTX_get_lookup_certs}
   X509_STORE_CTX_get_lookup_certs : function (ctx: PX509_STORE_CTX): X509_STORE_CTX_lookup_certs_fn; cdecl = nil;
-  {$EXTERNALSYM X509_STORE_CTX_get_lookup_crls}
   X509_STORE_CTX_get_lookup_crls : function (ctx: PX509_STORE_CTX): X509_STORE_CTX_lookup_crls_fn;  cdecl = nil;
-  {$EXTERNALSYM X509_STORE_CTX_get_cleanup}
   X509_STORE_CTX_get_cleanup: function (ctx: PX509_STORE_CTX): X509_STORE_CTX_cleanup_fn; cdecl = nil; {introduced 1.1.0}
 
-  {$EXTERNALSYM X509_STORE_add_lookup}
   X509_STORE_add_lookup: function (v: PX509_STORE; m: PX509_LOOKUP_METHOD): PX509_LOOKUP; cdecl = nil;
-  {$EXTERNALSYM X509_LOOKUP_hash_dir}
   X509_LOOKUP_hash_dir: function : PX509_LOOKUP_METHOD; cdecl = nil;
-  {$EXTERNALSYM X509_LOOKUP_file}
   X509_LOOKUP_file: function : PX509_LOOKUP_METHOD; cdecl = nil;
-  {$EXTERNALSYM X509_LOOKUP_store}
   X509_LOOKUP_store: function : PX509_LOOKUP_METHOD; cdecl = nil;  {introduced 3.0.0}
 
-  {$EXTERNALSYM X509_LOOKUP_meth_new}
   X509_LOOKUP_meth_new: function (const name: PIdAnsiChar): PX509_LOOKUP_METHOD; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM X509_LOOKUP_meth_free}
   X509_LOOKUP_meth_free: procedure (method: PX509_LOOKUP_METHOD); cdecl = nil; {introduced 1.1.0}
 
   //TIdC_INT X509_LOOKUP_meth_set_new_item(X509_LOOKUP_METHOD *method,
@@ -685,14 +584,10 @@ var
   //TIdC_INT (*X509_LOOKUP_meth_get_shutdown(const X509_LOOKUP_METHOD* method))
   //    (X509_LOOKUP *ctx);
 
-  {$EXTERNALSYM X509_LOOKUP_meth_set_ctrl}
   X509_LOOKUP_meth_set_ctrl: function (method: PX509_LOOKUP_METHOD; ctrl_fn: X509_LOOKUP_ctrl_fn): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM X509_LOOKUP_meth_get_ctrl}
   X509_LOOKUP_meth_get_ctrl: function (const method: PX509_LOOKUP_METHOD): X509_LOOKUP_ctrl_fn; cdecl = nil; {introduced 1.1.0}
 
-  {$EXTERNALSYM X509_LOOKUP_meth_set_get_by_subject}
   X509_LOOKUP_meth_set_get_by_subject: function (method: PX509_LOOKUP_METHOD; fn: X509_LOOKUP_get_by_subject_fn): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM X509_LOOKUP_meth_get_get_by_subject}
   X509_LOOKUP_meth_get_get_by_subject: function (const method: PX509_LOOKUP_METHOD): X509_LOOKUP_get_by_subject_fn; cdecl = nil; {introduced 1.1.0}
 
   {$EXTERNALSYM X509_LOOKUP_meth_set_get_by_issuer_serial}
@@ -700,464 +595,270 @@ var
   {$EXTERNALSYM X509_LOOKUP_meth_get_get_by_issuer_serial}
   X509_LOOKUP_meth_get_get_by_issuer_serial: function (const method: PX509_LOOKUP_METHOD): X509_LOOKUP_get_by_issuer_serial_fn; cdecl = nil; {introduced 1.1.0}
 
-  {$EXTERNALSYM X509_LOOKUP_meth_set_get_by_fingerprint}
   X509_LOOKUP_meth_set_get_by_fingerprint: function (method: PX509_LOOKUP_METHOD; fn: X509_LOOKUP_get_by_fingerprint_fn): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM X509_LOOKUP_meth_get_get_by_fingerprint}
   X509_LOOKUP_meth_get_get_by_fingerprint: function (const method: PX509_LOOKUP_METHOD): X509_LOOKUP_get_by_fingerprint_fn; cdecl = nil; {introduced 1.1.0}
 
-  {$EXTERNALSYM X509_LOOKUP_meth_set_get_by_alias}
   X509_LOOKUP_meth_set_get_by_alias: function (method: PX509_LOOKUP_METHOD; fn: X509_LOOKUP_get_by_alias_fn): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM X509_LOOKUP_meth_get_get_by_alias}
   X509_LOOKUP_meth_get_get_by_alias: function (const method: PX509_LOOKUP_METHOD): X509_LOOKUP_get_by_alias_fn; cdecl = nil; {introduced 1.1.0}
 
-  {$EXTERNALSYM X509_STORE_add_cert}
   X509_STORE_add_cert: function (ctx: PX509_STORE; x: PX509): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_STORE_add_crl}
   X509_STORE_add_crl: function (ctx: PX509_STORE; x: PX509_CRL): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM X509_STORE_CTX_get_by_subject}
   X509_STORE_CTX_get_by_subject: function (vs: PX509_STORE_CTX; type_: X509_LOOKUP_TYPE; name: PX509_NAME; ret: PX509_OBJECT): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_CTX_get_obj_by_subject}
   X509_STORE_CTX_get_obj_by_subject: function (vs: PX509_STORE_CTX; type_: X509_LOOKUP_TYPE; name: PX509_NAME): PX509_OBJECT; cdecl = nil; {introduced 1.1.0}
 
-  {$EXTERNALSYM X509_LOOKUP_ctrl}
   X509_LOOKUP_ctrl: function (ctx: PX509_LOOKUP; cmd: TIdC_INT; const argc: PIdAnsiChar; argl: TIdC_LONG; ret: PPIdAnsiChar): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM X509_load_cert_file}
   X509_load_cert_file: function (ctx: PX509_LOOKUP; const file_: PIdAnsiChar; type_: TIdC_INT): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_load_cert_file_ex}
   X509_load_cert_file_ex : function(ctx: PX509_LOOKUP; const file_: PIdAnsiChar; type_: TIdC_INT; libctx : POSSL_LIB_CTX; propq : PIdAnsiChar): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM X509_load_crl_file}
   X509_load_crl_file: function (ctx: PX509_LOOKUP; const file_: PIdAnsiChar; type_: TIdC_INT): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_load_cert_crl_file}
   X509_load_cert_crl_file: function (ctx: PX509_LOOKUP; const file_: PIdAnsiChar; type_: TIdC_INT): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_load_cert_crl_file_ex}
   X509_load_cert_crl_file_ex: function (ctx: PX509_LOOKUP; const file_: PIdAnsiChar; type_: TIdC_INT; libctx : POSSL_LIB_CTX; propq : PIdAnsiChar): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_LOOKUP_new}
   X509_LOOKUP_new: function (method: PX509_LOOKUP_METHOD): PX509_LOOKUP; cdecl = nil;
-  {$EXTERNALSYM X509_LOOKUP_free}
   X509_LOOKUP_free: procedure (ctx: PX509_LOOKUP); cdecl = nil;
-  {$EXTERNALSYM X509_LOOKUP_init}
   X509_LOOKUP_init: function (ctx: PX509_LOOKUP): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_LOOKUP_by_subject}
   X509_LOOKUP_by_subject: function (ctx: PX509_LOOKUP; type_: X509_LOOKUP_TYPE; name: PX509_NAME; ret: PX509_OBJECT): TIdC_INT; cdecl = nil;
   {$EXTERNALSYM X509_LOOKUP_by_issuer_serial}
   X509_LOOKUP_by_issuer_serial: function (ctx: PX509_LOOKUP; type_: X509_LOOKUP_TYPE; name: PX509_NAME; serial: PASN1_INTEGER; ret: PX509_OBJECT): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_LOOKUP_by_fingerprint}
   X509_LOOKUP_by_fingerprint: function (ctx: PX509_LOOKUP; type_: X509_LOOKUP_TYPE; const bytes: PByte; len: TIdC_INT; ret: PX509_OBJECT): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_LOOKUP_by_alias}
   X509_LOOKUP_by_alias: function (ctx: PX509_LOOKUP; type_: X509_LOOKUP_TYPE; const _str: PIdAnsiChar; len: TIdC_INT; ret: PX509_OBJECT): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_LOOKUP_set_method_data}
   X509_LOOKUP_set_method_data: function (ctx: PX509_LOOKUP; data: Pointer): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM X509_LOOKUP_get_method_data}
   X509_LOOKUP_get_method_data: function (const ctx: PX509_LOOKUP): Pointer; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM X509_LOOKUP_get_store}
   X509_LOOKUP_get_store: function (const ctx: PX509_LOOKUP): PX509_STORE; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM X509_LOOKUP_shutdown}
   X509_LOOKUP_shutdown: function (ctx: PX509_LOOKUP): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM X509_STORE_load_file_ex}
   X509_STORE_load_file_ex: function(ctx : PX509_STORE;  const file_ : PIdAnsiChar;
    libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar) : TIdC_INT cdecl = nil;
-  {$EXTERNALSYM X509_STORE_load_file}
   X509_STORE_load_file: function(ctx: PX509_STORE; const file_ : PIdAnsiChar) : TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_STORE_load_path}
   X509_STORE_load_path : function(ctx : PX509_STORE; const dir :  PIdAnsiChar) : TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_STORE_load_locations_ex}
   X509_STORE_load_locations_ex : function(ctx : PX509_STORE; const file_: PIdAnsiChar; const dir: PIdAnsiChar;
     libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar) : TIdC_INT cdecl = nil;  {introduced 3.0.0}
-  {$EXTERNALSYM X509_STORE_load_locations}
   X509_STORE_load_locations: function (ctx: PX509_STORE; const file_: PIdAnsiChar; const dir: PIdAnsiChar): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_STORE_set_default_paths}
   X509_STORE_set_default_paths: function (ctx: PX509_STORE): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_STORE_set_default_paths_ex}
   X509_STORE_set_default_paths_ex : function( ctx : PX509_STORE; libctx : POSSL_LIB_CTX; propq : PIdAnsiChar) : TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_STORE_load_store}
   X509_STORE_load_store: function(ctx : PX509_STORE; const uri : PIdAnsiChar) : TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_STORE_load_store_ex}
   X509_STORE_load_store_ex: function(ctx : PX509_STORE; const uri : PIdAnsiChar; libctx : POSSL_LIB_CTX; propq : PIdAnsiChar) : TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM X509_STORE_CTX_set_ex_data}
   X509_STORE_CTX_set_ex_data: function (ctx: PX509_STORE_CTX; idx: TIdC_INT; data: Pointer): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_STORE_CTX_get_ex_data}
   X509_STORE_CTX_get_ex_data: function (ctx: PX509_STORE_CTX; idx: TIdC_INT): Pointer; cdecl = nil;
-  {$EXTERNALSYM X509_STORE_CTX_get_error}
   X509_STORE_CTX_get_error: function (ctx: PX509_STORE_CTX): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_STORE_CTX_set_error}
   X509_STORE_CTX_set_error: procedure (ctx: PX509_STORE_CTX; s: TIdC_INT); cdecl = nil;
-  {$EXTERNALSYM X509_STORE_CTX_get_error_depth}
   X509_STORE_CTX_get_error_depth: function (ctx: PX509_STORE_CTX): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_STORE_CTX_set_error_depth}
   X509_STORE_CTX_set_error_depth: procedure (ctx: PX509_STORE_CTX; depth: TIdC_INT); cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_CTX_get_current_cert}
   X509_STORE_CTX_get_current_cert: function (ctx: PX509_STORE_CTX): PX509; cdecl = nil;
-  {$EXTERNALSYM X509_STORE_CTX_set_current_cert}
   X509_STORE_CTX_set_current_cert: procedure (ctx: PX509_STORE_CTX; x: PX509); cdecl = nil; {introduced 1.1.0}
   {$EXTERNALSYM X509_STORE_CTX_get0_current_issuer}
   X509_STORE_CTX_get0_current_issuer: function (ctx: PX509_STORE_CTX): PX509; cdecl = nil;
-  {$EXTERNALSYM X509_STORE_CTX_get0_current_crl}
   X509_STORE_CTX_get0_current_crl: function (ctx: PX509_STORE_CTX): PX509_CRL; cdecl = nil;
-  {$EXTERNALSYM X509_STORE_CTX_get0_parent_ctx}
   X509_STORE_CTX_get0_parent_ctx: function (ctx: PX509_STORE_CTX): PX509_STORE_CTX; cdecl = nil;
-  {$EXTERNALSYM X509_STORE_CTX_get0_chain}
   X509_STORE_CTX_get0_chain : function(ctx : PX509_STORE_CTX) : PSTACK_OF_X509;  cdecl = nil;
-  {$EXTERNALSYM X509_STORE_CTX_get1_chain}
   X509_STORE_CTX_get1_chain : function(ctx : PX509_STORE_CTX) : PSTACK_OF_X509;  cdecl = nil;
-  {$EXTERNALSYM X509_STORE_CTX_set_cert}
   X509_STORE_CTX_set_cert: procedure (c: PX509_STORE_CTX; x: PX509); cdecl = nil;
-  {$EXTERNALSYM X509_STORE_CTX_set0_verified_chain}
   X509_STORE_CTX_set0_verified_chain : procedure(c : PX509_STORE_CTX; sk : PSTACK_OF_X509); cdecl = nil;
-  {$EXTERNALSYM X509_STORE_CTX_set0_crls}
   X509_STORE_CTX_set0_crls : procedure(c : PX509_STORE_CTX; sk : PSTACK_OF_X509_CRL); cdecl = nil;
-  {$EXTERNALSYM X509_STORE_CTX_set_purpose}
   X509_STORE_CTX_set_purpose: function (ctx: PX509_STORE_CTX; purpose: TIdC_INT): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_STORE_CTX_set_trust}
   X509_STORE_CTX_set_trust: function (ctx: PX509_STORE_CTX; trust: TIdC_INT): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_STORE_CTX_purpose_inherit}
   X509_STORE_CTX_purpose_inherit: function (ctx: PX509_STORE_CTX; def_purpose: TIdC_INT; purpose: TIdC_INT; trust: TIdC_INT): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_STORE_CTX_set_flags}
   X509_STORE_CTX_set_flags: procedure (ctx: PX509_STORE_CTX; flags: TIdC_ULONG); cdecl = nil;
-  {$EXTERNALSYM X509_STORE_CTX_set_time}
   X509_STORE_CTX_set_time : procedure(ctx: PX509_STORE_CTX; flags: TIdC_ULONG; t: TOSSL_TIMET); cdecl = nil;
 
-  {$EXTERNALSYM X509_STORE_CTX_get0_policy_tree}
   X509_STORE_CTX_get0_policy_tree: function (ctx: PX509_STORE_CTX): PX509_POLICY_TREE; cdecl = nil;
   {$EXTERNALSYM X509_STORE_CTX_get_explicit_policy}
   X509_STORE_CTX_get_explicit_policy: function (ctx: PX509_STORE_CTX): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_STORE_CTX_get_num_untrusted}
   X509_STORE_CTX_get_num_untrusted: function (ctx: PX509_STORE_CTX): TIdC_INT; cdecl = nil; {introduced 1.1.0}
 
-  {$EXTERNALSYM X509_STORE_CTX_get0_param}
   X509_STORE_CTX_get0_param: function (ctx: PX509_STORE_CTX): PX509_VERIFY_PARAM; cdecl = nil;
-  {$EXTERNALSYM X509_STORE_CTX_set0_param}
   X509_STORE_CTX_set0_param: procedure (ctx: PX509_STORE_CTX; param: PX509_VERIFY_PARAM); cdecl = nil;
-  {$EXTERNALSYM X509_STORE_CTX_set_default}
   X509_STORE_CTX_set_default: function (ctx: PX509_STORE_CTX; const name: PIdAnsiChar): TIdC_INT; cdecl = nil;
 
   (*
    * Bridge opacity barrier between libcrypt and libssl, also needed to support
    * offline testing in test/danetest.c
    *)
-  {$EXTERNALSYM X509_STORE_CTX_set0_dane}
   X509_STORE_CTX_set0_dane: procedure (ctx: PX509_STORE_CTX; dane: PSSL_DANE); cdecl = nil; {introduced 1.1.0}
 
   (* X509_VERIFY_PARAM functions *)
 
-  {$EXTERNALSYM X509_VERIFY_PARAM_new}
   X509_VERIFY_PARAM_new: function : PX509_VERIFY_PARAM; cdecl = nil;
-  {$EXTERNALSYM X509_VERIFY_PARAM_free}
   X509_VERIFY_PARAM_free: procedure (param: PX509_VERIFY_PARAM); cdecl = nil;
-  {$EXTERNALSYM X509_VERIFY_PARAM_inherit}
   X509_VERIFY_PARAM_inherit: function (to_: PX509_VERIFY_PARAM; const from: PX509_VERIFY_PARAM): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_VERIFY_PARAM_set1}
   X509_VERIFY_PARAM_set1: function (to_: PX509_VERIFY_PARAM; const from: PX509_VERIFY_PARAM): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_VERIFY_PARAM_set1_name}
   X509_VERIFY_PARAM_set1_name: function (param: PX509_VERIFY_PARAM; const name: PIdAnsiChar): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_VERIFY_PARAM_set_flags}
   X509_VERIFY_PARAM_set_flags: function (param: PX509_VERIFY_PARAM; flags: TIdC_ULONG): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_VERIFY_PARAM_clear_flags}
   X509_VERIFY_PARAM_clear_flags: function (param: PX509_VERIFY_PARAM; flags: TIdC_ULONG): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_VERIFY_PARAM_get_flags}
   X509_VERIFY_PARAM_get_flags: function (param: PX509_VERIFY_PARAM): TIdC_ULONG; cdecl = nil;
-  {$EXTERNALSYM X509_VERIFY_PARAM_set_purpose}
   X509_VERIFY_PARAM_set_purpose: function (param: PX509_VERIFY_PARAM; purpose: TIdC_INT): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_VERIFY_PARAM_get_purpose}
   X509_VERIFY_PARAM_get_purpose: function(param: PX509_VERIFY_PARAM): TIdC_INT; cdecl = nil; {introduced 3.5.0}
-  {$EXTERNALSYM X509_VERIFY_PARAM_set_trust}
   X509_VERIFY_PARAM_set_trust: function (param: PX509_VERIFY_PARAM; trust: TIdC_INT): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_VERIFY_PARAM_set_depth}
   X509_VERIFY_PARAM_set_depth: procedure (param: PX509_VERIFY_PARAM; depth: TIdC_INT); cdecl = nil;
-  {$EXTERNALSYM X509_VERIFY_PARAM_get_depth}
   X509_VERIFY_PARAM_get_depth: function (const param: PX509_VERIFY_PARAM): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_VERIFY_PARAM_set_auth_level}
   X509_VERIFY_PARAM_set_auth_level: procedure (param: PX509_VERIFY_PARAM; auth_level: TIdC_INT); cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM X509_VERIFY_PARAM_get_auth_level}
   X509_VERIFY_PARAM_get_auth_level: function (const param: PX509_VERIFY_PARAM): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM X509_VERIFY_PARAM_set_time}
   X509_VERIFY_PARAM_set_time: procedure (param: PX509_VERIFY_PARAM; t: TOSSL_TIMET);  cdecl = nil;
-  {$EXTERNALSYM X509_VERIFY_PARAM_get_time}
   X509_VERIFY_PARAM_get_time: function(const param: PX509_VERIFY_PARAM): TOSSL_TIMET; cdecl = nil;
-  {$EXTERNALSYM X509_VERIFY_PARAM_add0_policy}
   X509_VERIFY_PARAM_add0_policy: function (param: PX509_VERIFY_PARAM; policy: PASN1_OBJECT): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_VERIFY_PARAM_set1_policies}
   X509_VERIFY_PARAM_set1_policies : function(param : PX509_VERIFY_PARAM; policies : PSTACK_OF_ASN1_OBJECT) : TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM X509_VERIFY_PARAM_set_inh_flags}
   X509_VERIFY_PARAM_set_inh_flags: function (param: PX509_VERIFY_PARAM; flags: TIdC_UINT32): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM X509_VERIFY_PARAM_get_inh_flags}
   X509_VERIFY_PARAM_get_inh_flags: function (const param: PX509_VERIFY_PARAM): TIdC_UINT32; cdecl = nil; {introduced 1.1.0}
 
-  {$EXTERNALSYM X509_VERIFY_PARAM_get0_host}
   X509_VERIFY_PARAM_get0_host: function (param: PX509_VERIFY_PARAM; num: TIdC_INT): PIdAnsiChar; cdecl = nil; {introduced 3.0.0}
-  {$EXTERNALSYM X509_VERIFY_PARAM_set1_host}
   X509_VERIFY_PARAM_set1_host: function (param: PX509_VERIFY_PARAM; const name: PIdAnsiChar; namelen: TIdC_SIZET): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_VERIFY_PARAM_add1_host}
   X509_VERIFY_PARAM_add1_host: function (param: PX509_VERIFY_PARAM; const name: PIdAnsiChar; namelen: TIdC_SIZET): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM X509_VERIFY_PARAM_set_hostflags}
   X509_VERIFY_PARAM_set_hostflags: procedure (param: PX509_VERIFY_PARAM; flags: TIdC_UINT); cdecl = nil;
-  {$EXTERNALSYM X509_VERIFY_PARAM_get_hostflags}
   X509_VERIFY_PARAM_get_hostflags: function (const param: PX509_VERIFY_PARAM): TIdC_UINT; cdecl = nil; {introduced 1.1.0}
 
-  {$EXTERNALSYM X509_VERIFY_PARAM_get0_peername}
   X509_VERIFY_PARAM_get0_peername: function (v1: PX509_VERIFY_PARAM): PIdAnsiChar; cdecl = nil;
-  {$EXTERNALSYM X509_VERIFY_PARAM_move_peername}
   X509_VERIFY_PARAM_move_peername: procedure (v1: PX509_VERIFY_PARAM; v2: PX509_VERIFY_PARAM); cdecl = nil; {introduced 1.1.0}
 
-  {$EXTERNALSYM X509_VERIFY_PARAM_set1_email}
   X509_VERIFY_PARAM_set1_email: function (param: PX509_VERIFY_PARAM; const email: PIdAnsiChar; emaillen: TIdC_SIZET): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_VERIFY_PARAM_add1_rfc822}
   X509_VERIFY_PARAM_add1_rfc822: function (param: PX509_VERIFY_PARAM; const email: PIdAnsiChar; emaillen: TIdC_SIZET): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_VERIFY_PARAM_add1_smtputf8}
   X509_VERIFY_PARAM_add1_smtputf8: function (param: PX509_VERIFY_PARAM; const email: PIdAnsiChar; emaillen: TIdC_SIZET): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_VERIFY_PARAM_get0_email}
   X509_VERIFY_PARAM_get0_email: function(param: PX509_VERIFY_PARAM): PIdAnsiChar; cdecl = nil; {introduced 3.0.0}
 
-  {$EXTERNALSYM X509_VERIFY_PARAM_set1_ip}
   X509_VERIFY_PARAM_set1_ip: function (param: PX509_VERIFY_PARAM; const ip: PByte; iplen: TIdC_SIZET): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_VERIFY_PARAM_add1_ip}
   X509_VERIFY_PARAM_add1_ip: function (param: PX509_VERIFY_PARAM; const ip: PByte; iplen: TIdC_SIZET): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_VERIFY_PARAM_set1_ip_asc}
   X509_VERIFY_PARAM_set1_ip_asc: function (param: PX509_VERIFY_PARAM; const ipasc: PIdAnsiChar): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_VERIFY_PARAM_add1_ip_asc}
   X509_VERIFY_PARAM_add1_ip_asc: function (param: PX509_VERIFY_PARAM; const ipasc: PIdAnsiChar): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_VERIFY_PARAM_get1_ip_asc}
   X509_VERIFY_PARAM_get1_ip_asc: function(param: PX509_VERIFY_PARAM): PIdAnsiChar; cdecl = nil; {introduced 3.0.0}
 
-  {$EXTERNALSYM X509_VERIFY_PARAM_get0_name}
   X509_VERIFY_PARAM_get0_name: function (const param: PX509_VERIFY_PARAM): PIdAnsiChar; cdecl = nil;
 
-  {$EXTERNALSYM X509_VERIFY_PARAM_add0_table}
   X509_VERIFY_PARAM_add0_table: function (param: PX509_VERIFY_PARAM): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_VERIFY_PARAM_get_count}
   X509_VERIFY_PARAM_get_count: function : TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_VERIFY_PARAM_get0}
   X509_VERIFY_PARAM_get0: function (id: TIdC_INT): PX509_VERIFY_PARAM; cdecl = nil;
-  {$EXTERNALSYM X509_VERIFY_PARAM_lookup}
   X509_VERIFY_PARAM_lookup: function (const name: PIdAnsiChar): PX509_VERIFY_PARAM; cdecl = nil;
-  {$EXTERNALSYM X509_VERIFY_PARAM_table_cleanup}
   X509_VERIFY_PARAM_table_cleanup: procedure ; cdecl = nil;
 
-  {$EXTERNALSYM X509_policy_check}
   X509_policy_check : function(ptree : PX509_POLICY_TREE; certs : PSTACK_OF_X509;
     policy_oids : PSTACK_OF_ASN1_OBJECT; flags :  TIdC_UINT) : TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM X509_policy_tree_free}
   X509_policy_tree_free: procedure (tree: PX509_POLICY_TREE); cdecl = nil;
 
-  {$EXTERNALSYM X509_policy_tree_level_count}
   X509_policy_tree_level_count: function (const tree: PX509_POLICY_TREE): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM X509_policy_tree_get0_level}
   X509_policy_tree_get0_level: function (const tree: PX509_POLICY_TREE; i: TIdC_INT): PX509_POLICY_LEVEL; cdecl = nil;
 
-  {$EXTERNALSYM X509_policy_tree_get0_policies}
   X509_policy_tree_get0_policies : function(const tree : PX509_POLICY_TREE) : PSTACK_OF_X509_POLICY_NODE;  cdecl = nil;
 
   {$EXTERNALSYM X509_policy_tree_get0_user_policies}
   X509_policy_tree_get0_user_policies : function(const tree : PX509_POLICY_TREE) : PSTACK_OF_X509_POLICY_NODE; cdecl = nil;
 
-  {$EXTERNALSYM X509_policy_level_node_count}
   X509_policy_level_node_count: function (level: PX509_POLICY_LEVEL): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM X509_policy_level_get0_node}
   X509_policy_level_get0_node: function (level: PX509_POLICY_LEVEL; i: TIdC_INT): PX509_POLICY_NODE; cdecl = nil;
 
-  {$EXTERNALSYM X509_policy_node_get0_policy}
   X509_policy_node_get0_policy: function (const node: PX509_POLICY_NODE): PASN1_OBJECT; cdecl = nil;
 
   {$EXTERNALSYM X509_policy_node_get0_qualifiers}
   X509_policy_node_get0_qualifiers: function(const mode : PX509_POLICY_NODE) : PSTACK_OF_POLICYQUALINFO; cdecl = nil;
 
-  {$EXTERNALSYM X509_policy_node_get0_parent}
   X509_policy_node_get0_parent: function (const node: PX509_POLICY_NODE): PX509_POLICY_NODE; cdecl = nil;
 
 {$ELSE}
-  {$EXTERNALSYM X509_STORE_set_depth}
   function X509_STORE_set_depth(store: PX509_STORE; depth: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM X509_STORE_CTX_set_depth}
   procedure X509_STORE_CTX_set_depth(ctx: PX509_STORE_CTX; depth: TIdC_INT) cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM X509_OBJECT_idx_by_subject}
   function X509_OBJECT_idx_by_subject(h : PSTACK_OF_X509_OBJECT;
      _type : X509_LOOKUP_TYPE; name : PX509_NAME) : TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_OBJECT_retrieve_by_subject}
   function  X509_OBJECT_retrieve_by_subject(h : PSTACK_OF_X509_OBJECT;
      _type : X509_LOOKUP_TYPE; name : PX509_NAME) : PX509_OBJECT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_OBJECT_retrieve_match}
   function X509_OBJECT_retrieve_match(h : PSTACK_OF_X509_OBJECT;
     x : PX509_OBJECT) : PX509_OBJECT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_OBJECT_up_ref_count}
   function X509_OBJECT_up_ref_count(a: PX509_OBJECT): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_OBJECT_new}
   function X509_OBJECT_new: PX509_OBJECT cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM X509_OBJECT_free}
   procedure X509_OBJECT_free(a: PX509_OBJECT) cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM X509_OBJECT_get_type}
   function X509_OBJECT_get_type(const a: PX509_OBJECT): X509_LOOKUP_TYPE cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM X509_OBJECT_get0_X509}
   function X509_OBJECT_get0_X509(const a: PX509_OBJECT): PX509 cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM X509_OBJECT_set1_X509}
   function X509_OBJECT_set1_X509(a: PX509_OBJECT; obj: PX509): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM X509_OBJECT_get0_X509_CRL}
   function X509_OBJECT_get0_X509_CRL(a: PX509_OBJECT): PX509_CRL cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM X509_OBJECT_set1_X509_CRL}
   function X509_OBJECT_set1_X509_CRL(a: PX509_OBJECT; obj: PX509_CRL): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_new}
   function X509_STORE_new: PX509_STORE cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_STORE_free}
   procedure X509_STORE_free(v: PX509_STORE) cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_STORE_lock}
   function X509_STORE_lock(ctx: PX509_STORE): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_unlock}
   function X509_STORE_unlock(ctx: PX509_STORE): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_up_ref}
   function X509_STORE_up_ref(v: PX509_STORE): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_get1_objects}
   function X509_STORE_get1_objects(xs : PX509_STORE) : PSTACK_OF_X509_OBJECT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_STORE_get0_objects}
   function X509_STORE_get0_objects(v : PX509_STORE) : PSTACK_OF_X509_OBJECT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM X509_STORE_CTX_get1_certs}
   function X509_STORE_CTX_get1_certs(st : PX509_STORE_CTX; nm : PX509_NAME) : PSTACK_OF_X509 cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_STORE_CTX_get1_crls}
   function X509_STORE_CTX_get1_crls(st : PX509_STORE_CTX; nm : PX509_NAME) : PSTACK_OF_X509_CRL cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_STORE_set_flags}
   function X509_STORE_set_flags(ctx: PX509_STORE; flags: TIdC_ULONG): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_STORE_set_purpose}
   function X509_STORE_set_purpose(ctx: PX509_STORE; purpose: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_STORE_set_trust}
   function X509_STORE_set_trust(ctx: PX509_STORE; trust: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_STORE_set1_param}
   function X509_STORE_set1_param(ctx: PX509_STORE; pm: PX509_VERIFY_PARAM): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_STORE_get0_param}
   function X509_STORE_get0_param(ctx: PX509_STORE): PX509_VERIFY_PARAM cdecl; external CLibCrypto; {introduced 1.1.0}
 
-  {$EXTERNALSYM X509_STORE_set_verify}
   procedure X509_STORE_set_verify(ctx: PX509_STORE; verify: X509_STORE_CTX_verify_fn) cdecl; external CLibCrypto; {introduced 1.1.0}
   //#define X509_STORE_set_verify_func(ctx, func) \
   //            X509_STORE_set_verify((ctx),(func))
-  {$EXTERNALSYM X509_STORE_CTX_set_verify}
   procedure X509_STORE_CTX_set_verify(ctx: PX509_STORE_CTX; verify: X509_STORE_CTX_verify_fn) cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_get_verify}
   function X509_STORE_get_verify(ctx: PX509_STORE): X509_STORE_CTX_verify_fn cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_set_verify_cb}
   procedure X509_STORE_set_verify_cb(ctx: PX509_STORE; verify_cb: X509_STORE_CTX_verify_cb) cdecl; external CLibCrypto;
   //# define X509_STORE_set_verify_cb_func(ctx,func) \
   //            X509_STORE_set_verify_cb((ctx),(func))
-  {$EXTERNALSYM X509_STORE_get_verify_cb}
   function X509_STORE_get_verify_cb(ctx: PX509_STORE): X509_STORE_CTX_verify_cb cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_set_get_issuer}
   procedure X509_STORE_set_get_issuer(ctx: PX509_STORE; get_issuer: X509_STORE_CTX_get_issuer_fn) cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_get_get_issuer}
   function X509_STORE_get_get_issuer(ctx: PX509_STORE): X509_STORE_CTX_get_issuer_fn cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_set_check_issued}
   procedure X509_STORE_set_check_issued(ctx: PX509_STORE; check_issued: X509_STORE_CTX_check_issued_fn) cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_get_check_issued}
   function X509_STORE_get_check_issued(ctx: PX509_STORE): X509_STORE_CTX_check_issued_fn cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_set_check_revocation}
   procedure X509_STORE_set_check_revocation(ctx: PX509_STORE; check_revocation: X509_STORE_CTX_check_revocation_fn) cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_get_check_revocation}
   function X509_STORE_get_check_revocation(ctx: PX509_STORE): X509_STORE_CTX_check_revocation_fn cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_set_get_crl}
   procedure X509_STORE_set_get_crl(ctx: PX509_STORE; get_crl: X509_STORE_CTX_get_crl_fn) cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_get_get_crl}
   function X509_STORE_get_get_crl(ctx: PX509_STORE): X509_STORE_CTX_get_crl_fn cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_set_check_crl}
   procedure X509_STORE_set_check_crl(ctx: PX509_STORE; check_crl: X509_STORE_CTX_check_crl_fn) cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_get_check_crl}
   function X509_STORE_get_check_crl(ctx: PX509_STORE): X509_STORE_CTX_check_crl_fn cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_set_cert_crl}
   procedure X509_STORE_set_cert_crl(ctx: PX509_STORE; cert_crl: X509_STORE_CTX_cert_crl_fn) cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_get_cert_crl}
   function X509_STORE_get_cert_crl(ctx: PX509_STORE): X509_STORE_CTX_cert_crl_fn cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_set_check_policy}
   procedure X509_STORE_set_check_policy(ctx: PX509_STORE; check_policy: X509_STORE_CTX_check_policy_fn) cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_get_check_policy}
   function X509_STORE_get_check_policy(ctx: PX509_STORE): X509_STORE_CTX_check_policy_fn cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_set_lookup_certs}
   procedure X509_STORE_set_lookup_certs(ctx: PX509_STORE; lookup_certs: X509_STORE_CTX_lookup_certs_fn) cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_STORE_get_lookup_certs}
   function X509_STORE_get_lookup_certs(ctx: PX509_STORE): X509_STORE_CTX_lookup_certs_fn cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_STORE_set_lookup_crls}
   procedure X509_STORE_set_lookup_crls(ctx: PX509_STORE; lookup_crls: X509_STORE_CTX_lookup_crls_fn) cdecl; external CLibCrypto;
 //  #define X509_STORE_set_lookup_crls_cb(ctx, func) \
 //      X509_STORE_set_lookup_crls((ctx), (func))
-  {$EXTERNALSYM X509_STORE_get_lookup_crls}
   function X509_STORE_get_lookup_crls(ctx: PX509_STORE): X509_STORE_CTX_lookup_crls_fn  cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_STORE_set_cleanup}
   procedure X509_STORE_set_cleanup(ctx: PX509_STORE; cleanup: X509_STORE_CTX_cleanup_fn) cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_get_cleanup}
   function X509_STORE_get_cleanup(ctx: PX509_STORE): X509_STORE_CTX_cleanup_fn cdecl; external CLibCrypto; {introduced 1.1.0}
 
-  {$EXTERNALSYM X509_STORE_set_ex_data}
   function X509_STORE_set_ex_data(ctx: PX509_STORE; idx: TIdC_INT; data: Pointer): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_get_ex_data}
   function X509_STORE_get_ex_data(ctx: PX509_STORE; idx: TIdC_INT): Pointer cdecl; external CLibCrypto; {introduced 1.1.0}
 
-  {$EXTERNALSYM X509_STORE_CTX_new}
   function X509_STORE_CTX_new: PX509_STORE_CTX cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM X509_STORE_CTX_get1_issuer}
   function X509_STORE_CTX_get1_issuer(issuer: PPX509; ctx: PX509_STORE_CTX; x: PX509): TIdC_INT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM X509_STORE_CTX_free}
   procedure X509_STORE_CTX_free(ctx: PX509_STORE_CTX) cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_STORE_CTX_init}
   function X509_STORE_CTX_init(ctx: PX509_STORE_CTX; store: PX509_STORE; x509: PX509; chain: PSTACK_OF_X509) : TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_STORE_CTX_set0_trusted_stack}
   procedure X509_STORE_CTX_set0_trusted_stack(ctx: PX509_STORE_CTX; sk: PSTACK_OF_X509) cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_STORE_CTX_cleanup}
   procedure X509_STORE_CTX_cleanup(ctx: PX509_STORE_CTX) cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM X509_STORE_CTX_get0_store}
   function X509_STORE_CTX_get0_store(ctx: PX509_STORE_CTX): PX509_STORE cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_STORE_CTX_get0_cert}
   function X509_STORE_CTX_get0_cert(ctx: PX509_STORE_CTX): PX509 cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_CTX_get0_untrusted}
   function X509_STORE_CTX_get0_untrusted(ctx : PX509_STORE_CTX) : PSTACK_OF_X509 cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_STORE_CTX_set0_untrusted}
   procedure X509_STORE_CTX_set0_untrusted(ctx : PX509_STORE_CTX; sk : PSTACK_OF_X509) cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM X509_STORE_CTX_set_verify_cb}
   procedure X509_STORE_CTX_set_verify_cb(ctx: PX509_STORE_CTX; verify: X509_STORE_CTX_verify_cb) cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_STORE_CTX_get_verify_cb}
   function X509_STORE_CTX_get_verify_cb(ctx: PX509_STORE_CTX): X509_STORE_CTX_verify_cb cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_CTX_get_verify}
   function X509_STORE_CTX_get_verify(ctx: PX509_STORE_CTX): X509_STORE_CTX_verify_fn cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_CTX_get_get_issuer}
   function X509_STORE_CTX_get_get_issuer(ctx: PX509_STORE_CTX): X509_STORE_CTX_get_issuer_fn cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_CTX_get_check_issued}
   function X509_STORE_CTX_get_check_issued(ctx: PX509_STORE_CTX): X509_STORE_CTX_check_issued_fn cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_CTX_get_check_revocation}
   function X509_STORE_CTX_get_check_revocation(ctx: PX509_STORE_CTX): X509_STORE_CTX_check_revocation_fn cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_CTX_get_get_crl}
   function X509_STORE_CTX_get_get_crl(ctx: PX509_STORE_CTX): X509_STORE_CTX_get_crl_fn cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_CTX_get_check_crl}
   function X509_STORE_CTX_get_check_crl(ctx: PX509_STORE_CTX): X509_STORE_CTX_check_crl_fn cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_CTX_get_cert_crl}
   function X509_STORE_CTX_get_cert_crl(ctx: PX509_STORE_CTX): X509_STORE_CTX_cert_crl_fn cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_CTX_get_check_policy}
   function X509_STORE_CTX_get_check_policy(ctx: PX509_STORE_CTX): X509_STORE_CTX_check_policy_fn cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_CTX_get_lookup_certs}
   function X509_STORE_CTX_get_lookup_certs(ctx: PX509_STORE_CTX): X509_STORE_CTX_lookup_certs_fn  cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_STORE_CTX_get_lookup_crls}
   function X509_STORE_CTX_get_lookup_crls(ctx: PX509_STORE_CTX): X509_STORE_CTX_lookup_crls_fn  cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_STORE_CTX_get_cleanup}
   function X509_STORE_CTX_get_cleanup(ctx: PX509_STORE_CTX): X509_STORE_CTX_cleanup_fn cdecl; external CLibCrypto; {introduced 1.1.0}
 
-  {$EXTERNALSYM X509_STORE_add_lookup}
   function X509_STORE_add_lookup(v: PX509_STORE; m: PX509_LOOKUP_METHOD): PX509_LOOKUP cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_LOOKUP_hash_dir}
   function X509_LOOKUP_hash_dir: PX509_LOOKUP_METHOD cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_LOOKUP_file}
   function X509_LOOKUP_file: PX509_LOOKUP_METHOD cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_LOOKUP_store}
   function X509_LOOKUP_store: PX509_LOOKUP_METHOD cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_LOOKUP_meth_new}
   function X509_LOOKUP_meth_new(const name: PIdAnsiChar): PX509_LOOKUP_METHOD cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM X509_LOOKUP_meth_free}
   procedure X509_LOOKUP_meth_free(method: PX509_LOOKUP_METHOD) cdecl; external CLibCrypto; {introduced 1.1.0}
 
   //TIdC_INT X509_LOOKUP_meth_set_new_item(X509_LOOKUP_METHOD *method,
@@ -1180,14 +881,10 @@ var
   //TIdC_INT (*X509_LOOKUP_meth_get_shutdown(const X509_LOOKUP_METHOD* method))
   //    (X509_LOOKUP *ctx);
 
-  {$EXTERNALSYM X509_LOOKUP_meth_set_ctrl}
   function X509_LOOKUP_meth_set_ctrl(method: PX509_LOOKUP_METHOD; ctrl_fn: X509_LOOKUP_ctrl_fn): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM X509_LOOKUP_meth_get_ctrl}
   function X509_LOOKUP_meth_get_ctrl(const method: PX509_LOOKUP_METHOD): X509_LOOKUP_ctrl_fn cdecl; external CLibCrypto; {introduced 1.1.0}
 
-  {$EXTERNALSYM X509_LOOKUP_meth_set_get_by_subject}
   function X509_LOOKUP_meth_set_get_by_subject(method: PX509_LOOKUP_METHOD; fn: X509_LOOKUP_get_by_subject_fn): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM X509_LOOKUP_meth_get_get_by_subject}
   function X509_LOOKUP_meth_get_get_by_subject(const method: PX509_LOOKUP_METHOD): X509_LOOKUP_get_by_subject_fn cdecl; external CLibCrypto; {introduced 1.1.0}
 
   {$EXTERNALSYM X509_LOOKUP_meth_set_get_by_issuer_serial}
@@ -1195,276 +892,166 @@ var
   {$EXTERNALSYM X509_LOOKUP_meth_get_get_by_issuer_serial}
   function X509_LOOKUP_meth_get_get_by_issuer_serial(const method: PX509_LOOKUP_METHOD): X509_LOOKUP_get_by_issuer_serial_fn cdecl; external CLibCrypto; {introduced 1.1.0}
 
-  {$EXTERNALSYM X509_LOOKUP_meth_set_get_by_fingerprint}
   function X509_LOOKUP_meth_set_get_by_fingerprint(method: PX509_LOOKUP_METHOD; fn: X509_LOOKUP_get_by_fingerprint_fn): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM X509_LOOKUP_meth_get_get_by_fingerprint}
   function X509_LOOKUP_meth_get_get_by_fingerprint(const method: PX509_LOOKUP_METHOD): X509_LOOKUP_get_by_fingerprint_fn cdecl; external CLibCrypto; {introduced 1.1.0}
 
-  {$EXTERNALSYM X509_LOOKUP_meth_set_get_by_alias}
   function X509_LOOKUP_meth_set_get_by_alias(method: PX509_LOOKUP_METHOD; fn: X509_LOOKUP_get_by_alias_fn): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM X509_LOOKUP_meth_get_get_by_alias}
   function X509_LOOKUP_meth_get_get_by_alias(const method: PX509_LOOKUP_METHOD): X509_LOOKUP_get_by_alias_fn cdecl; external CLibCrypto; {introduced 1.1.0}
 
-  {$EXTERNALSYM X509_STORE_add_cert}
   function X509_STORE_add_cert(ctx: PX509_STORE; x: PX509): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_STORE_add_crl}
   function X509_STORE_add_crl(ctx: PX509_STORE; x: PX509_CRL): TIdC_INT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM X509_STORE_CTX_get_by_subject}
   function X509_STORE_CTX_get_by_subject(vs: PX509_STORE_CTX; type_: X509_LOOKUP_TYPE; name: PX509_NAME; ret: PX509_OBJECT): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_CTX_get_obj_by_subject}
   function X509_STORE_CTX_get_obj_by_subject(vs: PX509_STORE_CTX; type_: X509_LOOKUP_TYPE; name: PX509_NAME): PX509_OBJECT cdecl; external CLibCrypto; {introduced 1.1.0}
 
-  {$EXTERNALSYM X509_LOOKUP_ctrl}
   function X509_LOOKUP_ctrl(ctx: PX509_LOOKUP; cmd: TIdC_INT; const argc: PIdAnsiChar; argl: TIdC_LONG; ret: PPIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM X509_load_cert_file}
   function X509_load_cert_file(ctx: PX509_LOOKUP; const file_: PIdAnsiChar; type_: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_load_cert_file_ex}
   function X509_load_cert_file_ex(ctx: PX509_LOOKUP; const file_: PIdAnsiChar; type_: TIdC_INT; libctx : POSSL_LIB_CTX; propq : PIdAnsiChar ): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_load_crl_file}
   function X509_load_crl_file(ctx: PX509_LOOKUP; const file_: PIdAnsiChar; type_: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_load_cert_crl_file}
   function X509_load_cert_crl_file(ctx: PX509_LOOKUP; const file_: PIdAnsiChar; type_: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM X509_LOOKUP_new}
   function X509_LOOKUP_new(method: PX509_LOOKUP_METHOD): PX509_LOOKUP cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_LOOKUP_free}
   procedure X509_LOOKUP_free(ctx: PX509_LOOKUP) cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_LOOKUP_init}
   function X509_LOOKUP_init(ctx: PX509_LOOKUP): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_LOOKUP_by_subject}
   function X509_LOOKUP_by_subject(ctx: PX509_LOOKUP; type_: X509_LOOKUP_TYPE; name: PX509_NAME; ret: PX509_OBJECT): TIdC_INT cdecl; external CLibCrypto;
   {$EXTERNALSYM X509_LOOKUP_by_issuer_serial}
   function X509_LOOKUP_by_issuer_serial(ctx: PX509_LOOKUP; type_: X509_LOOKUP_TYPE; name: PX509_NAME; serial: PASN1_INTEGER; ret: PX509_OBJECT): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_LOOKUP_by_fingerprint}
   function X509_LOOKUP_by_fingerprint(ctx: PX509_LOOKUP; type_: X509_LOOKUP_TYPE; const bytes: PByte; len: TIdC_INT; ret: PX509_OBJECT): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_LOOKUP_by_alias}
   function X509_LOOKUP_by_alias(ctx: PX509_LOOKUP; type_: X509_LOOKUP_TYPE; const _str: PIdAnsiChar; len: TIdC_INT; ret: PX509_OBJECT): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_LOOKUP_set_method_data}
   function X509_LOOKUP_set_method_data(ctx: PX509_LOOKUP; data: Pointer): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM X509_LOOKUP_get_method_data}
   function X509_LOOKUP_get_method_data(const ctx: PX509_LOOKUP): Pointer cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM X509_LOOKUP_get_store}
   function X509_LOOKUP_get_store(const ctx: PX509_LOOKUP): PX509_STORE cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM X509_LOOKUP_shutdown}
   function X509_LOOKUP_shutdown(ctx: PX509_LOOKUP): TIdC_INT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM X509_STORE_load_file_ex}
   function X509_STORE_load_file_ex(ctx : PX509_STORE;  const file_ : PIdAnsiChar;
    libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar) : TIdC_INT  cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_STORE_load_file}
   function X509_STORE_load_file(ctx: PX509_STORE; const file_ : PIdAnsiChar) : TIdC_INT  cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_STORE_load_path}
   function X509_STORE_load_path(ctx : PX509_STORE; const dir :  PIdAnsiChar) : TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_STORE_load_locations_ex}
   function X509_STORE_load_locations_ex(ctx : PX509_STORE; const file_: PIdAnsiChar; const dir: PIdAnsiChar;
     libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar) : TIdC_INT cdecl; external CLibCrypto;  {introduced 3.0.0}
 
-  {$EXTERNALSYM X509_STORE_load_locations}
   function X509_STORE_load_locations(ctx: PX509_STORE; const file_: PIdAnsiChar; const dir: PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_STORE_set_default_paths}
   function X509_STORE_set_default_paths(ctx: PX509_STORE): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_STORE_set_default_paths_ex}
   function X509_STORE_set_default_paths_ex( ctx : PX509_STORE; libctx : POSSL_LIB_CTX; propq : PIdAnsiChar) : TIdC_INT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM X509_STORE_load_store}
   function X509_STORE_load_store(ctx : PX509_STORE; const uri : PIdAnsiChar) : TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_STORE_load_store_ex}
   function X509_STORE_load_store_ex(ctx : PX509_STORE; const uri : PIdAnsiChar; libctx : POSSL_LIB_CTX; propq : PIdAnsiChar) : TIdC_INT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM X509_STORE_CTX_set_ex_data}
   function X509_STORE_CTX_set_ex_data(ctx: PX509_STORE_CTX; idx: TIdC_INT; data: Pointer): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_STORE_CTX_get_ex_data}
   function X509_STORE_CTX_get_ex_data(ctx: PX509_STORE_CTX; idx: TIdC_INT): Pointer cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_STORE_CTX_get_error}
   function X509_STORE_CTX_get_error(ctx: PX509_STORE_CTX): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_STORE_CTX_set_error}
   procedure X509_STORE_CTX_set_error(ctx: PX509_STORE_CTX; s: TIdC_INT) cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_STORE_CTX_get_error_depth}
   function X509_STORE_CTX_get_error_depth(ctx: PX509_STORE_CTX): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_STORE_CTX_set_error_depth}
   procedure X509_STORE_CTX_set_error_depth(ctx: PX509_STORE_CTX; depth: TIdC_INT) cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM X509_STORE_CTX_get_current_cert}
   function X509_STORE_CTX_get_current_cert(ctx: PX509_STORE_CTX): PX509 cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_STORE_CTX_set_current_cert}
   procedure X509_STORE_CTX_set_current_cert(ctx: PX509_STORE_CTX; x: PX509) cdecl; external CLibCrypto; {introduced 1.1.0}
   {$EXTERNALSYM X509_STORE_CTX_get0_current_issuer}
   function X509_STORE_CTX_get0_current_issuer(ctx: PX509_STORE_CTX): PX509 cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_STORE_CTX_get0_current_crl}
   function X509_STORE_CTX_get0_current_crl(ctx: PX509_STORE_CTX): PX509_CRL cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_STORE_CTX_get0_parent_ctx}
   function X509_STORE_CTX_get0_parent_ctx(ctx: PX509_STORE_CTX): PX509_STORE_CTX cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_STORE_CTX_get0_chain}
   function X509_STORE_CTX_get0_chain(ctx : PX509_STORE_CTX) : PSTACK_OF_X509;  cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_STORE_CTX_get1_chain}
   function X509_STORE_CTX_get1_chain(ctx : PX509_STORE_CTX) : PSTACK_OF_X509;  cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM X509_STORE_CTX_set_cert}
   procedure X509_STORE_CTX_set_cert(c: PX509_STORE_CTX; x: PX509) cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_STORE_CTX_set0_verified_chain}
   procedure X509_STORE_CTX_set0_verified_chain(c : PX509_STORE_CTX; sk : PSTACK_OF_X509)  cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_STORE_CTX_set0_crls}
   procedure X509_STORE_CTX_set0_crls(c : PX509_STORE_CTX; sk : PSTACK_OF_X509_CRL) cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_STORE_CTX_set_purpose}
   function X509_STORE_CTX_set_purpose(ctx: PX509_STORE_CTX; purpose: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_STORE_CTX_set_trust}
   function X509_STORE_CTX_set_trust(ctx: PX509_STORE_CTX; trust: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_STORE_CTX_purpose_inherit}
   function X509_STORE_CTX_purpose_inherit(ctx: PX509_STORE_CTX; def_purpose: TIdC_INT; purpose: TIdC_INT; trust: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_STORE_CTX_set_flags}
   procedure X509_STORE_CTX_set_flags(ctx: PX509_STORE_CTX; flags: TIdC_ULONG) cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_STORE_CTX_set_time}
   procedure X509_STORE_CTX_set_time(ctx: PX509_STORE_CTX; flags: TIdC_ULONG; t: TOSSL_TIMET) cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM X509_STORE_CTX_get0_policy_tree}
   function X509_STORE_CTX_get0_policy_tree(ctx: PX509_STORE_CTX): PX509_POLICY_TREE cdecl; external CLibCrypto;
   {$EXTERNALSYM X509_STORE_CTX_get_explicit_policy}
   function X509_STORE_CTX_get_explicit_policy(ctx: PX509_STORE_CTX): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_STORE_CTX_get_num_untrusted}
   function X509_STORE_CTX_get_num_untrusted(ctx: PX509_STORE_CTX): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
 
-  {$EXTERNALSYM X509_STORE_CTX_get0_param}
   function X509_STORE_CTX_get0_param(ctx: PX509_STORE_CTX): PX509_VERIFY_PARAM cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_STORE_CTX_set0_param}
   procedure X509_STORE_CTX_set0_param(ctx: PX509_STORE_CTX; param: PX509_VERIFY_PARAM) cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_STORE_CTX_set_default}
   function X509_STORE_CTX_set_default(ctx: PX509_STORE_CTX; const name: PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
 
   (*
    * Bridge opacity barrier between libcrypt and libssl, also needed to support
    * offline testing in test/danetest.c
    *)
-  {$EXTERNALSYM X509_STORE_CTX_set0_dane}
   procedure X509_STORE_CTX_set0_dane(ctx: PX509_STORE_CTX; dane: PSSL_DANE) cdecl; external CLibCrypto; {introduced 1.1.0}
 
   (* X509_VERIFY_PARAM functions *)
 
-  {$EXTERNALSYM X509_VERIFY_PARAM_new}
   function X509_VERIFY_PARAM_new: PX509_VERIFY_PARAM cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_VERIFY_PARAM_free}
   procedure X509_VERIFY_PARAM_free(param: PX509_VERIFY_PARAM) cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_VERIFY_PARAM_inherit}
   function X509_VERIFY_PARAM_inherit(to_: PX509_VERIFY_PARAM; const from: PX509_VERIFY_PARAM): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_VERIFY_PARAM_set1}
   function X509_VERIFY_PARAM_set1(to_: PX509_VERIFY_PARAM; const from: PX509_VERIFY_PARAM): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_VERIFY_PARAM_set1_name}
   function X509_VERIFY_PARAM_set1_name(param: PX509_VERIFY_PARAM; const name: PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_VERIFY_PARAM_set_flags}
   function X509_VERIFY_PARAM_set_flags(param: PX509_VERIFY_PARAM; flags: TIdC_ULONG): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_VERIFY_PARAM_clear_flags}
   function X509_VERIFY_PARAM_clear_flags(param: PX509_VERIFY_PARAM; flags: TIdC_ULONG): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_VERIFY_PARAM_get_flags}
   function X509_VERIFY_PARAM_get_flags(param: PX509_VERIFY_PARAM): TIdC_ULONG cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_VERIFY_PARAM_set_purpose}
   function X509_VERIFY_PARAM_set_purpose(param: PX509_VERIFY_PARAM; purpose: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_VERIFY_PARAM_get_purpose}
   function X509_VERIFY_PARAM_get_purpose(param: PX509_VERIFY_PARAM): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_VERIFY_PARAM_set_trust}
   function X509_VERIFY_PARAM_set_trust(param: PX509_VERIFY_PARAM; trust: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_VERIFY_PARAM_set_depth}
   procedure X509_VERIFY_PARAM_set_depth(param: PX509_VERIFY_PARAM; depth: TIdC_INT) cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_VERIFY_PARAM_set_auth_level}
   procedure X509_VERIFY_PARAM_set_auth_level(param: PX509_VERIFY_PARAM; auth_level: TIdC_INT) cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM X509_VERIFY_PARAM_get_time}
   function X509_VERIFY_PARAM_get_time(const param: PX509_VERIFY_PARAM): TOSSL_TIMET  cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_VERIFY_PARAM_set_time}
   procedure X509_VERIFY_PARAM_set_time(param: PX509_VERIFY_PARAM; t: TOSSL_TIMET)  cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_VERIFY_PARAM_add0_policy}
   function X509_VERIFY_PARAM_add0_policy(param: PX509_VERIFY_PARAM; policy: PASN1_OBJECT): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_VERIFY_PARAM_set1_policies}
   function X509_VERIFY_PARAM_set1_policies(param : PX509_VERIFY_PARAM; policies : PSTACK_OF_ASN1_OBJECT) : TIdC_INT; cdecl; external CLibCrypto;
 
 
-  {$EXTERNALSYM X509_VERIFY_PARAM_set_inh_flags}
   function X509_VERIFY_PARAM_set_inh_flags(param: PX509_VERIFY_PARAM; flags: TIdC_UINT32): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM X509_VERIFY_PARAM_get_inh_flags}
   function X509_VERIFY_PARAM_get_inh_flags(const param: PX509_VERIFY_PARAM): TIdC_UINT32 cdecl; external CLibCrypto; {introduced 1.1.0}
 
-  {$EXTERNALSYM X509_VERIFY_PARAM_get0_host}
   function X509_VERIFY_PARAM_get0_host(param: PX509_VERIFY_PARAM; num: TIdC_INT): PIdAnsiChar; cdecl; external CLibCrypto; {introduced 3.0.0.}
-  {$EXTERNALSYM X509_VERIFY_PARAM_set1_host}
   function X509_VERIFY_PARAM_set1_host(param: PX509_VERIFY_PARAM; const name: PIdAnsiChar; namelen: TIdC_SIZET): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_VERIFY_PARAM_add1_host}
   function X509_VERIFY_PARAM_add1_host(param: PX509_VERIFY_PARAM; const name: PIdAnsiChar; namelen: TIdC_SIZET): TIdC_INT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM X509_VERIFY_PARAM_set_hostflags}
   procedure X509_VERIFY_PARAM_set_hostflags(param: PX509_VERIFY_PARAM; flags: TIdC_UINT) cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_VERIFY_PARAM_get_hostflags}
   function X509_VERIFY_PARAM_get_hostflags(const param: PX509_VERIFY_PARAM): TIdC_UINT cdecl; external CLibCrypto; {introduced 1.1.0}
 
-  {$EXTERNALSYM X509_VERIFY_PARAM_get0_peername}
   function X509_VERIFY_PARAM_get0_peername(v1: PX509_VERIFY_PARAM): PIdAnsiChar cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_VERIFY_PARAM_move_peername}
   procedure X509_VERIFY_PARAM_move_peername(v1: PX509_VERIFY_PARAM; v2: PX509_VERIFY_PARAM) cdecl; external CLibCrypto; {introduced 1.1.0}
 
-  {$EXTERNALSYM X509_VERIFY_PARAM_set1_email}
   function X509_VERIFY_PARAM_set1_email(param: PX509_VERIFY_PARAM; const email: PIdAnsiChar; emaillen: TIdC_SIZET): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_VERIFY_PARAM_add1_rfc822}
   function X509_VERIFY_PARAM_add1_rfc822(param: PX509_VERIFY_PARAM; const email: PIdAnsiChar; emaillen: TIdC_SIZET): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_VERIFY_PARAM_add1_smtputf8}
   function X509_VERIFY_PARAM_add1_smtputf8(param: PX509_VERIFY_PARAM; const email: PIdAnsiChar; emaillen: TIdC_SIZET): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_VERIFY_PARAM_get0_email}
   function X509_VERIFY_PARAM_get0_email(param: PX509_VERIFY_PARAM): PIdAnsiChar; cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM X509_VERIFY_PARAM_set1_ip}
   function X509_VERIFY_PARAM_set1_ip(param: PX509_VERIFY_PARAM; const ip: PByte; iplen: TIdC_SIZET): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_VERIFY_PARAM_add1_ip}
   function X509_VERIFY_PARAM_add1_ip(param: PX509_VERIFY_PARAM; const ip: PByte; iplen: TIdC_SIZET): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_VERIFY_PARAM_set1_ip_asc}
   function X509_VERIFY_PARAM_set1_ip_asc(param: PX509_VERIFY_PARAM; const ipasc: PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_VERIFY_PARAM_add1_ip_asc}
   function X509_VERIFY_PARAM_add1_ip_asc(param: PX509_VERIFY_PARAM; const ipasc: PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_VERIFY_PARAM_get1_ip_asc}
   function X509_VERIFY_PARAM_get1_ip_asc(param: PX509_VERIFY_PARAM): PIdAnsiChar cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM X509_VERIFY_PARAM_get_depth}
   function X509_VERIFY_PARAM_get_depth(const param: PX509_VERIFY_PARAM): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_VERIFY_PARAM_get_auth_level}
   function X509_VERIFY_PARAM_get_auth_level(const param: PX509_VERIFY_PARAM): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM X509_VERIFY_PARAM_get0_name}
   function X509_VERIFY_PARAM_get0_name(const param: PX509_VERIFY_PARAM): PIdAnsiChar cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM X509_VERIFY_PARAM_add0_table}
   function X509_VERIFY_PARAM_add0_table(param: PX509_VERIFY_PARAM): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_VERIFY_PARAM_get_count}
   function X509_VERIFY_PARAM_get_count: TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_VERIFY_PARAM_get0}
   function X509_VERIFY_PARAM_get0(id: TIdC_INT): PX509_VERIFY_PARAM cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_VERIFY_PARAM_lookup}
   function X509_VERIFY_PARAM_lookup(const name: PIdAnsiChar): PX509_VERIFY_PARAM cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_VERIFY_PARAM_table_cleanup}
   procedure X509_VERIFY_PARAM_table_cleanup cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM X509_policy_check}
   function X509_policy_check(ptree : PX509_POLICY_TREE; certs : PSTACK_OF_X509;
     policy_oids : PSTACK_OF_ASN1_OBJECT; flags :  TIdC_UINT) : TIdC_INT cdecl; external CLibCrypto
 
-  {$EXTERNALSYM X509_policy_tree_free}
   procedure X509_policy_tree_free(tree: PX509_POLICY_TREE) cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM X509_policy_tree_level_count}
   function X509_policy_tree_level_count(const tree: PX509_POLICY_TREE): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_policy_tree_get0_level}
   function X509_policy_tree_get0_level(const tree: PX509_POLICY_TREE; i: TIdC_INT): PX509_POLICY_LEVEL cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM X509_policy_tree_get0_policies}
   function X509_policy_tree_get0_policies(const tree : PX509_POLICY_TREE) : PSTACK_OF_X509_POLICY_NODE cdecl; external CLibCrypto;
   {$EXTERNALSYM X509_policy_tree_get0_user_policies}
   function X509_policy_tree_get0_user_policies(const tree : PX509_POLICY_TREE) : PSTACK_OF_X509_POLICY_NODE cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM X509_policy_level_node_count}
   function X509_policy_level_node_count(level: PX509_POLICY_LEVEL): TIdC_INT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM X509_policy_level_get0_node}
   function X509_policy_level_get0_node(level: PX509_POLICY_LEVEL; i: TIdC_INT): PX509_POLICY_NODE cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM X509_policy_node_get0_policy}
   function X509_policy_node_get0_policy(const node: PX509_POLICY_NODE): PASN1_OBJECT cdecl; external CLibCrypto;
 
   {$EXTERNALSYM X509_policy_node_get0_qualifiers}
   function X509_policy_node_get0_qualifiers(const mode : PX509_POLICY_NODE) : PSTACK_OF_POLICYQUALINFO  cdecl; external CLibCrypto;
-  {$EXTERNALSYM X509_policy_node_get0_parent}
   function X509_policy_node_get0_parent(const node: PX509_POLICY_NODE): PX509_POLICY_NODE cdecl; external CLibCrypto;
 
 {$ENDIF}
@@ -1481,12 +1068,9 @@ type
   Tsk_X509_OBJECT_new_null = function : PSTACK_OF_X509_OBJECT cdecl;
   Tsk_X509_OBJECT_free = procedure(st : PSTACK_OF_X509_OBJECT) cdecl;
   Tsk_X509_OBJECT_num = function (const sk : PSTACK_OF_X509_OBJECT) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_X509_OBJECT_value}
   Tsk_X509_OBJECT_value = function (const sk : PSTACK_OF_X509_OBJECT; i : TIdC_INT) : PX509_OBJECT cdecl;
-  {$EXTERNALSYM Tsk_X509_OBJECT_push}
   Tsk_X509_OBJECT_push = function (sk : PSTACK_OF_X509_OBJECT; st : PX509_OBJECT) : TIdC_INT cdecl;
   Tsk_X509_OBJECT_dup = function (sk : PSTACK_OF_X509_OBJECT) : PSTACK_OF_X509_OBJECT cdecl;
-  {$EXTERNALSYM Tsk_X509_OBJECT_find}
   Tsk_X509_OBJECT_find = function (sk : PSTACK_OF_X509_OBJECT; _val : PX509_OBJECT) : TIdC_INT cdecl;
   Tsk_X509_OBJECT_pop_free = procedure (sk : PSTACK_OF_X509_OBJECT; func: TOPENSSL_sk_freefunc) cdecl;
 
@@ -1494,12 +1078,9 @@ type
   Tsk_X509_LOOKUP_new_null = function : PSTACK_OF_X509_LOOKUP cdecl;
   Tsk_X509_LOOKUP_free = procedure(st : PSTACK_OF_X509_LOOKUP) cdecl;
   Tsk_X509_LOOKUP_num = function (const sk : PSTACK_OF_X509_LOOKUP) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_X509_LOOKUP_value}
   Tsk_X509_LOOKUP_value = function (const sk : PSTACK_OF_X509_LOOKUP; i : TIdC_INT) : PX509_LOOKUP cdecl;
-  {$EXTERNALSYM Tsk_X509_LOOKUP_push}
   Tsk_X509_LOOKUP_push = function (sk : PSTACK_OF_X509_LOOKUP; st : PX509_LOOKUP) : TIdC_INT cdecl;
   Tsk_X509_LOOKUP_dup = function (sk : PSTACK_OF_X509_LOOKUP) : PSTACK_OF_X509_LOOKUP cdecl;
-  {$EXTERNALSYM Tsk_X509_LOOKUP_find}
   Tsk_X509_LOOKUP_find = function (sk : PSTACK_OF_X509_LOOKUP; _val : PX509_LOOKUP) : TIdC_INT cdecl;
   Tsk_X509_LOOKUP_pop_free = procedure (sk : PSTACK_OF_X509_LOOKUP; func: TOPENSSL_sk_freefunc) cdecl;
 
@@ -1507,12 +1088,9 @@ type
   Tsk_X509_VERIFY_PARAM_new_null = function : PSTACK_OF_X509_VERIFY_PARAM cdecl;
   Tsk_X509_VERIFY_PARAM_free = procedure(st : PSTACK_OF_X509_VERIFY_PARAM) cdecl;
   Tsk_X509_VERIFY_PARAM_num = function (const sk : PSTACK_OF_X509_VERIFY_PARAM) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_X509_VERIFY_PARAM_value}
   Tsk_X509_VERIFY_PARAM_value = function (const sk : PSTACK_OF_X509_VERIFY_PARAM; i : TIdC_INT) : PX509_VERIFY_PARAM cdecl;
-  {$EXTERNALSYM Tsk_X509_VERIFY_PARAM_push}
   Tsk_X509_VERIFY_PARAM_push = function (sk : PSTACK_OF_X509_VERIFY_PARAM; st : PX509_VERIFY_PARAM) : TIdC_INT cdecl;
   Tsk_X509_VERIFY_PARAM_dup = function (sk : PSTACK_OF_X509_VERIFY_PARAM) : PSTACK_OF_X509_VERIFY_PARAM cdecl;
-  {$EXTERNALSYM Tsk_X509_VERIFY_PARAM_find}
   Tsk_X509_VERIFY_PARAM_find = function (sk : PSTACK_OF_X509_VERIFY_PARAM; _val : PX509_VERIFY_PARAM) : TIdC_INT cdecl;
   Tsk_X509_VERIFY_PARAM_pop_free = procedure (sk : PSTACK_OF_X509_VERIFY_PARAM; func: TOPENSSL_sk_freefunc) cdecl;
 

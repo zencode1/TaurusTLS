@@ -71,7 +71,6 @@ type
     data: array[0 .. SHA_LAST_BLOCK - 1] of SHA_LONG;
     num: TIdC_UINT;
   end;
-  {$EXTERNALSYM SHA_CTX}
   SHA_CTX = SHAstate_sf;
   PSHA_CTX = ^SHA_CTX;
 
@@ -81,7 +80,6 @@ type
     data: array[0 .. SHA_LAST_BLOCK - 1] of SHA_LONG;
     num, md_len: TIdC_UINT;
   end;
-  {$EXTERNALSYM SHA256_CTX}
   SHA256_CTX = SHAstate256_sf;
   PSHA256_CTX = ^SHA256_CTX;
 
@@ -96,16 +94,13 @@ type
   end;
   {$IFDEF DCC}{$WARN UNSAFE_TYPE DEFAULT}{$ENDIF}
 
-  {$EXTERNALSYM SHA512state_st}
   SHA512state_st = record
     h: array[0..7] of SHA_LONG64;
     Nl, Nh: SHA_LONG64;
     u: SHA512state_st_u;
     num, md_len: TIdC_UINT;
   end;
-  {$EXTERNALSYM SHA512_CTX}
   SHA512_CTX = SHA512state_st;
-  {$EXTERNALSYM PSHA512_CTX}
   PSHA512_CTX = ^SHA512_CTX;
 
     { The EXTERNALSYM directive is ignored by FPC, however, it is used by Delphi as follows:
@@ -118,105 +113,69 @@ type
 var
   {$EXTERNALSYM SHA1_Init}
   SHA1_Init: function (c: PSHA_CTX): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SHA1_Update}
   SHA1_Update: function (c: PSHA_CTX; const data: Pointer; len: TIdC_SIZET): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SHA1_Final}
   SHA1_Final: function (md: PByte; c: PSHA_CTX): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SHA1}
   SHA1: function (const d: PByte; n: TIdC_SIZET; md: PByte): PByte; cdecl = nil;
-  {$EXTERNALSYM SHA1_Transform}
   SHA1_Transform: procedure (c: PSHA_CTX; const data: PByte); cdecl = nil;
 
   {$EXTERNALSYM SHA224_Init}
   SHA224_Init: function (c: PSHA256_CTX): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SHA224_Update}
   SHA224_Update: function (c: PSHA256_CTX; const data: Pointer; len: TIdC_SIZET): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SHA224_Final}
   SHA224_Final: function (md: PByte; c: PSHA256_CTX): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SHA224}
   SHA224: function (const d: PByte; n: TIdC_SIZET; md: PByte): PByte; cdecl = nil;
 
   {$EXTERNALSYM SHA256_Init}
   SHA256_Init: function (c: PSHA256_CTX): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SHA256_Update}
   SHA256_Update: function (c: PSHA256_CTX; const data: Pointer; len: TIdC_SIZET): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SHA256_Final}
   SHA256_Final: function (md: PByte; c: PSHA256_CTX): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SHA256}
   SHA256: function (const d: PByte; n: TIdC_SIZET; md: PByte): PByte; cdecl = nil;
-  {$EXTERNALSYM SHA256_Transform}
   SHA256_Transform: procedure (c: PSHA256_CTX; const data: PByte); cdecl = nil;
 
   {$EXTERNALSYM SHA384_Init}
   SHA384_Init: function (c: PSHA512_CTX): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SHA384_Update}
   SHA384_Update: function (c: PSHA512_CTX; const data: Pointer; len: TIdC_SIZET): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SHA384_Final}
   SHA384_Final: function (md: PByte; c: PSHA512_CTX): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SHA384}
   SHA384: function (const d: PByte; n: TIdC_SIZET; md: PByte): PByte; cdecl = nil;
 
   {$EXTERNALSYM SHA512_Init}
   SHA512_Init: function (c: PSHA512_CTX): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SHA512_Update}
   SHA512_Update: function (c: PSHA512_CTX; const data: Pointer; len: TIdC_SIZET): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SHA512_Final}
   SHA512_Final: function (md: PByte; c: PSHA512_CTX): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SHA512}
   SHA512: function (const d: PByte; n: TIdC_SIZET; md: PByte): PByte; cdecl = nil;
-  {$EXTERNALSYM SHA512_Transform}
   SHA512_Transform: procedure (c: PSHA512_CTX; const data: PByte); cdecl = nil;
 
 {$ELSE}
   {$EXTERNALSYM SHA1_Init}
   function SHA1_Init(c: PSHA_CTX): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM SHA1_Update}
   function SHA1_Update(c: PSHA_CTX; const data: Pointer; len: TIdC_SIZET): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM SHA1_Final}
   function SHA1_Final(md: PByte; c: PSHA_CTX): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM SHA1}
   function SHA1(const d: PByte; n: TIdC_SIZET; md: PByte): PByte cdecl; external CLibCrypto;
-  {$EXTERNALSYM SHA1_Transform}
   procedure SHA1_Transform(c: PSHA_CTX; const data: PByte) cdecl; external CLibCrypto;
 
   {$EXTERNALSYM SHA224_Init}
   function SHA224_Init(c: PSHA256_CTX): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM SHA224_Update}
   function SHA224_Update(c: PSHA256_CTX; const data: Pointer; len: TIdC_SIZET): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM SHA224_Final}
   function SHA224_Final(md: PByte; c: PSHA256_CTX): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM SHA224}
   function SHA224(const d: PByte; n: TIdC_SIZET; md: PByte): PByte cdecl; external CLibCrypto;
 
   {$EXTERNALSYM SHA256_Init}
   function SHA256_Init(c: PSHA256_CTX): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM SHA256_Update}
   function SHA256_Update(c: PSHA256_CTX; const data: Pointer; len: TIdC_SIZET): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM SHA256_Final}
   function SHA256_Final(md: PByte; c: PSHA256_CTX): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM SHA256}
   function SHA256(const d: PByte; n: TIdC_SIZET; md: PByte): PByte cdecl; external CLibCrypto;
-  {$EXTERNALSYM SHA256_Transform}
   procedure SHA256_Transform(c: PSHA256_CTX; const data: PByte) cdecl; external CLibCrypto;
 
   {$EXTERNALSYM SHA384_Init}
   function SHA384_Init(c: PSHA512_CTX): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM SHA384_Update}
   function SHA384_Update(c: PSHA512_CTX; const data: Pointer; len: TIdC_SIZET): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM SHA384_Final}
   function SHA384_Final(md: PByte; c: PSHA512_CTX): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM SHA384}
   function SHA384(const d: PByte; n: TIdC_SIZET; md: PByte): PByte cdecl; external CLibCrypto;
 
   {$EXTERNALSYM SHA512_Init}
   function SHA512_Init(c: PSHA512_CTX): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM SHA512_Update}
   function SHA512_Update(c: PSHA512_CTX; const data: Pointer; len: TIdC_SIZET): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM SHA512_Final}
   function SHA512_Final(md: PByte; c: PSHA512_CTX): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM SHA512}
   function SHA512(const d: PByte; n: TIdC_SIZET; md: PByte): PByte cdecl; external CLibCrypto;
-  {$EXTERNALSYM SHA512_Transform}
   procedure SHA512_Transform(c: PSHA512_CTX; const data: PByte) cdecl; external CLibCrypto;
 
 {$ENDIF}

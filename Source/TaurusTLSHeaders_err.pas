@@ -256,7 +256,6 @@ const
 
 type
   //This is now opaque in OpenSSL 4.0.0
-  {$EXTERNALSYM err_state_st}
   err_state_st = record
 {    err_flags: array[0..ERR_NUM_ERRORS -1] of TIdC_INT;
     err_buffer: array[0..ERR_NUM_ERRORS -1] of TIdC_ULONG;
@@ -266,19 +265,14 @@ type
     err_line: array[0..ERR_NUM_ERRORS -1] of TIdC_INT;
     top, bottom: TIdC_INT;   }
   end;
-  {$EXTERNALSYM ERR_STATE}
   ERR_STATE = err_state_st;
-  {$EXTERNALSYM PERR_STATE}
   PERR_STATE = ^ERR_STATE;
 
-  {$EXTERNALSYM ERR_string_data_st}
   ERR_string_data_st = record
     _error: TIdC_ULONG;
     string_: PIdAnsiChar;
   end;
-  {$EXTERNALSYM ERR_STRING_DATA}
   ERR_STRING_DATA = ERR_string_data_st;
-  {$EXTERNALSYM PERR_STRING_DATA}
   PERR_STRING_DATA = ^ERR_STRING_DATA;
 
   ERR_print_errors_cb_cb = function(_str: PIdAnsiChar; len: TIdC_SIZET; u: Pointer): TIdC_INT; cdecl;
@@ -307,76 +301,46 @@ var
      ERR_set_debug((file), (line), OPENSSL_FUNC),
      ERR_set_error((lib), (reason), NULL))}
 
-  {$EXTERNALSYM ERR_new}
   ERR_new: procedure ; cdecl = nil; {introduced 3.0.0}
-  {$EXTERNALSYM ERR_set_debug}
   ERR_set_debug: procedure (const file_: PIdAnsiChar; line: TIdC_INT; const func: PIdAnsiChar); cdecl = nil;  {introduced 3.0.0}
 //  ERR_set_error: procedure (lib: TIdC_INT; reason: TIdC_INT; fmt: PIdAnsiChar; args: array of const); cdecl = nil; {introduced 3.0.0}
-  {$EXTERNALSYM ERR_set_error}
   ERR_set_error: procedure (lib: TIdC_INT; reason: TIdC_INT; fmt: PIdAnsiChar); cdecl varargs = nil; {introduced 3.0.0}
 
 
-  {$EXTERNALSYM ERR_set_error_data}
   ERR_set_error_data: procedure (data: PIdAnsiChar; flags: TIdC_INT); cdecl = nil;
   
-  {$EXTERNALSYM ERR_get_error}
   ERR_get_error: function : TIdC_ULONG; cdecl = nil;
-  {$EXTERNALSYM ERR_get_error_line}
   ERR_get_error_line: function (file_: PPIdAnsiChar; line: PIdC_INT): TIdC_ULONG; cdecl = nil;
-  {$EXTERNALSYM ERR_get_error_line_data}
   ERR_get_error_line_data: function (file_: PPIdAnsiChar; line: PIdC_INT; data: PPIdAnsiChar; flags: PIdC_INT): TIdC_ULONG; cdecl = nil;
 
-  {$EXTERNALSYM ERR_peek_error}
   ERR_peek_error: function : TIdC_ULONG; cdecl = nil;
-  {$EXTERNALSYM ERR_peek_error_line}
   ERR_peek_error_line: function (file_: PPIdAnsiChar; line: PIdC_INT): TIdC_ULONG; cdecl = nil;
-  {$EXTERNALSYM ERR_peek_error_line_data}
   ERR_peek_error_line_data: function (file_: PPIdAnsiChar; line: PIdC_INT; data: PPIdAnsiChar; flags: PIdC_INT): TIdC_ULONG; cdecl = nil;
 
-  {$EXTERNALSYM ERR_peek_last_error}
   ERR_peek_last_error: function : TIdC_ULONG; cdecl = nil;
-  {$EXTERNALSYM ERR_peek_last_error_line}
   ERR_peek_last_error_line: function (file_: PPIdAnsiChar; line: PIdC_INT): TIdC_ULONG; cdecl = nil;
-  {$EXTERNALSYM ERR_peek_last_error_line_data}
   ERR_peek_last_error_line_data: function (file_: PPIdAnsiChar; line: PIdC_INT; data: PPIdAnsiChar; flags: PIdC_INT): TIdC_ULONG; cdecl = nil;
 
-  {$EXTERNALSYM ERR_clear_error}
   ERR_clear_error: procedure ; cdecl = nil;
-  {$EXTERNALSYM ERR_error_string}
   ERR_error_string: function (e: TIdC_ULONG; buf: PIdAnsiChar): PIdAnsiChar; cdecl = nil;
-  {$EXTERNALSYM ERR_error_string_n}
   ERR_error_string_n: procedure (e: TIdC_ULONG; buf: PIdAnsiChar; len: TIdC_SIZET); cdecl = nil;
-  {$EXTERNALSYM ERR_lib_error_string}
   ERR_lib_error_string: function (e: TIdC_ULONG): PIdAnsiChar; cdecl = nil;
-  {$EXTERNALSYM ERR_func_error_string}
   ERR_func_error_string: function (e: TIdC_ULONG): PIdAnsiChar; cdecl = nil;
-  {$EXTERNALSYM ERR_reason_error_string}
   ERR_reason_error_string: function (e: TIdC_ULONG): PIdAnsiChar; cdecl = nil;
-  {$EXTERNALSYM ERR_print_errors_cb}
   ERR_print_errors_cb: procedure (cb: ERR_print_errors_cb_cb; u: Pointer); cdecl = nil;
 
-  {$EXTERNALSYM ERR_print_errors}
   ERR_print_errors: procedure (bp: PBIO); cdecl = nil;
   // void ERR_add_error_data(int num, ...);
   // procedure ERR_add_error_vdata(num: TIdC_INT; args: va_list);
-  {$EXTERNALSYM ERR_load_strings}
   ERR_load_strings: function (lib: TIdC_INT; _str: PERR_STRING_DATA): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM ERR_load_strings_const}
   ERR_load_strings_const: function (_str: PERR_STRING_DATA): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM ERR_unload_strings}
   ERR_unload_strings: function (lib: TIdC_INT; _str: PERR_STRING_DATA): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM ERR_load_ERR_strings}
   ERR_load_ERR_strings: function : TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM ERR_get_state}
   ERR_get_state: function : PERR_STATE; cdecl = nil;
-  {$EXTERNALSYM ERR_get_next_error_library}
   ERR_get_next_error_library: function : TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM ERR_set_mark}
   ERR_set_mark: function : TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM ERR_pop_to_mark}
   ERR_pop_to_mark: function : TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM ERR_clear_last_mark}
   ERR_clear_last_mark: function : TIdC_INT; cdecl = nil; {introduced 1.1.0}
 
   SSLErr: procedure (func: TIdC_INT; reason: TIdC_INT); cdecl = nil; {removed 1.0.0}
@@ -393,75 +357,45 @@ var
      ERR_set_debug((file), (line), OPENSSL_FUNC),
      ERR_set_error((lib), (reason), NULL))}
 
-  {$EXTERNALSYM ERR_new}
   procedure ERR_new cdecl; external CLibCrypto; {introduced 3.0.0}
-  {$EXTERNALSYM ERR_set_debug}
   procedure ERR_set_debug(const file_: PIdAnsiChar; line: TIdC_INT; const func: PIdAnsiChar) cdecl; external CLibCrypto;  {introduced 3.0.0}
 //  procedure ERR_set_error(lib: TIdC_INT; reason: TIdC_INT; fmt: PIdAnsiChar; args: array of const) cdecl; external CLibCrypto; {introduced 3.0.0}
-  {$EXTERNALSYM ERR_set_error}
   procedure ERR_set_error(lib: TIdC_INT; reason: TIdC_INT; fmt: PIdAnsiChar) cdecl; varargs; external CLibCrypto; {introduced 3.0.0}
 
-  {$EXTERNALSYM ERR_set_error_data}
   procedure ERR_set_error_data(data: PIdAnsiChar; flags: TIdC_INT) cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM ERR_get_error}
   function ERR_get_error: TIdC_ULONG cdecl; external CLibCrypto;
-  {$EXTERNALSYM ERR_get_error_line}
   function ERR_get_error_line(file_: PPIdAnsiChar; line: PIdC_INT): TIdC_ULONG cdecl; external CLibCrypto;
-  {$EXTERNALSYM ERR_get_error_line_data}
   function ERR_get_error_line_data(file_: PPIdAnsiChar; line: PIdC_INT; data: PPIdAnsiChar; flags: PIdC_INT): TIdC_ULONG cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM ERR_peek_error}
   function ERR_peek_error: TIdC_ULONG cdecl; external CLibCrypto;
-  {$EXTERNALSYM ERR_peek_error_line}
   function ERR_peek_error_line(file_: PPIdAnsiChar; line: PIdC_INT): TIdC_ULONG cdecl; external CLibCrypto;
-  {$EXTERNALSYM ERR_peek_error_line_data}
   function ERR_peek_error_line_data(file_: PPIdAnsiChar; line: PIdC_INT; data: PPIdAnsiChar; flags: PIdC_INT): TIdC_ULONG cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM ERR_peek_last_error}
   function ERR_peek_last_error: TIdC_ULONG cdecl; external CLibCrypto;
-  {$EXTERNALSYM ERR_peek_last_error_line}
   function ERR_peek_last_error_line(file_: PPIdAnsiChar; line: PIdC_INT): TIdC_ULONG cdecl; external CLibCrypto;
-  {$EXTERNALSYM ERR_peek_last_error_line_data}
   function ERR_peek_last_error_line_data(file_: PPIdAnsiChar; line: PIdC_INT; data: PPIdAnsiChar; flags: PIdC_INT): TIdC_ULONG cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM ERR_clear_error}
   procedure ERR_clear_error cdecl; external CLibCrypto;
-  {$EXTERNALSYM ERR_error_string}
   function ERR_error_string(e: TIdC_ULONG; buf: PIdAnsiChar): PIdAnsiChar cdecl; external CLibCrypto;
-  {$EXTERNALSYM ERR_error_string_n}
   procedure ERR_error_string_n(e: TIdC_ULONG; buf: PIdAnsiChar; len: TIdC_SIZET) cdecl; external CLibCrypto;
-  {$EXTERNALSYM ERR_lib_error_string}
   function ERR_lib_error_string(e: TIdC_ULONG): PIdAnsiChar cdecl; external CLibCrypto;
-  {$EXTERNALSYM ERR_func_error_string}
   function ERR_func_error_string(e: TIdC_ULONG): PIdAnsiChar cdecl; external CLibCrypto;
-  {$EXTERNALSYM ERR_reason_error_string}
   function ERR_reason_error_string(e: TIdC_ULONG): PIdAnsiChar cdecl; external CLibCrypto;
-  {$EXTERNALSYM ERR_print_errors_cb}
   procedure ERR_print_errors_cb(cb: ERR_print_errors_cb_cb; u: Pointer) cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM ERR_print_errors}
   procedure ERR_print_errors(bp: PBIO) cdecl; external CLibCrypto;
   // void ERR_add_error_data(int num, ...);
   // procedure ERR_add_error_vdata(num: TIdC_INT; args: va_list);
-  {$EXTERNALSYM ERR_load_strings}
   function ERR_load_strings(lib: TIdC_INT; _str: PERR_STRING_DATA): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM ERR_load_strings_const}
   function ERR_load_strings_const(_str: PERR_STRING_DATA): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM ERR_unload_strings}
   function ERR_unload_strings(lib: TIdC_INT; _str: PERR_STRING_DATA): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM ERR_load_ERR_strings}
   function ERR_load_ERR_strings: TIdC_INT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM ERR_get_state}
   function ERR_get_state: PERR_STATE cdecl; external CLibCrypto;
-  {$EXTERNALSYM ERR_get_next_error_library}
   function ERR_get_next_error_library: TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM ERR_set_mark}
   function ERR_set_mark: TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM ERR_pop_to_mark}
   function ERR_pop_to_mark: TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM ERR_clear_last_mark}
   function ERR_clear_last_mark: TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
 
 

@@ -529,11 +529,9 @@ const
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 var
-  {$EXTERNALSYM ERR_load_EC_strings}
   ERR_load_EC_strings: function : TIdC_INT; cdecl = nil;
 
 {$ELSE}
-  {$EXTERNALSYM ERR_load_EC_strings}
   function ERR_load_EC_strings: TIdC_INT cdecl; external CLibCrypto;
 
 {$ENDIF}

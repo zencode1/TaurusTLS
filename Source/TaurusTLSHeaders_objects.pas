@@ -36,16 +36,13 @@ uses
   TaurusTLSHeaders_types;
 
 type
-  {$EXTERNALSYM obj_name_st}
   obj_name_st = record
     type_: TIdC_INT;
     alias: TIdC_INT;
     name: PIdAnsiChar;
     data: PIdAnsiChar;
   end;
-  {$EXTERNALSYM OBJ_NAME}
   OBJ_NAME = obj_name_st;
-  {$EXTERNALSYM POBJ_NAME}
   POBJ_NAME = ^OBJ_NAME;
 
 //# define         OBJ_create_and_add_object(a,b,c) OBJ_create(a,b,c)
@@ -58,18 +55,13 @@ type
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 var
-  {$EXTERNALSYM OBJ_NAME_init}
   OBJ_NAME_init: function : TIdC_INT; cdecl = nil;
   //TIdC_INT OBJ_NAME_new_index(TIdC_ULONG (*hash_func) (const PIdAnsiChar *);
   //                       TIdC_INT (*cmp_func) (const PIdAnsiChar *; const PIdAnsiChar *);
   //                       void (*free_func) (const PIdAnsiChar *; TIdC_INT; const PIdAnsiChar *));
-  {$EXTERNALSYM OBJ_NAME_get}
   OBJ_NAME_get: function (const name: PIdAnsiChar; type_: TIdC_INT): PIdAnsiChar; cdecl = nil;
-  {$EXTERNALSYM OBJ_NAME_add}
   OBJ_NAME_add: function (const name: PIdAnsiChar; type_: TIdC_INT; const data: PIdAnsiChar): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM OBJ_NAME_remove}
   OBJ_NAME_remove: function (const name: PIdAnsiChar; type_: TIdC_INT): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM OBJ_NAME_cleanup}
   OBJ_NAME_cleanup: procedure (type_: TIdC_INT); cdecl = nil;
 //  void OBJ_NAME_do_all(TIdC_INT type_; void (*fn) (const OBJ_NAME *; void *arg);
 //                       void *arg);
@@ -77,27 +69,16 @@ var
 //                              void (*fn) (const OBJ_NAME *; void *arg);
 //                              void *arg);
 
-  {$EXTERNALSYM OBJ_dup}
   OBJ_dup: function (const o: PASN1_OBJECT): PASN1_OBJECT; cdecl = nil;
-  {$EXTERNALSYM OBJ_nid2obj}
   OBJ_nid2obj: function (n: TIdC_INT): PASN1_OBJECT; cdecl = nil;
-  {$EXTERNALSYM OBJ_nid2ln}
   OBJ_nid2ln: function (n: TIdC_INT): PIdAnsiChar; cdecl = nil;
-  {$EXTERNALSYM OBJ_nid2sn}
   OBJ_nid2sn: function (n: TIdC_INT): PIdAnsiChar; cdecl = nil;
-  {$EXTERNALSYM OBJ_obj2nid}
   OBJ_obj2nid: function (const o: PASN1_OBJECT): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM OBJ_txt2obj}
   OBJ_txt2obj: function (const s: PIdAnsiChar; no_name: TIdC_INT): PASN1_OBJECT; cdecl = nil;
-  {$EXTERNALSYM OBJ_obj2txt}
   OBJ_obj2txt: function (buf: PIdAnsiChar; buf_len: TIdC_INT; const a: PASN1_OBJECT; no_name: TIdC_INT): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM OBJ_txt2nid}
   OBJ_txt2nid: function (const s: PIdAnsiChar): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM OBJ_ln2nid}
   OBJ_ln2nid: function (const s: PIdAnsiChar): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM OBJ_sn2nid}
   OBJ_sn2nid: function (const s: PIdAnsiChar): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM OBJ_cmp}
   OBJ_cmp: function (const a: PASN1_OBJECT; const b: PASN1_OBJECT): TIdC_INT; cdecl = nil;
 //  const void *OBJ_bsearch_(const void *key; const void *base; TIdC_INT num; TIdC_INT size;
 //                           TIdC_INT (*cmp) (const void *; const void *));
@@ -185,42 +166,27 @@ var
   //                          (void)type_2=CHECKED_PTR_OF(type2;cmp##_type_2); \
   //                          cmp##_BSEARCH_CMP_FN));flags)
 
-  {$EXTERNALSYM OBJ_new_nid}
   OBJ_new_nid: function (num: TIdC_INT): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM OBJ_add_object}
   OBJ_add_object: function (const obj: PASN1_OBJECT): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM OBJ_create}
   OBJ_create: function (const oid: PIdAnsiChar; const sn: PIdAnsiChar; const _ln: PIdAnsiChar): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM OBJ_create_objects}
   OBJ_create_objects: function (in_: PBIO): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM OBJ_length}
   OBJ_length: function (const obj: PASN1_OBJECT): TIdC_SIZET; cdecl = nil; {introduced 1.1.0}
-  {$EXTERNALSYM OBJ_get0_data}
   OBJ_get0_data: function (const obj: PASN1_OBJECT): PByte; cdecl = nil; {introduced 1.1.0}
 
-  {$EXTERNALSYM OBJ_find_sigid_algs}
   OBJ_find_sigid_algs: function (signid: TIdC_INT; pdig_nid: PIdC_INT; ppkey_nid: PIdC_INT): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM OBJ_find_sigid_by_algs}
   OBJ_find_sigid_by_algs: function (psignid: PIdC_INT; dig_nid: TIdC_INT; pkey_nid: TIdC_INT): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM OBJ_add_sigid}
   OBJ_add_sigid: function (signid: TIdC_INT; dig_id: TIdC_INT; pkey_id: TIdC_INT): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM OBJ_sigid_free}
   OBJ_sigid_free: procedure ; cdecl = nil;
 
 {$ELSE}
-  {$EXTERNALSYM OBJ_NAME_init}
   function OBJ_NAME_init: TIdC_INT cdecl; external CLibCrypto;
   //TIdC_INT OBJ_NAME_new_index(TIdC_ULONG (*hash_func) (const PIdAnsiChar *);
   //                       TIdC_INT (*cmp_func) (const PIdAnsiChar *; const PIdAnsiChar *);
   //                       void (*free_func) (const PIdAnsiChar *; TIdC_INT; const PIdAnsiChar *));
-  {$EXTERNALSYM OBJ_NAME_get}
   function OBJ_NAME_get(const name: PIdAnsiChar; type_: TIdC_INT): PIdAnsiChar cdecl; external CLibCrypto;
-  {$EXTERNALSYM OBJ_NAME_add}
   function OBJ_NAME_add(const name: PIdAnsiChar; type_: TIdC_INT; const data: PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM OBJ_NAME_remove}
   function OBJ_NAME_remove(const name: PIdAnsiChar; type_: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM OBJ_NAME_cleanup}
   procedure OBJ_NAME_cleanup(type_: TIdC_INT) cdecl; external CLibCrypto;
 //  void OBJ_NAME_do_all(TIdC_INT type_; void (*fn) (const OBJ_NAME *; void *arg);
 //                       void *arg);
@@ -228,27 +194,16 @@ var
 //                              void (*fn) (const OBJ_NAME *; void *arg);
 //                              void *arg);
 
-  {$EXTERNALSYM OBJ_dup}
   function OBJ_dup(const o: PASN1_OBJECT): PASN1_OBJECT cdecl; external CLibCrypto;
-  {$EXTERNALSYM OBJ_nid2obj}
   function OBJ_nid2obj(n: TIdC_INT): PASN1_OBJECT cdecl; external CLibCrypto;
-  {$EXTERNALSYM OBJ_nid2ln}
   function OBJ_nid2ln(n: TIdC_INT): PIdAnsiChar cdecl; external CLibCrypto;
-  {$EXTERNALSYM OBJ_nid2sn}
   function OBJ_nid2sn(n: TIdC_INT): PIdAnsiChar cdecl; external CLibCrypto;
-  {$EXTERNALSYM OBJ_obj2nid}
   function OBJ_obj2nid(const o: PASN1_OBJECT): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM OBJ_txt2obj}
   function OBJ_txt2obj(const s: PIdAnsiChar; no_name: TIdC_INT): PASN1_OBJECT cdecl; external CLibCrypto;
-  {$EXTERNALSYM OBJ_obj2txt}
   function OBJ_obj2txt(buf: PIdAnsiChar; buf_len: TIdC_INT; const a: PASN1_OBJECT; no_name: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM OBJ_txt2nid}
   function OBJ_txt2nid(const s: PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM OBJ_ln2nid}
   function OBJ_ln2nid(const s: PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM OBJ_sn2nid}
   function OBJ_sn2nid(const s: PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM OBJ_cmp}
   function OBJ_cmp(const a: PASN1_OBJECT; const b: PASN1_OBJECT): TIdC_INT cdecl; external CLibCrypto;
 //  const void *OBJ_bsearch_(const void *key; const void *base; TIdC_INT num; TIdC_INT size;
 //                           TIdC_INT (*cmp) (const void *; const void *));
@@ -336,27 +291,17 @@ var
   //                          (void)type_2=CHECKED_PTR_OF(type2;cmp##_type_2); \
   //                          cmp##_BSEARCH_CMP_FN));flags)
 
-  {$EXTERNALSYM OBJ_new_nid}
   function OBJ_new_nid(num: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM OBJ_add_object}
   function OBJ_add_object(const obj: PASN1_OBJECT): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM OBJ_create}
   function OBJ_create(const oid: PIdAnsiChar; const sn: PIdAnsiChar; const _ln: PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM OBJ_create_objects}
   function OBJ_create_objects(in_: PBIO): TIdC_INT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM OBJ_length}
   function OBJ_length(const obj: PASN1_OBJECT): TIdC_SIZET cdecl; external CLibCrypto; {introduced 1.1.0}
-  {$EXTERNALSYM OBJ_get0_data}
   function OBJ_get0_data(const obj: PASN1_OBJECT): PByte cdecl; external CLibCrypto; {introduced 1.1.0}
 
-  {$EXTERNALSYM OBJ_find_sigid_algs}
   function OBJ_find_sigid_algs(signid: TIdC_INT; pdig_nid: PIdC_INT; ppkey_nid: PIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM OBJ_find_sigid_by_algs}
   function OBJ_find_sigid_by_algs(psignid: PIdC_INT; dig_nid: TIdC_INT; pkey_nid: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM OBJ_add_sigid}
   function OBJ_add_sigid(signid: TIdC_INT; dig_id: TIdC_INT; pkey_id: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM OBJ_sigid_free}
   procedure OBJ_sigid_free cdecl; external CLibCrypto;
 
 {$ENDIF}

@@ -74,18 +74,12 @@ const
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 var
-  {$EXTERNALSYM OSSL_QUIC_client_method}
   OSSL_QUIC_client_method : function : PSSL_METHOD; cdecl = nil; {introduced 3.2.0}
-  {$EXTERNALSYM OSSL_QUIC_client_thread_method}
   OSSL_QUIC_client_thread_method  : function : PSSL_METHOD; cdecl = nil; {introduced 3.2.0}
-  {$EXTERNALSYM OSSL_QUIC_server_method}
   OSSL_QUIC_server_method : function  : PSSL_METHOD; cdecl = nil; {introduced 3.5.0}
 {$ELSE}
-  {$EXTERNALSYM OSSL_QUIC_client_method}
   function OSSL_QUIC_client_method : PSSL_METHOD cdecl; external CLibSSL; {introduced 3.2.0}
-  {$EXTERNALSYM OSSL_QUIC_client_thread_method}
   function OSSL_QUIC_client_thread_method : PSSL_METHOD cdecl; external CLibSSL; {introduced 3.2.0}
-  {$EXTERNALSYM OSSL_QUIC_server_method}
   function OSSL_QUIC_server_method : PSSL_METHOD cdecl; external CLibSSL; {introduced 3.5.0}
 {$ENDIF}
 

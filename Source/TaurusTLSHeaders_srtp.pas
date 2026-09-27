@@ -64,25 +64,17 @@ const
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 var
-  {$EXTERNALSYM SSL_CTX_set_tlsext_use_srtp}
   SSL_CTX_set_tlsext_use_srtp: function (ctx: PSSL_CTX; const profiles: PIdAnsiChar): TIdC_INT; cdecl = nil;
-  {$EXTERNALSYM SSL_set_tlsext_use_srtp}
   SSL_set_tlsext_use_srtp: function (ctx: PSSL_CTX; const profiles: PIdAnsiChar): TIdC_INT; cdecl = nil;
 
-  {$EXTERNALSYM SSL_get_srtp_profiles}
   SSL_get_srtp_profiles : function(s: PSSL): PSTACK_OF_SRTP_PROTECTION_PROFILE;  cdecl = nil;
-  {$EXTERNALSYM SSL_get_selected_srtp_profile}
   SSL_get_selected_srtp_profile: function (s: PSSL): PSRTP_PROTECTION_PROFILE; cdecl = nil;
 
 {$ELSE}
-  {$EXTERNALSYM SSL_CTX_set_tlsext_use_srtp}
   function SSL_CTX_set_tlsext_use_srtp(ctx: PSSL_CTX; const profiles: PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
-  {$EXTERNALSYM SSL_set_tlsext_use_srtp}
   function SSL_set_tlsext_use_srtp(ctx: PSSL_CTX; const profiles: PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
 
-  {$EXTERNALSYM SSL_get_srtp_profiles}
   function SSL_get_srtp_profiles(s: PSSL): PSTACK_OF_SRTP_PROTECTION_PROFILE  cdecl; external CLibCrypto;
-  {$EXTERNALSYM SSL_get_selected_srtp_profile}
   function SSL_get_selected_srtp_profile(s: PSSL): PSRTP_PROTECTION_PROFILE cdecl; external CLibCrypto;
 
 {$ENDIF}
