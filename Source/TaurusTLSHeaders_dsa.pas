@@ -86,14 +86,11 @@ type
   {$EXTERNALSYM DSA_meth_bn_mod_exp_cb}
   DSA_meth_bn_mod_exp_cb = function (v1: PDSA; v2: PBIGNUM;
     const v3: PBIGNUM; const v4: PBIGNUM; const v5: PBIGNUM; v6: PBN_CTX; v7: PBN_MONT_CTX): TIdC_INT cdecl;
-  {$EXTERNALSYM DSA_meth_init_cb}
   DSA_meth_init_cb = function(v1: PDSA): TIdC_INT cdecl;
-  {$EXTERNALSYM DSA_meth_finish_cb}
   DSA_meth_finish_cb = function (v1: PDSA): TIdC_INT cdecl;
   {$EXTERNALSYM DSA_meth_paramgen_cb}
   DSA_meth_paramgen_cb = function (v1: PDSA; v2: TIdC_INT;
     const v3: PByte; v4: TIdC_INT; v5: PIdC_INT; v6: PIdC_ULONG; v7: PBN_GENCB): TIdC_INT cdecl;
-  {$EXTERNALSYM DSA_meth_keygen_cb}
   DSA_meth_keygen_cb = function (v1: PDSA): TIdC_INT cdecl;
 
 //# define d2i_DSAparams_fp(fp,x) (DSA *)ASN1_d2i_fp((char *(*)())DSA_new, \

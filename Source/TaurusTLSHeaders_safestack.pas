@@ -21,16 +21,11 @@ uses
   TaurusTLSHeaders_stack;
 
 type
-  {$EXTERNALSYM POPENSSL_STRING}
   POPENSSL_STRING = PIdAnsiChar;
 
-  {$EXTERNALSYM PSTACK_OF_OPENSSL_STRING}
   PSTACK_OF_OPENSSL_STRING = pointer;
-  {$EXTERNALSYM Tsk_OPENSSL_STRING_compfunc}
   Tsk_OPENSSL_STRING_compfunc = function(a: PPIdAnsiChar; b: PPIdAnsiChar): TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_OPENSSL_STRING_freefunc}
   Tsk_OPENSSL_STRING_freefunc = procedure(a: PIdAnsiChar) cdecl;
-  {$EXTERNALSYM Tsk_OPENSSL_STRING_copyfunc}
   Tsk_OPENSSL_STRING_copyfunc = function(a: PIdAnsiChar): PIdAnsiChar cdecl;
 
   {$EXTERNALSYM sk_OPENSSL_STRING_num}

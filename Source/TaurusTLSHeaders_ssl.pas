@@ -1646,13 +1646,11 @@ type
   SSL_CIPHER = record end;
   {$EXTERNALSYM PSSL_CIPHER}
   PSSL_CIPHER = ^SSL_CIPHER;
-  {$EXTERNALSYM PPSSL_CIPHER}
   PPSSL_CIPHER = ^PSSL_CIPHER;
   {$EXTERNALSYM SSL_SESSION}
   SSL_SESSION = record end;
   {$EXTERNALSYM PSSL_SESSION}
   PSSL_SESSION = ^SSL_SESSION;
-  {$EXTERNALSYM PPSSL_SESSION}
   PPSSL_SESSION = ^PSSL_SESSION;
   {$EXTERNALSYM lhash_st_SSL_SESSION}
   lhash_st_SSL_SESSION = record end;
@@ -1670,15 +1668,10 @@ type
   SSL_COMP = record end;
   {$EXTERNALSYM PSSL_COMP}
   PSSL_COMP = ^SSL_COMP;
-  {$EXTERNALSYM STACK_OF_SSL_CIPHER}
   STACK_OF_SSL_CIPHER = record end;
-  {$EXTERNALSYM PSTACK_OF_SSL_CIPHER}
   PSTACK_OF_SSL_CIPHER = ^STACK_OF_SSL_CIPHER;
-  {$EXTERNALSYM PPSTACK_OF_SSL_CIPHER}
   PPSTACK_OF_SSL_CIPHER = ^PSTACK_OF_SSL_CIPHER;
-  {$EXTERNALSYM STACK_OF_SSL_COMP}
   STACK_OF_SSL_COMP = record end;
-  {$EXTERNALSYM PSTACK_OF_SSL_COMP}
   PSTACK_OF_SSL_COMP = ^STACK_OF_SSL_COMP;
 
   {$EXTERNALSYM ssl_shutdown_ex_args_st}
@@ -1710,9 +1703,7 @@ type
   SRTP_PROTECTION_PROFILE = srtp_protection_profile_st;
   {$EXTERNALSYM PSRTP_PROTECTION_PROFILE}
   PSRTP_PROTECTION_PROFILE = ^SRTP_PROTECTION_PROFILE;
-  {$EXTERNALSYM STACK_OF_SRTP_PROTECTION_PROFILE}
   STACK_OF_SRTP_PROTECTION_PROFILE = record end;
-  {$EXTERNALSYM PSTACK_OF_SRTP_PROTECTION_PROFILE}
   PSTACK_OF_SRTP_PROTECTION_PROFILE = ^STACK_OF_SRTP_PROTECTION_PROFILE;
 
   {$EXTERNALSYM ssl_conn_close_info_st}
@@ -1777,18 +1768,13 @@ type
   {$EXTERNALSYM GEN_SESSION_CB}
   GEN_SESSION_CB = function (ssl: PSSL; id: PByte; id_len: PIdC_UINT): TIdC_INT; cdecl;
 
-  {$EXTERNALSYM SSL_CTX_info_callback}
   SSL_CTX_info_callback = procedure (const ssl: PSSL; type_: TIdC_INT; _val: TIdC_INT); cdecl;
   {$EXTERNALSYM SSL_CTX_client_cert_cb}
   SSL_CTX_client_cert_cb = function (ssl: PSSL; var x509: Px509; var pkey: PEVP_PKEY): TIdC_INT; cdecl;
 
-  {$EXTERNALSYM SSL_CTX_cookie_verify_cb}
   SSL_CTX_cookie_verify_cb = function (ssl: PSSL; cookie: PByte; cookie_len: PIdC_UINT): TIdC_INT; cdecl;
-  {$EXTERNALSYM SSL_CTX_set_cookie_verify_cb_app_verify_cookie_cb}
   SSL_CTX_set_cookie_verify_cb_app_verify_cookie_cb = function (ssl: PSSL; const cookie: PByte; cookie_len: TIdC_UINT): TIdC_INT; cdecl;
-  {$EXTERNALSYM SSL_CTX_set_stateless_cookie_generate_cb_gen_stateless_cookie_cb}
   SSL_CTX_set_stateless_cookie_generate_cb_gen_stateless_cookie_cb = function (ssl: PSSL; cookie: PByte; cookie_len: PIdC_SIZET): TIdC_INT; cdecl;
-  {$EXTERNALSYM SSL_CTX_set_stateless_cookie_verify_cb_verify_stateless_cookie_cb}
   SSL_CTX_set_stateless_cookie_verify_cb_verify_stateless_cookie_cb = function (ssl: PSSL; const cookie: PByte; cookie_len: TIdC_SIZET): TIdC_INT; cdecl;
 
   {$EXTERNALSYM SSL_CTX_alpn_select_cb_func}
@@ -1881,36 +1867,23 @@ type
 
   {$EXTERNALSYM SSL_CTX_set_cert_verify_callback_cb}
   SSL_CTX_set_cert_verify_callback_cb = function (v1: PX509_STORE_CTX; v2: Pointer): TIdC_INT; cdecl;
-  {$EXTERNALSYM SSL_CTX_set_cert_cb_cb}
   SSL_CTX_set_cert_cb_cb = function (ssl: PSSL; arg: Pointer): TIdC_INT; cdecl;
 
-  {$EXTERNALSYM SSL_CTX_set_srp_client_pwd_callback_cb}
   SSL_CTX_set_srp_client_pwd_callback_cb = function (v1: PSSL; v2: Pointer): PIdAnsiChar; cdecl;
-  {$EXTERNALSYM SSL_CTX_set_srp_verify_param_callback_cb}
   SSL_CTX_set_srp_verify_param_callback_cb = function (v1: PSSL; v2: Pointer): TIdC_INT; cdecl;
-  {$EXTERNALSYM SSL_CTX_set_srp_username_callback_cb}
   SSL_CTX_set_srp_username_callback_cb = function (v1: PSSL; v2: PIdC_INT; v3: Pointer): TIdC_INT; cdecl;
   {$EXTERNALSYM SSL_client_hello_cb_fn}
   SSL_client_hello_cb_fn = function (s: PSSL; al: PIdC_INT; arg: Pointer): TIdC_INT; cdecl;
-  {$EXTERNALSYM SSL_callback_ctrl_v3}
   SSL_callback_ctrl_v3 = procedure; cdecl;
-  {$EXTERNALSYM SSL_CTX_callback_ctrl_v3}
   SSL_CTX_callback_ctrl_v3 = procedure; cdecl;
-  {$EXTERNALSYM SSL_info_callback}
   SSL_info_callback = procedure (const ssl: PSSL; type_: TIdC_INT; _val: TIdC_INT); cdecl;
 
   (* NB: the |keylength| is only applicable when is_export is true *)
-  {$EXTERNALSYM SSL_CTX_set_tmp_dh_callback_dh}
   SSL_CTX_set_tmp_dh_callback_dh = function (ssl: PSSL; is_export: TIdC_INT; keylength: TIdC_INT): PDH; cdecl;
-  {$EXTERNALSYM SSL_set_tmp_dh_callback_dh}
   SSL_set_tmp_dh_callback_dh = function (ssl: PSSL; is_export: TIdC_INT; keylength: TIdC_INT): PDH; cdecl;
-  {$EXTERNALSYM SSL_CTX_set_not_resumable_session_callback_cb}
   SSL_CTX_set_not_resumable_session_callback_cb = function (ssl: PSSL; is_forward_secure: TIdC_INT): TIdC_INT; cdecl;
-  {$EXTERNALSYM SSL_set_not_resumable_session_callback_cb}
   SSL_set_not_resumable_session_callback_cb = function (ssl: PSSL; is_forward_secure: TIdC_INT): TIdC_INT; cdecl;
-  {$EXTERNALSYM SSL_CTX_set_record_padding_callback_cb}
   SSL_CTX_set_record_padding_callback_cb = function (ssl: PSSL; type_: TIdC_INT; len: TIdC_SIZET; arg: Pointer): TIdC_SIZET; cdecl;
-  {$EXTERNALSYM SSL_set_record_padding_callback_cb}
   SSL_set_record_padding_callback_cb = function (ssl: PSSL; type_: TIdC_INT; len: TIdC_SIZET; arg: Pointer): TIdC_SIZET; cdecl;
 
   (*
@@ -1918,7 +1891,6 @@ type
    * CT validation callback selected via SSL_enable_ct() and SSL_CTX_enable_ct().
    * The underlying callback is a static function in libssl.
    *)
-  {$EXTERNALSYM SSL_CT_VALIDATION}
   SSL_CT_VALIDATION = (
   {$EXTERNALSYM SSL_CT_VALIDATION_PERMISSIVE}
     SSL_CT_VALIDATION_PERMISSIVE = 0,
@@ -1928,7 +1900,6 @@ type
   ssl_ct_validation_cb = function(const ctx : PCT_POLICY_EVAL_CTX;
                                   const scts : PSTACK_OF_SCT; arg : Pointer) : TIdC_INT; cdecl;
 
-  {$EXTERNALSYM SSL_security_callback}
   SSL_security_callback = function (const s: PSSL; const ctx: PSSL_CTX; op: TIdC_INT; bits: TIdC_INT; nid: TIdC_INT; other: Pointer; ex: Pointer): TIdC_INT; cdecl;
 
   (* Status codes passed to the decrypt session ticket callback. Some of these
@@ -1949,16 +1920,13 @@ type
   {$EXTERNALSYM SSL_allow_early_data_cb_fn}
   SSL_allow_early_data_cb_fn = function(s: PSSL; arg: Pointer): TIdC_INT; cdecl;
 
-  {$EXTERNALSYM SSL_CTX_sess_new_cb}
   SSL_CTX_sess_new_cb = function (ssl: PSSL; sess: PSSL_SESSION): TIdC_INT; cdecl;
 
-  {$EXTERNALSYM SSL_CTX_sess_remove_cb}
   SSL_CTX_sess_remove_cb = procedure(ctx: PSSL_CTX; sess: PSSL_SESSION); cdecl;
 
   {$EXTERNALSYM TSSL_CTX_set_verify_callback}
   TSSL_CTX_set_verify_callback = function (ok : TIdC_INT; ctx : PX509_STORE_CTX) : TIdC_INT; cdecl;
 
-  {$EXTERNALSYM Tmsg_callback}
   Tmsg_callback = procedure(write_p, version, content_type : TIdC_INT;
     const buf: Pointer; len : TIdC_SIZET; ssl : PSSL; arg : Pointer); cdecl;
 
@@ -1969,19 +1937,12 @@ type
 	  
 
 {helper_functions}
-  {$EXTERNALSYM IsTaurusTLS_SSLv2_Available}
   function IsTaurusTLS_SSLv2_Available : Boolean;
-  {$EXTERNALSYM IsTaurusTLS_SSLv3_Available}
   function IsTaurusTLS_SSLv3_Available : Boolean;
-  {$EXTERNALSYM IsTaurusTLS_SSLv23_Available}
   function IsTaurusTLS_SSLv23_Available : Boolean;
-  {$EXTERNALSYM IsTaurusTLS_TLSv1_0_Available}
   function IsTaurusTLS_TLSv1_0_Available : Boolean;
-  {$EXTERNALSYM IsTaurusTLS_TLSv1_1_Available}
   function IsTaurusTLS_TLSv1_1_Available : Boolean;
-  {$EXTERNALSYM IsTaurusTLS_TLSv1_2_Available}
   function IsTaurusTLS_TLSv1_2_Available : Boolean;
-  {$EXTERNALSYM HasTLS_method}
   function HasTLS_method: boolean;
   {$EXTERNALSYM SSL_CTX_set_min_proto_version}
   function SSL_CTX_set_min_proto_version(ctx: PSSL_CTX; version: TIdC_LONG): TIdC_LONG;
@@ -5111,61 +5072,40 @@ function SSL_CTX_get_ex_new_index(l : TIdC_LONG; p : PSSL_CTX;
 
  {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 type
-  {$EXTERNALSYM Tsk_SSL_CIPHER_new}
   Tsk_SSL_CIPHER_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_SSL_CIPHER cdecl;
-  {$EXTERNALSYM Tsk_SSL_CIPHER_new_null}
   Tsk_SSL_CIPHER_new_null = function : PSTACK_OF_SSL_CIPHER cdecl;
-  {$EXTERNALSYM Tsk_SSL_CIPHER_free}
   Tsk_SSL_CIPHER_free = procedure(st : PSTACK_OF_SSL_CIPHER) cdecl;
-  {$EXTERNALSYM Tsk_SSL_CIPHER_num}
   Tsk_SSL_CIPHER_num = function (const sk : PSTACK_OF_SSL_CIPHER) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_SSL_CIPHER_value}
   Tsk_SSL_CIPHER_value = function (const sk : PSTACK_OF_SSL_CIPHER; i : TIdC_INT) : PSSL_CIPHER cdecl;
-  {$EXTERNALSYM Tsk_SSL_CIPHER_push}
   Tsk_SSL_CIPHER_push = function (sk : PSTACK_OF_SSL_CIPHER; st : PSSL_CIPHER) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_SSL_CIPHER_dup}
   Tsk_SSL_CIPHER_dup = function (sk : PSTACK_OF_SSL_CIPHER) : PSTACK_OF_SSL_CIPHER cdecl;
-  {$EXTERNALSYM Tsk_SSL_CIPHER_find}
   Tsk_SSL_CIPHER_find = function (sk : PSTACK_OF_SSL_CIPHER; _val : PSSL_CIPHER) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_SSL_CIPHER_pop_free}
   Tsk_SSL_CIPHER_pop_free = procedure (sk : PSTACK_OF_SSL_CIPHER; func: TOPENSSL_sk_freefunc) cdecl;
 
-  {$EXTERNALSYM Tsk_SSL_COMP_new}
   Tsk_SSL_COMP_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_SSL_COMP cdecl;
-  {$EXTERNALSYM Tsk_SSL_COMP_new_null}
   Tsk_SSL_COMP_new_null = function : PSTACK_OF_SSL_COMP cdecl;
-  {$EXTERNALSYM Tsk_SSL_COMP_free}
   Tsk_SSL_COMP_free = procedure(st : PSTACK_OF_SSL_COMP) cdecl;
-  {$EXTERNALSYM Tsk_SSL_COMP_num}
   Tsk_SSL_COMP_num = function (const sk : PSTACK_OF_SSL_COMP) : TIdC_INT cdecl;
   {$EXTERNALSYM Tsk_SSL_COMP_value}
   Tsk_SSL_COMP_value = function (const sk : PSTACK_OF_SSL_COMP; i : TIdC_INT) : PSSL_COMP cdecl;
   {$EXTERNALSYM Tsk_SSL_COMP_push}
   Tsk_SSL_COMP_push = function (sk : PSTACK_OF_SSL_COMP; st : PSSL_COMP) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_SSL_COMP_dup}
   Tsk_SSL_COMP_dup = function (sk : PSTACK_OF_SSL_COMP) : PSTACK_OF_SSL_COMP cdecl;
   {$EXTERNALSYM Tsk_SSL_COMP_find}
   Tsk_SSL_COMP_find = function (sk : PSTACK_OF_SSL_COMP; _val : PSSL_COMP) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_SSL_COMP_pop_free}
   Tsk_SSL_COMP_pop_free = procedure (sk : PSTACK_OF_SSL_COMP; func: TOPENSSL_sk_freefunc) cdecl;
 
-  {$EXTERNALSYM Tsk_SRTP_PROTECTION_PROFILE_new}
   Tsk_SRTP_PROTECTION_PROFILE_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_SRTP_PROTECTION_PROFILE cdecl;
-  {$EXTERNALSYM Tsk_SRTP_PROTECTION_PROFILE_new_null}
   Tsk_SRTP_PROTECTION_PROFILE_new_null = function : PSTACK_OF_SRTP_PROTECTION_PROFILE cdecl;
-  {$EXTERNALSYM Tsk_SRTP_PROTECTION_PROFILE_free}
   Tsk_SRTP_PROTECTION_PROFILE_free = procedure(st : PSTACK_OF_SRTP_PROTECTION_PROFILE) cdecl;
-  {$EXTERNALSYM Tsk_SRTP_PROTECTION_PROFILE_num}
   Tsk_SRTP_PROTECTION_PROFILE_num = function (const sk : PSTACK_OF_SRTP_PROTECTION_PROFILE) : TIdC_INT cdecl;
   {$EXTERNALSYM Tsk_SRTP_PROTECTION_PROFILE_value}
   Tsk_SRTP_PROTECTION_PROFILE_value = function (const sk : PSTACK_OF_SRTP_PROTECTION_PROFILE; i : TIdC_INT) : PSRTP_PROTECTION_PROFILE cdecl;
   {$EXTERNALSYM Tsk_SRTP_PROTECTION_PROFILE_push}
   Tsk_SRTP_PROTECTION_PROFILE_push = function (sk : PSTACK_OF_SRTP_PROTECTION_PROFILE; st : PSRTP_PROTECTION_PROFILE) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_SRTP_PROTECTION_PROFILE_dup}
   Tsk_SRTP_PROTECTION_PROFILE_dup = function (sk : PSTACK_OF_SRTP_PROTECTION_PROFILE) : PSTACK_OF_SRTP_PROTECTION_PROFILE cdecl;
   {$EXTERNALSYM Tsk_SRTP_PROTECTION_PROFILE_find}
   Tsk_SRTP_PROTECTION_PROFILE_find = function (sk : PSTACK_OF_SRTP_PROTECTION_PROFILE; _val : PSRTP_PROTECTION_PROFILE) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_SRTP_PROTECTION_PROFILE_pop_free}
   Tsk_SRTP_PROTECTION_PROFILE_pop_free = procedure (sk : PSTACK_OF_SRTP_PROTECTION_PROFILE; func: TOPENSSL_sk_freefunc) cdecl;
 
 var

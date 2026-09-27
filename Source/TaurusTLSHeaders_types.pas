@@ -103,19 +103,15 @@ uses
 type
 {$IF NOT DECLARED(TIdC_SIZET)}
   {$IFDEF HAS_SIZE_T}
-  {$EXTERNALSYM TIdC_SIZET}
   TIdC_SIZET = size_t;
   {$ELSE}
     {$IFDEF HAS_PtrUInt}
-  {$EXTERNALSYM TIdC_SIZET}
   TIdC_SIZET = PtrUInt;
     {$ELSE}
       {$IFDEF CPU32}
-  {$EXTERNALSYM TIdC_SIZET}
   TIdC_SIZET = TIdC_UINT32;
       {$ENDIF}
       {$IFDEF CPU64}
-  {$EXTERNALSYM TIdC_SIZET}
   TIdC_SIZET = TIdC_UINT64;
       {$ENDIF}
     {$ENDIF}
@@ -123,28 +119,22 @@ type
 {$IFEND}
 {$IF NOT DECLARED(PIdC_SIZET)}
   {$IF DECLARED(PSIZE_T)}
-  {$EXTERNALSYM PIdC_SIZET}
   PIdC_SIZET = psize_t;
   {$ELSE}
-  {$EXTERNALSYM PIdC_SIZET}
   PIdC_SIZET = ^TIdC_SIZET;
   {$IFEND}
 {$IFEND}
 {$IF NOT DECLARED(TIdC_SSIZET)}
   {$IFDEF HAS_SSIZE_T}
-  {$EXTERNALSYM TIdC_SSIZET}
   TIdC_SSIZET = ssize_t;
   {$ELSE}
     {$IFDEF HAS_PtrInt}
-  {$EXTERNALSYM TIdC_SSIZET}
   TIdC_SSIZET = PtrInt;
     {$ELSE}
       {$IFDEF CPU32}
-  {$EXTERNALSYM TIdC_SSIZET}
   TIdC_SSIZET = TIdC_INT32;
       {$ENDIF}
       {$IFDEF CPU64}
-  {$EXTERNALSYM TIdC_SSIZET}
   TIdC_SSIZET = TIdC_INT64;
       {$ENDIF}
     {$ENDIF}
@@ -153,10 +143,8 @@ type
 {$IF NOT DECLARED(PIdC_SSIZET)}
   {$IFDEF HAS_PSSIZE_T}
   // in ptypes.inc, pssize_t is missing, but pSSize is present, and it is defined as ^ssize_t...
-  {$EXTERNALSYM PIdC_SSIZET}
   PIdC_SSIZET = {pssize_t}pSSize;
   {$ELSE}
-  {$EXTERNALSYM PIdC_SSIZET}
   PIdC_SSIZET = ^TIdC_SSIZET;
   {$ENDIF}
 {$IFEND}
@@ -179,66 +167,50 @@ type
 // the C library ABI, the OSSL_TIMET_64BIT conditional compilation flag can
 // be used to select a 64-bit `time_t` when TaurusTLS is compiled for a
 // 64-bit-time Linux environment.
-  {$EXTERNALSYM TOSSL_TIMET_32}
   TOSSL_TIMET_32 = Int32;
-  {$EXTERNALSYM TOSSL_TIMET_64}
   TOSSL_TIMET_64 = Int64;
 
 {$IF Defined(CPU64)}
-  {$EXTERNALSYM TOSSL_TIMET}
   TOSSL_TIMET = TOSSL_TIMET_64;
 {$ELSE}
   {$IF (Defined(Android) OR Defined(Linux)) AND (NOT Defined(OSSL_TIMET_64BIT))}
-  {$EXTERNALSYM TOSSL_TIMET}
   TOSSL_TIMET = TOSSL_TIMET_32;
   {$ELSE}
-  {$EXTERNALSYM TOSSL_TIMET}
   TOSSL_TIMET = TOSSL_TIMET_64;
   {$IFEND}
 {$IFEND}
-  {$EXTERNALSYM POSSL_TIMET}
   POSSL_TIMET = ^TOSSL_TIMET;
 
 {$IF NOT DECLARED(PByte)}
-  {$EXTERNALSYM PByte}
   PByte = ^Byte;
 {$IFEND}
 {$IF NOT DECLARED(PPByte)}
-  {$EXTERNALSYM PPByte}
     PPByte = ^PByte;
 {$IFEND}
 {$IF NOT DECLARED(PPPByte)}
-  {$EXTERNALSYM PPPByte}
   PPPByte = ^PPByte;
 {$IFEND}
 {$IF NOT DECLARED(PPIdC_INT)}
-  {$EXTERNALSYM PPIdC_INT}
   PPIdC_INT = ^PIdC_INT;
 {$IFEND}
 {$IF NOT DECLARED(TIdAnsiChar)}
-  {$EXTERNALSYM TIdAnsiChar}
   TIdAnsiChar = AnsiChar;
 {$IFEND}
 {$IF NOT DECLARED(PIdAnsiChar)}
-  {$EXTERNALSYM PIdAnsiChar}
   PIdAnsiChar = PAnsiChar;
 {$IFEND}
 {$IF NOT DECLARED(PPIdAnsiChar)}
   {$IFDEF HAS_PPAnsiChar}
-  {$EXTERNALSYM PPIdAnsiChar}
   PPIdAnsiChar = PPAnsiChar;
   {$ELSE}
-  {$EXTERNALSYM PPIdAnsiChar}
   PPIdAnsiChar = ^PIdAnsiChar;
   {$ENDIF}
 {$IFEND}
 {$IF NOT DECLARED(PPPIdAnsiChar)}
-  {$EXTERNALSYM PPPIdAnsiChar}
   PPPIdAnsiChar = ^PPIdAnsiChar;
 {$IFEND}
 
 {$IF NOT DECLARED(TIdC_TM)}
-  {$EXTERNALSYM TIdC_TM}
   TIdC_TM = record
     tm_sec: TIdC_INT;         (* seconds,  range 0 to 59          *)
     tm_min: TIdC_INT;         (* minutes, range 0 to 59           *)
@@ -260,9 +232,7 @@ type
     tm_zone: PAnsiChar;    // timezone abbreviation
     {$ENDIF}
   end;
-  {$EXTERNALSYM PIdC_TM}
   PIdC_TM = ^TIdC_TM;
-  {$EXTERNALSYM PPIdC_TM}
   PPIdC_TM = ^PIdC_TM;
   {$IFEND}
 // moved from unit "asn1" to prevent circular references
@@ -298,7 +268,6 @@ type
   ASN1_OBJECT   = record end;
   {$EXTERNALSYM PASN1_OBJECT}
   PASN1_OBJECT  = ^ASN1_OBJECT;
-  {$EXTERNALSYM PPASN1_OBJECT}
   PPASN1_OBJECT = ^PASN1_OBJECT;
 
   {$EXTERNALSYM ASN1_INTEGER}
@@ -317,14 +286,12 @@ type
   ASN1_BIT_STRING   = type asn1_string_st;
   {$EXTERNALSYM PASN1_BIT_STRING}
   PASN1_BIT_STRING  = ^ASN1_BIT_STRING;
-  {$EXTERNALSYM PPASN1_BIT_STRING}
   PPASN1_BIT_STRING = ^PASN1_BIT_STRING;
 
   {$EXTERNALSYM ASN1_OCTET_STRING}
   ASN1_OCTET_STRING   = type asn1_string_st;
   {$EXTERNALSYM PASN1_OCTET_STRING}
   PASN1_OCTET_STRING  = ^ASN1_OCTET_STRING;
-  {$EXTERNALSYM PPASN1_OCTET_STRING}
   PPASN1_OCTET_STRING = ^PASN1_OCTET_STRING;
 
   {$EXTERNALSYM ASN1_PRINTABLESTRING}
@@ -368,7 +335,6 @@ type
   ASN1_TIME   = type asn1_string_st;
   {$EXTERNALSYM PASN1_TIME}
   PASN1_TIME  = ^ASN1_TIME;
-  {$EXTERNALSYM PPASN1_TIME}
   PPASN1_TIME = ^PASN1_TIME;
 
   {$EXTERNALSYM ASN1_GENERALIZEDTIME}
@@ -392,7 +358,6 @@ type
   ASN1_STRING   = type asn1_string_st;
   {$EXTERNALSYM PASN1_STRING}
   PASN1_STRING  = ^ASN1_STRING;
-  {$EXTERNALSYM PPASN1_STRING}
   PPASN1_STRING = ^PASN1_STRING;
 
   {$EXTERNALSYM ASN1_BOOLEAN}
@@ -547,7 +512,6 @@ type
   DH    = record end;
   {$EXTERNALSYM PDH}
   PDH   = ^DH;
-  {$EXTERNALSYM PPDH}
   PPDH  = ^PDH;
 
   {$EXTERNALSYM DH_METHOD}
@@ -559,7 +523,6 @@ type
   DSA   = record end;
   {$EXTERNALSYM PDSA}
   PDSA  = ^DSA;
-  {$EXTERNALSYM PPDSA}
   PPDSA = ^PDSA;
 
   {$EXTERNALSYM DSA_METHOD}
@@ -571,7 +534,6 @@ type
   RSA   = record end;
   {$EXTERNALSYM PRSA}
   PRSA  = ^RSA;
-  {$EXTERNALSYM PPRSA}
   PPRSA = ^PRSA;
 
   {$EXTERNALSYM RSA_METHOD}
@@ -583,7 +545,6 @@ type
   EC_KEY    = record end;
   {$EXTERNALSYM PEC_KEY}
   PEC_KEY   = ^EC_KEY;
-  {$EXTERNALSYM PPEC_KEY}
   PPEC_KEY  = ^PEC_KEY;
 
   {$EXTERNALSYM EC_KEY_METHOD}
@@ -610,14 +571,10 @@ type
   X509    = record end;
   {$EXTERNALSYM PX509}
   PX509   = ^X509;
-  {$EXTERNALSYM PPX509}
   PPX509  = ^PX509;
 
-  {$EXTERNALSYM Stack_Of_X509}
   Stack_Of_X509   = record end;
-  {$EXTERNALSYM PStack_Of_X509}
   PStack_Of_X509  = ^Stack_Of_X509;
-  {$EXTERNALSYM PPStack_Of_X509}
   PPStack_Of_X509 = ^PStack_Of_X509;
 
   {$EXTERNALSYM X509_CRL}
@@ -643,7 +600,6 @@ type
   X509_NAME   = record end;
   {$EXTERNALSYM PX509_NAME}
   PX509_NAME  = ^X509_NAME;
-  {$EXTERNALSYM PPX509_NAME}
   PPX509_NAME = ^PX509_NAME;
 
   {$EXTERNALSYM X509_PUBKEY}
@@ -760,7 +716,6 @@ type
   SSL_CTX   = record end;
   {$EXTERNALSYM PSSL_CTX}
   PSSL_CTX  = ^SSL_CTX;
-  {$EXTERNALSYM PPSSL_CTX}
   PPSSL_CTX = ^PSSL_CTX;
 
   {$EXTERNALSYM COMP_CTX}
@@ -1030,7 +985,6 @@ type
   X509_ALGOR = X509_algor_st;
   {$EXTERNALSYM PX509_ALGOR}
   PX509_ALGOR = ^X509_ALGOR;
-  {$EXTERNALSYM PPX509_ALGOR}
   PPX509_ALGOR = ^PX509_ALGOR;
 
 //  i2d_of_void = type Pointer;

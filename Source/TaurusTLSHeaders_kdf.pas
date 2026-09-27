@@ -107,7 +107,6 @@ const
 type
   {$EXTERNALSYM TEVP_KDF_fn}
   TEVP_KDF_fn = procedure(kdf: PEVP_KDF; arg: Pointer); cdecl;
-  {$EXTERNALSYM TEVP_KDF_name_fn}
   TEVP_KDF_name_fn = procedure(name: PIdAnsiChar; data: Pointer); cdecl;
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}

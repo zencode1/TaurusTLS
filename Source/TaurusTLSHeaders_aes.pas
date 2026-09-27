@@ -39,10 +39,8 @@ uses
 
 const
 // Added '_CONST' to avoid name clashes
-  {$EXTERNALSYM AES_ENCRYPT_CONST}
   AES_ENCRYPT_CONST = 1;
 // Added '_CONST' to avoid name clashes
-  {$EXTERNALSYM AES_DECRYPT_CONST}
   AES_DECRYPT_CONST = 0;
   {$EXTERNALSYM AES_MAXNR}
   AES_MAXNR = 14;

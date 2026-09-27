@@ -33,12 +33,10 @@ uses
   TaurusTLSHeaders_types;
 
 type
-  {$EXTERNALSYM POSSL_DECODER_INSTANCE}
   POSSL_DECODER_INSTANCE = Pointer;
   {$EXTERNALSYM OSSL_DECODER_do_all_provided_fn}
   OSSL_DECODER_do_all_provided_fn = procedure(encoder : POSSL_DECODER;
     arg : Pointer) cdecl;
-  {$EXTERNALSYM OSSL_DECODER_names_do_all_fn}
   OSSL_DECODER_names_do_all_fn = procedure(name : PIdAnsiChar;
     data : Pointer) cdecl;
   {$EXTERNALSYM OSSL_DECODER_CONSTRUCT}

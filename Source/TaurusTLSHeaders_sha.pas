@@ -65,7 +65,6 @@ type
   {$EXTERNALSYM SHA_LONG}
   SHA_LONG = TIdC_UINT;
 
-  {$EXTERNALSYM SHAstate_sf}
   SHAstate_sf = record
     h0, h1, h2, h3, h4: SHA_LONG;
     Nl, Nh: SHA_LONG;
@@ -74,10 +73,8 @@ type
   end;
   {$EXTERNALSYM SHA_CTX}
   SHA_CTX = SHAstate_sf;
-  {$EXTERNALSYM PSHA_CTX}
   PSHA_CTX = ^SHA_CTX;
 
-  {$EXTERNALSYM SHAstate256_sf}
   SHAstate256_sf = record
     h: array[0..7] of SHA_LONG;
     Nl, Nh: SHA_LONG;
@@ -86,13 +83,11 @@ type
   end;
   {$EXTERNALSYM SHA256_CTX}
   SHA256_CTX = SHAstate256_sf;
-  {$EXTERNALSYM PSHA256_CTX}
   PSHA256_CTX = ^SHA256_CTX;
 
   {$EXTERNALSYM SHA_LONG64}
   SHA_LONG64 = TIdC_UINT64;
 
-  {$EXTERNALSYM SHA512state_st_u}
   {$IFDEF DCC}{$WARN UNSAFE_TYPE OFF}{$ENDIF}
   SHA512state_st_u = record
     case Integer of

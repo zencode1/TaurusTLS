@@ -38,7 +38,6 @@ uses
   TaurusTLSHeaders_stack;
 
 type
-  {$EXTERNALSYM CONF_parse_list_list_cb}
   CONF_parse_list_list_cb = function (const elem: PIdAnsiChar; len: TIdC_INT; usr: Pointer): TIdC_INT;
 
   {$EXTERNALSYM CONF_VALUE}
@@ -50,9 +49,7 @@ type
   {$EXTERNALSYM PCONF_VALUE}
   PCONF_VALUE = ^CONF_VALUE;
 
-  {$EXTERNALSYM STACK_OF_CONF_VALUE}
   STACK_OF_CONF_VALUE = record end;
-  {$EXTERNALSYM PSTACK_OF_CONF_VALUE}
   PSTACK_OF_CONF_VALUE = ^STACK_OF_CONF_VALUE;
 //DEFINE_STACK_OF(CONF_VALUE)
   {$EXTERNALSYM lhash_st_CONF_VALUE}
@@ -102,13 +99,9 @@ type
   {$EXTERNALSYM PCONF_MODULE}
   PCONF_MODULE = ^CONF_MODULE;
 
-  {$EXTERNALSYM STACK_OF_CONF_MODULE}
   STACK_OF_CONF_MODULE = record end;
-  {$EXTERNALSYM PSTACK_OF_CONF_MODULE}
   PSTACK_OF_CONF_MODULE = ^STACK_OF_CONF_MODULE;
-  {$EXTERNALSYM STACK_OF_CONF_IMODULE}
   STACK_OF_CONF_IMODULE = record end;
-  {$EXTERNALSYM PSTACK_OF_CONF_IMODULE}
   PSTACK_OF_CONF_IMODULE = ^STACK_OF_CONF_IMODULE;
 //DEFINE_STACK_OF(CONF_MODULE)
 //DEFINE_STACK_OF(CONF_IMODULE)
@@ -360,61 +353,43 @@ var
 
  {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 type
-  {$EXTERNALSYM Tsk_CONF_VALUE_new}
   Tsk_CONF_VALUE_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_CONF_VALUE cdecl;
-  {$EXTERNALSYM Tsk_CONF_VALUE_new_null}
   Tsk_CONF_VALUE_new_null = function : PSTACK_OF_CONF_VALUE cdecl;
-  {$EXTERNALSYM Tsk_CONF_VALUE_free}
   Tsk_CONF_VALUE_free = procedure(st : PSTACK_OF_CONF_VALUE) cdecl;
-  {$EXTERNALSYM Tsk_CONF_VALUE_num}
   Tsk_CONF_VALUE_num = function (const sk : PSTACK_OF_CONF_VALUE) : TIdC_INT cdecl;
   {$EXTERNALSYM Tsk_CONF_VALUE_value}
   Tsk_CONF_VALUE_value = function (const sk : PSTACK_OF_CONF_VALUE; i : TIdC_INT) : PCONF_VALUE cdecl;
   {$EXTERNALSYM Tsk_CONF_VALUE_push}
   Tsk_CONF_VALUE_push = function (sk : PSTACK_OF_CONF_VALUE; st : PCONF_VALUE) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_CONF_VALUE_dup}
   Tsk_CONF_VALUE_dup = function (sk : PSTACK_OF_CONF_VALUE) : PSTACK_OF_CONF_VALUE cdecl;
   {$EXTERNALSYM Tsk_CONF_VALUE_find}
   Tsk_CONF_VALUE_find = function (sk : PSTACK_OF_CONF_VALUE; _val : PCONF_VALUE) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_CONF_VALUE_pop_free}
   Tsk_CONF_VALUE_pop_free = procedure (sk : PSTACK_OF_CONF_VALUE; func: TOPENSSL_sk_freefunc) cdecl;
 
-  {$EXTERNALSYM Tsk_CONF_MODULE_new}
   Tsk_CONF_MODULE_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_CONF_MODULE cdecl;
-  {$EXTERNALSYM Tsk_CONF_MODULE_new_null}
   Tsk_CONF_MODULE_new_null = function : PSTACK_OF_CONF_MODULE cdecl;
-  {$EXTERNALSYM Tsk_CONF_MODULE_free}
   Tsk_CONF_MODULE_free = procedure(st : PSTACK_OF_CONF_MODULE) cdecl;
-  {$EXTERNALSYM Tsk_CONF_MODULE_num}
   Tsk_CONF_MODULE_num = function (const sk : PSTACK_OF_CONF_MODULE) : TIdC_INT cdecl;
   {$EXTERNALSYM Tsk_CONF_MODULE_value}
   Tsk_CONF_MODULE_value = function (const sk : PSTACK_OF_CONF_MODULE; i : TIdC_INT) : PCONF_MODULE cdecl;
   {$EXTERNALSYM Tsk_CONF_MODULE_push}
   Tsk_CONF_MODULE_push = function (sk : PSTACK_OF_CONF_MODULE; st : PCONF_MODULE) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_CONF_MODULE_dup}
   Tsk_CONF_MODULE_dup = function (sk : PSTACK_OF_CONF_MODULE) : PSTACK_OF_CONF_MODULE cdecl;
   {$EXTERNALSYM Tsk_CONF_MODULE_find}
   Tsk_CONF_MODULE_find = function (sk : PSTACK_OF_CONF_MODULE; _val : PCONF_MODULE) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_CONF_MODULE_pop_free}
   Tsk_CONF_MODULE_pop_free = procedure (sk : PSTACK_OF_CONF_MODULE; func: TOPENSSL_sk_freefunc) cdecl;
 
-  {$EXTERNALSYM Tsk_CONF_IMODULE_new}
   Tsk_CONF_IMODULE_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_CONF_IMODULE cdecl;
-  {$EXTERNALSYM Tsk_CONF_IMODULE_new_null}
   Tsk_CONF_IMODULE_new_null = function : PSTACK_OF_CONF_IMODULE cdecl;
-  {$EXTERNALSYM Tsk_CONF_IMODULE_free}
   Tsk_CONF_IMODULE_free = procedure(st : PSTACK_OF_CONF_IMODULE) cdecl;
-  {$EXTERNALSYM Tsk_CONF_IMODULE_num}
   Tsk_CONF_IMODULE_num = function (const sk : PSTACK_OF_CONF_IMODULE) : TIdC_INT cdecl;
   {$EXTERNALSYM Tsk_CONF_IMODULE_value}
   Tsk_CONF_IMODULE_value = function (const sk : PSTACK_OF_CONF_IMODULE; i : TIdC_INT) : PCONF_IMODULE cdecl;
   {$EXTERNALSYM Tsk_CONF_IMODULE_push}
   Tsk_CONF_IMODULE_push = function (sk : PSTACK_OF_CONF_IMODULE; st : PCONF_IMODULE) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_CONF_IMODULE_dup}
   Tsk_CONF_IMODULE_dup = function (sk : PSTACK_OF_CONF_IMODULE) : PSTACK_OF_CONF_IMODULE cdecl;
   {$EXTERNALSYM Tsk_CONF_IMODULE_find}
   Tsk_CONF_IMODULE_find = function (sk : PSTACK_OF_CONF_IMODULE; _val : PCONF_IMODULE) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_CONF_IMODULE_pop_free}
   Tsk_CONF_IMODULE_pop_free = procedure (sk : PSTACK_OF_CONF_IMODULE; func: TOPENSSL_sk_freefunc) cdecl;
 
 var

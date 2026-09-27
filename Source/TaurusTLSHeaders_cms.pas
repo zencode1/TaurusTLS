@@ -55,11 +55,9 @@ type
   {$EXTERNALSYM PCMS_SignerInfo}
   PCMS_SignerInfo = ^CMS_SignerInfo;
 
-  {$EXTERNALSYM CMS_CertificateChoices_st}
   CMS_CertificateChoices_st = record end;
   {$EXTERNALSYM CMS_CertificateChoices}
   CMS_CertificateChoices = CMS_CertificateChoices_st;
-  {$EXTERNALSYM PCMS_CertificateChoices}
   PCMS_CertificateChoices = ^CMS_CertificateChoices;
 
   {$EXTERNALSYM CMS_RevocationInfoChoice_st}
@@ -179,7 +177,6 @@ const
   CMS_NOOLDMIMETYPE               = $400;
   {$EXTERNALSYM CMS_CRLFEOL}
   CMS_CRLFEOL                     = $800;
-  {$EXTERNALSYM CMS_STREAM_CONST}
   CMS_STREAM_CONST                = $1000;
   {$EXTERNALSYM CMS_NOCRL}
   CMS_NOCRL                       = $2000;

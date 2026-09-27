@@ -37,10 +37,8 @@ uses
 
 const
   // Added '_CONST' to avoid name clashes
-  {$EXTERNALSYM BF_ENCRYPT_CONST}
   BF_ENCRYPT_CONST = 1;
   // Added '_CONST' to avoid name clashes
-  {$EXTERNALSYM BF_DECRYPT_CONST}
   BF_DECRYPT_CONST = 0;
 
   {$EXTERNALSYM BF_ROUNDS}
@@ -51,7 +49,6 @@ const
 type
   {$EXTERNALSYM BF_LONG}
   BF_LONG = TIdC_UINT;
-  {$EXTERNALSYM PBF_LONG}
   PBF_LONG = ^BF_LONG;
 
   {$EXTERNALSYM bf_key_st}

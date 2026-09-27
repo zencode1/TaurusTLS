@@ -183,11 +183,8 @@ type
 
   {$EXTERNALSYM TS_status_info_st}
   TS_status_info_st = record end;
-  {$EXTERNALSYM ESS_issuer_serial_st}
   ESS_issuer_serial_st = record end;
-  {$EXTERNALSYM ESS_cert_id_st}
   ESS_cert_id_st = record end;
-  {$EXTERNALSYM ESS_signing_cert_st}
   ESS_signing_cert_st = record end;
   {$EXTERNALSYM ESS_cert_id_v2_st}
   ESS_cert_id_v2_st = record end;
@@ -203,23 +200,17 @@ type
 
   {$EXTERNALSYM ESS_ISSUER_SERIAL}
   ESS_ISSUER_SERIAL = ESS_issuer_serial_st;
-  {$EXTERNALSYM PESS_ISSUER_SERIAL}
   PESS_ISSUER_SERIAL = ^ESS_ISSUER_SERIAL;
-  {$EXTERNALSYM PPESS_ISSUER_SERIAL}
   PPESS_ISSUER_SERIAL = ^PESS_ISSUER_SERIAL;
 
   {$EXTERNALSYM ESS_CERT_ID}
   ESS_CERT_ID = ESS_cert_id_st;
-  {$EXTERNALSYM PESS_CERT_ID}
   PESS_CERT_ID = ^ESS_CERT_ID;
-  {$EXTERNALSYM PPESS_CERT_ID}
   PPESS_CERT_ID = ^PESS_CERT_ID;
 
   {$EXTERNALSYM ESS_SIGNING_CERT}
   ESS_SIGNING_CERT = ESS_signing_cert_st;
-  {$EXTERNALSYM PESS_SIGNING_CERT}
   PESS_SIGNING_CERT = ^ESS_SIGNING_CERT;
-  {$EXTERNALSYM PPESS_SIGNING_CERT}
   PPESS_SIGNING_CERT = ^PESS_SIGNING_CERT;
 
 // DEFINE_STACK_OF(ESS_CERT_ID)

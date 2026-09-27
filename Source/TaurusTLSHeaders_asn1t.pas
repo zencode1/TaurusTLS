@@ -501,7 +501,6 @@ type
 //  ASN1_TEMPLATE_item(t) (t->item_ptr)
 //  ASN1_TEMPLATE_adb(t) (t->item_ptr)
 
-  {$EXTERNALSYM adb_cb_callback}
   adb_cb_callback = function(psel: PIdC_LONG): TIdC_INT;
 
   {$EXTERNALSYM ASN1_ADB_TABLE_st}

@@ -322,13 +322,9 @@ These are now opaque in OpenSSL 4.0.
   ASN1_PCTX_FLAGS_NO_STRUCT_NAME = $100;
 
 type
-  {$EXTERNALSYM STACK_OF_ASN1_OBJECT}
   STACK_OF_ASN1_OBJECT = record end;
-  {$EXTERNALSYM PSTACK_OF_ASN1_OBJECT}
   PSTACK_OF_ASN1_OBJECT = ^STACK_OF_ASN1_OBJECT;
-  {$EXTERNALSYM STACK_OF_X509_ALGOR}
   STACK_OF_X509_ALGOR = record end;
-  {$EXTERNALSYM PSTACK_OF_X509_ALGOR}
   PSTACK_OF_X509_ALGOR = ^STACK_OF_X509_ALGOR;
 // Moved to ossl_type to prevent circular references
 ///(* This is the base type that holds just about everything :-) *)
@@ -344,9 +340,7 @@ type
 //    flags: TIdC_long;
 //  end;
 
-  {$EXTERNALSYM pxnew}
   pxnew = function: Pointer; cdecl;
-  {$EXTERNALSYM pd2i_of_void}
   pd2i_of_void = function(val_out: PPointer; const der_in: PPByte; _length: TIdC_LONG): Pointer; cdecl;
   (*
    * ASN1_ENCODING structure: this is used to save the received encoding of an
@@ -375,9 +369,7 @@ type
   ASN1_STRING_TABLE = asn1_string_table_st;
   {$EXTERNALSYM PASN1_STRING_TABLE}
   PASN1_STRING_TABLE = ^ASN1_STRING_TABLE;
-  {$EXTERNALSYM STACK_OF_ASN1_STRING_TABLE}
   STACK_OF_ASN1_STRING_TABLE = record end;
-  {$EXTERNALSYM PSTACK_OF_ASN1_STRING_TABLE}
   PSTACK_OF_ASN1_STRING_TABLE = ^STACK_OF_ASN1_STRING_TABLE;
 // DEFINE_STACK_OF(ASN1_STRING_TABLE)
 
@@ -526,21 +518,13 @@ type
 //
 //# endif
 
-  {$EXTERNALSYM STACK_OF_ASN1_INTEGER}
   STACK_OF_ASN1_INTEGER = record end;
-  {$EXTERNALSYM PSTACK_OF_ASN1_INTEGER}
   PSTACK_OF_ASN1_INTEGER = ^STACK_OF_ASN1_INTEGER;
-  {$EXTERNALSYM STACK_OF_ASN1_GENERALSTRING}
   STACK_OF_ASN1_GENERALSTRING = record end;
-  {$EXTERNALSYM PSTACK_OF_ASN1_GENERALSTRING}
   PSTACK_OF_ASN1_GENERALSTRING = ^STACK_OF_ASN1_GENERALSTRING;
-  {$EXTERNALSYM STACK_OF_ASN1_UTF8STRING}
   STACK_OF_ASN1_UTF8STRING = record end;
-  {$EXTERNALSYM PSTACK_OF_ASN1_UTF8STRING}
   PSTACK_OF_ASN1_UTF8STRING = ^STACK_OF_ASN1_UTF8STRING;
-  {$EXTERNALSYM STACK_OF_ASN1_TYPE}
   STACK_OF_ASN1_TYPE = record end;
-  {$EXTERNALSYM PSTACK_OF_ASN1_TYPE}
   PSTACK_OF_ASN1_TYPE = ^STACK_OF_ASN1_TYPE;
 //
 //typedef STACK_OF(ASN1_TYPE) ASN1_SEQUENCE_ANY;
@@ -1635,131 +1619,83 @@ var
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 
 type
-  {$EXTERNALSYM Tsk_ASN1_OBJECT_new}
   Tsk_ASN1_OBJECT_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_ASN1_OBJECT cdecl;
-  {$EXTERNALSYM Tsk_ASN1_OBJECT_new_null}
   Tsk_ASN1_OBJECT_new_null = function : PSTACK_OF_ASN1_OBJECT cdecl;
-  {$EXTERNALSYM Tsk_ASN1_OBJECT_free}
   Tsk_ASN1_OBJECT_free = procedure(st : PSTACK_OF_ASN1_OBJECT) cdecl;
-  {$EXTERNALSYM Tsk_ASN1_OBJECT_num}
   Tsk_ASN1_OBJECT_num = function (const sk : PSTACK_OF_ASN1_OBJECT) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_ASN1_OBJECT_value}
   Tsk_ASN1_OBJECT_value = function (const sk : PSTACK_OF_ASN1_OBJECT; i : TIdC_INT) : PASN1_OBJECT cdecl;
-  {$EXTERNALSYM Tsk_ASN1_OBJECT_push}
   Tsk_ASN1_OBJECT_push = function (sk : PSTACK_OF_ASN1_OBJECT; st : PASN1_OBJECT) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_ASN1_OBJECT_dup}
   Tsk_ASN1_OBJECT_dup = function (sk : PSTACK_OF_ASN1_OBJECT) : PSTACK_OF_ASN1_OBJECT cdecl;
-  {$EXTERNALSYM Tsk_ASN1_OBJECT_find}
   Tsk_ASN1_OBJECT_find = function (sk : PSTACK_OF_ASN1_OBJECT; _val : PASN1_OBJECT) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_ASN1_OBJECT_pop_free}
   Tsk_ASN1_OBJECT_pop_free = procedure (sk : PSTACK_OF_ASN1_OBJECT; func: TOPENSSL_sk_freefunc) cdecl;
-  {$EXTERNALSYM Tsk_ASN1_INTEGER_new}
   Tsk_ASN1_INTEGER_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_ASN1_INTEGER cdecl;
-  {$EXTERNALSYM Tsk_ASN1_INTEGER_new_null}
   Tsk_ASN1_INTEGER_new_null = function : PSTACK_OF_ASN1_INTEGER cdecl;
-  {$EXTERNALSYM Tsk_ASN1_INTEGER_free}
   Tsk_ASN1_INTEGER_free = procedure(st : PSTACK_OF_ASN1_INTEGER) cdecl;
-  {$EXTERNALSYM Tsk_ASN1_INTEGER_num}
   Tsk_ASN1_INTEGER_num = function (const sk : PSTACK_OF_ASN1_INTEGER) : TIdC_INT cdecl;
   {$EXTERNALSYM Tsk_ASN1_INTEGER_value}
   Tsk_ASN1_INTEGER_value = function (const sk : PSTACK_OF_ASN1_INTEGER; i : TIdC_INT) : PASN1_INTEGER cdecl;
   {$EXTERNALSYM Tsk_ASN1_INTEGER_push}
   Tsk_ASN1_INTEGER_push = function (sk : PSTACK_OF_ASN1_INTEGER; st : PASN1_INTEGER) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_ASN1_INTEGER_dup}
   Tsk_ASN1_INTEGER_dup = function (sk : PSTACK_OF_ASN1_INTEGER) : PSTACK_OF_ASN1_INTEGER cdecl;
   {$EXTERNALSYM Tsk_ASN1_INTEGER_find}
   Tsk_ASN1_INTEGER_find = function (sk : PSTACK_OF_ASN1_INTEGER; _val : PASN1_INTEGER) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_ASN1_INTEGER_pop_free}
   Tsk_ASN1_INTEGER_pop_free = procedure (sk : PSTACK_OF_ASN1_INTEGER; func: TOPENSSL_sk_freefunc) cdecl;
-  {$EXTERNALSYM Tsk_ASN1_GENERALSTRING_new}
   Tsk_ASN1_GENERALSTRING_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_ASN1_GENERALSTRING cdecl;
-  {$EXTERNALSYM Tsk_ASN1_GENERALSTRING_new_null}
   Tsk_ASN1_GENERALSTRING_new_null = function : PSTACK_OF_ASN1_GENERALSTRING cdecl;
-  {$EXTERNALSYM Tsk_ASN1_GENERALSTRING_free}
   Tsk_ASN1_GENERALSTRING_free = procedure(st : PSTACK_OF_ASN1_GENERALSTRING) cdecl;
-  {$EXTERNALSYM Tsk_ASN1_GENERALSTRING_num}
   Tsk_ASN1_GENERALSTRING_num = function (const sk : PSTACK_OF_ASN1_GENERALSTRING) : TIdC_INT cdecl;
   {$EXTERNALSYM Tsk_ASN1_GENERALSTRING_value}
   Tsk_ASN1_GENERALSTRING_value = function (const sk : PSTACK_OF_ASN1_GENERALSTRING; i : TIdC_INT) : PASN1_GENERALSTRING cdecl;
   {$EXTERNALSYM Tsk_ASN1_GENERALSTRING_push}
   Tsk_ASN1_GENERALSTRING_push = function (sk : PSTACK_OF_ASN1_GENERALSTRING; st : PASN1_GENERALSTRING) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_ASN1_GENERALSTRING_dup}
   Tsk_ASN1_GENERALSTRING_dup = function (sk : PSTACK_OF_ASN1_GENERALSTRING) : PSTACK_OF_ASN1_GENERALSTRING cdecl;
   {$EXTERNALSYM Tsk_ASN1_GENERALSTRING_find}
   Tsk_ASN1_GENERALSTRING_find = function (sk : PSTACK_OF_ASN1_GENERALSTRING; _val : PASN1_GENERALSTRING) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_ASN1_GENERALSTRING_pop_free}
   Tsk_ASN1_GENERALSTRING_pop_free = procedure (sk : PSTACK_OF_ASN1_GENERALSTRING; func: TOPENSSL_sk_freefunc) cdecl;
-  {$EXTERNALSYM Tsk_ASN1_UTF8STRING_new}
   Tsk_ASN1_UTF8STRING_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_ASN1_UTF8STRING cdecl;
-  {$EXTERNALSYM Tsk_ASN1_UTF8STRING_new_null}
   Tsk_ASN1_UTF8STRING_new_null = function : PSTACK_OF_ASN1_UTF8STRING cdecl;
-  {$EXTERNALSYM Tsk_ASN1_UTF8STRING_free}
   Tsk_ASN1_UTF8STRING_free = procedure(st : PSTACK_OF_ASN1_UTF8STRING) cdecl;
-  {$EXTERNALSYM Tsk_ASN1_UTF8STRING_num}
   Tsk_ASN1_UTF8STRING_num = function (const sk : PSTACK_OF_ASN1_UTF8STRING) : TIdC_INT cdecl;
   {$EXTERNALSYM Tsk_ASN1_UTF8STRING_value}
   Tsk_ASN1_UTF8STRING_value = function (const sk : PSTACK_OF_ASN1_UTF8STRING; i : TIdC_INT) : PASN1_UTF8STRING cdecl;
   {$EXTERNALSYM Tsk_ASN1_UTF8STRING_push}
   Tsk_ASN1_UTF8STRING_push = function (sk : PSTACK_OF_ASN1_UTF8STRING; st : PASN1_UTF8STRING) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_ASN1_UTF8STRING_dup}
   Tsk_ASN1_UTF8STRING_dup = function (sk : PSTACK_OF_ASN1_UTF8STRING) : PSTACK_OF_ASN1_UTF8STRING cdecl;
   {$EXTERNALSYM Tsk_ASN1_UTF8STRING_find}
   Tsk_ASN1_UTF8STRING_find = function (sk : PSTACK_OF_ASN1_UTF8STRING; _val : PASN1_UTF8STRING) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_ASN1_UTF8STRING_pop_free}
   Tsk_ASN1_UTF8STRING_pop_free = procedure (sk : PSTACK_OF_ASN1_UTF8STRING; func: TOPENSSL_sk_freefunc) cdecl;
-  {$EXTERNALSYM Tsk_ASN1_TYPE_new}
   Tsk_ASN1_TYPE_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_ASN1_TYPE cdecl;
-  {$EXTERNALSYM Tsk_ASN1_TYPE_new_null}
   Tsk_ASN1_TYPE_new_null = function : PSTACK_OF_ASN1_TYPE cdecl;
-  {$EXTERNALSYM Tsk_ASN1_TYPE_free}
   Tsk_ASN1_TYPE_free = procedure(st : PSTACK_OF_ASN1_TYPE) cdecl;
-  {$EXTERNALSYM Tsk_ASN1_TYPE_num}
   Tsk_ASN1_TYPE_num = function (const sk : PSTACK_OF_ASN1_TYPE) : TIdC_INT cdecl;
   {$EXTERNALSYM Tsk_ASN1_TYPE_value}
   Tsk_ASN1_TYPE_value = function (const sk : PSTACK_OF_ASN1_TYPE; i : TIdC_INT) : PASN1_TYPE cdecl;
   {$EXTERNALSYM Tsk_ASN1_TYPE_push}
   Tsk_ASN1_TYPE_push = function (sk : PSTACK_OF_ASN1_TYPE; st : PASN1_TYPE) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_ASN1_TYPE_dup}
   Tsk_ASN1_TYPE_dup = function (sk : PSTACK_OF_ASN1_TYPE) : PSTACK_OF_ASN1_TYPE cdecl;
   {$EXTERNALSYM Tsk_ASN1_TYPE_find}
   Tsk_ASN1_TYPE_find = function (sk : PSTACK_OF_ASN1_TYPE; _val : PASN1_TYPE) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_ASN1_TYPE_pop_free}
   Tsk_ASN1_TYPE_pop_free = procedure (sk : PSTACK_OF_ASN1_TYPE; func: TOPENSSL_sk_freefunc) cdecl;
-  {$EXTERNALSYM Tsk_X509_ALGOR_new}
   Tsk_X509_ALGOR_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_X509_ALGOR cdecl;
-  {$EXTERNALSYM Tsk_X509_ALGOR_new_null}
   Tsk_X509_ALGOR_new_null = function : PSTACK_OF_X509_ALGOR cdecl;
-  {$EXTERNALSYM Tsk_X509_ALGOR_free}
   Tsk_X509_ALGOR_free = procedure(st : PSTACK_OF_X509_ALGOR) cdecl;
-  {$EXTERNALSYM Tsk_X509_ALGOR_num}
   Tsk_X509_ALGOR_num = function (const sk : PSTACK_OF_X509_ALGOR) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_X509_ALGOR_value}
   Tsk_X509_ALGOR_value = function (const sk : PSTACK_OF_X509_ALGOR; i : TIdC_INT) : PX509_ALGOR cdecl;
-  {$EXTERNALSYM Tsk_X509_ALGOR_push}
   Tsk_X509_ALGOR_push = function (sk : PSTACK_OF_X509_ALGOR; st : PX509_ALGOR) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_X509_ALGOR_dup}
   Tsk_X509_ALGOR_dup = function (sk : PSTACK_OF_X509_ALGOR) : PSTACK_OF_X509_ALGOR cdecl;
-  {$EXTERNALSYM Tsk_X509_ALGOR_find}
   Tsk_X509_ALGOR_find = function (sk : PSTACK_OF_X509_ALGOR; _val : PX509_ALGOR) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_X509_ALGOR_pop_free}
   Tsk_X509_ALGOR_pop_free = procedure (sk : PSTACK_OF_X509_ALGOR; func: TOPENSSL_sk_freefunc) cdecl;
-  {$EXTERNALSYM Tsk_ASN1_STRING_TABLE_new}
   Tsk_ASN1_STRING_TABLE_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_ASN1_STRING_TABLE cdecl;
-  {$EXTERNALSYM Tsk_ASN1_STRING_TABLE_new_null}
   Tsk_ASN1_STRING_TABLE_new_null = function : PSTACK_OF_ASN1_STRING_TABLE cdecl;
-  {$EXTERNALSYM Tsk_ASN1_STRING_TABLE_free}
   Tsk_ASN1_STRING_TABLE_free = procedure(st : PSTACK_OF_ASN1_STRING_TABLE) cdecl;
-  {$EXTERNALSYM Tsk_ASN1_STRING_TABLE_num}
   Tsk_ASN1_STRING_TABLE_num = function (const sk : PSTACK_OF_ASN1_STRING_TABLE) : TIdC_INT cdecl;
   {$EXTERNALSYM Tsk_ASN1_STRING_TABLE_value}
   Tsk_ASN1_STRING_TABLE_value = function (const sk : PSTACK_OF_ASN1_STRING_TABLE; i : TIdC_INT) : PASN1_STRING_TABLE cdecl;
   {$EXTERNALSYM Tsk_ASN1_STRING_TABLE_push}
   Tsk_ASN1_STRING_TABLE_push = function (sk : PSTACK_OF_ASN1_STRING_TABLE; st : PASN1_STRING_TABLE) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_ASN1_STRING_TABLE_dup}
   Tsk_ASN1_STRING_TABLE_dup = function (sk : PSTACK_OF_ASN1_STRING_TABLE) : PSTACK_OF_ASN1_STRING_TABLE cdecl;
   {$EXTERNALSYM Tsk_ASN1_STRING_TABLE_find}
   Tsk_ASN1_STRING_TABLE_find = function (sk : PSTACK_OF_ASN1_STRING_TABLE; _val : PASN1_STRING_TABLE) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_ASN1_STRING_TABLE_pop_free}
   Tsk_ASN1_STRING_TABLE_pop_free = procedure (sk : PSTACK_OF_ASN1_STRING_TABLE; func: TOPENSSL_sk_freefunc) cdecl;
 
 var

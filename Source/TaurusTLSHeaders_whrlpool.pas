@@ -46,7 +46,6 @@ const
   WHIRLPOOL_COUNTER = 256 div 8;
 
 type
-  {$EXTERNALSYM WHIRLPOOL_CTX_union}
   {$IFDEF DCC}{$WARN UNSAFE_TYPE OFF}{$ENDIF}
   WHIRLPOOL_CTX_union = record
     case Byte of

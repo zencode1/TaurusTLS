@@ -55,7 +55,6 @@ const
 type
 // DEFINE_SPECIAL_STACK_OF(OPENSSL_PSTRING, OPENSSL_STRING)
 
-  {$EXTERNALSYM qual_func}
   qual_func =  function (v1: POPENSSL_STRING): TIdC_INT;
   {$EXTERNALSYM txt_db_st}
   txt_db_st = record
@@ -73,7 +72,6 @@ type
   {$EXTERNALSYM PTXT_DB}
   PTXT_DB = ^TXT_DB;
 
-  {$EXTERNALSYM TXT_DB_create_index_qual}
   TXT_DB_create_index_qual = function(v1: POPENSSL_STRING): TIdC_INT;
 
     { The EXTERNALSYM directive is ignored by FPC, however, it is used by Delphi as follows:

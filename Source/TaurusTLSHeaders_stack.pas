@@ -53,20 +53,14 @@ uses
     }
 
   type
-  {$EXTERNALSYM POPENSSL_STACK}
   POPENSSL_STACK  = pointer;
 
-  {$EXTERNALSYM TOPENSSL_sk_compfunc}
   TOPENSSL_sk_compfunc = function (_para1:pointer; _para2:pointer):TIdC_INT;cdecl;
-  {$EXTERNALSYM TOPENSSL_sk_freefunc}
   TOPENSSL_sk_freefunc = procedure (_para1:pointer);cdecl;
-  {$EXTERNALSYM TOPENSSL_sk_freefunc_thunk}
   TOPENSSL_sk_freefunc_thunk = function (_para1 : TOPENSSL_sk_freefunc; _para2 : Pointer) : Pointer;cdecl;
-  {$EXTERNALSYM TOPENSSL_sk_copyfunc}
   TOPENSSL_sk_copyfunc = function (_para1:pointer):pointer;cdecl;
   {$EXTERNALSYM OPENSSL_sk_copyfunc_thunk}
   OPENSSL_sk_copyfunc_thunk = function (_para1 : TOPENSSL_sk_copyfunc; _para2 : Pointer):pointer; cdecl;
-  {$EXTERNALSYM OPENSSL_sk_set_cmp_thunks_c_thunk}
   OPENSSL_sk_set_cmp_thunks_c_thunk = function(cmp: TOPENSSL_sk_compfunc; const a, b: Pointer): TIdC_INT; cdecl;
 
     { The EXTERNALSYM directive is ignored by FPC, however, it is used by Delphi as follows:
@@ -142,9 +136,7 @@ var
   sk_new: function (cmp:TOPENSSL_sk_compfunc):POPENSSL_STACK; cdecl = nil; {removed 1.1.0}
   {$EXTERNALSYM sk_new_null}
   sk_new_null: function :POPENSSL_STACK; cdecl = nil; {removed 1.1.0}
-  {$EXTERNALSYM sk_new_reserve}
   sk_new_reserve: function (c:TOPENSSL_sk_compfunc; n:TIdC_INT):POPENSSL_STACK; cdecl = nil; {removed 1.0.0}
-  {$EXTERNALSYM sk_reserve}
   sk_reserve: function (st:POPENSSL_STACK; n:TIdC_INT):TIdC_INT; cdecl = nil; {removed 1.0.0}
   {$EXTERNALSYM sk_free}
   sk_free: procedure (_para1:POPENSSL_STACK); cdecl = nil; {removed 1.1.0}
@@ -181,7 +173,6 @@ var
   {$EXTERNALSYM sk_is_sorted}
   sk_is_sorted: function (st:POPENSSL_STACK):TIdC_INT; cdecl = nil; {removed 1.1.0}
 
-  {$EXTERNALSYM LoadStackFunctions}
   procedure LoadStackFunctions(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 {$ELSE}
   {$EXTERNALSYM OPENSSL_sk_num}
@@ -251,9 +242,7 @@ var
   function sk_new(cmp:TOPENSSL_sk_compfunc):POPENSSL_STACK; {removed 1.1.0}
   {$EXTERNALSYM sk_new_null}
   function sk_new_null:POPENSSL_STACK; {removed 1.1.0}
-  {$EXTERNALSYM sk_new_reserve}
   function sk_new_reserve(c:TOPENSSL_sk_compfunc; n:TIdC_INT):POPENSSL_STACK; {removed 1.0.0}
-  {$EXTERNALSYM sk_reserve}
   function sk_reserve(st:POPENSSL_STACK; n:TIdC_INT):TIdC_INT; {removed 1.0.0}
   {$EXTERNALSYM sk_free}
   procedure sk_free(_para1:POPENSSL_STACK); {removed 1.1.0}

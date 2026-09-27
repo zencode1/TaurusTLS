@@ -206,7 +206,6 @@ type
   //DECLARE_ASN1_ENCODE_FUNCTIONS_const(RSA, RSAPublicKey)
   //DECLARE_ASN1_ENCODE_FUNCTIONS_const(RSA, RSAPrivateKey)
 
-  {$EXTERNALSYM RSA_meth_set_priv_dec_priv_dec}
   RSA_meth_set_priv_dec_priv_dec = function(flen: TIdC_INT; const from: PByte;
     to_: PByte; rsa: PRSA; padding: TIdC_INT): TIdC_INT; cdecl;
 
@@ -218,17 +217,13 @@ type
   RSA_meth_set_bn_mod_exp_bn_mod_exp = function(r: PBIGNUM; const a: PBIGNUM;
     const p: PBIGNUM; const m: PBIGNUM; ctx: PBN_CTx; m_ctx: PBN_MONT_CTx): TIdC_INT; cdecl;
 
-  {$EXTERNALSYM RSA_meth_set_init_init}
   RSA_meth_set_init_init = function(rsa: PRSA): TIdC_INT; cdecl;
 
-  {$EXTERNALSYM RSA_meth_set_finish_finish}
   RSA_meth_set_finish_finish = function(rsa: PRSA): TIdC_INT; cdecl;
 
-  {$EXTERNALSYM RSA_meth_set_sign_sign}
   RSA_meth_set_sign_sign = function(type_: TIdC_INT; const m: PByte;
     m_length: TIdC_UINT; sigret: PByte; siglen: PIdC_UINT; const rsa: PRSA): TIdC_INT; cdecl;
 
-  {$EXTERNALSYM RSA_meth_set_verify_verify}
   RSA_meth_set_verify_verify = function(dtype: TIdC_INT; const m: PByte;
     m_length: TIdC_UINT; const sigbuf: PByte; siglen: TIdC_UINT; const rsa: PRSA): TIdC_INT; cdecl;
 

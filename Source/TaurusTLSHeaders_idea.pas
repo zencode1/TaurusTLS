@@ -36,10 +36,8 @@ uses
 
 const
   // Added '_CONST' to avoid name clashes
-  {$EXTERNALSYM IDEA_ENCRYPT_CONST}
   IDEA_ENCRYPT_CONST = 1;
   // Added '_CONST' to avoid name clashes
-  {$EXTERNALSYM IDEA_DECRYPT_CONST}
   IDEA_DECRYPT_CONST = 0;
 
   {$EXTERNALSYM IDEA_BLOCK}

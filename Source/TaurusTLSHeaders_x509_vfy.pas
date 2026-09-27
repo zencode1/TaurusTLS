@@ -44,19 +44,13 @@ uses
   TaurusTLSHeaders_x509v3;
 
 type
-  {$EXTERNALSYM STACK_OF_X509_OBJECT}
   STACK_OF_X509_OBJECT = record end;
-  {$EXTERNALSYM PSTACK_OF_X509_OBJECT}
   PSTACK_OF_X509_OBJECT = ^STACK_OF_X509_OBJECT;
 
-  {$EXTERNALSYM STACK_OF_X509_LOOKUP}
   STACK_OF_X509_LOOKUP = record end;
-  {$EXTERNALSYM PSTACK_OF_X509_LOOKUP}
   PSTACK_OF_X509_LOOKUP = ^STACK_OF_X509_LOOKUP;
 
-  {$EXTERNALSYM STACK_OF_X509_VERIFY_PARAM}
   STACK_OF_X509_VERIFY_PARAM = record end;
-  {$EXTERNALSYM PSTACK_OF_X509_VERIFY_PARAM}
   PSTACK_OF_X509_VERIFY_PARAM = ^STACK_OF_X509_VERIFY_PARAM;
 
 const
@@ -1483,61 +1477,43 @@ function X509_STORE_CTX_get_ex_new_index(l : TIdC_LONG; p : PX509_STORE_CTX;
 
  {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 type
-  {$EXTERNALSYM Tsk_X509_OBJECT_new}
   Tsk_X509_OBJECT_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_X509_OBJECT cdecl;
-  {$EXTERNALSYM Tsk_X509_OBJECT_new_null}
   Tsk_X509_OBJECT_new_null = function : PSTACK_OF_X509_OBJECT cdecl;
-  {$EXTERNALSYM Tsk_X509_OBJECT_free}
   Tsk_X509_OBJECT_free = procedure(st : PSTACK_OF_X509_OBJECT) cdecl;
-  {$EXTERNALSYM Tsk_X509_OBJECT_num}
   Tsk_X509_OBJECT_num = function (const sk : PSTACK_OF_X509_OBJECT) : TIdC_INT cdecl;
   {$EXTERNALSYM Tsk_X509_OBJECT_value}
   Tsk_X509_OBJECT_value = function (const sk : PSTACK_OF_X509_OBJECT; i : TIdC_INT) : PX509_OBJECT cdecl;
   {$EXTERNALSYM Tsk_X509_OBJECT_push}
   Tsk_X509_OBJECT_push = function (sk : PSTACK_OF_X509_OBJECT; st : PX509_OBJECT) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_X509_OBJECT_dup}
   Tsk_X509_OBJECT_dup = function (sk : PSTACK_OF_X509_OBJECT) : PSTACK_OF_X509_OBJECT cdecl;
   {$EXTERNALSYM Tsk_X509_OBJECT_find}
   Tsk_X509_OBJECT_find = function (sk : PSTACK_OF_X509_OBJECT; _val : PX509_OBJECT) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_X509_OBJECT_pop_free}
   Tsk_X509_OBJECT_pop_free = procedure (sk : PSTACK_OF_X509_OBJECT; func: TOPENSSL_sk_freefunc) cdecl;
 
-  {$EXTERNALSYM Tsk_X509_LOOKUP_new}
   Tsk_X509_LOOKUP_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_X509_LOOKUP cdecl;
-  {$EXTERNALSYM Tsk_X509_LOOKUP_new_null}
   Tsk_X509_LOOKUP_new_null = function : PSTACK_OF_X509_LOOKUP cdecl;
-  {$EXTERNALSYM Tsk_X509_LOOKUP_free}
   Tsk_X509_LOOKUP_free = procedure(st : PSTACK_OF_X509_LOOKUP) cdecl;
-  {$EXTERNALSYM Tsk_X509_LOOKUP_num}
   Tsk_X509_LOOKUP_num = function (const sk : PSTACK_OF_X509_LOOKUP) : TIdC_INT cdecl;
   {$EXTERNALSYM Tsk_X509_LOOKUP_value}
   Tsk_X509_LOOKUP_value = function (const sk : PSTACK_OF_X509_LOOKUP; i : TIdC_INT) : PX509_LOOKUP cdecl;
   {$EXTERNALSYM Tsk_X509_LOOKUP_push}
   Tsk_X509_LOOKUP_push = function (sk : PSTACK_OF_X509_LOOKUP; st : PX509_LOOKUP) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_X509_LOOKUP_dup}
   Tsk_X509_LOOKUP_dup = function (sk : PSTACK_OF_X509_LOOKUP) : PSTACK_OF_X509_LOOKUP cdecl;
   {$EXTERNALSYM Tsk_X509_LOOKUP_find}
   Tsk_X509_LOOKUP_find = function (sk : PSTACK_OF_X509_LOOKUP; _val : PX509_LOOKUP) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_X509_LOOKUP_pop_free}
   Tsk_X509_LOOKUP_pop_free = procedure (sk : PSTACK_OF_X509_LOOKUP; func: TOPENSSL_sk_freefunc) cdecl;
 
-  {$EXTERNALSYM Tsk_X509_VERIFY_PARAM_new}
   Tsk_X509_VERIFY_PARAM_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_X509_VERIFY_PARAM cdecl;
-  {$EXTERNALSYM Tsk_X509_VERIFY_PARAM_new_null}
   Tsk_X509_VERIFY_PARAM_new_null = function : PSTACK_OF_X509_VERIFY_PARAM cdecl;
-  {$EXTERNALSYM Tsk_X509_VERIFY_PARAM_free}
   Tsk_X509_VERIFY_PARAM_free = procedure(st : PSTACK_OF_X509_VERIFY_PARAM) cdecl;
-  {$EXTERNALSYM Tsk_X509_VERIFY_PARAM_num}
   Tsk_X509_VERIFY_PARAM_num = function (const sk : PSTACK_OF_X509_VERIFY_PARAM) : TIdC_INT cdecl;
   {$EXTERNALSYM Tsk_X509_VERIFY_PARAM_value}
   Tsk_X509_VERIFY_PARAM_value = function (const sk : PSTACK_OF_X509_VERIFY_PARAM; i : TIdC_INT) : PX509_VERIFY_PARAM cdecl;
   {$EXTERNALSYM Tsk_X509_VERIFY_PARAM_push}
   Tsk_X509_VERIFY_PARAM_push = function (sk : PSTACK_OF_X509_VERIFY_PARAM; st : PX509_VERIFY_PARAM) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_X509_VERIFY_PARAM_dup}
   Tsk_X509_VERIFY_PARAM_dup = function (sk : PSTACK_OF_X509_VERIFY_PARAM) : PSTACK_OF_X509_VERIFY_PARAM cdecl;
   {$EXTERNALSYM Tsk_X509_VERIFY_PARAM_find}
   Tsk_X509_VERIFY_PARAM_find = function (sk : PSTACK_OF_X509_VERIFY_PARAM; _val : PX509_VERIFY_PARAM) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_X509_VERIFY_PARAM_pop_free}
   Tsk_X509_VERIFY_PARAM_pop_free = procedure (sk : PSTACK_OF_X509_VERIFY_PARAM; func: TOPENSSL_sk_freefunc) cdecl;
 
 var

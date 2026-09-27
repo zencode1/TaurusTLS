@@ -462,25 +462,19 @@ type
   PSTACK_OF_X509_NAME_ENTRY = ^STACK_OF_X509_NAME_ENTRY;
   //
   //DEFINE_STACK_OF(X509_NAME)
-  {$EXTERNALSYM STACK_OF_X509_NAME}
   STACK_OF_X509_NAME = record end;
-  {$EXTERNALSYM PSTACK_OF_X509_NAME}
   PSTACK_OF_X509_NAME = ^STACK_OF_X509_NAME;
 
   {$EXTERNALSYM X509_EXTENSION}
   X509_EXTENSION = record end; // X509_extension_st
   {$EXTERNALSYM PX509_EXTENSION}
   PX509_EXTENSION = ^X509_EXTENSION;
-  {$EXTERNALSYM PPX509_EXTENSION}
   PPX509_EXTENSION = ^PX509_EXTENSION;
 
   //typedef STACK_OF(X509_EXTENSION) X509_EXTENSIONS;
   //
-  {$EXTERNALSYM STACK_OF_X509_EXTENSION}
   STACK_OF_X509_EXTENSION = record end;
-  {$EXTERNALSYM PSTACK_OF_X509_EXTENSION}
   PSTACK_OF_X509_EXTENSION = ^STACK_OF_X509_EXTENSION;
-  {$EXTERNALSYM PX509_EXTENSIONS}
   PX509_EXTENSIONS = PSTACK_OF_X509_EXTENSION;
   {$EXTERNALSYM X509_ATTRIBUTE}
   X509_ATTRIBUTE = record end; // x509_attributes_st
@@ -489,9 +483,7 @@ type
   {$EXTERNALSYM PPX509_ATTRIBUTE}
   PPX509_ATTRIBUTE = ^PX509_ATTRIBUTE;
 
-  {$EXTERNALSYM STACK_OF_X509_ATTRIBUTE}
   STACK_OF_X509_ATTRIBUTE = record end;
-  {$EXTERNALSYM PSTACK_OF_X509_ATTRIBUTE}
   PSTACK_OF_X509_ATTRIBUTE = ^STACK_OF_X509_ATTRIBUTE;
 
   {$EXTERNALSYM X509_REQ_INFO}
@@ -527,13 +519,9 @@ type
   {$EXTERNALSYM PX509_TRUST}
   PX509_TRUST = ^X509_TRUST;
 
-  {$EXTERNALSYM STACK_OF_X509_TRUST}
   STACK_OF_X509_TRUST = record end;
-  {$EXTERNALSYM PSTACK_OF_X509_TRUST}
   PSTACK_OF_X509_TRUST = ^STACK_OF_X509_TRUST;
-  {$EXTERNALSYM STACK_OF_X509_REVOKED}
   STACK_OF_X509_REVOKED = record end;
-  {$EXTERNALSYM PSTACK_OF_X509_REVOKED}
   PSTACK_OF_X509_REVOKED = ^STACK_OF_X509_REVOKED;
   {$EXTERNALSYM X509_CRL_INFO}
   X509_CRL_INFO = record end; // X509_crl_info_st
@@ -541,9 +529,7 @@ type
   PX509_CRL_INFO = ^X509_CRL_INFO;
   {$EXTERNALSYM PPX509_CRL_INFO}
   PPX509_CRL_INFO = ^PX509_CRL_INFO;
-  {$EXTERNALSYM STACK_OF_X509_CRL}
   STACK_OF_X509_CRL = record end;
-  {$EXTERNALSYM PSTACK_OF_X509_CRL}
   PSTACK_OF_X509_CRL = ^STACK_OF_X509_CRL;
 
   {$EXTERNALSYM private_key_st}
@@ -700,24 +686,15 @@ type
     parameter : PASN1_TYPE;
   end;
 
-  {$EXTERNALSYM STACK_OF_ASIdOrRange}
   STACK_OF_ASIdOrRange = record end;
-  {$EXTERNALSYM PSTACK_OF_ASIdOrRange}
   PSTACK_OF_ASIdOrRange = ^STACK_OF_ASIdOrRange;
 
-  {$EXTERNALSYM STACK_OF_DIST_POINT}
   STACK_OF_DIST_POINT = record end;
-  {$EXTERNALSYM PSTACK_OF_DIST_POINT}
   PSTACK_OF_DIST_POINT = ^STACK_OF_DIST_POINT;
-  {$EXTERNALSYM STACK_OF_GENERAL_NAME}
   STACK_OF_GENERAL_NAME = record end;
-  {$EXTERNALSYM PSTACK_OF_GENERAL_NAME}
   PSTACK_OF_GENERAL_NAME = ^STACK_OF_GENERAL_NAME;
-  {$EXTERNALSYM STACK_OF_IPAddressFamily}
   STACK_OF_IPAddressFamily = record end;
-  {$EXTERNALSYM PSTACK_OF_IPAddressFamily}
   PSTACK_OF_IPAddressFamily = ^STACK_OF_IPAddressFamily;
-  {$EXTERNALSYM PASIdOrRanges}
   PASIdOrRanges = PSTACK_OF_ASIdOrRange;
 
   {$EXTERNALSYM ASIdentifierChoice_union}
@@ -787,46 +764,27 @@ type
 	  
 {helper_functions}
 type
-  {$EXTERNALSYM PSTACK_OF_X509_INFO}
   PSTACK_OF_X509_INFO = pointer;
 
  {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 type
-  {$EXTERNALSYM Tsk_X509_new}
   Tsk_X509_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_X509 cdecl;
-  {$EXTERNALSYM Tsk_X509_new_null}
   Tsk_X509_new_null = function : PSTACK_OF_X509 cdecl;
-  {$EXTERNALSYM Tsk_X509_free}
   Tsk_X509_free = procedure(st : PSTACK_OF_X509) cdecl;
-  {$EXTERNALSYM Tsk_X509_num}
   Tsk_X509_num = function (const sk : PSTACK_OF_X509) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_X509_value}
   Tsk_X509_value = function (const sk : PSTACK_OF_X509; i : TIdC_INT) : PX509 cdecl;
-  {$EXTERNALSYM Tsk_X509_push}
   Tsk_X509_push = function (sk : PSTACK_OF_X509; st : PX509 ) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_X509_dup}
   Tsk_X509_dup = function (sk : PSTACK_OF_X509) : PSTACK_OF_X509 cdecl;
-  {$EXTERNALSYM Tsk_X509_find}
   Tsk_X509_find = function (sk : PSTACK_OF_X509; _val : PX509 ) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_X509_pop_free}
   Tsk_X509_pop_free = procedure (sk : PSTACK_OF_X509; func: TOPENSSL_sk_freefunc) cdecl;
-  {$EXTERNALSYM Tsk_X509_NAME_new}
   Tsk_X509_NAME_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_X509_NAME cdecl;
-  {$EXTERNALSYM Tsk_X509_NAME_new_null}
   Tsk_X509_NAME_new_null = function : PSTACK_OF_X509_NAME cdecl;
-  {$EXTERNALSYM Tsk_X509_NAME_free}
   Tsk_X509_NAME_free = procedure(st : PSTACK_OF_X509_NAME) cdecl;
-  {$EXTERNALSYM Tsk_X509_NAME_num}
   Tsk_X509_NAME_num = function (const sk : PSTACK_OF_X509_NAME) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_X509_NAME_value}
   Tsk_X509_NAME_value = function (const sk : PSTACK_OF_X509_NAME; i : TIdC_INT) : PX509_NAME cdecl;
-  {$EXTERNALSYM Tsk_X509_NAME_push}
   Tsk_X509_NAME_push = function (sk : PSTACK_OF_X509_NAME; st : PX509_NAME) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_X509_NAME_dup}
   Tsk_X509_NAME_dup = function (sk : PSTACK_OF_X509_NAME) : PSTACK_OF_X509_NAME cdecl;
-  {$EXTERNALSYM Tsk_X509_NAME_find}
   Tsk_X509_NAME_find = function (sk : PSTACK_OF_X509_NAME; _val : PX509_NAME) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_X509_NAME_pop_free}
   Tsk_X509_NAME_pop_free = procedure (sk : PSTACK_OF_X509_NAME; func: TOPENSSL_sk_freefunc) cdecl;
 
   {$EXTERNALSYM Tsk_X509_NAME_ENTRY_new}
@@ -847,114 +805,73 @@ type
   Tsk_X509_NAME_ENTRY_find = function (sk : PSTACK_OF_X509_NAME_ENTRY; _val : PX509_NAME) : TIdC_INT cdecl;
   {$EXTERNALSYM Tsk_X509_NAME_ENTRY_pop_free}
   Tsk_X509_NAME_ENTRY_pop_free = procedure (sk : PSTACK_OF_X509_NAME_ENTRY; func: TOPENSSL_sk_freefunc) cdecl;
-  {$EXTERNALSYM Tsk_X509_INFO_new}
   Tsk_X509_INFO_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_X509_INFO cdecl;
-  {$EXTERNALSYM Tsk_X509_INFO_new_null}
   Tsk_X509_INFO_new_null = function : PSTACK_OF_X509_INFO cdecl;
-  {$EXTERNALSYM Tsk_X509_INFO_free}
   Tsk_X509_INFO_free = procedure(st : PSTACK_OF_X509_INFO) cdecl;
-  {$EXTERNALSYM Tsk_X509_INFO_num}
   Tsk_X509_INFO_num = function (const sk : PSTACK_OF_X509_INFO) : TIdC_INT cdecl;
   {$EXTERNALSYM Tsk_X509_INFO_value}
   Tsk_X509_INFO_value = function (const sk : PSTACK_OF_X509_INFO; i : TIdC_INT) : PX509_INFO cdecl;
   {$EXTERNALSYM Tsk_X509_INFO_push}
   Tsk_X509_INFO_push = function (sk : PSTACK_OF_X509_INFO; st : PX509_INFO) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_X509_INFO_dup}
   Tsk_X509_INFO_dup = function (sk : PSTACK_OF_X509_INFO) : PSTACK_OF_X509_INFO cdecl;
   {$EXTERNALSYM Tsk_X509_INFO_find}
   Tsk_X509_INFO_find = function (sk : PSTACK_OF_X509_INFO; _val : PX509_INFO) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_X509_INFO_pop_free}
   Tsk_X509_INFO_pop_free = procedure (sk : PSTACK_OF_X509_INFO; func: TOPENSSL_sk_freefunc) cdecl;
-  {$EXTERNALSYM Tsk_X509_EXTENSION_new}
   Tsk_X509_EXTENSION_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_X509_EXTENSION cdecl;
-  {$EXTERNALSYM Tsk_X509_EXTENSION_new_null}
   Tsk_X509_EXTENSION_new_null = function : PSTACK_OF_X509_EXTENSION cdecl;
-  {$EXTERNALSYM Tsk_X509_EXTENSION_free}
   Tsk_X509_EXTENSION_free = procedure(st : PSTACK_OF_X509_EXTENSION) cdecl;
-  {$EXTERNALSYM Tsk_X509_EXTENSION_num}
   Tsk_X509_EXTENSION_num = function (const sk : PSTACK_OF_X509_EXTENSION) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_X509_EXTENSION_value}
   Tsk_X509_EXTENSION_value = function (const sk : PSTACK_OF_X509_EXTENSION; i : TIdC_INT) : PX509_EXTENSION cdecl;
-  {$EXTERNALSYM Tsk_X509_EXTENSION_push}
   Tsk_X509_EXTENSION_push = function (sk : PSTACK_OF_X509_EXTENSION; st : PX509_EXTENSION) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_X509_EXTENSION_dup}
   Tsk_X509_EXTENSION_dup = function (sk : PSTACK_OF_X509_EXTENSION) : PSTACK_OF_X509_EXTENSION cdecl;
-  {$EXTERNALSYM Tsk_X509_EXTENSION_find}
   Tsk_X509_EXTENSION_find = function (sk : PSTACK_OF_X509_EXTENSION; _val : PX509_EXTENSION) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_X509_EXTENSION_pop_free}
   Tsk_X509_EXTENSION_pop_free = procedure (sk : PSTACK_OF_X509_EXTENSION; func: TOPENSSL_sk_freefunc) cdecl;
-  {$EXTERNALSYM Tsk_X509_TRUST_new}
   Tsk_X509_TRUST_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_X509_TRUST cdecl;
-  {$EXTERNALSYM Tsk_X509_TRUST_new_null}
   Tsk_X509_TRUST_new_null = function : PSTACK_OF_X509_TRUST cdecl;
-  {$EXTERNALSYM Tsk_X509_TRUST_free}
   Tsk_X509_TRUST_free = procedure(st : PSTACK_OF_X509_TRUST) cdecl;
-  {$EXTERNALSYM Tsk_X509_TRUST_num}
   Tsk_X509_TRUST_num = function (const sk : PSTACK_OF_X509_TRUST) : TIdC_INT cdecl;
   {$EXTERNALSYM Tsk_X509_TRUST_value}
   Tsk_X509_TRUST_value = function (const sk : PSTACK_OF_X509_TRUST; i : TIdC_INT) : PX509_TRUST cdecl;
-  {$EXTERNALSYM Tsk_X509_TRUST_push}
   Tsk_X509_TRUST_push = function (sk : PSTACK_OF_X509_TRUST; st : PX509_NAME) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_X509_TRUST_dup}
   Tsk_X509_TRUST_dup = function (sk : PSTACK_OF_X509_TRUST) : PSTACK_OF_X509_TRUST cdecl;
-  {$EXTERNALSYM Tsk_X509_TRUST_find}
   Tsk_X509_TRUST_find = function (sk : PSTACK_OF_X509_TRUST; _val : PX509_NAME) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_X509_TRUST_pop_free}
   Tsk_X509_TRUST_pop_free = procedure (sk : PSTACK_OF_X509_TRUST; func: TOPENSSL_sk_freefunc) cdecl;
 
-  {$EXTERNALSYM Tsk_X509_REVOKED_new}
   Tsk_X509_REVOKED_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_X509_REVOKED cdecl;
-  {$EXTERNALSYM Tsk_X509_REVOKED_new_null}
   Tsk_X509_REVOKED_new_null = function : PSTACK_OF_X509_REVOKED cdecl;
-  {$EXTERNALSYM Tsk_X509_REVOKED_free}
   Tsk_X509_REVOKED_free = procedure(st : PSTACK_OF_X509_REVOKED) cdecl;
-  {$EXTERNALSYM Tsk_X509_REVOKED_num}
   Tsk_X509_REVOKED_num = function (const sk : PSTACK_OF_X509_REVOKED) : TIdC_INT cdecl;
   {$EXTERNALSYM Tsk_X509_REVOKED_value}
   Tsk_X509_REVOKED_value = function (const sk : PSTACK_OF_X509_REVOKED; i : TIdC_INT) : PX509_REVOKED cdecl;
   {$EXTERNALSYM Tsk_X509_REVOKED_push}
   Tsk_X509_REVOKED_push = function (sk : PSTACK_OF_X509_REVOKED; st : PX509_REVOKED) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_X509_REVOKED_dup}
   Tsk_X509_REVOKED_dup = function (sk : PSTACK_OF_X509_REVOKED) : PSTACK_OF_X509_REVOKED cdecl;
   {$EXTERNALSYM Tsk_X509_REVOKED_find}
   Tsk_X509_REVOKED_find = function (sk : PSTACK_OF_X509_REVOKED; _val : PX509_REVOKED) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_X509_REVOKED_pop_free}
   Tsk_X509_REVOKED_pop_free = procedure (sk : PSTACK_OF_X509_REVOKED; func: TOPENSSL_sk_freefunc) cdecl;
-  {$EXTERNALSYM Tsk_X509_CRL_new}
   Tsk_X509_CRL_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_X509_CRL cdecl;
-  {$EXTERNALSYM Tsk_X509_CRL_new_null}
   Tsk_X509_CRL_new_null = function : PSTACK_OF_X509_CRL cdecl;
-  {$EXTERNALSYM Tsk_X509_CRL_free}
   Tsk_X509_CRL_free = procedure(st : PSTACK_OF_X509_CRL) cdecl;
-  {$EXTERNALSYM Tsk_X509_CRL_num}
   Tsk_X509_CRL_num = function (const sk : PSTACK_OF_X509_CRL) : TIdC_INT cdecl;
   {$EXTERNALSYM Tsk_X509_CRL_value}
   Tsk_X509_CRL_value = function (const sk : PSTACK_OF_X509_CRL; i : TIdC_INT) : PX509_CRL cdecl;
   {$EXTERNALSYM Tsk_X509_CRL_push}
   Tsk_X509_CRL_push = function (sk : PSTACK_OF_X509_CRL; st : PX509_CRL) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_X509_CRL_dup}
   Tsk_X509_CRL_dup = function (sk : PSTACK_OF_X509_CRL) : PSTACK_OF_X509_CRL cdecl;
   {$EXTERNALSYM Tsk_X509_CRL_find}
   Tsk_X509_CRL_find = function (sk : PSTACK_OF_X509_CRL; _val : PX509_CRL) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_X509_CRL_pop_free}
   Tsk_X509_CRL_pop_free = procedure (sk : PSTACK_OF_X509_CRL; func: TOPENSSL_sk_freefunc) cdecl;
-  {$EXTERNALSYM Tsk_X509_ATTRIBUTE_new}
   Tsk_X509_ATTRIBUTE_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_X509_ATTRIBUTE cdecl;
-  {$EXTERNALSYM Tsk_X509_ATTRIBUTE_new_null}
   Tsk_X509_ATTRIBUTE_new_null = function : PSTACK_OF_X509_ATTRIBUTE cdecl;
-  {$EXTERNALSYM Tsk_X509_ATTRIBUTE_free}
   Tsk_X509_ATTRIBUTE_free = procedure(st : PSTACK_OF_X509_ATTRIBUTE) cdecl;
-  {$EXTERNALSYM Tsk_X509_ATTRIBUTE_num}
   Tsk_X509_ATTRIBUTE_num = function (const sk : PSTACK_OF_X509_ATTRIBUTE) : TIdC_INT cdecl;
   {$EXTERNALSYM Tsk_X509_ATTRIBUTE_value}
   Tsk_X509_ATTRIBUTE_value = function (const sk : PSTACK_OF_X509_ATTRIBUTE; i : TIdC_INT) : PX509_ATTRIBUTE cdecl;
   {$EXTERNALSYM Tsk_X509_ATTRIBUTE_push}
   Tsk_X509_ATTRIBUTE_push = function (sk : PSTACK_OF_X509_ATTRIBUTE; st : PX509_ATTRIBUTE) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_X509_ATTRIBUTE_dup}
   Tsk_X509_ATTRIBUTE_dup = function (sk : PSTACK_OF_X509_ATTRIBUTE) : PSTACK_OF_X509_ATTRIBUTE cdecl;
   {$EXTERNALSYM Tsk_X509_ATTRIBUTE_find}
   Tsk_X509_ATTRIBUTE_find = function (sk : PSTACK_OF_X509_ATTRIBUTE; _val : PX509_ATTRIBUTE) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_X509_ATTRIBUTE_pop_free}
   Tsk_X509_ATTRIBUTE_pop_free = procedure (sk : PSTACK_OF_X509_ATTRIBUTE; func: TOPENSSL_sk_freefunc) cdecl;
 
 var

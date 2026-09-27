@@ -39,10 +39,8 @@ uses
 
 const
   // Added '_CONST' to avoid name clashes
-  {$EXTERNALSYM CAMELLIA_ENCRYPT_CONST}
   CAMELLIA_ENCRYPT_CONST = 1;
   // Added '_CONST' to avoid name clashes
-  {$EXTERNALSYM CAMELLIA_DECRYPT_CONST}
   CAMELLIA_DECRYPT_CONST = 0;
 
   {$EXTERNALSYM CAMELLIA_BLOCK_SIZE}
@@ -76,9 +74,7 @@ type
   {$EXTERNALSYM PCAMELLIA_KEY}
   PCAMELLIA_KEY = ^CAMELLIA_KEY;
 
-  {$EXTERNALSYM TCamellia_ctr128_encrypt_ivec}
   TCamellia_ctr128_encrypt_ivec = array[0 .. CAMELLIA_TABLE_WORD_LEN - 1] of Byte;
-  {$EXTERNALSYM TCamellia_ctr128_encrypt_ecount_buf}
   TCamellia_ctr128_encrypt_ecount_buf = array[0 .. CAMELLIA_TABLE_WORD_LEN - 1] of Byte;
 
     { The EXTERNALSYM directive is ignored by FPC, however, it is used by Delphi as follows:

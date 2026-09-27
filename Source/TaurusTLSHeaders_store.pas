@@ -56,7 +56,6 @@ type
       arg2 : Pointer): POSSL_STORE_INFO cdecl;
   {$EXTERNALSYM OSSL_STORE_LOADER_do_all_provided_fn}
   OSSL_STORE_LOADER_do_all_provided_fn = procedure(loader: POSSL_STORE_LOADER; arg: Pointer); cdecl;
-  {$EXTERNALSYM OSSL_STORE_LOADER_names_do_all_fn}
   OSSL_STORE_LOADER_names_do_all_fn = procedure(const name: PIdAnsiChar; data: Pointer); cdecl;
 
 const
@@ -80,13 +79,9 @@ const
   OSSL_STORE_INFO_CRL           = 6;   //* X509_CRL * */
 
 //* OSSL_STORE search types */
-  {$EXTERNALSYM d_OSSL_STORE_SEARCH_BY_NAME}
   d_OSSL_STORE_SEARCH_BY_NAME             = 1; //* subject in certs, issuer in CRLs */
-  {$EXTERNALSYM d_OSSL_STORE_SEARCH_BY_ISSUER_SERIAL}
   d_OSSL_STORE_SEARCH_BY_ISSUER_SERIAL    = 2;
-  {$EXTERNALSYM d_OSSL_STORE_SEARCH_BY_KEY_FINGERPRINT}
   d_OSSL_STORE_SEARCH_BY_KEY_FINGERPRINT  = 3;
-  {$EXTERNALSYM d_OSSL_STORE_SEARCH_BY_ALIAS}
   d_OSSL_STORE_SEARCH_BY_ALIAS            = 4;
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}

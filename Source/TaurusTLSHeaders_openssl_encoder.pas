@@ -36,7 +36,6 @@ type
   {$EXTERNALSYM OSSL_ENCODER_do_all_provided_fn}
   OSSL_ENCODER_do_all_provided_fn = procedure(encoder: POSSL_ENCODER;
     arg: Pointer); cdecl;
-  {$EXTERNALSYM OSSL_ENCODER_names_do_all_fn}
   OSSL_ENCODER_names_do_all_fn = procedure(name: PIdAnsiChar;
     data: Pointer); cdecl;
 

@@ -141,14 +141,10 @@ type
   {$EXTERNALSYM PPECDSA_SIG}
   PPECDSA_SIG = ^PECDSA_SIG;
 
-  {$EXTERNALSYM ECDH_compute_key_KDF}
   ECDH_compute_key_KDF = function(const in_: Pointer; inlen: TIdC_SIZET; out_: Pointer; outlen: PIdC_SIZET): Pointer; cdecl;
 
-  {$EXTERNALSYM EC_KEY_METHOD_init_init}
   EC_KEY_METHOD_init_init = function(key: PEC_KEY): TIdC_INT; cdecl;
-  {$EXTERNALSYM EC_KEY_METHOD_init_finish}
   EC_KEY_METHOD_init_finish = procedure(key: PEC_KEY); cdecl;
-  {$EXTERNALSYM EC_KEY_METHOD_init_copy}
   EC_KEY_METHOD_init_copy = function(dest: PEC_KEY; const src: PEC_KEY): TIdC_INT; cdecl;
   {$EXTERNALSYM EC_KEY_METHOD_init_set_group}
   EC_KEY_METHOD_init_set_group = function(key: PEC_KEY; const grp: PEC_GROUP): TIdC_INT; cdecl;
@@ -157,7 +153,6 @@ type
   {$EXTERNALSYM EC_KEY_METHOD_init_set_public}
   EC_KEY_METHOD_init_set_public = function(key: PEC_KEY; const pub_key: PEC_POINT): TIdC_INT; cdecl;
 
-  {$EXTERNALSYM EC_KEY_METHOD_keygen_keygen}
   EC_KEY_METHOD_keygen_keygen = function(key: PEC_KEY): TIdC_INT; cdecl;
 
   {$EXTERNALSYM EC_KEY_METHOD_compute_key_ckey}
@@ -170,16 +165,12 @@ type
   {$EXTERNALSYM EC_KEY_METHOD_sign_sign_sig}
   EC_KEY_METHOD_sign_sign_sig = function(const dgst: PByte; dgst_len: TIdC_INT; const in_kinv: PBIGNUM; const in_r: PBIGNUM; eckey: PEC_KEY): PECDSA_SIG; cdecl;
 
-  {$EXTERNALSYM EC_KEY_METHOD_verify_verify}
   EC_KEY_METHOD_verify_verify = function(type_: TIdC_INT; const dgst: PByte; dgst_len: TIdC_INT; const sigbuf: PByte; sig_len: TIdC_INT; eckey: PEC_KEY): TIdC_INT; cdecl;
   {$EXTERNALSYM EC_KEY_METHOD_verify_verify_sig}
   EC_KEY_METHOD_verify_verify_sig = function(const dgst: PByte; dgst_len: TIdC_INT; const sig: PECDSA_SIG; eckey: PEC_KEY): TIdC_INT; cdecl;
 
-  {$EXTERNALSYM PEC_KEY_METHOD_init_init}
   PEC_KEY_METHOD_init_init = ^EC_KEY_METHOD_init_init;
-  {$EXTERNALSYM PEC_KEY_METHOD_init_finish}
   PEC_KEY_METHOD_init_finish = ^EC_KEY_METHOD_init_finish;
-  {$EXTERNALSYM PEC_KEY_METHOD_init_copy}
   PEC_KEY_METHOD_init_copy = ^EC_KEY_METHOD_init_copy;
   {$EXTERNALSYM PEC_KEY_METHOD_init_set_group}
   PEC_KEY_METHOD_init_set_group = ^EC_KEY_METHOD_init_set_group;
@@ -188,7 +179,6 @@ type
   {$EXTERNALSYM PEC_KEY_METHOD_init_set_public}
   PEC_KEY_METHOD_init_set_public = ^EC_KEY_METHOD_init_set_public;
 
-  {$EXTERNALSYM PEC_KEY_METHOD_keygen_keygen}
   PEC_KEY_METHOD_keygen_keygen = ^EC_KEY_METHOD_keygen_keygen;
 
   {$EXTERNALSYM PEC_KEY_METHOD_compute_key_ckey}
@@ -201,7 +191,6 @@ type
   {$EXTERNALSYM PEC_KEY_METHOD_sign_sign_sig}
   PEC_KEY_METHOD_sign_sign_sig = ^EC_KEY_METHOD_sign_sign_sig;
 
-  {$EXTERNALSYM PEC_KEY_METHOD_verify_verify}
   PEC_KEY_METHOD_verify_verify = ^EC_KEY_METHOD_verify_verify;
   {$EXTERNALSYM PEC_KEY_METHOD_verify_verify_sig}
   PEC_KEY_METHOD_verify_verify_sig = ^EC_KEY_METHOD_verify_verify_sig;

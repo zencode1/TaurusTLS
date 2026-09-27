@@ -127,14 +127,12 @@ const
   {$EXTERNALSYM BIO_CTRL_SET_CLOSE}
   BIO_CTRL_SET_CLOSE    = 9;(* man - set the 'close' on free *)
   // Added "_const" to prevent naming clashes
-  {$EXTERNALSYM BIO_CTRL_PENDING_const}
   BIO_CTRL_PENDING_const      = 10;(* opt - is their more data buffered *)
   {$EXTERNALSYM BIO_CTRL_FLUSH}
   BIO_CTRL_FLUSH        = 11;(* opt - 'flush' buffered output *)
   {$EXTERNALSYM BIO_CTRL_DUP}
   BIO_CTRL_DUP          = 12;(* man - extra stuff for 'duped' BIO *)
   // Added "_const" to prevent naming clashes
-  {$EXTERNALSYM BIO_CTRL_WPENDING_const}
   BIO_CTRL_WPENDING_const     = 13;(* opt - number of bytes still to write *)
   {$EXTERNALSYM BIO_CTRL_SET_CALLBACK}
   BIO_CTRL_SET_CALLBACK = 14;(* opt - set callback function *)
@@ -492,13 +490,10 @@ const
 type
   {$EXTERNALSYM BIO_ADDR}
   BIO_ADDR = Pointer; // bio_addr_st
-  {$EXTERNALSYM PBIO_ADDR}
   PBIO_ADDR = ^BIO_ADDR;
   {$EXTERNALSYM BIO_ADDRINFO}
   BIO_ADDRINFO = Pointer; // bio_addrinfo_st
-  {$EXTERNALSYM PBIO_ADDRINFO}
   PBIO_ADDRINFO = ^BIO_ADDRINFO;
-  {$EXTERNALSYM PPBIO_ADDRINFO}
   PPBIO_ADDRINFO = ^PBIO_ADDRINFO;
   {$EXTERNALSYM BIO_callback_fn}
   BIO_callback_fn = function(b: PBIO; oper: TIdC_INT; const argp: PIdAnsiChar;
@@ -507,7 +502,6 @@ type
   BIO_callback_fn_ex = function(b: PBIO; oper: TIdC_INT; const argp: PIdAnsiChar; len: TIdC_SIZET; argi: TIdC_INT; argl: TIdC_LONG; ret: TIdC_INT; processed: PIdC_SIZET): TIdC_LONG;
   {$EXTERNALSYM BIO_METHOD}
   BIO_METHOD = Pointer; // bio_method_st
-  {$EXTERNALSYM PBIO_METHOD}
   PBIO_METHOD = ^BIO_METHOD;
   {$EXTERNALSYM BIO_info_cb}
   BIO_info_cb = function(v1: PBIO; v2: TIdC_INT; v3: TIdC_INT): TIdC_INT;
@@ -583,7 +577,6 @@ type
   PBIO_MMSG_CB_ARGS = ^BIO_MMSG_CB_ARGS;
 
   // Define a union type for the value field
-  {$EXTERNALSYM TValueUnion}
   {$IFDEF DCC}{$WARN UNSAFE_TYPE OFF}{$ENDIF}
   TValueUnion = record
     case Integer of

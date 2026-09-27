@@ -868,7 +868,6 @@ type
   PPEVP_PBE_KEYGEN = ^PEVP_PBE_KEYGEN;
 
   //* MAC Stuff */
-  {$EXTERNALSYM EVP_MAC_names_do_all_fn}
   EVP_MAC_names_do_all_fn = procedure (const name : PIdAnsiChar; data : Pointer) cdecl;
   {$EXTERNALSYM EVP_MAC_do_all_provided_fn}
   EVP_MAC_do_all_provided_fn = procedure(mac : PEVP_MAC; arg : Pointer) cdecl;

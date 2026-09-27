@@ -281,7 +281,6 @@ type
   {$EXTERNALSYM PERR_STRING_DATA}
   PERR_STRING_DATA = ^ERR_STRING_DATA;
 
-  {$EXTERNALSYM ERR_print_errors_cb_cb}
   ERR_print_errors_cb_cb = function(_str: PIdAnsiChar; len: TIdC_SIZET; u: Pointer): TIdC_INT; cdecl;
 
 // DEFINE_LHASH_OF(ERR_STRING_DATA);
@@ -380,7 +379,6 @@ var
   {$EXTERNALSYM ERR_clear_last_mark}
   ERR_clear_last_mark: function : TIdC_INT; cdecl = nil; {introduced 1.1.0}
 
-  {$EXTERNALSYM SSLErr}
   SSLErr: procedure (func: TIdC_INT; reason: TIdC_INT); cdecl = nil; {removed 1.0.0}
   {$EXTERNALSYM X509err}
   X509err: procedure (const f,r : TIdC_INT); cdecl = nil; {removed 1.0.0}
@@ -469,7 +467,6 @@ var
 
   {$EXTERNALSYM ERR_put_error}
   procedure ERR_put_error(lib: TIdC_INT; func: TIdC_INT; reason: TIdC_INT; file_: PIdAnsiChar; line: TIdC_INT); {removed 3.0.0}
-  {$EXTERNALSYM SSLErr}
   procedure SSLErr(func: TIdC_INT; reason: TIdC_INT); {removed 1.0.0}
   {$EXTERNALSYM X509err}
   procedure X509err(const f,r : TIdC_INT); {removed 1.0.0}

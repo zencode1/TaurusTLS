@@ -167,7 +167,6 @@ const
   TLSEXT_TYPE_supported_groups = 10;
   {$EXTERNALSYM TLSEXT_TYPE_elliptic_curves}
   TLSEXT_TYPE_elliptic_curves = TLSEXT_TYPE_supported_groups;
-  {$EXTERNALSYM TLSEXT_TYPE_ec_poTIdC_INT_formats}
   TLSEXT_TYPE_ec_poTIdC_INT_formats = 11;
 
   (* ExtensionType value from RFC5054 *)
@@ -251,15 +250,10 @@ const
   TLSEXT_STATUSTYPE_ocsp = 1;
 
   (* ECPoTIdC_INTFormat values from RFC4492 *)
-  {$EXTERNALSYM TLSEXT_ECPOTIdC_INTFORMAT_first}
   TLSEXT_ECPOTIdC_INTFORMAT_first = 0;
-  {$EXTERNALSYM TLSEXT_ECPOTIdC_INTFORMAT_uncompressed}
   TLSEXT_ECPOTIdC_INTFORMAT_uncompressed = 0;
-  {$EXTERNALSYM TLSEXT_ECPOTIdC_INTFORMAT_ansiX962_compressed_prime}
   TLSEXT_ECPOTIdC_INTFORMAT_ansiX962_compressed_prime = 1;
-  {$EXTERNALSYM TLSEXT_ECPOTIdC_INTFORMAT_ansiX962_compressed_PIdAnsiChar2}
   TLSEXT_ECPOTIdC_INTFORMAT_ansiX962_compressed_PIdAnsiChar2 = 2;
-  {$EXTERNALSYM TLSEXT_ECPOTIdC_INTFORMAT_last}
   TLSEXT_ECPOTIdC_INTFORMAT_last = 2;
 
   (* Signature and hash algorithms from RFC5246 *)
@@ -2116,7 +2110,6 @@ var
 {$ENDIF}
 
 type
-  {$EXTERNALSYM SSL_CTX_set_tlsext_servername_callback_cb}
   SSL_CTX_set_tlsext_servername_callback_cb = function (ssl : PSSL; var alert : TIdC_INT; arg : Pointer) : TIdC_INT; cdecl;
 
   {$EXTERNALSYM SSL_CTX_set_tlsext_servername_callback}

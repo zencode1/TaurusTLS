@@ -59,12 +59,9 @@ uses
 
 
     type
-  {$EXTERNALSYM POSSL_CORE_HANDLE}
       POSSL_CORE_HANDLE = Pointer;
 
-  {$EXTERNALSYM POPENSSL_CORE_CTX}
       POPENSSL_CORE_CTX = Pointer;
-  {$EXTERNALSYM POSSL_CORE_BIO}
       POSSL_CORE_BIO = Pointer;
     {
      * Dispatch table element.  function_id numbers and the functions are defined

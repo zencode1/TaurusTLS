@@ -72,7 +72,6 @@ type
   {$EXTERNALSYM ASYNC_WAIT_CTX_set_wait_fd_cleanup}
   ASYNC_WAIT_CTX_set_wait_fd_cleanup = procedure(v1: PASYNC_WAIT_CTX;
     const v2: Pointer; v3: OSSL_ASYNC_FD; v4: Pointer);
-  {$EXTERNALSYM ASYNC_start_job_cb}
   ASYNC_start_job_cb = function(v1: Pointer): TIdC_INT;
 
     { The EXTERNALSYM directive is ignored by FPC, however, it is used by Delphi as follows:

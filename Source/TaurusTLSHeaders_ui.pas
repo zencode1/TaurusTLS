@@ -89,7 +89,6 @@ type
     * send down an integer, a data pointer or a function pointer, as well as be
     * used to get information from a UI.
   *)
-  {$EXTERNALSYM UI_ctrl_f}
   UI_ctrl_f = procedure; cdecl;
 
   (*
@@ -108,7 +107,6 @@ type
     * The different types of strings that are currently supported. This is only
     * needed by method authors.
   *)
-  {$EXTERNALSYM UI_string_type}
   UI_string_type = (UIT_NONE = 0, UIT_PROMPT, (* Prompt for a string *)
     UIT_VERIFY, (* Prompt for a string and verify *)
     UIT_BOOLEAN, (* Prompt for a yes/no response *)

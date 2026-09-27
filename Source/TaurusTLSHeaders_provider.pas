@@ -47,12 +47,10 @@ type
     POSSL_DISPATCH  = ^OSSL_DISPATCH;
   {$EXTERNALSYM POSSL_PARAM}
     POSSL_PARAM  = ^OSSL_PARAM;
-  {$EXTERNALSYM POSSL_PROVIDER}
     POSSL_PROVIDER  = pointer;
   {$EXTERNALSYM POSSL_provider_init_fn}
     POSSL_provider_init_fn  = ^OSSL_provider_init_fn;
 
-  {$EXTERNALSYM TDo_AllCallback}
     TDo_AllCallback = function (provider:POSSL_PROVIDER; cbdata:pointer):TIdC_LONG; cdecl;
 
 {$IFDEF FPC}

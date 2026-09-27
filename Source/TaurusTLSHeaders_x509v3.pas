@@ -532,9 +532,7 @@ type
   {$EXTERNALSYM PGENERAL_NAME}
   PGENERAL_NAME = ^GENERAL_NAME;
 
-  {$EXTERNALSYM PSTACK_OF_GENERAL_NAME}
   PSTACK_OF_GENERAL_NAME = Pointer;
-  {$EXTERNALSYM PGENERAL_NAMES}
   PGENERAL_NAMES = PSTACK_OF_GENERAL_NAME;
 
   {$EXTERNALSYM ACCESS_DESCRIPTION_st}
@@ -546,9 +544,7 @@ type
   ACCESS_DESCRIPTION = ACCESS_DESCRIPTION_st;
   {$EXTERNALSYM PACCESS_DESCRIPTION}
   PACCESS_DESCRIPTION = ^ACCESS_DESCRIPTION;
-  {$EXTERNALSYM STACK_OF_ACCESS_DESCRIPTION}
   STACK_OF_ACCESS_DESCRIPTION = record end;
-  {$EXTERNALSYM PSTACK_OF_ACCESS_DESCRIPTION}
   PSTACK_OF_ACCESS_DESCRIPTION = ^STACK_OF_ACCESS_DESCRIPTION;
 
   {$EXTERNALSYM AUTHORITY_INFO_ACCESS}
@@ -614,9 +610,7 @@ type
   SXNETID = SXNET_ID_st;
   {$EXTERNALSYM PSXNETID}
   PSXNETID = ^SXNETID;
-  {$EXTERNALSYM STACK_OF_SXNETID}
   STACK_OF_SXNETID = record end;
-  {$EXTERNALSYM PSTACK_OF_SXNETID}
   PSTACK_OF_SXNETID = ^STACK_OF_SXNETID;
 
   {$EXTERNALSYM SXNET_st}
@@ -667,9 +661,7 @@ type
   POLICYQUALINFO = POLICYQUALINFO_st;
   {$EXTERNALSYM PPOLICYQUALINFO}
   PPOLICYQUALINFO = ^POLICYQUALINFO;
-  {$EXTERNALSYM STACK_OF_POLICYQUALINFO}
   STACK_OF_POLICYQUALINFO = record end;
-  {$EXTERNALSYM PSTACK_OF_POLICYQUALINFO}
   PSTACK_OF_POLICYQUALINFO = ^STACK_OF_POLICYQUALINFO;
 
   {$EXTERNALSYM POLICYINFO_st}
@@ -682,9 +674,7 @@ type
   {$EXTERNALSYM PPOLICYINFO}
   PPOLICYINFO = ^POLICYINFO;
 
-  {$EXTERNALSYM STACK_OF_POLICYINFO}
   STACK_OF_POLICYINFO = record end;
-  {$EXTERNALSYM PSTACK_OF_POLICYINFO}
   PSTACK_OF_POLICYINFO = ^STACK_OF_POLICYINFO;
   {$EXTERNALSYM CERTIFICATEPOLICIES}
   CERTIFICATEPOLICIES = PSTACK_OF_POLICYINFO;
@@ -698,9 +688,7 @@ type
   POLICY_MAPPING = POLICY_MAPPING_st;
   {$EXTERNALSYM PPOLICY_MAPPING}
   PPOLICY_MAPPING = ^POLICY_MAPPING;
-  {$EXTERNALSYM STACK_OF_POLICY_MAPPING}
   STACK_OF_POLICY_MAPPING = record end;
-  {$EXTERNALSYM PSTACK_OF_POLICY_MAPPING}
   PSTACK_OF_POLICY_MAPPING = ^STACK_OF_POLICY_MAPPING;
   {$EXTERNALSYM POLICY_MAPPINGS}
   POLICY_MAPPINGS = PSTACK_OF_POLICY_MAPPING;
@@ -715,9 +703,7 @@ type
   GENERAL_SUBTREE = GENERAL_SUBTREE_st;
   {$EXTERNALSYM PGENERAL_SUBTREE}
   PGENERAL_SUBTREE = ^GENERAL_SUBTREE;
-  {$EXTERNALSYM STACK_OF_GENERAL_SUBTREE}
   STACK_OF_GENERAL_SUBTREE = record end;
-  {$EXTERNALSYM PSTACK_OF_GENERAL_SUBTREE}
   PSTACK_OF_GENERAL_SUBTREE = ^STACK_OF_GENERAL_SUBTREE;
 
   {$EXTERNALSYM NAME_CONSTRAINTS_st}
@@ -768,9 +754,7 @@ type
     indirectCRL : TIdC_INT;
     onlyattr : TIdC_INT;
   end;
-  {$EXTERNALSYM STACK_OF_ASN1_STRING}
   STACK_OF_ASN1_STRING = record end;
-  {$EXTERNALSYM PSTACK_OF_ASN1_STRING}
   PSTACK_OF_ASN1_STRING = ^STACK_OF_ASN1_STRING;
 
 //  # define X509V3_conf_err(val) ERR_add_error_data(6, \
@@ -810,13 +794,9 @@ type
   end;
   {$EXTERNALSYM X509_PURPOSE}
   X509_PURPOSE = x509_purpose_st;
-  {$EXTERNALSYM STACK_OF_X509_PURPOSE}
   STACK_OF_X509_PURPOSE = record end;
-  {$EXTERNALSYM PSTACK_OF_X509_PURPOSE}
   PSTACK_OF_X509_PURPOSE = ^STACK_OF_X509_PURPOSE;
-  {$EXTERNALSYM STACK_OF_X509_POLICY_NODE}
   STACK_OF_X509_POLICY_NODE = record end;
-  {$EXTERNALSYM PSTACK_OF_X509_POLICY_NODE}
   PSTACK_OF_X509_POLICY_NODE = ^STACK_OF_X509_POLICY_NODE;
 
 //  DECLARE_ASN1_FUNCTIONS(BASIC_CONSTRAINTS_st)
@@ -900,11 +880,8 @@ type
   {$EXTERNALSYM PIPAddressOrRange}
   PIPAddressOrRange = ^IPAddressOrRange;
 
-  {$EXTERNALSYM STACK_OF_IPAddressOrRange}
   STACK_OF_IPAddressOrRange = record end;
-  {$EXTERNALSYM PSTACK_OF_IPAddressOrRange}
   PSTACK_OF_IPAddressOrRange = ^STACK_OF_IPAddressOrRange;
-  {$EXTERNALSYM PIPAddressOrRanges}
   PIPAddressOrRanges = PSTACK_OF_IPAddressOrRange;
 
   {$EXTERNALSYM IPAddressChoice_st}
@@ -1674,260 +1651,170 @@ var
 {$ENDIF}
  {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 type
-  {$EXTERNALSYM Tsk_ASIdOrRange_new}
   Tsk_ASIdOrRange_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_ASIdOrRange cdecl;
-  {$EXTERNALSYM Tsk_ASIdOrRange_new_null}
   Tsk_ASIdOrRange_new_null = function : PSTACK_OF_ASIdOrRange cdecl;
-  {$EXTERNALSYM Tsk_ASIdOrRange_free}
   Tsk_ASIdOrRange_free = procedure(st : PSTACK_OF_ASIdOrRange) cdecl;
-  {$EXTERNALSYM Tsk_ASIdOrRange_num}
   Tsk_ASIdOrRange_num = function (const sk : PSTACK_OF_ASIdOrRange) : TIdC_INT cdecl;
   {$EXTERNALSYM Tsk_ASIdOrRange_value}
   Tsk_ASIdOrRange_value = function (const sk : PSTACK_OF_ASIdOrRange; i : TIdC_INT) : PASIdOrRange cdecl;
   {$EXTERNALSYM Tsk_ASIdOrRange_push}
   Tsk_ASIdOrRange_push = function (sk : PSTACK_OF_ASIdOrRange; st : PASIdOrRange) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_ASIdOrRange_dup}
   Tsk_ASIdOrRange_dup = function (sk : PSTACK_OF_ASIdOrRange) : PSTACK_OF_ASIdOrRange cdecl;
   {$EXTERNALSYM Tsk_ASIdOrRange_find}
   Tsk_ASIdOrRange_find = function (sk : PSTACK_OF_ASIdOrRange; _val : PASIdOrRange) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_ASIdOrRange_pop_free}
   Tsk_ASIdOrRange_pop_free = procedure (sk : PSTACK_OF_ASIdOrRange; func: TOPENSSL_sk_freefunc) cdecl;
-  {$EXTERNALSYM Tsk_IPAddressOrRange_new}
   Tsk_IPAddressOrRange_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_IPAddressOrRange cdecl;
-  {$EXTERNALSYM Tsk_IPAddressOrRange_new_null}
   Tsk_IPAddressOrRange_new_null = function : PSTACK_OF_IPAddressOrRange cdecl;
-  {$EXTERNALSYM Tsk_IPAddressOrRange_free}
   Tsk_IPAddressOrRange_free = procedure(st : PSTACK_OF_IPAddressOrRange) cdecl;
-  {$EXTERNALSYM Tsk_IPAddressOrRange_num}
   Tsk_IPAddressOrRange_num = function (const sk : PSTACK_OF_IPAddressOrRange) : TIdC_INT cdecl;
   {$EXTERNALSYM Tsk_IPAddressOrRange_value}
   Tsk_IPAddressOrRange_value = function (const sk : PSTACK_OF_IPAddressOrRange; i : TIdC_INT) : PIPAddressOrRange cdecl;
   {$EXTERNALSYM Tsk_IPAddressOrRange_push}
   Tsk_IPAddressOrRange_push = function (sk : PSTACK_OF_IPAddressOrRange; st : PIPAddressOrRange) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_IPAddressOrRange_dup}
   Tsk_IPAddressOrRange_dup = function (sk : PSTACK_OF_IPAddressOrRange) : PSTACK_OF_IPAddressOrRange cdecl;
   {$EXTERNALSYM Tsk_IPAddressOrRange_find}
   Tsk_IPAddressOrRange_find = function (sk : PSTACK_OF_IPAddressOrRange; _val : PIPAddressOrRange) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_IPAddressOrRange_pop_free}
   Tsk_IPAddressOrRange_pop_free = procedure (sk : PSTACK_OF_IPAddressOrRange; func: TOPENSSL_sk_freefunc) cdecl;
-  {$EXTERNALSYM Tsk_IPAddressFamily_new}
   Tsk_IPAddressFamily_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_IPAddressFamily cdecl;
-  {$EXTERNALSYM Tsk_IPAddressFamily_new_null}
   Tsk_IPAddressFamily_new_null = function : PSTACK_OF_IPAddressFamily cdecl;
-  {$EXTERNALSYM Tsk_IPAddressFamily_free}
   Tsk_IPAddressFamily_free = procedure(st : PSTACK_OF_IPAddressFamily) cdecl;
-  {$EXTERNALSYM Tsk_IPAddressFamily_num}
   Tsk_IPAddressFamily_num = function (const sk : PSTACK_OF_IPAddressFamily) : TIdC_INT cdecl;
   {$EXTERNALSYM Tsk_IPAddressFamily_value}
   Tsk_IPAddressFamily_value = function (const sk : PSTACK_OF_IPAddressFamily; i : TIdC_INT) : PIPAddressFamily cdecl;
   {$EXTERNALSYM Tsk_IPAddressFamily_push}
   Tsk_IPAddressFamily_push = function (sk : PSTACK_OF_IPAddressFamily; st : PIPAddressFamily) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_IPAddressFamily_dup}
   Tsk_IPAddressFamily_dup = function (sk : PSTACK_OF_IPAddressFamily) : PSTACK_OF_IPAddressFamily cdecl;
   {$EXTERNALSYM Tsk_IPAddressFamily_find}
   Tsk_IPAddressFamily_find = function (sk : PSTACK_OF_IPAddressFamily; _val : PIPAddressFamily) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_IPAddressFamily_pop_free}
   Tsk_IPAddressFamily_pop_free = procedure (sk : PSTACK_OF_IPAddressFamily; func: TOPENSSL_sk_freefunc) cdecl;
-  {$EXTERNALSYM Tsk_GENERAL_NAME_new}
   Tsk_GENERAL_NAME_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_GENERAL_NAME cdecl;
-  {$EXTERNALSYM Tsk_GENERAL_NAME_new_null}
   Tsk_GENERAL_NAME_new_null = function : PSTACK_OF_GENERAL_NAME cdecl;
-  {$EXTERNALSYM Tsk_GENERAL_NAME_free}
   Tsk_GENERAL_NAME_free = procedure(st : PSTACK_OF_GENERAL_NAME) cdecl;
-  {$EXTERNALSYM Tsk_GENERAL_NAME_num}
   Tsk_GENERAL_NAME_num = function (const sk : PSTACK_OF_GENERAL_NAME) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_GENERAL_NAME_value}
   Tsk_GENERAL_NAME_value = function (const sk : PSTACK_OF_GENERAL_NAME; i : TIdC_INT) : PGENERAL_NAME cdecl;
-  {$EXTERNALSYM Tsk_GENERAL_NAME_push}
   Tsk_GENERAL_NAME_push = function (sk : PSTACK_OF_GENERAL_NAME; st : PGENERAL_NAME) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_GENERAL_NAME_dup}
   Tsk_GENERAL_NAME_dup = function (sk : PSTACK_OF_GENERAL_NAME) : PSTACK_OF_GENERAL_NAME cdecl;
-  {$EXTERNALSYM Tsk_GENERAL_NAME_find}
   Tsk_GENERAL_NAME_find = function (sk : PSTACK_OF_GENERAL_NAME; _val : PGENERAL_NAME) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_GENERAL_NAME_pop_free}
   Tsk_GENERAL_NAME_pop_free = procedure (sk : PSTACK_OF_GENERAL_NAME; func: TOPENSSL_sk_freefunc) cdecl;
-  {$EXTERNALSYM Tsk_ACCESS_DESCRIPTION_new}
   Tsk_ACCESS_DESCRIPTION_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_ACCESS_DESCRIPTION cdecl;
-  {$EXTERNALSYM Tsk_ACCESS_DESCRIPTION_new_null}
   Tsk_ACCESS_DESCRIPTION_new_null = function : PSTACK_OF_ACCESS_DESCRIPTION cdecl;
-  {$EXTERNALSYM Tsk_ACCESS_DESCRIPTION_free}
   Tsk_ACCESS_DESCRIPTION_free = procedure(st : PSTACK_OF_ACCESS_DESCRIPTION) cdecl;
-  {$EXTERNALSYM Tsk_ACCESS_DESCRIPTION_num}
   Tsk_ACCESS_DESCRIPTION_num = function (const sk : PSTACK_OF_ACCESS_DESCRIPTION) : TIdC_INT cdecl;
   {$EXTERNALSYM Tsk_ACCESS_DESCRIPTION_value}
   Tsk_ACCESS_DESCRIPTION_value = function (const sk : PSTACK_OF_ACCESS_DESCRIPTION; i : TIdC_INT) : PACCESS_DESCRIPTION cdecl;
   {$EXTERNALSYM Tsk_ACCESS_DESCRIPTION_push}
   Tsk_ACCESS_DESCRIPTION_push = function (sk : PSTACK_OF_ACCESS_DESCRIPTION; st : PACCESS_DESCRIPTION) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_ACCESS_DESCRIPTION_dup}
   Tsk_ACCESS_DESCRIPTION_dup = function (sk : PSTACK_OF_ACCESS_DESCRIPTION) : PSTACK_OF_ACCESS_DESCRIPTION cdecl;
   {$EXTERNALSYM Tsk_ACCESS_DESCRIPTION_find}
   Tsk_ACCESS_DESCRIPTION_find = function (sk : PSTACK_OF_ACCESS_DESCRIPTION; _val : PACCESS_DESCRIPTION) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_ACCESS_DESCRIPTION_pop_free}
   Tsk_ACCESS_DESCRIPTION_pop_free = procedure (sk : PSTACK_OF_ACCESS_DESCRIPTION; func: TOPENSSL_sk_freefunc) cdecl;
-  {$EXTERNALSYM Tsk_DIST_POINT_new}
   Tsk_DIST_POINT_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_DIST_POINT cdecl;
-  {$EXTERNALSYM Tsk_DIST_POINT_new_null}
   Tsk_DIST_POINT_new_null = function : PSTACK_OF_DIST_POINT cdecl;
-  {$EXTERNALSYM Tsk_DIST_POINT_free}
   Tsk_DIST_POINT_free = procedure(st : PSTACK_OF_DIST_POINT) cdecl;
-  {$EXTERNALSYM Tsk_DIST_POINT_num}
   Tsk_DIST_POINT_num = function (const sk : PSTACK_OF_DIST_POINT) : TIdC_INT cdecl;
   {$EXTERNALSYM Tsk_DIST_POINT_value}
   Tsk_DIST_POINT_value = function (const sk : PSTACK_OF_DIST_POINT; i : TIdC_INT) : PDIST_POINT cdecl;
   {$EXTERNALSYM Tsk_DIST_POINT_push}
   Tsk_DIST_POINT_push = function (sk : PSTACK_OF_DIST_POINT; st : PDIST_POINT) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_DIST_POINT_dup}
   Tsk_DIST_POINT_dup = function (sk : PSTACK_OF_DIST_POINT) : PSTACK_OF_DIST_POINT cdecl;
   {$EXTERNALSYM Tsk_DIST_POINT_find}
   Tsk_DIST_POINT_find = function (sk : PSTACK_OF_DIST_POINT; _val : PDIST_POINT) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_DIST_POINT_pop_free}
   Tsk_DIST_POINT_pop_free = procedure (sk : PSTACK_OF_DIST_POINT; func: TOPENSSL_sk_freefunc) cdecl;
-  {$EXTERNALSYM Tsk_SXNETID_new}
   Tsk_SXNETID_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_SXNETID cdecl;
-  {$EXTERNALSYM Tsk_SXNETID_new_null}
   Tsk_SXNETID_new_null = function : PSTACK_OF_SXNETID cdecl;
-  {$EXTERNALSYM Tsk_SXNETID_free}
   Tsk_SXNETID_free = procedure(st : PSTACK_OF_SXNETID) cdecl;
-  {$EXTERNALSYM Tsk_SXNETID_num}
   Tsk_SXNETID_num = function (const sk : PSTACK_OF_SXNETID) : TIdC_INT cdecl;
   {$EXTERNALSYM Tsk_SXNETID_value}
   Tsk_SXNETID_value = function (const sk : PSTACK_OF_SXNETID; i : TIdC_INT) : PSXNETID cdecl;
   {$EXTERNALSYM Tsk_SXNETID_push}
   Tsk_SXNETID_push = function (sk : PSTACK_OF_SXNETID; st : PSXNETID) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_SXNETID_dup}
   Tsk_SXNETID_dup = function (sk : PSTACK_OF_SXNETID) : PSTACK_OF_SXNETID cdecl;
   {$EXTERNALSYM Tsk_SXNETID_find}
   Tsk_SXNETID_find = function (sk : PSTACK_OF_SXNETID; _val : PSXNETID) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_SXNETID_pop_free}
   Tsk_SXNETID_pop_free = procedure (sk : PSTACK_OF_SXNETID; func: TOPENSSL_sk_freefunc) cdecl;
-  {$EXTERNALSYM Tsk_POLICYQUALINFO_new}
   Tsk_POLICYQUALINFO_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_POLICYQUALINFO cdecl;
-  {$EXTERNALSYM Tsk_POLICYQUALINFO_new_null}
   Tsk_POLICYQUALINFO_new_null = function : PSTACK_OF_POLICYQUALINFO cdecl;
-  {$EXTERNALSYM Tsk_POLICYQUALINFO_free}
   Tsk_POLICYQUALINFO_free = procedure(st : PSTACK_OF_POLICYQUALINFO) cdecl;
-  {$EXTERNALSYM Tsk_POLICYQUALINFO_num}
   Tsk_POLICYQUALINFO_num = function (const sk : PSTACK_OF_POLICYQUALINFO) : TIdC_INT cdecl;
   {$EXTERNALSYM Tsk_POLICYQUALINFO_value}
   Tsk_POLICYQUALINFO_value = function (const sk : PSTACK_OF_POLICYQUALINFO; i : TIdC_INT) : PPOLICYQUALINFO cdecl;
   {$EXTERNALSYM Tsk_POLICYQUALINFO_push}
   Tsk_POLICYQUALINFO_push = function (sk : PSTACK_OF_POLICYQUALINFO; st : PPOLICYQUALINFO) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_POLICYQUALINFO_dup}
   Tsk_POLICYQUALINFO_dup = function (sk : PSTACK_OF_POLICYQUALINFO) : PSTACK_OF_POLICYQUALINFO cdecl;
   {$EXTERNALSYM Tsk_POLICYQUALINFO_find}
   Tsk_POLICYQUALINFO_find = function (sk : PSTACK_OF_POLICYQUALINFO; _val : PPOLICYQUALINFO) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_POLICYQUALINFO_pop_free}
   Tsk_POLICYQUALINFO_pop_free = procedure (sk : PSTACK_OF_POLICYQUALINFO; func: TOPENSSL_sk_freefunc) cdecl;
-  {$EXTERNALSYM Tsk_POLICYINFO_new}
   Tsk_POLICYINFO_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_POLICYINFO cdecl;
-  {$EXTERNALSYM Tsk_POLICYINFO_new_null}
   Tsk_POLICYINFO_new_null = function : PSTACK_OF_POLICYINFO cdecl;
-  {$EXTERNALSYM Tsk_POLICYINFO_free}
   Tsk_POLICYINFO_free = procedure(st : PSTACK_OF_POLICYINFO) cdecl;
-  {$EXTERNALSYM Tsk_POLICYINFO_num}
   Tsk_POLICYINFO_num = function (const sk : PSTACK_OF_POLICYINFO) : TIdC_INT cdecl;
   {$EXTERNALSYM Tsk_POLICYINFO_value}
   Tsk_POLICYINFO_value = function (const sk : PSTACK_OF_POLICYINFO; i : TIdC_INT) : PPOLICYINFO cdecl;
   {$EXTERNALSYM Tsk_POLICYINFO_push}
   Tsk_POLICYINFO_push = function (sk : PSTACK_OF_POLICYINFO; st : PPOLICYINFO) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_POLICYINFO_dup}
   Tsk_POLICYINFO_dup = function (sk : PSTACK_OF_POLICYINFO) : PSTACK_OF_POLICYINFO cdecl;
   {$EXTERNALSYM Tsk_POLICYINFO_find}
   Tsk_POLICYINFO_find = function (sk : PSTACK_OF_POLICYINFO; _val : PPOLICYINFO) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_POLICYINFO_pop_free}
   Tsk_POLICYINFO_pop_free = procedure (sk : PSTACK_OF_POLICYINFO; func: TOPENSSL_sk_freefunc) cdecl;
-  {$EXTERNALSYM Tsk_POLICY_MAPPING_new}
   Tsk_POLICY_MAPPING_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_POLICY_MAPPING cdecl;
-  {$EXTERNALSYM Tsk_POLICY_MAPPING_new_null}
   Tsk_POLICY_MAPPING_new_null = function : PSTACK_OF_POLICY_MAPPING cdecl;
-  {$EXTERNALSYM Tsk_POLICY_MAPPING_free}
   Tsk_POLICY_MAPPING_free = procedure(st : PSTACK_OF_POLICY_MAPPING) cdecl;
-  {$EXTERNALSYM Tsk_POLICY_MAPPING_num}
   Tsk_POLICY_MAPPING_num = function (const sk : PSTACK_OF_POLICY_MAPPING) : TIdC_INT cdecl;
   {$EXTERNALSYM Tsk_POLICY_MAPPING_value}
   Tsk_POLICY_MAPPING_value = function (const sk : PSTACK_OF_POLICY_MAPPING; i : TIdC_INT) : PPOLICY_MAPPING cdecl;
   {$EXTERNALSYM Tsk_POLICY_MAPPING_push}
   Tsk_POLICY_MAPPING_push = function (sk : PSTACK_OF_POLICY_MAPPING; st : PPOLICY_MAPPING) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_POLICY_MAPPING_dup}
   Tsk_POLICY_MAPPING_dup = function (sk : PSTACK_OF_POLICY_MAPPING) : PSTACK_OF_POLICY_MAPPING cdecl;
   {$EXTERNALSYM Tsk_POLICY_MAPPING_find}
   Tsk_POLICY_MAPPING_find = function (sk : PSTACK_OF_POLICY_MAPPING; _val : PPOLICY_MAPPING) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_POLICY_MAPPING_pop_free}
   Tsk_POLICY_MAPPING_pop_free = procedure (sk : PSTACK_OF_POLICY_MAPPING; func: TOPENSSL_sk_freefunc) cdecl;
-  {$EXTERNALSYM Tsk_GENERAL_SUBTREE_new}
   Tsk_GENERAL_SUBTREE_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_GENERAL_SUBTREE cdecl;
-  {$EXTERNALSYM Tsk_GENERAL_SUBTREE_new_null}
   Tsk_GENERAL_SUBTREE_new_null = function : PSTACK_OF_GENERAL_SUBTREE cdecl;
-  {$EXTERNALSYM Tsk_GENERAL_SUBTREE_free}
   Tsk_GENERAL_SUBTREE_free = procedure(st : PSTACK_OF_GENERAL_SUBTREE) cdecl;
-  {$EXTERNALSYM Tsk_GENERAL_SUBTREE_num}
   Tsk_GENERAL_SUBTREE_num = function (const sk : PSTACK_OF_GENERAL_SUBTREE) : TIdC_INT cdecl;
   {$EXTERNALSYM Tsk_GENERAL_SUBTREE_value}
   Tsk_GENERAL_SUBTREE_value = function (const sk : PSTACK_OF_GENERAL_SUBTREE; i : TIdC_INT) : PGENERAL_SUBTREE cdecl;
   {$EXTERNALSYM Tsk_GENERAL_SUBTREE_push}
   Tsk_GENERAL_SUBTREE_push = function (sk : PSTACK_OF_GENERAL_SUBTREE; st : PGENERAL_SUBTREE) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_GENERAL_SUBTREE_dup}
   Tsk_GENERAL_SUBTREE_dup = function (sk : PSTACK_OF_GENERAL_SUBTREE) : PSTACK_OF_GENERAL_SUBTREE cdecl;
   {$EXTERNALSYM Tsk_GENERAL_SUBTREE_find}
   Tsk_GENERAL_SUBTREE_find = function (sk : PSTACK_OF_GENERAL_SUBTREE; _val : PGENERAL_SUBTREE) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_GENERAL_SUBTREE_pop_free}
   Tsk_GENERAL_SUBTREE_pop_free = procedure (sk : PSTACK_OF_GENERAL_SUBTREE; func: TOPENSSL_sk_freefunc) cdecl;
 
-  {$EXTERNALSYM Tsk_ASN1_STRING_new}
   Tsk_ASN1_STRING_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_ASN1_STRING cdecl;
-  {$EXTERNALSYM Tsk_ASN1_STRING_new_null}
   Tsk_ASN1_STRING_new_null = function : PSTACK_OF_ASN1_STRING cdecl;
-  {$EXTERNALSYM Tsk_ASN1_STRING_free}
   Tsk_ASN1_STRING_free = procedure(st : PSTACK_OF_ASN1_STRING) cdecl;
-  {$EXTERNALSYM Tsk_ASN1_STRING_num}
   Tsk_ASN1_STRING_num = function (const sk : PSTACK_OF_ASN1_STRING) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_ASN1_STRING_value}
   Tsk_ASN1_STRING_value = function (const sk : PSTACK_OF_ASN1_STRING; i : TIdC_INT) : PASN1_STRING cdecl;
-  {$EXTERNALSYM Tsk_ASN1_STRING_push}
   Tsk_ASN1_STRING_push = function (sk : PSTACK_OF_ASN1_STRING; st : PASN1_STRING) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_ASN1_STRING_dup}
   Tsk_ASN1_STRING_dup = function (sk : PSTACK_OF_ASN1_STRING) : PSTACK_OF_ASN1_STRING cdecl;
-  {$EXTERNALSYM Tsk_ASN1_STRING_find}
   Tsk_ASN1_STRING_find = function (sk : PSTACK_OF_ASN1_STRING; _val : PASN1_STRING) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_ASN1_STRING_pop_free}
   Tsk_ASN1_STRING_pop_free = procedure (sk : PSTACK_OF_ASN1_STRING; func: TOPENSSL_sk_freefunc) cdecl;
 
-  {$EXTERNALSYM Tsk_X509_PURPOSE_new}
   Tsk_X509_PURPOSE_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_X509_PURPOSE cdecl;
-  {$EXTERNALSYM Tsk_X509_PURPOSE_new_null}
   Tsk_X509_PURPOSE_new_null = function : PSTACK_OF_X509_PURPOSE cdecl;
-  {$EXTERNALSYM Tsk_X509_PURPOSE_free}
   Tsk_X509_PURPOSE_free = procedure(st : PSTACK_OF_X509_PURPOSE) cdecl;
-  {$EXTERNALSYM Tsk_X509_PURPOSE_num}
   Tsk_X509_PURPOSE_num = function (const sk : PSTACK_OF_X509_PURPOSE) : TIdC_INT cdecl;
   {$EXTERNALSYM Tsk_X509_PURPOSE_value}
   Tsk_X509_PURPOSE_value = function (const sk : PSTACK_OF_X509_PURPOSE; i : TIdC_INT) : PX509_PURPOSE cdecl;
   {$EXTERNALSYM Tsk_X509_PURPOSE_push}
   Tsk_X509_PURPOSE_push = function (sk : PSTACK_OF_X509_PURPOSE; st : PX509_PURPOSE) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_X509_PURPOSE_dup}
   Tsk_X509_PURPOSE_dup = function (sk : PSTACK_OF_X509_PURPOSE) : PSTACK_OF_X509_PURPOSE cdecl;
   {$EXTERNALSYM Tsk_X509_PURPOSE_find}
   Tsk_X509_PURPOSE_find = function (sk : PSTACK_OF_X509_PURPOSE; _val : PX509_PURPOSE) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_X509_PURPOSE_pop_free}
   Tsk_X509_PURPOSE_pop_free = procedure (sk : PSTACK_OF_X509_PURPOSE; func: TOPENSSL_sk_freefunc) cdecl;
 
-  {$EXTERNALSYM Tsk_X509_POLICY_NODE_new}
   Tsk_X509_POLICY_NODE_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_X509_POLICY_NODE cdecl;
-  {$EXTERNALSYM Tsk_X509_POLICY_NODE_new_null}
   Tsk_X509_POLICY_NODE_new_null = function : PSTACK_OF_X509_POLICY_NODE cdecl;
-  {$EXTERNALSYM Tsk_X509_POLICY_NODE_free}
   Tsk_X509_POLICY_NODE_free = procedure(st : PSTACK_OF_X509_POLICY_NODE) cdecl;
-  {$EXTERNALSYM Tsk_X509_POLICY_NODE_num}
   Tsk_X509_POLICY_NODE_num = function (const sk : PSTACK_OF_X509_POLICY_NODE) : TIdC_INT cdecl;
   {$EXTERNALSYM Tsk_X509_POLICY_NODE_value}
   Tsk_X509_POLICY_NODE_value = function (const sk : PSTACK_OF_X509_POLICY_NODE; i : TIdC_INT) : PX509_POLICY_NODE cdecl;
   {$EXTERNALSYM Tsk_X509_POLICY_NODE_push}
   Tsk_X509_POLICY_NODE_push = function (sk : PSTACK_OF_X509_POLICY_NODE; st : PX509_POLICY_NODE) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_X509_POLICY_NODE_dup}
   Tsk_X509_POLICY_NODE_dup = function (sk : PSTACK_OF_X509_POLICY_NODE) : PSTACK_OF_X509_POLICY_NODE cdecl;
   {$EXTERNALSYM Tsk_X509_POLICY_NODE_find}
   Tsk_X509_POLICY_NODE_find = function (sk : PSTACK_OF_X509_POLICY_NODE; _val : PX509_POLICY_NODE) : TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_X509_POLICY_NODE_pop_free}
   Tsk_X509_POLICY_NODE_pop_free = procedure (sk : PSTACK_OF_X509_POLICY_NODE; func: TOPENSSL_sk_freefunc) cdecl;
 
 

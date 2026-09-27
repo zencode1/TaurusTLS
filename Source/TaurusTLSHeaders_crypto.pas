@@ -88,7 +88,6 @@ const
   CRYPTO_EX_INDEX__COUNT = 16;
 
   // Added _CONST to prevent nameclashes
-  {$EXTERNALSYM OPENSSL_VERSION_CONST}
   OPENSSL_VERSION_CONST = 0;
   {$EXTERNALSYM OPENSSL_CFLAGS}
   OPENSSL_CFLAGS = 1;
@@ -100,7 +99,6 @@ const
   OPENSSL_DIR = 4;
   {$EXTERNALSYM OPENSSL_ENGINES_DIR}
   OPENSSL_ENGINES_DIR = 5;
-  {$EXTERNALSYM SSLEAY_VERSION_CONST}
   SSLEAY_VERSION_CONST = OPENSSL_VERSION_CONST;
   {$EXTERNALSYM OPENSSL_VERSION_STRING}
   OPENSSL_VERSION_STRING = 6;
@@ -236,9 +234,7 @@ type
   CRYPTO_EX_dup = function(_to : PCRYPTO_EX_DATA; const from : PCRYPTO_EX_DATA;
                            from_d : Pointer; idx : TIdC_INT; argl : TIdC_LONG; argo : Pointer) : TIdC_INT; cdecl;
 
-  {$EXTERNALSYM CRYPTO_mem_leaks_cb_cb}
   CRYPTO_mem_leaks_cb_cb = function(const _str: PIdAnsiChar; len: TIdC_SIZET; u: Pointer): TIdC_INT; cdecl;
-  {$EXTERNALSYM CRYPTO_THREAD_run_once_init}
   CRYPTO_THREAD_run_once_init = procedure; cdecl;
 
   {$EXTERNALSYM CRYPTO_THREAD_LOCAL}
@@ -252,15 +248,10 @@ type
   {$EXTERNALSYM PCRYPTO_ONCE}
   PCRYPTO_ONCE = ^CRYPTO_ONCE;
 
-  {$EXTERNALSYM CRYPTO_set_mem_functions_m}
   CRYPTO_set_mem_functions_m = function(size: TIdC_SIZET; const filename: PIdAnsiChar; linenumber: TIdC_INT): Pointer; cdecl;
-  {$EXTERNALSYM CRYPTO_set_mem_functions_r}
   CRYPTO_set_mem_functions_r = function(buffer: Pointer; size: TIdC_SIZET; const filename: PIdAnsiChar; linenumber: TIdC_INT): Pointer; cdecl;
-  {$EXTERNALSYM CRYPTO_set_mem_functions_f}
   CRYPTO_set_mem_functions_f = procedure(buffer: Pointer; const filename: PIdAnsiChar; const linenumber: TIdC_INT); cdecl;
-  {$EXTERNALSYM TIdSslIdCallback}
   TIdSslIdCallback = function: TIdC_ULONG; cdecl;
-  {$EXTERNALSYM TIdSslLockingCallback}
   TIdSslLockingCallback = procedure (mode, n : TIdC_INT; Afile : PIdAnsiChar; line : TIdC_INT); cdecl;
 
     { The EXTERNALSYM directive is ignored by FPC, however, it is used by Delphi as follows:

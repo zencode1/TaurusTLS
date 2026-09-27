@@ -130,15 +130,10 @@ const
   CT_R_UNSUPPORTED_VERSION                        = 103;
 
 type
-  {$EXTERNALSYM STACK_OF_SCT}
   STACK_OF_SCT = record end;
-  {$EXTERNALSYM PSTACK_OF_SCT}
   PSTACK_OF_SCT = ^STACK_OF_SCT;
-  {$EXTERNALSYM PPSTACK_OF_SCT}
   PPSTACK_OF_SCT = ^PSTACK_OF_SCT;
-  {$EXTERNALSYM STACK_OF_CTLOG}
   STACK_OF_CTLOG = record end;
-  {$EXTERNALSYM PSTACK_OF_CTLOG}
   PSTACK_OF_CTLOG = ^STACK_OF_CTLOG;
   {$EXTERNALSYM ct_log_entry_type_t}
   ct_log_entry_type_t = (CT_LOG_ENTRY_TYPE_NOT_SET = -1,
@@ -430,42 +425,30 @@ function ERR_load_CT_strings : TIdC_INT cdecl; external CLibCrypto;
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 type
-  {$EXTERNALSYM Tsk_SCT_new}
   Tsk_SCT_new = function(cmp: TOPENSSL_sk_compfunc): PSTACK_OF_SCT cdecl;
-  {$EXTERNALSYM Tsk_SCT_new_null}
   Tsk_SCT_new_null = function: PSTACK_OF_SCT cdecl;
-  {$EXTERNALSYM Tsk_SCT_free}
   Tsk_SCT_free = procedure(st: PSTACK_OF_SCT) cdecl;
-  {$EXTERNALSYM Tsk_SCT_num}
   Tsk_SCT_num = function(const sk: PSTACK_OF_SCT): TIdC_INT cdecl;
   {$EXTERNALSYM Tsk_SCT_value}
   Tsk_SCT_value = function(const sk: PSTACK_OF_SCT; i: TIdC_INT): PSCT cdecl;
   {$EXTERNALSYM Tsk_SCT_push}
   Tsk_SCT_push = function(sk: PSTACK_OF_SCT; st: PSCT): TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_SCT_dup}
   Tsk_SCT_dup = function(sk: PSTACK_OF_SCT): PSTACK_OF_SCT cdecl;
   {$EXTERNALSYM Tsk_SCT_find}
   Tsk_SCT_find = function(sk: PSTACK_OF_SCT; _val: PSCT): TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_SCT_pop_free}
   Tsk_SCT_pop_free = procedure(sk: PSTACK_OF_SCT; func: TOPENSSL_sk_freefunc)cdecl;
 
-  {$EXTERNALSYM Tsk_CTLOG_new}
   Tsk_CTLOG_new = function(cmp: TOPENSSL_sk_compfunc): PSTACK_OF_CTLOG cdecl;
-  {$EXTERNALSYM Tsk_CTLOG_new_null}
   Tsk_CTLOG_new_null = function: PSTACK_OF_CTLOG cdecl;
-  {$EXTERNALSYM Tsk_CTLOG_free}
   Tsk_CTLOG_free = procedure(st: PSTACK_OF_CTLOG) cdecl;
-  {$EXTERNALSYM Tsk_CTLOG_num}
   Tsk_CTLOG_num = function(const sk: PSTACK_OF_CTLOG): TIdC_INT cdecl;
   {$EXTERNALSYM Tsk_CTLOG_value}
   Tsk_CTLOG_value = function(const sk: PSTACK_OF_CTLOG; i: TIdC_INT): PCTLOG cdecl;
   {$EXTERNALSYM Tsk_CTLOG_push}
   Tsk_CTLOG_push = function(sk: PSTACK_OF_CTLOG; st: PCTLOG): TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_CTLOG_dup}
   Tsk_CTLOG_dup = function(sk: PSTACK_OF_CTLOG): PSTACK_OF_CTLOG cdecl;
   {$EXTERNALSYM Tsk_CTLOG_find}
   Tsk_CTLOG_find = function(sk: PSTACK_OF_CTLOG; _val: PCTLOG): TIdC_INT cdecl;
-  {$EXTERNALSYM Tsk_CTLOG_pop_free}
   Tsk_CTLOG_pop_free = procedure(sk: PSTACK_OF_CTLOG; func: TOPENSSL_sk_freefunc)cdecl;
 
 var

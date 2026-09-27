@@ -174,7 +174,6 @@ const
   PEM_R_UNSUPPORTED_ENCRYPTION			= 114;
 
 type
-  {$EXTERNALSYM PSTACK_OF_X509_INFO}
   PSTACK_OF_X509_INFO = pointer;
 
     { The EXTERNALSYM directive is ignored by FPC, however, it is used by Delphi as follows:

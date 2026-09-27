@@ -38,21 +38,14 @@ uses
 const
   {$EXTERNALSYM RAND_DRBG_STRENGTH}
   RAND_DRBG_STRENGTH = 256; // Openssl default RANDOM strength constant.
-  {$EXTERNALSYM RAND_DEFAULT_STRENGTH}
   RAND_DEFAULT_STRENGTH = RAND_DRBG_STRENGTH; // Default RANDOM strength
 
 type
-  {$EXTERNALSYM rand_meth_st_seed}
   rand_meth_st_seed = function (const buf: Pointer; num: TIdC_INT): TIdC_INT; cdecl;
-  {$EXTERNALSYM rand_meth_st_bytes}
   rand_meth_st_bytes = function (buf: PByte; num: TIdC_INT): TIdC_INT; cdecl;
-  {$EXTERNALSYM rand_meth_st_cleanup}
   rand_meth_st_cleanup = procedure; cdecl;
-  {$EXTERNALSYM rand_meth_st_add}
   rand_meth_st_add = function (const buf: Pointer; num: TIdC_INT; randomness: TIdC_DOUBLE): TIdC_INT; cdecl;
-  {$EXTERNALSYM rand_meth_st_pseudorand}
   rand_meth_st_pseudorand = function (buf: PByte; num: TIdC_INT): TIdC_INT; cdecl;
-  {$EXTERNALSYM rand_meth_st_status}
   rand_meth_st_status = function: TIdC_INT; cdecl;
 
   {$EXTERNALSYM rand_meth_st}

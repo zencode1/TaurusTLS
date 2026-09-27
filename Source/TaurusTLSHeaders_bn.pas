@@ -76,7 +76,6 @@ type
   {$EXTERNALSYM BN_ULONG}
   BN_ULONG = TIdC_ULONG;
 
-  {$EXTERNALSYM BN_GENCB_set_old_cb}
   BN_GENCB_set_old_cb = procedure (a: TIdC_INT; b: TIdC_INT; c: Pointer); cdecl;
   {$EXTERNALSYM BN_GENCB_set_cb}
   BN_GENCB_set_cb = function (a: TIdC_INT; b: TIdC_INT; c: PBN_GENCB): TIdC_INT; cdecl;
