@@ -1,0 +1,11 @@
+# Written by GenerateHpp.bat
+gen/
+
+# Build output
+Win32/
+Win64/
+Win64x/
+
+# TwineCompile's file list
+*.@@@
+*.twopts
